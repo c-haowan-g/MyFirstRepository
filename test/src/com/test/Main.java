@@ -6,7 +6,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		//20201225 王超 停车收费练习-01
+		//20201225 王超 停车收费练习-02
 		//开始时间
 		Date fromdate = new Date();
 		//结束时间
