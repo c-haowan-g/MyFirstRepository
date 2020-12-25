@@ -15,9 +15,9 @@ public class Test {
 		}
 		
 		if (User.isEqualsExceptNullOrEmpty(user.getOfflinerunflagString(), "1")) {
-			System.out.println("µ¥»ú");
+			System.out.println("+++");
 		} else {
-			System.out.println("Ë«»ú");
+			System.out.println("---");
 		}
 		
 	}
