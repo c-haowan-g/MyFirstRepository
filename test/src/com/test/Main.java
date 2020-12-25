@@ -24,15 +24,6 @@ public class Main {
 			System.out.println("停车费用：" + (z + 1)*10 + "元");
 		}
 	}
-	
-//	public static boolean isNullOrEmpty(String str) {
-//		if (str == null) {
-//			return true;
-//		}
-//		if (str.isEmpty()) {
-//			return true;
-//		}
-//		return false;
-//	}
+//20201225 王超
 
 }
