@@ -7,7 +7,7 @@ public class Test {
 		User user = new User();
 		String code = user.getRightMachineCode();
 		System.out.println(code);
-		
+		//20201225 左右机台条码
 		if (User.isEqualsExceptNullOrEmpty(code, user.getLeftMachineCode())) {
 			System.out.println("===");
 		} else {
@@ -15,9 +15,9 @@ public class Test {
 		}
 		
 		if (User.isEqualsExceptNullOrEmpty(user.getOfflinerunflagString(), "1")) {
-			System.out.println("����");
+			System.out.println("µ¥»ú");
 		} else {
-			System.out.println("˫��");
+			System.out.println("Ë«»ú");
 		}
 		
 	}
