@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagridUDA" id="datagridUDA_rows">
+        <![CDATA[
+            	SELECT	
+            		p_line_key,
+					p_line_name,
+					description,
+					category,
+					machinegroup_s,
+					status_s,
+					ip_s,
+					CREATETIME_T,
+					CHANGETIME_T,
+					US1.USERNAME CHANGED_BY_NAME_S,
+					US2.USERNAME CREATED_BY_NAME_S
+				FROM
+					PRODUCTION_LINE,
+					UDA_PRODUCTIONLINE
+				LEFT JOIN CORE_USER US1 ON UDA_PRODUCTIONLINE.CHANGEBY_S = US1.USERCODE
+				LEFT JOIN CORE_USER US2 ON UDA_PRODUCTIONLINE.CREATEBY_S = US2.USERCODE
+				WHERE
+					UDA_PRODUCTIONLINE.OBJECT_KEY = PRODUCTION_LINE.P_LINE_KEY
+				AND CATEGORY = '211003'
+                <#if p_line_name??>
+                     and p_line_name like:p_line_name
+                </#if>
+                <#if description??>
+                     and description like:description
+                </#if>
+                <#if ip_s??>
+                     and ip_s like:ip_s
+                </#if>
+                <#if status_s??>
+                     and status_s like:status_s
+                </#if>
+                <#if s_factory_s??>
+                     and s_factory_s=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by PRODUCTION_LINE.P_LINE_KEY desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagridUDA" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from PRODUCTION_LINE,UDA_PRODUCTIONLINE where 1=1
+            	AND UDA_PRODUCTIONLINE.OBJECT_KEY = PRODUCTION_LINE.P_LINE_KEY and category = '211003'
+                    <#if p_line_name??>
+	                     and p_line_name like:p_line_name
+	                </#if>
+	                <#if description??>
+	                     and description like:description
+	                </#if>
+	                <#if ip_s??>
+	                     and ip_s like:ip_s
+	                </#if>
+	                <#if status_s??>
+	                     and status_s like:status_s
+	                </#if>
+	                <#if s_factory_s??>
+	                    and s_factory_s=:s_factory_s
+	               </#if>
+        ]]>
+    </sql>
+    <sql comment="载具条码查询" id="pLineName_Query">
+       <![CDATA[
+        	select p_Line_Name from PRODUCTION_LINE,UDA_PRODUCTIONLINE where 
+            	UDA_PRODUCTIONLINE.OBJECT_KEY = PRODUCTION_LINE.P_LINE_KEY and category = '211003'
+            and p_Line_Name =:p_line_name 
+            and s_factory_s =:s_factory_s 
+            and p_line_key<>:p_line_key 
+        ]]>
+	</sql>
+	
+	
+	
+	 <sql comment="根据process返回硫化的产线信息" id="getProductlineBySitename">
+        <![CDATA[
+	           select 
+	             c.area_name,
+	             p.p_line_key,
+	             p.p_line_name,
+	             p.description,
+	             u.remarks_s,
+	             u.model_s,
+	             u.specification_s,
+	             u.factory_s,
+	             to_char(u.manufacturingtime_t, 'yyyy-MM-dd') manufacturingtime_t,
+	             u.shape_s,
+	             u.weight_s,
+	             u.servicelife_s,
+	             to_char(u.activetime_t, 'yyyy-MM-dd') activetime_t,
+	             u.department_s,
+	             u.responsible_s,
+	             u.machinegroup_s,
+	             u.process_s,
+	             u.machinetype_s,
+	             u.memo_s,
+	             u.createby_s,
+	             u.createtime_t,
+	             u.changeby_s,
+	             u.changetime_t,
+	             u.producttype_s,
+	             p.category
+	        from site                 a,
+	             site_area            b,
+	             area                 c,
+	             area_production_line d,
+	             production_line      p,
+	             UDA_PRODUCTIONLINE   u
+	       where a.site_key = b.parent_key
+	         and b.child_key = c.area_key
+	         and c.area_key = d.parent_key
+	         and d.child_key = p.p_line_key
+	         and p.p_line_key = u.object_key
+	         
+	         <#if sitename??>
+               and a.site_name='${sitename}'
+             </#if>
+             
+             <#if process_s??>
+               and u.process_s='${process_s}'
+             </#if>
+               <#if lineCode??>
+                 and p.p_line_name like '%${lineCode}%'
+	           </#if>
+	           
+	           <#if description??>
+	             and p.description='${description}'
+	       </#if>
+              <#if sort??&&order??>
+                order by ${sort} ${order}
+              <#else>
+                order by p.p_line_name
+           </#if>
+
+        ]]>
+    </sql>
+    
+     <sql comment="根据产线名称返回设备信息" id="getEquipByProductlineName">
+        <![CDATA[
+            select 
+             e.equip_key,
+               p.p_line_name,
+             e.equip_name, 
+             e.description, 
+             wc.wc_name, 
+              ec.equip_class_name as machinetype_s,
+              u.*
+			  from production_line       p,
+			       p_line_work_center    r1,
+			       work_center           wc,
+			       work_center_equipment r2,
+			       equipment             e,
+			       uda_equipment         u,
+			       equipment_class       ec,
+                   equipment_class_equip ece
+			 where p.p_line_key = r1.parent_key
+			   and r1.child_key = wc.wc_key
+			   and wc.wc_key = r2.parent_key
+			   and r2.child_key = e.equip_key
+			   and e.equip_key = u.object_key(+)
+			    and ece.equip_class_key=ec.equip_class_key
+               and ece.equip_key=e.equip_key
+			   and p.p_line_name=:p_line_name
+			order by e.equip_name
+        ]]>
+    </sql>
+    
+    <sql comment="根据equip_key返回设备信息" id="getEquipByEquipKey">
+        <![CDATA[
+             select 
+             e.equip_key,
+             e.equip_name, 
+             e.description, 
+              u.scanstatuslast_s,
+				u.barcodelast_s,
+				u.specialselect_s,
+				u.plasticnumber_i,
+				u.askmaterialpercent_f,
+				u.steelflag_s,
+				u.outputgroup_s,
+				u.tire_real_number_i,
+				u.device_valid_s,
+				u.rfidcode_s,
+				u.currentmaterielamount_f,
+				u.currentmaterielsurplusamount_f,
+				u.consumption_f,
+				u.beginweight_f,
+				u.endweight_f,
+				u.differentvalue_f,
+				u.configclassmes_s,
+				u.controlcode_s,
+				u.s_factory_s,
+				u.agencno_s,
+				u.machinegroup_s,
+				u.process_s,
+				u.equip_type_s,
+				u.productionline_code_s,
+				u.ip_address_s,
+				u.rfid_antenna_code_s,
+				u.current_batch_code_s,
+				u.current_barcode_s,
+				u.current_material_code_s,
+				u.last_barcode_s,
+				u.last_material_code_s,
+				u.last_batch_code_s,
+				u.configstatus_s,
+				u.configresult_s,
+				u.configclass_s,
+				u.remark_s,
+				u.status_s,
+				u.changeby_s,
+				u.changetime_t,
+				u.bom_material_code_s,
+				u.half_confirm_s,
+				u.line_amount_i,
+				u.configclassname_s,
+				u.current_material_spec_s,
+				u.specialcontrol_s,
+				u.tire_shelf_code_s,
+				u.tire_material_code_s,
+				u.barcode_s,
+				u.scanstatus_s,
+				u.rfidaddress_s
+			  from 
+			       equipment             e,
+			       uda_equipment         u,
+             EQUIPMENT_EQUIPMENT   ee
+			 where 1=1
+			   and e.equip_key = u.object_key(+)
+               and e.EQUIP_KEY=EE.CHILD_KEY
+			   and EE.PARENT_KEY=:equipKey
+			order by e.equip_name
+        ]]>
+    </sql>
+    
+     <sql comment="返回产线信息" id="getProductlineByAreaName">
+        <![CDATA[
+            select 
+                   c.area_name,
+                   p.p_line_key,
+			       p.p_line_name,
+			       p.description,
+			       u.remarks_s,
+			       u.model_s,
+			       u.specification_s,
+			       u.factory_s,
+			       to_char(u.manufacturingtime_t, 'yyyy-MM-dd') manufacturingtime_t,
+			       u.shape_s,
+			       u.weight_s,
+			       u.servicelife_s,
+			       to_char(u.activetime_t, 'yyyy-MM-dd') activetime_t,
+			       u.department_s,
+			       u.responsible_s,
+			       u.machinegroup_s,
+			       u.process_s,
+			       u.machinetype_s,
+			       u.memo_s,
+			       u.createby_s,
+			       u.createtime_t,
+			       u.changeby_s,
+			       u.changetime_t,
+			       u.producttype_s
+			  from site                 a,
+			       site_area            b,
+			       area                 c,
+			       area_production_line d,
+			       production_line      p,
+			       UDA_PRODUCTIONLINE   u
+			 where a.site_key = b.parent_key
+			   and b.child_key = c.area_key
+			   and c.area_key = d.parent_key
+			   and d.child_key = p.p_line_key
+			   and p.p_line_key = u.object_key
+			    and c.area_name=:area_name
+			   order by a.category,p.p_line_name
+        ]]>
+    </sql>
+    
+    <sql comment="返回设备信息" id="getEquipNameByPlineName">
+        <![CDATA[
+            select e.equip_name
+			  from production_line p, p_line_work_center r1, work_center wc,work_center_equipment r2,equipment e
+			 where p.p_line_key = r1.parent_key
+			 and r1.child_key=wc.wc_key
+			 and wc.wc_key=r2.parent_key
+			 and r2.child_key=e.equip_key
+			  and p.p_line_name=:p_line_name
+        ]]>
+    </sql>
+    
+     <sql comment="判断是否可以删除父设备，等于0可以删除，大于0不可删除，需先删除父设备下的投料口、产出口等" id="isDeleteFatherEquipment">
+        <![CDATA[
+         select count(1) from EQUIPMENT_EQUIPMENT 
+            where parent_key=:equipkey
+        ]]>
+    </sql>
+    
+     <sql comment="判断新保存的设备机型是否已存在数据库（equipment）" id="existsEquipment">
+        <![CDATA[
+         select * from EQUIPMENT 
+            where equip_name=:equipName
+        ]]>
+    </sql>
+    
+     <sql comment="判断新保存的设备ip是否已存在数据库（equipment）" id="existsIp">
+        <![CDATA[
+         select e.* from EQUIPMENT e,uda_equipment ue 
+            where e.equip_key=ue.object_key
+            and ue.ip_address_s=:ip
+        ]]>
+     </sql>
+    
+     <sql comment="通过equipment表中equipkey查询equipmentclass表的equipclasskey" id="getEquipmentClassKeyByEquipkey">
+        <![CDATA[
+         select * from equipment_class_equip 
+            where equip_key=:equipkey
+        ]]>
+    </sql>
+    
+    <sql comment="获取产线下成型工作中心得名称" id="getProductlineWCName">
+        <![CDATA[
+             select  wc.wc_name
+                from production_line p, p_line_work_center r1, work_center wc
+			         where p.p_line_key = r1.parent_key
+			         and r1.child_key=wc.wc_key
+			         and wc.wc_name=p.p_line_name||'WC1'
+			          and p.p_line_name=:p_line_name
+        ]]>
+    </sql>
+    
+    <sql comment=" 查出机台编码,机台名称显示在JSP页面下拉列表处" id="searchDescription">
+       <![CDATA[
+            select B.P_LINE_NAME,B.DESCRIPTION from
+			(SELECT
+				MACHINEBARCODE_S
+			FROM
+				AT_CM_EM_PRODUCTCONTROL
+		    where 1=1
+            and S_FACTORY_S=:s_factory_s
+            and AGENC_NO_S=:agenc_no_s
+			group by MACHINEBARCODE_S) A
+			right JOIN (SELECT p.DESCRIPTION ,p.P_LINE_NAME,p.P_LINE_KEY FROM AREA c,AREA_PRODUCTION_LINE d,PRODUCTION_LINE p where c.AREA_KEY=d.PARENT_KEY and d.CHILD_KEY=p.P_LINE_KEY and c.AREA_NAME =:area_name) B on A.MACHINEBARCODE_S=B.P_LINE_NAME 
+			LEFT JOIN UDA_ProductionLine D on B.P_LINE_KEY=D.OBJECT_KEY
+			where 
+			D.S_FACTORY_S=:s_factory_s
+			and D.Process_s = '252006'
+			order by B.DESCRIPTION
+        ]]>
+	</sql>
+	 <sql comment="判断是否可以删除产线，等于0可以删除，大于0不可删除，需先删除产线下的机台设备等" id="isDeleteProductionLine">
+        <![CDATA[
+        select count(1) from 
+             PRODUCTION_LINE p, 
+             p_line_work_center    r1,
+			       work_center           wc,
+			       work_center_equipment r2,
+			       equipment             e
+             where p.p_line_key = r1.parent_key
+				   and r1.child_key = wc.wc_key
+				   and wc.wc_key = r2.parent_key
+				   and r2.child_key = e.equip_key
+                   and r1.PARENT_KEY=:productionLinekey
+        ]]>
+    </sql>
+     <sql comment="判断新保存的产线是否已存在数据库（productionLine）" id="existsProduction">
+        <![CDATA[
+         select p.* from production_line p,uda_productionline up 
+            where p.p_line_key = up.object_key
+            and p.p_line_name=:productionName
+            and up.s_factory_s=:s_factory_s
+        ]]>
+    </sql>
+    <sql comment="根据数据字典查出所需控制项" id="searchBy320">
+       <![CDATA[
+        select DICTCODE_S,DICTNAME_S
+			from AT_CM_BS_COREDICTIONARY 
+			where deleted_i='0'
+            and substr(DICTNAME_S,0,1)=:logo
+			start with PID_I=(select ATR_KEY from AT_CM_BS_COREDICTIONARY 
+			where DICTCODE_S='320' and deleted_i='0')
+			connect by prior DICTCODE_S=PID_I
+        ]]>
+	</sql>
+</sqls>

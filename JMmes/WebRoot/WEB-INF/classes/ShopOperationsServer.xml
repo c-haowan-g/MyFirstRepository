@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The values listed below are for advanced users only. See the comments below for the functions of the values. All these values have an upper limit and can not be less than 1. If the value was set out of the range, it will be recognized as the default value. Please do not change the other values in this file directly. -->
+<!-- function-thread-pool-size(int),        default value:25,   max value:100  -->
+<!-- main-processing-queue(int),            default value:1000, max value:1000 -->
+<!-- statistics-history-queue(int),         default value:1000, max value:1000 -->
+<!-- function-thread-processing-queue(int), default value:250,  max value:1000 -->
+<shop-operations-server-configuration log-file-count="4" ping-server-max-time="900" function-thread-processing-queue="250" log-file-size="2000000" failover-port="11061" failover-enabled="false" ping-server-duration="10" jetty-port="11021" history-queue-enabled="true" main-processing-queue="1000" function-thread-pool-size="25" statistics-enabled="true" statistics-history-queue="1000">
+    <event-sheet-name>Curing_MM_HalfSteelCuringService</event-sheet-name>
+    <password>ozew#</password>
+    <iiop-uRL>remote://192.168.2.121:8080</iiop-uRL>
+    <!-- <iiop-uRL>remote://192.168.86.6:8080</iiop-uRL> -->
+    <log-level>INFO</log-level>
+    <username>admin</username>
+    <station></station>
+    <http-uRL>Http://192.168.2.121:8080</http-uRL>
+    <!-- <http-uRL>Http://192.168.86.6:8080</http-uRL> -->
+    <client-type>ThinClient</client-type>
+    <log-folder>/opt/rockwell/logs/</log-folder>
+</shop-operations-server-configuration>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+        select
+			    C.tyrebarcode_s,
+			    W.WEIGHTDATA_S weight_s,
+			    m .MATERIALCODE_S,
+			    P .DESCRIPTION,
+			    C.equipid_s,
+			    C.checkseq_i,
+			    C.gradeid_s,
+			    U .USERNAME,
+			    TO_DATE (
+			        C.checktime_s,
+			        'YYYY-mm-dd HH24:MI:SS'
+			    ) AS checktime,
+			    C.IMAGENAME_S,
+			    C.IMAGESAVEPATH_S,
+                (SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curing_equipid,
+                (SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curing_time,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') building_equipid,
+                (SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') building_time,
+				U2 .USERNAME as curing_worker,
+				BW.WORKER1_NAME_S||','||BW.WORKER2_NAME_S as building_workers
+			    from 
+			      AT_D_QM_CHECKXRAYRESULT C,part P, AT_D_QM_XRAYWEIGHTDATA W, 
+			      CORE_USER U,CORE_USER U2,at_c_mm_curing_maintyre m,
+             AT_C_MM_WORKORDERRESULT cw,AT_B_MM_WORKORDERRESULT bw
+			  where 
+			    m .MATERIALCODE_S = P .part_number (+)
+				AND to_char(c.userid_s) = U .USERCODE (+)
+	         AND to_char(CW.curing_worker_s) = U2 .USERCODE (+)
+				and c.TYREBARCODE_S=M.TYREBARCODE_S
+				 and c.TYREBARCODE_S=W.TYREBARCODE_S (+)
+				and c.TYREBARCODE_S=cw.TYRE_BARCODE_S (+)
+				and c.TYREBARCODE_S=bw.TYRE_BARCODE_S (+)
+				AND m.PROESS_S='252009'
+			<#if checktime_start?? && checktime_end??>
+			     and to_date(C.checktime_s,'YYYY-mm-dd HH24:MI:SS')
+			     BETWEEN to_date(:checktime_start,'YYYY-mm-dd HH24:MI:SS')
+			     and to_date(:checktime_end,'YYYY-mm-dd HH24:MI:SS')
+			</#if>
+			<#if machinebar_s??>
+			     and C.EQUIPID_S=:machinebar_s
+			</#if>
+			<#if gradeid_s??>
+			     and C.GRADEID_S=:gradeid_s
+			</#if>
+			<#if tyrebarcode_s??>
+			     and C.TYREBARCODE_S=:tyrebarcode_s
+			</#if>
+			<#if s_factory_s??>
+			     and C.S_FACTORY_S=:s_factory_s
+			</#if>
+
+             ORDER BY 	TO_DATE( C.checktime_s, 'YYYY-mm-dd HH24:MI:SS' ) DESC
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (select
+			    C.tyrebarcode_s,
+			    W.WEIGHTDATA_S weight_s,
+			    m .MATERIALCODE_S,
+			    P .DESCRIPTION,
+			    C.equipid_s,
+			    C.checkseq_i,
+			    C.gradeid_s,
+			    U .USERNAME,
+			    TO_DATE (
+			        C.checktime_s,
+			        'YYYY-mm-dd HH24:MI:SS'
+			    ) AS checktime,
+			    C.IMAGENAME_S,
+			    C.IMAGESAVEPATH_S,
+                (SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curing_equipid,
+                (SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curing_time,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') building_equipid,
+                (SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') building_time,
+				U2 .USERNAME as curing_worker,
+				BW.WORKER1_NAME_S||','||BW.WORKER2_NAME_S as building_workers
+			    from 
+			      AT_D_QM_CHECKXRAYRESULT C,part P,AT_D_QM_XRAYWEIGHTDATA W,   
+			      CORE_USER U,CORE_USER U2,at_c_mm_curing_maintyre m,
+             AT_C_MM_WORKORDERRESULT cw,AT_B_MM_WORKORDERRESULT bw
+			  where 
+			    m .MATERIALCODE_S = P .part_number (+)
+				AND to_char(c.userid_s) = U .USERCODE (+)
+	         AND to_char(CW.curing_worker_s) = U2 .USERCODE (+)
+				and c.TYREBARCODE_S=M.TYREBARCODE_S 
+				and c.TYREBARCODE_S=W.TYREBARCODE_S (+)
+				and c.TYREBARCODE_S=cw.TYRE_BARCODE_S (+)
+				and c.TYREBARCODE_S=bw.TYRE_BARCODE_S (+)
+				AND m.PROESS_S='252009'
+			<#if checktime_start?? && checktime_end??>
+			     and to_date(C.checktime_s,'YYYY-mm-dd HH24:MI:SS')
+			     BETWEEN to_date(:checktime_start,'YYYY-mm-dd HH24:MI:SS')
+			     and to_date(:checktime_end,'YYYY-mm-dd HH24:MI:SS')
+			</#if>
+			<#if machinebar_s??>
+			     and C.EQUIPID_S=:machinebar_s
+			</#if>
+			<#if gradeid_s??>
+			     and C.GRADEID_S=:gradeid_s
+			</#if>
+			<#if tyrebarcode_s??>
+			     and C.TYREBARCODE_S=:tyrebarcode_s
+			</#if>
+			<#if s_factory_s??>
+			     and C.S_FACTORY_S=:s_factory_s
+			</#if>)
+        ]]>
+    </sql>
+    
+      <sql comment="datagrid" id="SearchDefectName">
+        <![CDATA[  
+           SELECT
+				AR.REAS_CN_S
+			FROM
+				AT_D_QM_CHECKXRAYRESULT AC,
+				AT_D_QM_CHECKXRAYDETAIL AD,
+				AT_D_BS_REAS AR
+			WHERE
+				AC.RECORD_FLAG_S = 'A'
+				AND AC.CHECKSEQ_I <= :count
+				AND AC.TYREBARCODE_S = AD.TYREBARCODE_S
+				AND AD.DEFECTID_S = AR.REAS_CODE_S
+				AND AC.S_FACTORY_S = :s_factory_s
+				AND AC.TYREBARCODE_S = :code
+				AND AC.CHECKSEQ_I = AD.CHECKSEQ_I
+				AND TO_DATE(AC.CHECKTIME_S,'YYYY-mm-dd HH24:MI:SS') BETWEEN TO_DATE(:starttime,'YYYY-mm-dd HH24:MI:SS')
+				AND TO_DATE(:endtime,'YYYY-mm-dd HH24:MI:SS')
+			ORDER BY
+			  AC.CHECKTIME_S ASC
+		
+        ]]>
+    </sql>
+    
+    
+    <sql comment="datagrid" id="datagridUDA_Detail"> 
+          <![CDATA[  
+         select d.TYREBARCODE_S,r.REAS_CN_S,d.CHECKSEQ_I from at_D_QM_CheckXrayDetail d,AT_D_BS_Reas r
+           where d.DEFECTID_S=r.REAS_CODE_S
+           and r.record_flag_s='A'
+           and r.REAS_GRP_TYPE_S='261004'
+           and d.S_FACTORY_S=:s_factory_s
+           and d.CREATED_TIME_T
+		   BETWEEN to_timestamp(:checktime_start,'YYYY-mm-dd HH24:MI:SS')
+		   and to_timestamp(:checktime_end,'YYYY-mm-dd HH24:MI:SS')
+        ]]>
+    </sql>
+    <sql comment="查出重量" id="searchWeigh">
+       <![CDATA[
+           SELECT
+	D .TYREBARCODE_S,
+	W.WEIGHTDATA_S weight_s
+FROM
+	AT_D_QM_CHECKXRAYRESULT D
+LEFT JOIN AT_D_QM_XRAYWEIGHTDATA W ON D .TYREBARCODE_S = W.TYREBARCODE_S
+        ]]>
+	</sql>
+</sqls>

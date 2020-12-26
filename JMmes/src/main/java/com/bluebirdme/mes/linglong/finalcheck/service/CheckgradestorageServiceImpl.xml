@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_D_QM_CHECKGRADESTORAGE where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if balnaceuniformgrade_s??>
+                     and BALNACEUNIFORMGRADE_S=:balnaceuniformgrade_s
+                </#if>
+                <#if barcode_s??>
+                     and BARCODE_S=:barcode_s
+                </#if>
+                <#if grade_s??>
+                     and GRADE_S=:grade_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                <#if operatortime_t??>
+                     and OPERATORTIME_T=:operatortime_t
+                </#if>
+                <#if operator_s??>
+                     and OPERATOR_S=:operator_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_D_QM_CHECKGRADESTORAGE where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if balnaceuniformgrade_s??>
+                         and BALNACEUNIFORMGRADE_S=:balnaceuniformgrade_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if grade_s??>
+                         and GRADE_S=:grade_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+                    <#if operatortime_t??>
+                         and OPERATORTIME_T=:operatortime_t
+                    </#if>
+                    <#if operator_s??>
+                         and OPERATOR_S=:operator_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+    
+    <sql comment=" 按汇总查询" id="searchsum">
+       <![CDATA[
+            SELECT
+	T .MATERIALCODE_S,
+	T .MATERIALNAME_S,
+	COUNT (
+		CASE
+		WHEN BALNACEUNIFORMGRADE_S IN ('253006') THEN
+			1
+		END
+	) djcipincount_s,
+	COUNT (
+		CASE
+		WHEN BALNACEUNIFORMGRADE_S IN ('253012') THEN
+			1
+		END
+	) djfeipincount_s,
+	COUNT (
+		CASE
+		WHEN BALNACEUNIFORMGRADE_S IN ('253006', '253012') THEN
+			1
+		END
+	) buhegecount_s,
+	T .SPARE5_S
+FROM
+	AT_D_QM_CHECKGRADESTORAGE T
+	WHERE 1=1
+	<#if s_factory_s??>
+                    and S_FACTORY_S=:s_factory_s
+               </#if>
+	<#if begintime?? && endtime??>
+              		and to_char(operatortime_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if> 
+             	 <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+             	<#if operator_s??>
+                         and OPERATOR_S=:operator_s
+                    </#if>
+             	<#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+GROUP BY
+	T .MATERIALCODE_S,
+	T .MATERIALNAME_S,
+	T .SPARE5_S
+        ]]>
+	</sql>
+	
+	
+	<sql comment=" 按汇总查询" id="searchsum_total">
+       <![CDATA[
+            select count(1) from( SELECT
+	T .MATERIALCODE_S,
+	T .MATERIALNAME_S,
+	COUNT (
+		CASE
+		WHEN BALNACEUNIFORMGRADE_S IN ('253006') THEN
+			1
+		END
+	) djcipincount_s,
+	COUNT (
+		CASE
+		WHEN BALNACEUNIFORMGRADE_S IN ('253012') THEN
+			1
+		END
+	) djfeipincount_s,
+	COUNT (
+		CASE
+		WHEN BALNACEUNIFORMGRADE_S IN ('253006', '253012') THEN
+			1
+		END
+	) buhegecount_s,
+	T .SPARE5_S
+FROM
+	AT_D_QM_CHECKGRADESTORAGE T
+	WHERE 1=1
+           		  <#if s_factory_s??>
+                    and S_FACTORY_S=:s_factory_s
+               </#if>
+	<#if begintime?? && endtime??>
+              		and to_char(operatortime_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if> 
+             	 <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+             	<#if operator_s??>
+                         and OPERATOR_S=:operator_s
+                    </#if>
+             	<#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+GROUP BY
+	T .MATERIALCODE_S,
+	T .MATERIALNAME_S,
+	T .SPARE5_S)
+        ]]>
+	</sql>
+    
+    
+    
+  <sql comment=" 按详细查询" id="searchall">
+       <![CDATA[
+            SELECT
+	DISTINCT T .BARCODE_S,
+	T .MATERIALCODE_S,
+	T .MATERIALNAME_S,
+	T .BALNACEUNIFORMGRADE_S,
+	T .GRADE_S,
+	U.USERNAME AS OPERATOR_S,
+	T .OPERATORTIME_T,
+	
+	CASE
+			WHEN D .COUPLE_UNBALANCE_RANK_S IN ('4') THEN 'COUPLE_UNBALANCE_RANK_S偶不平衡量等级'
+			WHEN D .LB_BULGING2_RANK_S IN ('4') THEN 'LB_BULGING2_RANK_S下部侧向凸等级2'
+			WHEN D .LB_BULGING3_RANK_S IN ('4') THEN 'LB_BULGING3_RANK_S下部侧向凸等级3'
+			WHEN D .LB_BULGING_RANK_S IN ('4') THEN 'LB_BULGING_RANK_S下部侧向凸等级1'
+			WHEN D .LB_DENT2_RANK_S IN ('4') THEN 'LB_DENT2_RANK_S下部侧向凹等级2'
+			WHEN D .LB_DENT3_RANK_S IN ('4') THEN 'LB_DENT3_RANK_S下部侧向凹等级3'
+			WHEN D .LB_DENT_RANK_S IN ('4') THEN 'LB_DENT_RANK_S下部侧向凹等级1'
+			WHEN D .LB_OA2_1H_RANK_S IN ('4') THEN 'LB_OA2_1H_RANK_S下部侧向跳动一次谐波等级2'
+			WHEN D .LB_OA2_RANK_S IN ('4') THEN 'LB_OA2_1H_RANK_S下部侧向跳动等级2'
+			WHEN D .LB_OA3_1H_rank_S IN ('4') THEN 'LB_OA3_1H_rank_S下部侧向跳动一次谐波等级3'
+			WHEN D .LB_OA3_RANK_S IN ('4') THEN 'LB_OA3_RANK_S下部侧向跳动等级3'
+			WHEN D .LB_OA_1H_RANK_S IN ('4') THEN 'LB_OA_1H_RANK_S下部侧向跳动一次谐波等级1'
+			WHEN D .LB_OA_RANK_S IN ('4') THEN 'LB_OA_RANK_S下部侧向跳动等级1'
+			WHEN D .LOWER_UNBALANCE_RANK_S IN ('4') THEN 'LOWER_UNBALANCE_RANK_S下面不平衡量等级'
+			WHEN D .LRO_B1_NTH_RANK_S IN ('4') THEN 'LRO_B1_NTH_RANK_S下部侧向跳动N次谐波等级1'
+			WHEN D .LRO_B2_NTH_RANK_S IN ('4') THEN 'LRO_B2_NTH_RANK_S下部侧向跳动N次谐波等级2'
+			WHEN D .LRO_B3_NTH_RANK_S IN ('4') THEN 'LRO_B3_NTH_RANK_S下部侧向跳动N次谐波等级3'
+			WHEN D .LRO_T1_NTH_RANK_S IN ('4') THEN 'LRO_T1_NTH_RANK_S上部侧向跳动N次谐波等级1'
+			WHEN D .LRO_T2_NTH_RANK_S IN ('4') THEN 'LRO_T2_NTH_RANK_S上部侧向跳动N次谐波等级2'
+			WHEN D .LRO_T3_NTH_RANK_S IN ('4') THEN 'LRO_T3_NTH_RANK_S上部侧向跳动N次谐波等级3'
+			WHEN D .LT_BULGING2_RANK_S IN ('4') THEN 'LT_BULGING2_RANK_S上部侧向凸等级2'
+			WHEN D .LT_BULGING3_RANK_S IN ('4') THEN 'LT_BULGING3_RANK_S上部侧向凸等级3'
+			WHEN D .LT_BULGING_RANK_S IN ('4') THEN 'LT_BULGING3_RANK_S上部侧向凸等级1'
+			WHEN D .LT_DENT2_RANK_S IN ('4') THEN 'LT_BULGING3_RANK_S上部侧向凹等级2'
+			WHEN D .LT_DENT3_RANK_S IN ('4') THEN 'LT_DENT3_RANK_S上部侧向凹等级3'
+			WHEN D .LT_DENT_RANK_S IN ('4') THEN 'LT_DENT3_RANK_S上部侧向凹等级1'
+			WHEN D .LT_OA2_1H_RANK_S IN ('4') THEN 'LT_OA2_1H_RANK_S上部侧向跳动一次谐波等级2'
+			WHEN D .LT_OA2_RANK_S IN ('4') THEN 'LT_OA2_RANK_S上部侧向跳动等级2'
+			WHEN D .LT_OA3_1H_RANK_S IN ('4') THEN 'LT_OA3_1H_RANK_S上部侧向跳动一次谐波等级3'
+			WHEN D .LT_OA3_RANK_S IN ('4') THEN 'LT_OA3_RANK_S上部侧向跳动等级3'
+			WHEN D .LT_OA_1H_RANK_S IN ('4') THEN 'LT_OA_1H_RANK_S上部侧向跳动一次谐波等级1'
+			WHEN D .LT_OA_RANK_S IN ('4') THEN 'LT_OA_RANK_S上部侧向跳动等级1'
+			WHEN D .RB_OA_1H_RANK_S IN ('4') THEN 'RB_OA_1H_RANK_S下部径向跳动一次谐波等级'
+			WHEN D .RB_OA_RANK_S IN ('4') THEN 'RB_OA_RANK_S下部径向跳动等级'
+			WHEN D .RC_OA_1H_RANK_S IN ('4') THEN 'RC_OA_1H_RANK_S中部径向跳动一次谐波等级'
+			WHEN D .RRO_B_NTH_RANK_S IN ('4') THEN 'RRO_B_NTH_RANK_S下部径向跳动N次谐波等级'
+			WHEN D .RC_OA_RANK_S IN ('4') THEN 'RC_OA_RANK_S中部径向跳动等级'
+			WHEN D .RRO_C_NTH_RANK_S IN ('4') THEN 'RRO_C_NTH_RANK_S中部径向跳动N次谐波等级'
+			WHEN D .RRO_T_NTH_RANK_S IN ('4') THEN 'RRO_T_NTH_RANK_S上部径向跳动N次谐波等级'
+			WHEN D .RT_OA_1H_RANK_S IN ('4') THEN 'RT_OA_1H_RANK_S上部径向跳动一次谐波等级'
+			WHEN D .RT_OA_RANK_S IN ('4') THEN 'RT_OA_RANK_S上部径向跳动等级'
+			WHEN D .STATIC_UNBALANCE_RANK_S IN ('4') THEN 'STATIC_UNBALANCE_RANK_S静合成不平衡量等级'
+			WHEN D .UPPER_UNBALANCE_RANK_S IN ('4') THEN 'UPPER_UNBALANCE_RANK_S上面不平衡量等级'
+			WHEN D .UP_LOW_UNBALANCE_RANK_S IN ('4') THEN 'UP_LOW_UNBALANCE_RANK_S上面+下面不平衡量等级'
+			END AS buhege_s
+	FROM AT_D_QM_CHECKGRADESTORAGE T
+ LEFT JOIN CORE_USER u ON T.OPERATOR_S=u.USERCODE
+LEFT JOIN AT_D_QM_BALANDRRORESULT D ON T.BARCODE_S = D.BARCODE_S
+WHERE 1=1
+	<#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+               </#if>
+	<#if begintime?? && endtime??>
+              		and to_char(T.operatortime_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if> 
+             	 <#if materialcode_s??>
+                         and T.MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and T.MATERIALNAME_S=:materialname_s
+                    </#if>
+             	<#if operator_s??>
+                         and T.OPERATOR_S=:operator_s
+                    </#if>
+             	<#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+
+        ]]>
+	</sql>  
+    
+ <sql comment=" 按详细查询" id="searchall_total">
+       <![CDATA[
+            select count(1) from(SELECT
+	DISTINCT T .BARCODE_S,
+	T .MATERIALCODE_S,
+	T .MATERIALNAME_S,
+	T .BALNACEUNIFORMGRADE_S,
+	T .GRADE_S,
+	U.USERNAME AS OPERATOR_S,
+	T .OPERATORTIME_T,
+		CASE
+			WHEN D .COUPLE_UNBALANCE_RANK_S IN ('4') THEN 'COUPLE_UNBALANCE_RANK_S偶不平衡量等级'
+			WHEN D .LB_BULGING2_RANK_S IN ('4') THEN 'LB_BULGING2_RANK_S下部侧向凸等级2'
+			WHEN D .LB_BULGING3_RANK_S IN ('4') THEN 'LB_BULGING3_RANK_S下部侧向凸等级3'
+			WHEN D .LB_BULGING_RANK_S IN ('4') THEN 'LB_BULGING_RANK_S下部侧向凸等级1'
+			WHEN D .LB_DENT2_RANK_S IN ('4') THEN 'LB_DENT2_RANK_S下部侧向凹等级2'
+			WHEN D .LB_DENT3_RANK_S IN ('4') THEN 'LB_DENT3_RANK_S下部侧向凹等级3'
+			WHEN D .LB_DENT_RANK_S IN ('4') THEN 'LB_DENT_RANK_S下部侧向凹等级1'
+			WHEN D .LB_OA2_1H_RANK_S IN ('4') THEN 'LB_OA2_1H_RANK_S下部侧向跳动一次谐波等级2'
+			WHEN D .LB_OA2_RANK_S IN ('4') THEN 'LB_OA2_1H_RANK_S下部侧向跳动等级2'
+			WHEN D .LB_OA3_1H_rank_S IN ('4') THEN 'LB_OA3_1H_rank_S下部侧向跳动一次谐波等级3'
+			WHEN D .LB_OA3_RANK_S IN ('4') THEN 'LB_OA3_RANK_S下部侧向跳动等级3'
+			WHEN D .LB_OA_1H_RANK_S IN ('4') THEN 'LB_OA_1H_RANK_S下部侧向跳动一次谐波等级1'
+			WHEN D .LB_OA_RANK_S IN ('4') THEN 'LB_OA_RANK_S下部侧向跳动等级1'
+			WHEN D .LOWER_UNBALANCE_RANK_S IN ('4') THEN 'LOWER_UNBALANCE_RANK_S下面不平衡量等级'
+			WHEN D .LRO_B1_NTH_RANK_S IN ('4') THEN 'LRO_B1_NTH_RANK_S下部侧向跳动N次谐波等级1'
+			WHEN D .LRO_B2_NTH_RANK_S IN ('4') THEN 'LRO_B2_NTH_RANK_S下部侧向跳动N次谐波等级2'
+			WHEN D .LRO_B3_NTH_RANK_S IN ('4') THEN 'LRO_B3_NTH_RANK_S下部侧向跳动N次谐波等级3'
+			WHEN D .LRO_T1_NTH_RANK_S IN ('4') THEN 'LRO_T1_NTH_RANK_S上部侧向跳动N次谐波等级1'
+			WHEN D .LRO_T2_NTH_RANK_S IN ('4') THEN 'LRO_T2_NTH_RANK_S上部侧向跳动N次谐波等级2'
+			WHEN D .LRO_T3_NTH_RANK_S IN ('4') THEN 'LRO_T3_NTH_RANK_S上部侧向跳动N次谐波等级3'
+			WHEN D .LT_BULGING2_RANK_S IN ('4') THEN 'LT_BULGING2_RANK_S上部侧向凸等级2'
+			WHEN D .LT_BULGING3_RANK_S IN ('4') THEN 'LT_BULGING3_RANK_S上部侧向凸等级3'
+			WHEN D .LT_BULGING_RANK_S IN ('4') THEN 'LT_BULGING3_RANK_S上部侧向凸等级1'
+			WHEN D .LT_DENT2_RANK_S IN ('4') THEN 'LT_BULGING3_RANK_S上部侧向凹等级2'
+			WHEN D .LT_DENT3_RANK_S IN ('4') THEN 'LT_DENT3_RANK_S上部侧向凹等级3'
+			WHEN D .LT_DENT_RANK_S IN ('4') THEN 'LT_DENT3_RANK_S上部侧向凹等级1'
+			WHEN D .LT_OA2_1H_RANK_S IN ('4') THEN 'LT_OA2_1H_RANK_S上部侧向跳动一次谐波等级2'
+			WHEN D .LT_OA2_RANK_S IN ('4') THEN 'LT_OA2_RANK_S上部侧向跳动等级2'
+			WHEN D .LT_OA3_1H_RANK_S IN ('4') THEN 'LT_OA3_1H_RANK_S上部侧向跳动一次谐波等级3'
+			WHEN D .LT_OA3_RANK_S IN ('4') THEN 'LT_OA3_RANK_S上部侧向跳动等级3'
+			WHEN D .LT_OA_1H_RANK_S IN ('4') THEN 'LT_OA_1H_RANK_S上部侧向跳动一次谐波等级1'
+			WHEN D .LT_OA_RANK_S IN ('4') THEN 'LT_OA_RANK_S上部侧向跳动等级1'
+			WHEN D .RB_OA_1H_RANK_S IN ('4') THEN 'RB_OA_1H_RANK_S下部径向跳动一次谐波等级'
+			WHEN D .RB_OA_RANK_S IN ('4') THEN 'RB_OA_RANK_S下部径向跳动等级'
+			WHEN D .RC_OA_1H_RANK_S IN ('4') THEN 'RC_OA_1H_RANK_S中部径向跳动一次谐波等级'
+			WHEN D .RRO_B_NTH_RANK_S IN ('4') THEN 'RRO_B_NTH_RANK_S下部径向跳动N次谐波等级'
+			WHEN D .RC_OA_RANK_S IN ('4') THEN 'RC_OA_RANK_S中部径向跳动等级'
+			WHEN D .RRO_C_NTH_RANK_S IN ('4') THEN 'RRO_C_NTH_RANK_S中部径向跳动N次谐波等级'
+			WHEN D .RRO_T_NTH_RANK_S IN ('4') THEN 'RRO_T_NTH_RANK_S上部径向跳动N次谐波等级'
+			WHEN D .RT_OA_1H_RANK_S IN ('4') THEN 'RT_OA_1H_RANK_S上部径向跳动一次谐波等级'
+			WHEN D .RT_OA_RANK_S IN ('4') THEN 'RT_OA_RANK_S上部径向跳动等级'
+			WHEN D .STATIC_UNBALANCE_RANK_S IN ('4') THEN 'STATIC_UNBALANCE_RANK_S静合成不平衡量等级'
+			WHEN D .UPPER_UNBALANCE_RANK_S IN ('4') THEN 'UPPER_UNBALANCE_RANK_S上面不平衡量等级'
+			WHEN D .UP_LOW_UNBALANCE_RANK_S IN ('4') THEN 'UP_LOW_UNBALANCE_RANK_S上面+下面不平衡量等级'
+			END AS buhege_s
+FROM
+	AT_D_QM_CHECKGRADESTORAGE T 
+	LEFT JOIN CORE_USER u ON T.OPERATOR_S=u.USERCODE
+	LEFT JOIN AT_D_QM_BALANDRRORESULT D ON T.BARCODE_S = D.BARCODE_S
+WHERE 1=1
+	<#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+               </#if>
+	<#if begintime?? && endtime??>
+              		and to_char(T.operatortime_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if> 
+             	 <#if materialcode_s??>
+                         and T.MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and T.MATERIALNAME_S=:materialname_s
+                    </#if>
+             	<#if operator_s??>
+                         and T.OPERATOR_S=:operator_s
+                    </#if>
+             	<#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if>
+               )
+        ]]>
+	</sql>   
+    
+    
+</sqls>

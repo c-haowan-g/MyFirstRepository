@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+           SELECT
+				MAX(T.ATR_KEY) ATR_KEY, 
+				T.MACHINECODE_S CURINGMACHINECODE_S,
+				MAX(PART.DESCRIPTION) CURINGSPECMATER,
+				T.MATERIALCODE_S CURINGSPECCODE_S,
+				COUNT(1) REWORKPREOSSCOUNT,
+				COUNT(1) REWORKPREOSSPASSRATE,
+				MIN(T.OVERTIME_T) BEGINVISUALPASSTIME,
+				MAX(T.OVERTIME_T) ENDVISUALPASSTIME,
+				COUNT(CASE WHEN N.ATPRESENTGRADECODE_S IN ('253006','253012','253013') THEN 1 END) UNQUALIFIEDCOUNT
+				FROM
+					AT_C_MM_CURING_MAINTYRE N,
+				  	AT_C_MM_CURING_MAINTYRE T
+				LEFT JOIN PART ON PART.PART_NUMBER = T.MATERIALCODE_S
+				WHERE 1=1
+				AND T.CHECKNUMBER_I !='0'
+				AND N.PROESS_S='252006'
+				AND T.PROESS_S='252008'
+				AND N.TYREBARCODE_S = T.TYREBARCODE_S
+			
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+                 <#if curingspeccode_s??>
+                     and PART.PART_NUMBER like :curingspeccode_s
+                </#if>
+                 <#if curingspecmater??>
+                     and PART.DESCRIPTION like :curingspecmater
+                </#if>
+                 <#if curingmachinecode_s??>
+                     and T.MACHINECODE_S like :curingmachinecode_s
+                </#if>
+                
+               <#if begin_created_time??>
+                	 and T.OVERTIME_T >  TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS') 
+              	</#if>
+              	 <#if end_created_time??>
+              	 	 and T.OVERTIME_T< TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+              	</#if>
+                
+           GROUP BY T.MACHINECODE_S,T.MATERIALCODE_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (
+            	SELECT
+				MAX(T.ATR_KEY) ATR_KEY, 
+				T.MACHINECODE_S CURINGMACHINECODE_S,
+				MAX(PART.DESCRIPTION) CURINGSPECMATER,
+				T.MATERIALCODE_S CURINGSPECCODE_S,
+				COUNT(1) REWORKPREOSSCOUNT,
+				COUNT(1) REWORKPREOSSPASSRATE,
+				MIN(T.OVERTIME_T) BEGINVISUALPASSTIME,
+				MAX(T.OVERTIME_T) ENDVISUALPASSTIME,
+				COUNT(CASE WHEN N.ATPRESENTGRADECODE_S IN ('253006','253012','253013') THEN 1 END) UNQUALIFIEDCOUNT
+				FROM
+					AT_C_MM_CURING_MAINTYRE N,
+				  	AT_C_MM_CURING_MAINTYRE T
+				LEFT JOIN PART ON PART.PART_NUMBER = T.MATERIALCODE_S
+				WHERE 1=1
+				AND T.CHECKNUMBER_I !='0'
+				AND N.PROESS_S='252006'
+				AND T.PROESS_S='252008'
+				AND N.TYREBARCODE_S = T.TYREBARCODE_S
+			
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+                 <#if curingspeccode_s??>
+                     and PART.PART_NUMBER like :curingspeccode_s
+                </#if>
+                 <#if curingspecmater??>
+                     and PART.DESCRIPTION like :curingspecmater
+                </#if>
+                 <#if curingmachinecode_s??>
+                     and T.MACHINECODE_S like :curingmachinecode_s
+                </#if>
+                
+               <#if begin_created_time??>
+                	 and T.OVERTIME_T >  TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS') 
+              	</#if>
+              	 <#if end_created_time??>
+              	 	 and T.OVERTIME_T< TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+              	</#if>
+           		GROUP BY T.MACHINECODE_S,T.MATERIALCODE_S
+            )
+        ]]>
+    </sql>
+</sqls>

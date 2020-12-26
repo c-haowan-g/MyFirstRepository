@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_B_EM_EQUIPMENTREALTIME where 1=1
+
+               		<#if equip_code_s??>
+                         and EQUIP_CODE_S like :equip_code_s
+                    </#if>
+
+                    <#if s_factory_s??>
+                    	 and S_FACTORY_S=:s_factory_s
+                	</#if>
+                   <#if downtime_stime_t??>
+                        <#if downtime_etime_t??>
+                            and downtime_stime_t
+                            BETWEEN to_date(:downtime_stime_t,'YYYY-mm-dd HH24:MI:SS')
+                            and to_date(:downtime_etime_t,'YYYY-mm-dd HH24:MI:SS')
+                        <#else>
+                             and downtime_stime_t
+                            BETWEEN to_date(:downtime_stime_t,'YYYY-mm-dd HH24:MI:SS')
+                            and SYSDATE
+                        </#if>
+                    </#if>
+            <#if sort??>
+                order by ${sort} ${order}
+            </#if>
+           order by downtime_stime_t desc
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_B_EM_EQUIPMENTREALTIME where 1=1
+            
+            		<#if equip_code_s??>
+                        and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+
+                    <#if s_factory_s??>
+                    	and S_FACTORY_S=:s_factory_s
+                	</#if>
+                    <#if downtime_stime_t??>
+                        <#if downtime_etime_t??>
+                            and downtime_stime_t
+                            BETWEEN to_date(:downtime_stime_t,'YYYY-mm-dd HH24:MI:SS')
+                            and to_date(:downtime_etime_t,'YYYY-mm-dd HH24:MI:SS')
+                        <#else>
+                            and downtime_stime_t
+                            BETWEEN to_date(:downtime_stime_t,'YYYY-mm-dd HH24:MI:SS')
+                            and SYSDATE
+                        </#if>
+                    </#if>
+        ]]>
+    </sql>
+    
+    <sql comment="combox" id="equipCode_list">
+    	<![CDATA[
+           select distinct EQUIP_CODE_S from AT_B_EM_EQUIPMENTREALTIME
+        ]]>
+    </sql>
+</sqls>

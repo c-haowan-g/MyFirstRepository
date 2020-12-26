@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select ms.*,ms.worker_id_s||US1.USERNAME  created_by_name from AT_B_QM_QUALITYCHECK_RECORD ms 
+            left join CORE_USER US1 ON ms.worker_id_s=US1.USERCODE
+            where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if aqhm_flag_s??>
+                         and AQHM_FLAG_S=:aqhm_flag_s
+                    </#if>
+                    <#if attribute_s??>
+                         and ATTRIBUTE_S=:attribute_s
+                    </#if>
+                    <#if cause_code1_s??>
+                         and CAUSE_CODE1_S=:cause_code1_s
+                    </#if>
+                    <#if cause_code2_s??>
+                         and CAUSE_CODE2_S=:cause_code2_s
+                    </#if>
+                    <#if cause_code3_s??>
+                         and CAUSE_CODE3_S=:cause_code3_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_point_s??>
+                         and CHECK_POINT_S=:check_point_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if group_code_s??>
+                         and GROUP_CODE_S=:group_code_s
+                    </#if>
+                    <#if is_rck_s??>
+                         and IS_RCK_S=:is_rck_s
+                    </#if>
+                    <#if machine_code_s??>
+                         and MACHINE_CODE_S like  :machine_code_s ||'%'
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S like  :material_code_s ||'%'
+                    </#if>
+                    <#if material_desc_s??>
+                         and MATERIAL_DESC_S=:material_desc_s
+                    </#if>
+                    <#if material_spec_s??>
+                         and MATERIAL_SPEC_S=:material_spec_s
+                    </#if>
+                    <#if oper_time_t??>
+                         and OPER_TIME_T=:oper_time_t
+                    </#if>
+                    <#if proess_s??>
+                         and PROESS_S=:proess_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if shift_code_s??>
+                         and SHIFT_CODE_S=:shift_code_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tyre_barcode_s??>
+                        and TYRE_BARCODE_S like  :tyre_barcode_s ||'%'
+                    </#if>
+                    <#if tyre_status_code_s??>
+                         and TYRE_STATUS_CODE_S=:tyre_status_code_s
+                    </#if>
+                    <#if begin_created_time?? && end_created_time??>
+               				and to_char(created_time_t,'yyyy-mm-dd hh24:MI:ss') between
+               				:begin_created_time and :end_created_time
+              	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_B_QM_QUALITYCHECK_RECORD where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if aqhm_flag_s??>
+                         and AQHM_FLAG_S=:aqhm_flag_s
+                    </#if>
+                    <#if attribute_s??>
+                         and ATTRIBUTE_S=:attribute_s
+                    </#if>
+                    <#if cause_code1_s??>
+                         and CAUSE_CODE1_S=:cause_code1_s
+                    </#if>
+                    <#if cause_code2_s??>
+                         and CAUSE_CODE2_S=:cause_code2_s
+                    </#if>
+                    <#if cause_code3_s??>
+                         and CAUSE_CODE3_S=:cause_code3_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_point_s??>
+                         and CHECK_POINT_S=:check_point_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if group_code_s??>
+                         and GROUP_CODE_S=:group_code_s
+                    </#if>
+                    <#if is_rck_s??>
+                         and IS_RCK_S=:is_rck_s
+                    </#if>
+                    <#if machine_code_s??>
+                         and MACHINE_CODE_S like  :machine_code_s ||'%'
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S like  :material_code_s ||'%'
+                    </#if>
+                    <#if material_desc_s??>
+                         and MATERIAL_DESC_S=:material_desc_s
+                    </#if>
+                    <#if material_spec_s??>
+                         and MATERIAL_SPEC_S=:material_spec_s
+                    </#if>
+                    <#if oper_time_t??>
+                         and OPER_TIME_T=:oper_time_t
+                    </#if>
+                    <#if proess_s??>
+                         and PROESS_S=:proess_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if shift_code_s??>
+                         and SHIFT_CODE_S=:shift_code_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tyre_barcode_s??>
+                        and TYRE_BARCODE_S like  :tyre_barcode_s ||'%'
+                    </#if>
+                    <#if tyre_status_code_s??>
+                         and TYRE_STATUS_CODE_S=:tyre_status_code_s
+                    </#if>
+                    <#if begin_created_time?? && end_created_time??>
+               				and to_char(created_time_t,'yyyy-mm-dd hh24:MI:ss') between
+               				:begin_created_time and :end_created_time
+              	</#if>
+                    <#if worker_id_s??>
+                         and WORKER_ID_S=:worker_id_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

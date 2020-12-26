@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+                select t.EQUIP_CODE_S,
+                 t.VERSION_S,
+                 t.PRODUCTION_STEP_S,
+                 t.MATERIAL_CODE_S,
+                 t.PROCESSBOM_INDEX_S from AT_B_QM_MACHINE_FORMULA t,at_b_pp_productiondayplan p 
+                 where t.RECORD_FLAG_S='A'
+                 and p.record_flag_s='A'
+                 and t.material_code_s=p.material_code_s
+                 and t.processbom_index_s=p.processbom_index_s
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alter_source_s??>
+                     and t.ALTER_SOURCE_S=:alter_source_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if equip_code_s??>
+                     and t.EQUIP_CODE_S like:equip_code_s
+                </#if>
+                 <#if equip_type_s??>
+                     and t.EQUIP_TYPE_S=:equip_type_s
+                </#if>
+                <#if material_code_s??>
+                     and t.MATERIAL_CODE_S like:material_code_s
+                </#if>
+                <#if material_desc_s??>
+                     and t.MATERIAL_DESC_S=:material_desc_s
+                </#if>
+                <#if new_flag_s??>
+                     and t.NEW_FLAG_S=:new_flag_s
+                </#if>
+                <#if parameter_id_s??>
+                     and t.PARAMETER_ID_S=:parameter_id_s
+                </#if>
+                <#if parameter_lowervalue_s??>
+                     and t.PARAMETER_LOWERVALUE_S=:parameter_lowervalue_s
+                </#if>
+                <#if parameter_name_s??>
+                     and t.PARAMETER_NAME_S=:parameter_name_s
+                </#if>
+                <#if parameter_plcaddress_s??>
+                     and t.PARAMETER_PLCADDRESS_S=:parameter_plcaddress_s
+                </#if>
+                <#if parameter_plcvalue_s??>
+                     and t.PARAMETER_PLCVALUE_S=:parameter_plcvalue_s
+                </#if>
+                <#if parameter_standardvalue_s??>
+                     and t.PARAMETER_STANDARDVALUE_S=:parameter_standardvalue_s
+                </#if>
+                <#if parameter_uppervalue_s??>
+                     and t.PARAMETER_UPPERVALUE_S=:parameter_uppervalue_s
+                </#if>
+                <#if parmtype_code_s??>
+                     and t.PARMTYPE_CODE_S=:parmtype_code_s
+                </#if>
+                <#if parmtype_name_s??>
+                     and t.PARMTYPE_NAME_S=:parmtype_name_s
+                </#if>
+                <#if processbom_index_s??>
+                     and t.PROCESSBOM_INDEX_S=:processbom_index_s
+                </#if>
+                <#if production_step_s??>
+                     and t.PRODUCTION_STEP_S like:production_step_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                     and p.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if version_s??>
+                     and t.VERSION_S like:version_s
+                </#if>
+                <#if status_s??>
+                     and p.status_s in (:status_s)
+                </#if>
+                GROUP BY t.EQUIP_CODE_S,t.VERSION_S,t.PRODUCTION_STEP_S,t.MATERIAL_CODE_S,t.PROCESSBOM_INDEX_S order by t.EQUIP_CODE_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from 
+            	( select t.EQUIP_CODE_S,
+                 t.VERSION_S,
+                 t.PRODUCTION_STEP_S,
+                 t.MATERIAL_CODE_S,
+                 t.PROCESSBOM_INDEX_S from AT_B_QM_MACHINE_FORMULA t,at_b_pp_productiondayplan p 
+                 where t.RECORD_FLAG_S='A'
+                 and p.record_flag_s='A'
+                 and t.material_code_s=p.material_code_s
+                 and t.processbom_index_s=p.processbom_index_s
+                    <#if agenc_no_s??>
+                         and t.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if alter_source_s??>
+                         and t.ALTER_SOURCE_S=:alter_source_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and t.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and t.CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and t.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and t.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if equip_code_s??>
+                         and t.EQUIP_CODE_S like:equip_code_s
+                    </#if>
+                    <#if equip_type_s??>
+                          and t.EQUIP_TYPE_S=:equip_type_s
+                    </#if>
+                    <#if material_code_s??>
+                         and t.MATERIAL_CODE_S like:material_code_s
+                    </#if>
+                    <#if material_desc_s??>
+                         and t.MATERIAL_DESC_S=:material_desc_s
+                    </#if>
+                    <#if new_flag_s??>
+                         and t.NEW_FLAG_S=:new_flag_s
+                    </#if>
+                    <#if parameter_id_s??>
+                         and t.PARAMETER_ID_S=:parameter_id_s
+                    </#if>
+                    <#if parameter_lowervalue_s??>
+                         and t.PARAMETER_LOWERVALUE_S=:parameter_lowervalue_s
+                    </#if>
+                    <#if parameter_name_s??>
+                         and t.PARAMETER_NAME_S=:parameter_name_s
+                    </#if>
+                    <#if parameter_plcaddress_s??>
+                         and t.PARAMETER_PLCADDRESS_S=:parameter_plcaddress_s
+                    </#if>
+                    <#if parameter_plcvalue_s??>
+                         and t.PARAMETER_PLCVALUE_S=:parameter_plcvalue_s
+                    </#if>
+                    <#if parameter_standardvalue_s??>
+                         and t.PARAMETER_STANDARDVALUE_S=:parameter_standardvalue_s
+                    </#if>
+                    <#if parameter_uppervalue_s??>
+                         and t.PARAMETER_UPPERVALUE_S=:parameter_uppervalue_s
+                    </#if>
+                    <#if parmtype_code_s??>
+                         and t.PARMTYPE_CODE_S=:parmtype_code_s
+                    </#if>
+                    <#if parmtype_name_s??>
+                         and t.PARMTYPE_NAME_S=:parmtype_name_s
+                    </#if>
+                    <#if processbom_index_s??>
+                         and t.PROCESSBOM_INDEX_S=:processbom_index_s
+                    </#if>
+                    <#if production_step_s??>
+                         and t.PRODUCTION_STEP_S like:production_step_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and t.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and t.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and t.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and t.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and t.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and t.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and t.S_FACTORY_S=:s_factory_s
+                         and p.S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if version_s??>
+                         and t.VERSION_S like:version_s
+                    </#if>
+                    <#if status_s??>
+                         and p.status_s in (:status_s)
+                     </#if>
+                GROUP BY t.EQUIP_CODE_S,t.VERSION_S,t.PRODUCTION_STEP_S,t.MATERIAL_CODE_S,t.PROCESSBOM_INDEX_S ) t
+        ]]>
+    </sql>
+    <sql comment="机台条码的查询" id="equipCodeQuery">
+       <![CDATA[
+           select 
+           	EQUIP_CODE_S
+            FROM AT_B_QM_MACHINE_FORMULA 
+			WHERE RECORD_FLAG_S='A'
+			 and s_factory_s=:s_factory_s and AGENC_NO_S = :agenc_no_s GROUP BY EQUIP_CODE_S
+			 
+        ]]>
+	</sql>
+    <sql comment="物料编码的查询" id="materialCodeQuery">
+       <![CDATA[
+           select 
+           	MATERIAL_CODE_S
+            FROM AT_B_QM_MACHINE_FORMULA 
+			WHERE RECORD_FLAG_S='A' 
+			and s_factory_s=:s_factory_s GROUP BY MATERIAL_CODE_S
+        ]]>
+	</sql>
+    <sql comment="产品阶段的查询" id="productionStepQuery">
+       <![CDATA[
+           select 
+           	PRODUCTION_STEP_S
+            FROM AT_B_QM_MACHINE_FORMULA 
+			WHERE RECORD_FLAG_S='A' 
+			and s_factory_s=:s_factory_s GROUP BY PRODUCTION_STEP_S
+        ]]>
+	</sql>
+    <sql comment="版本号的查询" id="versionQuery">
+       <![CDATA[
+           select 
+           	VERSION_S
+            FROM AT_B_QM_MACHINE_FORMULA 
+			WHERE RECORD_FLAG_S='A' 
+			and s_factory_s=:s_factory_s GROUP BY VERSION_S
+        ]]>
+	</sql>
+    <sql comment="参数查询" id="curingparameterm">
+       <![CDATA[
+           SELECT 
+           	PARAMETER_ID_S,PARMTYPE_NAME_S,PARAMETER_NAME_S,PARAMETER_PLCVALUE_S,PARAMETER_STANDARDVALUE_S,
+           	PARAMETER_UPPERVALUE_S,PARAMETER_LOWERVALUE_S,CHANGED_TIME_T,ALTER_SOURCE_S
+            FROM AT_B_QM_MACHINE_FORMULA 
+			WHERE record_flag_s='A'
+			     and agenc_no_s='8023'
+                 and EQUIP_CODE_S like:equipcode_s
+                 and MATERIAL_CODE_S like:materialcode_s
+                 and PRODUCTION_STEP_S like:productionstep_s
+                 and VERSION_S like:versions
+                 and s_factory_s=:s_factory_s
+        ]]>
+	</sql>
+	<sql comment="查询需要导出的所有数据" id="datagrid_all_rows">
+        <![CDATA[
+            select * from AT_B_QM_MACHINE_FORMULA where RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alter_source_s??>
+                     and ALTER_SOURCE_S=:alter_source_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S like:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S like:material_code_s
+                </#if>
+                <#if material_desc_s??>
+                     and MATERIAL_DESC_S=:material_desc_s
+                </#if>
+                <#if new_flag_s??>
+                     and NEW_FLAG_S=:new_flag_s
+                </#if>
+                <#if parameter_id_s??>
+                     and PARAMETER_ID_S=:parameter_id_s
+                </#if>
+                <#if parameter_lowervalue_s??>
+                     and PARAMETER_LOWERVALUE_S=:parameter_lowervalue_s
+                </#if>
+                <#if parameter_name_s??>
+                     and PARAMETER_NAME_S=:parameter_name_s
+                </#if>
+                <#if parameter_plcaddress_s??>
+                     and PARAMETER_PLCADDRESS_S=:parameter_plcaddress_s
+                </#if>
+                <#if parameter_plcvalue_s??>
+                     and PARAMETER_PLCVALUE_S=:parameter_plcvalue_s
+                </#if>
+                <#if parameter_standardvalue_s??>
+                     and PARAMETER_STANDARDVALUE_S=:parameter_standardvalue_s
+                </#if>
+                <#if parameter_uppervalue_s??>
+                     and PARAMETER_UPPERVALUE_S=:parameter_uppervalue_s
+                </#if>
+                <#if parmtype_code_s??>
+                     and PARMTYPE_CODE_S=:parmtype_code_s
+                </#if>
+                <#if parmtype_name_s??>
+                     and PARMTYPE_NAME_S=:parmtype_name_s
+                </#if>
+                <#if processbom_index_s??>
+                     and PROCESSBOM_INDEX_S=:processbom_index_s
+                </#if>
+                <#if production_step_s??>
+                     and PRODUCTION_STEP_S like:production_step_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if version_s??>
+                     and VERSION_S like:version_s
+                </#if>
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,1259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+	<sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+select t.*,round(t.qty_complete_i/t.qty_plan_i*100,2) completion_rate from AT_MX_PP_WO_EDIT t where 1=1
+                <#if act_finish_checktime_t??>
+                     and ACT_FINISH_CHECKTIME_T=:act_finish_checktime_t
+                </#if>
+                <#if act_finish_time_t??>
+                     and ACT_FINISH_TIME_T=:act_finish_time_t
+                </#if>
+                <#if act_start_checktime_t??>
+                     and ACT_START_CHECKTIME_T=:act_start_checktime_t
+                </#if>
+                <#if act_start_time_t??>
+                     and ACT_START_TIME_T=:act_start_time_t
+                </#if>
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if begin_check_train_num_s??>
+                     and BEGIN_CHECK_TRAIN_NUM_S=:begin_check_train_num_s
+                </#if>
+                <#if begin_proc_train_num_s??>
+                     and BEGIN_PROC_TRAIN_NUM_S=:begin_proc_train_num_s
+                </#if>
+                <#if bom_ver_id_s??>
+                     and BOM_VER_ID_S=:bom_ver_id_s
+                </#if>
+                <#if carrier_code_s??>
+                     and CARRIER_CODE_S=:carrier_code_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if check_by_s??>
+                     and CHECK_BY_S=:check_by_s
+                </#if>
+                <#if check_state_s??>
+                     and CHECK_STATE_S=:check_state_s
+                </#if>
+                <#if check_time_t??>
+                     and CHECK_TIME_T=:check_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if end_check_train_num_s??>
+                     and END_CHECK_TRAIN_NUM_S=:end_check_train_num_s
+                </#if>
+                <#if end_proc_train_num_s??>
+                     and END_PROC_TRAIN_NUM_S=:end_proc_train_num_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if equip_name_s??>
+                     and EQUIP_NAME_S=:equip_name_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if is_silo_clean_s??>
+                     and IS_SILO_ClEAN_S=:is_silo_clean_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if mi_equip_code_s??>
+                     and MI_EQUIP_CODE_S=:mi_equip_code_s
+                </#if>
+                <#if mi_equip_name_s??>
+                     and MI_EQUIP_NAME_S=:mi_equip_name_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if production_ver_s??>
+                     and PRODUCTION_VER_S=:production_ver_s
+                </#if>
+                <#if qty_check_bad_i??>
+                     and QTY_CHECK_BAD_I=:qty_check_bad_i
+                </#if>
+                <#if qty_check_complete_i??>
+                     and QTY_CHECK_COMPLETE_I=:qty_check_complete_i
+                </#if>
+                <#if qty_check_f??>
+                     and QTY_CHECK_F=:qty_check_f
+                </#if>
+                <#if qty_check_good_i??>
+                     and QTY_CHECK_GOOD_I=:qty_check_good_i
+                </#if>
+                <#if qty_complete_i??>
+                     and QTY_COMPLETE_I=:qty_complete_i
+                </#if>
+                <#if qty_plan_i??>
+                     and QTY_PLAN_I=:qty_plan_i
+                </#if>
+                <#if quickcheck_recipe_code_s??>
+                     and QUICKCHECK_RECIPE_CODE_S=:quickcheck_recipe_code_s
+                </#if>
+                <#if recipe_bom_version_s??>
+                     and RECIPE_BOM_VERSION_S=:recipe_bom_version_s
+                </#if>
+                <#if recipe_code_s??>
+                     and RECIPE_CODE_S=:recipe_code_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if sa_equip_code_s??>
+                     and SA_EQUIP_CODE_S=:sa_equip_code_s
+                </#if>
+                <#if sa_equip_name_s??>
+                     and SA_EQUIP_NAME_S=:sa_equip_name_s
+                </#if>
+                <#if send_by_s??>
+                     and SEND_BY_S=:send_by_s
+                </#if>
+                <#if send_name_s??>
+                     and SEND_NAME_S=:send_name_s
+                </#if>
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if send_time_t??>
+                     and SEND_TIME_T=:send_time_t
+                </#if>
+                <#if sip_s??>
+                     and SIP_S=:sip_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare11_s??>
+                     and SPARE11_S=:spare11_s
+                </#if>
+                <#if spare12_s??>
+                     and SPARE12_S=:spare12_s
+                </#if>
+                <#if spare13_s??>
+                     and SPARE13_S=:spare13_s
+                </#if>
+                <#if spare14_s??>
+                     and SPARE14_S=:spare14_s
+                </#if>
+                <#if spare15_s??>
+                     and SPARE15_S=:spare15_s
+                </#if>
+                <#if spare16_s??>
+                     and SPARE16_S=:spare16_s
+                </#if>
+                <#if spare17_s??>
+                     and SPARE17_S=:spare17_s
+                </#if>
+                <#if spare18_s??>
+                     and SPARE18_S=:spare18_s
+                </#if>
+                <#if spare19_s??>
+                     and SPARE19_S=:spare19_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare20_s??>
+                     and SPARE20_S=:spare20_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if status_check_s??>
+                     and STATUS_CHECK_S=:status_check_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if train_num_s??>
+                     and TRAIN_NUM_S=:train_num_s
+                </#if>
+                <#if weightche_s??>
+                     and WEIGHTCHE_S=:weightche_s
+                </#if>
+                <#if wo_date_s??>
+                     and WO_DATE_S=:wo_date_s
+                </#if>
+                <#if wo_group_s??>
+                     and WO_GROUP_S=:wo_group_s
+                </#if>
+                <#if wo_no_s??>
+                     and WO_NO_S=:wo_no_s
+                </#if>
+                <#if wo_seq_i??>
+                     and WO_SEQ_I=:wo_seq_i
+                </#if>
+                <#if wo_shift_s??>
+                     and WO_SHIFT_S=:wo_shift_s
+                </#if>
+                <#if wo_status_s??>
+                     and WO_STATUS_S=:wo_status_s
+                </#if>
+                <#if wo_type_s??>
+                     and WO_TYPE_S=:wo_type_s
+                </#if>
+                <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by created_time_t desc,equip_code_s asc
+            </#if>
+        ]]>
+	</sql>
+	<sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_MX_PP_WO_EDIT where 1=1
+                    <#if act_finish_checktime_t??>
+                         and ACT_FINISH_CHECKTIME_T=:act_finish_checktime_t
+                    </#if>
+                    <#if act_finish_time_t??>
+                         and ACT_FINISH_TIME_T=:act_finish_time_t
+                    </#if>
+                    <#if act_start_checktime_t??>
+                         and ACT_START_CHECKTIME_T=:act_start_checktime_t
+                    </#if>
+                    <#if act_start_time_t??>
+                         and ACT_START_TIME_T=:act_start_time_t
+                    </#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if begin_check_train_num_s??>
+                         and BEGIN_CHECK_TRAIN_NUM_S=:begin_check_train_num_s
+                    </#if>
+                    <#if begin_proc_train_num_s??>
+                         and BEGIN_PROC_TRAIN_NUM_S=:begin_proc_train_num_s
+                    </#if>
+                    <#if bom_ver_id_s??>
+                         and BOM_VER_ID_S=:bom_ver_id_s
+                    </#if>
+                    <#if carrier_code_s??>
+                         and CARRIER_CODE_S=:carrier_code_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_by_s??>
+                         and CHECK_BY_S=:check_by_s
+                    </#if>
+                    <#if check_state_s??>
+                         and CHECK_STATE_S=:check_state_s
+                    </#if>
+                    <#if check_time_t??>
+                         and CHECK_TIME_T=:check_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if end_check_train_num_s??>
+                         and END_CHECK_TRAIN_NUM_S=:end_check_train_num_s
+                    </#if>
+                    <#if end_proc_train_num_s??>
+                         and END_PROC_TRAIN_NUM_S=:end_proc_train_num_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if equip_name_s??>
+                         and EQUIP_NAME_S=:equip_name_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if is_silo_clean_s??>
+                         and IS_SILO_ClEAN_S=:is_silo_clean_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S=:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if mi_equip_code_s??>
+                         and MI_EQUIP_CODE_S=:mi_equip_code_s
+                    </#if>
+                    <#if mi_equip_name_s??>
+                         and MI_EQUIP_NAME_S=:mi_equip_name_s
+                    </#if>
+                    <#if plan_no_s??>
+                         and PLAN_NO_S=:plan_no_s
+                    </#if>
+                    <#if production_ver_s??>
+                         and PRODUCTION_VER_S=:production_ver_s
+                    </#if>
+                    <#if qty_check_bad_i??>
+                         and QTY_CHECK_BAD_I=:qty_check_bad_i
+                    </#if>
+                    <#if qty_check_complete_i??>
+                         and QTY_CHECK_COMPLETE_I=:qty_check_complete_i
+                    </#if>
+                    <#if qty_check_f??>
+                         and QTY_CHECK_F=:qty_check_f
+                    </#if>
+                    <#if qty_check_good_i??>
+                         and QTY_CHECK_GOOD_I=:qty_check_good_i
+                    </#if>
+                    <#if qty_complete_i??>
+                         and QTY_COMPLETE_I=:qty_complete_i
+                    </#if>
+                    <#if qty_plan_i??>
+                         and QTY_PLAN_I=:qty_plan_i
+                    </#if>
+                    <#if quickcheck_recipe_code_s??>
+                         and QUICKCHECK_RECIPE_CODE_S=:quickcheck_recipe_code_s
+                    </#if>
+                    <#if recipe_bom_version_s??>
+                         and RECIPE_BOM_VERSION_S=:recipe_bom_version_s
+                    </#if>
+                    <#if recipe_code_s??>
+                         and RECIPE_CODE_S=:recipe_code_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if sa_equip_code_s??>
+                         and SA_EQUIP_CODE_S=:sa_equip_code_s
+                    </#if>
+                    <#if sa_equip_name_s??>
+                         and SA_EQUIP_NAME_S=:sa_equip_name_s
+                    </#if>
+                    <#if send_by_s??>
+                         and SEND_BY_S=:send_by_s
+                    </#if>
+                    <#if send_name_s??>
+                         and SEND_NAME_S=:send_name_s
+                    </#if>
+                    <#if send_state_s??>
+                         and SEND_STATE_S=:send_state_s
+                    </#if>
+                    <#if send_time_t??>
+                         and SEND_TIME_T=:send_time_t
+                    </#if>
+                    <#if sip_s??>
+                         and SIP_S=:sip_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare11_s??>
+                         and SPARE11_S=:spare11_s
+                    </#if>
+                    <#if spare12_s??>
+                         and SPARE12_S=:spare12_s
+                    </#if>
+                    <#if spare13_s??>
+                         and SPARE13_S=:spare13_s
+                    </#if>
+                    <#if spare14_s??>
+                         and SPARE14_S=:spare14_s
+                    </#if>
+                    <#if spare15_s??>
+                         and SPARE15_S=:spare15_s
+                    </#if>
+                    <#if spare16_s??>
+                         and SPARE16_S=:spare16_s
+                    </#if>
+                    <#if spare17_s??>
+                         and SPARE17_S=:spare17_s
+                    </#if>
+                    <#if spare18_s??>
+                         and SPARE18_S=:spare18_s
+                    </#if>
+                    <#if spare19_s??>
+                         and SPARE19_S=:spare19_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare20_s??>
+                         and SPARE20_S=:spare20_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if status_check_s??>
+                         and STATUS_CHECK_S=:status_check_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if train_num_s??>
+                         and TRAIN_NUM_S=:train_num_s
+                    </#if>
+                    <#if weightche_s??>
+                         and WEIGHTCHE_S=:weightche_s
+                    </#if>
+                    <#if wo_date_s??>
+                         and WO_DATE_S=:wo_date_s
+                    </#if>
+                    <#if wo_group_s??>
+                         and WO_GROUP_S=:wo_group_s
+                    </#if>
+                    <#if wo_no_s??>
+                         and WO_NO_S=:wo_no_s
+                    </#if>
+                    <#if wo_seq_i??>
+                         and WO_SEQ_I=:wo_seq_i
+                    </#if>
+                    <#if wo_shift_s??>
+                         and WO_SHIFT_S=:wo_shift_s
+                    </#if>
+                    <#if wo_status_s??>
+                         and WO_STATUS_S=:wo_status_s
+                    </#if>
+                    <#if wo_type_s??>
+                         and WO_TYPE_S=:wo_type_s
+                    </#if>
+        ]]>
+	</sql>
+	<sql comment="datagrid" id="datagrid_rows2">
+        <![CDATA[
+          select t.*,round(t.qty_complete_i/t.qty_plan_i*100,2) completion_rate from AT_MX_PP_WO_EDIT t where 1=1
+                     and RECORD_FLAG_S='A'
+                     and WO_TYPE_S in('051001','051002')
+                <#if act_finish_checktime_t??>
+                     and ACT_FINISH_CHECKTIME_T=:act_finish_checktime_t
+                </#if>
+                <#if act_finish_time_t??>
+                     and ACT_FINISH_TIME_T=:act_finish_time_t
+                </#if>
+                <#if act_start_checktime_t??>
+                     and ACT_START_CHECKTIME_T=:act_start_checktime_t
+                </#if>
+                <#if act_start_time_t??>
+                     and ACT_START_TIME_T=:act_start_time_t
+                </#if>
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if begin_check_train_num_s??>
+                     and BEGIN_CHECK_TRAIN_NUM_S=:begin_check_train_num_s
+                </#if>
+                <#if begin_proc_train_num_s??>
+                     and BEGIN_PROC_TRAIN_NUM_S=:begin_proc_train_num_s
+                </#if>
+                <#if bom_ver_id_s??>
+                     and BOM_VER_ID_S=:bom_ver_id_s
+                </#if>
+                <#if carrier_code_s??>
+                     and CARRIER_CODE_S=:carrier_code_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if check_by_s??>
+                     and CHECK_BY_S=:check_by_s
+                </#if>
+                <#if check_state_s??>
+                     and CHECK_STATE_S=:check_state_s
+                </#if>
+                <#if check_time_t??>
+                     and CHECK_TIME_T=:check_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if end_check_train_num_s??>
+                     and END_CHECK_TRAIN_NUM_S=:end_check_train_num_s
+                </#if>
+                <#if end_proc_train_num_s??>
+                     and END_PROC_TRAIN_NUM_S=:end_proc_train_num_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if equip_name_s??>
+                     and EQUIP_NAME_S=:equip_name_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if is_silo_clean_s??>
+                     and IS_SILO_ClEAN_S=:is_silo_clean_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if mi_equip_code_s??>
+                     and MI_EQUIP_CODE_S=:mi_equip_code_s
+                </#if>
+                <#if mi_equip_name_s??>
+                     and MI_EQUIP_NAME_S=:mi_equip_name_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if production_ver_s??>
+                     and PRODUCTION_VER_S=:production_ver_s
+                </#if>
+                <#if qty_check_bad_i??>
+                     and QTY_CHECK_BAD_I=:qty_check_bad_i
+                </#if>
+                <#if qty_check_complete_i??>
+                     and QTY_CHECK_COMPLETE_I=:qty_check_complete_i
+                </#if>
+                <#if qty_check_f??>
+                     and QTY_CHECK_F=:qty_check_f
+                </#if>
+                <#if qty_check_good_i??>
+                     and QTY_CHECK_GOOD_I=:qty_check_good_i
+                </#if>
+                <#if qty_complete_i??>
+                     and QTY_COMPLETE_I=:qty_complete_i
+                </#if>
+                <#if qty_plan_i??>
+                     and QTY_PLAN_I=:qty_plan_i
+                </#if>
+                <#if quickcheck_recipe_code_s??>
+                     and QUICKCHECK_RECIPE_CODE_S=:quickcheck_recipe_code_s
+                </#if>
+                <#if recipe_bom_version_s??>
+                     and RECIPE_BOM_VERSION_S=:recipe_bom_version_s
+                </#if>
+                <#if recipe_code_s??>
+                     and RECIPE_CODE_S=:recipe_code_s
+                </#if>
+                <#if sa_equip_code_s??>
+                     and SA_EQUIP_CODE_S=:sa_equip_code_s
+                </#if>
+                <#if sa_equip_name_s??>
+                     and SA_EQUIP_NAME_S=:sa_equip_name_s
+                </#if>
+                <#if send_by_s??>
+                     and SEND_BY_S=:send_by_s
+                </#if>
+                <#if send_name_s??>
+                     and SEND_NAME_S=:send_name_s
+                </#if>
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if send_time_t??>
+                     and SEND_TIME_T=:send_time_t
+                </#if>
+                <#if sip_s??>
+                     and SIP_S=:sip_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare11_s??>
+                     and SPARE11_S=:spare11_s
+                </#if>
+                <#if spare12_s??>
+                     and SPARE12_S=:spare12_s
+                </#if>
+                <#if spare13_s??>
+                     and SPARE13_S=:spare13_s
+                </#if>
+                <#if spare14_s??>
+                     and SPARE14_S=:spare14_s
+                </#if>
+                <#if spare15_s??>
+                     and SPARE15_S=:spare15_s
+                </#if>
+                <#if spare16_s??>
+                     and SPARE16_S=:spare16_s
+                </#if>
+                <#if spare17_s??>
+                     and SPARE17_S=:spare17_s
+                </#if>
+                <#if spare18_s??>
+                     and SPARE18_S=:spare18_s
+                </#if>
+                <#if spare19_s??>
+                     and SPARE19_S=:spare19_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare20_s??>
+                     and SPARE20_S=:spare20_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if status_check_s??>
+                     and STATUS_CHECK_S=:status_check_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if train_num_s??>
+                     and TRAIN_NUM_S=:train_num_s
+                </#if>
+                <#if weightche_s??>
+                     and WEIGHTCHE_S=:weightche_s
+                </#if>
+                <#if wo_date_s??>
+                     and WO_DATE_S=:wo_date_s
+                </#if>
+                <#if wo_group_s??>
+                     and WO_GROUP_S=:wo_group_s
+                </#if>
+                <#if wo_no_s??>
+                     and WO_NO_S=:wo_no_s
+                </#if>
+                <#if wo_seq_i??>
+                     and WO_SEQ_I=:wo_seq_i
+                </#if>
+                <#if wo_shift_s??>
+                     and WO_SHIFT_S=:wo_shift_s
+                </#if>
+                <#if wo_status_s??>
+                     and WO_STATUS_S=:wo_status_s
+                </#if>
+                <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                 order by created_time_t desc,equip_code_s asc
+            </#if>
+        ]]>
+	</sql>
+	<sql comment="datagrid" id="datagrid_total2">
+        <![CDATA[
+            select count(1) from AT_MX_PP_WO_EDIT where 1=1
+                         and RECORD_FLAG_S='A'
+                         and WO_TYPE_S in('051001','051002')
+                    <#if act_finish_checktime_t??>
+                         and ACT_FINISH_CHECKTIME_T=:act_finish_checktime_t
+                    </#if>
+                    <#if act_finish_time_t??>
+                         and ACT_FINISH_TIME_T=:act_finish_time_t
+                    </#if>
+                    <#if act_start_checktime_t??>
+                         and ACT_START_CHECKTIME_T=:act_start_checktime_t
+                    </#if>
+                    <#if act_start_time_t??>
+                         and ACT_START_TIME_T=:act_start_time_t
+                    </#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if begin_check_train_num_s??>
+                         and BEGIN_CHECK_TRAIN_NUM_S=:begin_check_train_num_s
+                    </#if>
+                    <#if begin_proc_train_num_s??>
+                         and BEGIN_PROC_TRAIN_NUM_S=:begin_proc_train_num_s
+                    </#if>
+                    <#if bom_ver_id_s??>
+                         and BOM_VER_ID_S=:bom_ver_id_s
+                    </#if>
+                    <#if carrier_code_s??>
+                         and CARRIER_CODE_S=:carrier_code_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_by_s??>
+                         and CHECK_BY_S=:check_by_s
+                    </#if>
+                    <#if check_state_s??>
+                         and CHECK_STATE_S=:check_state_s
+                    </#if>
+                    <#if check_time_t??>
+                         and CHECK_TIME_T=:check_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if end_check_train_num_s??>
+                         and END_CHECK_TRAIN_NUM_S=:end_check_train_num_s
+                    </#if>
+                    <#if end_proc_train_num_s??>
+                         and END_PROC_TRAIN_NUM_S=:end_proc_train_num_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if equip_name_s??>
+                         and EQUIP_NAME_S=:equip_name_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if is_silo_clean_s??>
+                         and IS_SILO_ClEAN_S=:is_silo_clean_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S=:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if mi_equip_code_s??>
+                         and MI_EQUIP_CODE_S=:mi_equip_code_s
+                    </#if>
+                    <#if mi_equip_name_s??>
+                         and MI_EQUIP_NAME_S=:mi_equip_name_s
+                    </#if>
+                    <#if plan_no_s??>
+                         and PLAN_NO_S=:plan_no_s
+                    </#if>
+                    <#if production_ver_s??>
+                         and PRODUCTION_VER_S=:production_ver_s
+                    </#if>
+                    <#if qty_check_bad_i??>
+                         and QTY_CHECK_BAD_I=:qty_check_bad_i
+                    </#if>
+                    <#if qty_check_complete_i??>
+                         and QTY_CHECK_COMPLETE_I=:qty_check_complete_i
+                    </#if>
+                    <#if qty_check_f??>
+                         and QTY_CHECK_F=:qty_check_f
+                    </#if>
+                    <#if qty_check_good_i??>
+                         and QTY_CHECK_GOOD_I=:qty_check_good_i
+                    </#if>
+                    <#if qty_complete_i??>
+                         and QTY_COMPLETE_I=:qty_complete_i
+                    </#if>
+                    <#if qty_plan_i??>
+                         and QTY_PLAN_I=:qty_plan_i
+                    </#if>
+                    <#if quickcheck_recipe_code_s??>
+                         and QUICKCHECK_RECIPE_CODE_S=:quickcheck_recipe_code_s
+                    </#if>
+                    <#if recipe_bom_version_s??>
+                         and RECIPE_BOM_VERSION_S=:recipe_bom_version_s
+                    </#if>
+                    <#if recipe_code_s??>
+                         and RECIPE_CODE_S=:recipe_code_s
+                    </#if>
+                    <#if sa_equip_code_s??>
+                         and SA_EQUIP_CODE_S=:sa_equip_code_s
+                    </#if>
+                    <#if sa_equip_name_s??>
+                         and SA_EQUIP_NAME_S=:sa_equip_name_s
+                    </#if>
+                    <#if send_by_s??>
+                         and SEND_BY_S=:send_by_s
+                    </#if>
+                    <#if send_name_s??>
+                         and SEND_NAME_S=:send_name_s
+                    </#if>
+                    <#if send_state_s??>
+                         and SEND_STATE_S=:send_state_s
+                    </#if>
+                    <#if send_time_t??>
+                         and SEND_TIME_T=:send_time_t
+                    </#if>
+                    <#if sip_s??>
+                         and SIP_S=:sip_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare11_s??>
+                         and SPARE11_S=:spare11_s
+                    </#if>
+                    <#if spare12_s??>
+                         and SPARE12_S=:spare12_s
+                    </#if>
+                    <#if spare13_s??>
+                         and SPARE13_S=:spare13_s
+                    </#if>
+                    <#if spare14_s??>
+                         and SPARE14_S=:spare14_s
+                    </#if>
+                    <#if spare15_s??>
+                         and SPARE15_S=:spare15_s
+                    </#if>
+                    <#if spare16_s??>
+                         and SPARE16_S=:spare16_s
+                    </#if>
+                    <#if spare17_s??>
+                         and SPARE17_S=:spare17_s
+                    </#if>
+                    <#if spare18_s??>
+                         and SPARE18_S=:spare18_s
+                    </#if>
+                    <#if spare19_s??>
+                         and SPARE19_S=:spare19_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare20_s??>
+                         and SPARE20_S=:spare20_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if status_check_s??>
+                         and STATUS_CHECK_S=:status_check_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if train_num_s??>
+                         and TRAIN_NUM_S=:train_num_s
+                    </#if>
+                    <#if weightche_s??>
+                         and WEIGHTCHE_S=:weightche_s
+                    </#if>
+                    <#if wo_date_s??>
+                         and WO_DATE_S=:wo_date_s
+                    </#if>
+                    <#if wo_group_s??>
+                         and WO_GROUP_S=:wo_group_s
+                    </#if>
+                    <#if wo_no_s??>
+                         and WO_NO_S=:wo_no_s
+                    </#if>
+                    <#if wo_seq_i??>
+                         and WO_SEQ_I=:wo_seq_i
+                    </#if>
+                    <#if wo_shift_s??>
+                         and WO_SHIFT_S=:wo_shift_s
+                    </#if>
+                    <#if wo_status_s??>
+                         and WO_STATUS_S=:wo_status_s
+                    </#if>
+        ]]>
+	</sql>
+	<sql comment="批报表报表明细" id="getbatch">
+        <![CDATA[
+        
+WITH prod AS (
+  SELECT
+ (N'明细')N_NAME_S,
+    LOT_NO_S,
+    SERIAL_ID_I,
+    RECIPETIME_I,
+    MIXTIME_I,
+    INTERVALS_I,
+    ADDNRTIME_I,
+    ADDCBTIME_I,
+    ADDOILTIME_I,
+    DISCHARGETEMP_F,
+    DISCHARGEPOWER_F,
+    DISCHARGEENERGY_F,
+    WEIGHT_S
+  FROM
+    at_mx_mm_polytrain_prod T
+  WHERE
+    T .wo_no_s =:recipecode
+  ORDER BY
+    TO_NUMBER (T .serial_id_i)
+),
+ weight AS (
+  SELECT
+    w.trainprod_id_s,
+    sum(w.SET_WEIGHT_s)SET_WEIGHT_s,
+    sum(w.REAL_WEIGHT_S)REAL_WEIGHT_S,
+    sum(w.ERROR_ALLOW_S)ERROR_ALLOW_S,
+    NVL (
+      SUM (
+        CASE
+        WHEN w.weight_type_s = '7' THEN
+          w.real_weight_s
+        END
+      ),
+      0
+    ) CALIBRATION_SAID,
+    NVL (
+      SUM (
+        CASE
+        WHEN w.weight_type_s IN ('3', '6') THEN
+          w.real_weight_s
+        END
+      ),
+      0
+    ) SMALL_MATERIAL,
+    NVL (
+      SUM (
+        CASE
+        WHEN w.weight_type_s IN ('2', '8', '9') THEN
+          w.real_weight_s
+        END
+      ),
+      0
+    ) RUBBER,
+    NVL (
+      SUM (
+        CASE
+        WHEN w.weight_type_s IN ('0', '10', '11') THEN
+          w.real_weight_s
+        END
+      ),
+      0
+    ) CARBON_BLACK
+  FROM
+    at_mx_mm_polyweight_prod w,
+    prod P
+  WHERE
+    w.trainprod_id_s = P .LOT_NO_S (+)
+  GROUP BY
+    w.trainprod_id_s
+),
+ temp AS (
+  SELECT
+  (N'明细')N_NAME_S,
+    P .SERIAL_ID_I,
+    P .RECIPETIME_I,
+    P .MIXTIME_I,
+    P .INTERVALS_I,
+    P .ADDNRTIME_I,
+    P .ADDCBTIME_I,
+    P .ADDOILTIME_I,
+    P .DISCHARGETEMP_F,
+    P .DISCHARGEPOWER_F,
+    P .DISCHARGEENERGY_F,
+    CALIBRATION_SAID,
+    SMALL_MATERIAL,
+    RUBBER,
+    CARBON_BLACK,
+    SET_WEIGHT_s,
+   REAL_WEIGHT_S,
+   ERROR_ALLOW_S,
+    (
+      CALIBRATION_SAID + SMALL_MATERIAL + RUBBER + CARBON_BLACK
+    ) ALL_NUM
+  FROM
+    prod P,
+    weight w
+  WHERE
+    P .LOT_NO_S = w.trainprod_id_s (+)
+) SELECT
+  *
+FROM
+  temp
+UNION ALL
+  SELECT
+  N'合计',
+    null,
+      ROUND (SUM(RECIPETIME_I), 2),
+      ROUND (SUM(NVL(MIXTIME_I, 0)), 2),
+      ROUND (SUM(NVL(INTERVALS_I, 0)), 2),
+      ROUND (SUM(NVL(ADDNRTIME_I, 0)), 2),
+      ROUND (SUM(NVL(ADDCBTIME_I, 0)), 2),
+      ROUND (SUM(NVL(ADDOILTIME_I, 0)), 2),
+      ROUND (
+        SUM (NVL(DISCHARGETEMP_F, 0)),
+        2
+      ),
+      ROUND (
+        SUM (NVL(DISCHARGEPOWER_F, 0)),
+        2
+      ),
+      ROUND (
+        SUM (NVL(DISCHARGEENERGY_F, 0)),
+        2
+      ),
+      ROUND (
+        SUM (NVL(CALIBRATION_SAID, 0)),
+        2
+      ),
+      ROUND (
+        SUM (NVL(SMALL_MATERIAL, 0)),
+        2
+      ),
+      ROUND (SUM(NVL(RUBBER, 0)), 2),
+      ROUND (SUM(NVL(CARBON_BLACK, 0)), 2),
+      ROUND (SUM(NVL(SET_WEIGHT_s, 0)), 2),
+      ROUND (SUM(NVL(REAL_WEIGHT_S, 0)), 2),
+      ROUND (SUM(NVL(ERROR_ALLOW_S, 0)), 2),
+      ROUND (SUM(NVL(ALL_NUM, 0)), 2)
+  FROM
+    temp
+  UNION ALL
+    SELECT
+    N'平均',
+      null,
+    ROUND (AVG(RECIPETIME_I), 2),
+    ROUND (AVG(NVL(MIXTIME_I, 0)), 2),
+    ROUND (AVG(NVL(INTERVALS_I, 0)), 2),
+    ROUND (AVG(NVL(ADDNRTIME_I, 0)), 2),
+    ROUND (AVG(NVL(ADDCBTIME_I, 0)), 2),
+    ROUND (AVG(NVL(ADDOILTIME_I, 0)), 2),
+    ROUND (
+      AVG (NVL(DISCHARGETEMP_F, 0)),
+      2
+    ),
+    ROUND (
+      AVG (NVL(DISCHARGEPOWER_F, 0)),
+      2
+    ),
+    ROUND (
+      AVG (NVL(DISCHARGEENERGY_F, 0)),
+      2
+    ),
+    ROUND (
+      AVG (NVL(CALIBRATION_SAID, 0)),
+      2
+    ),
+    ROUND (
+      AVG (NVL(SMALL_MATERIAL, 0)),
+      2
+    ),
+    ROUND (AVG(NVL(RUBBER, 0)), 2),
+    ROUND (AVG(NVL(CARBON_BLACK, 0)), 2),
+    ROUND (SUM(NVL(SET_WEIGHT_s, 0)), 2),
+    ROUND (SUM(NVL(REAL_WEIGHT_S, 0)), 2),
+    ROUND (SUM(NVL(ERROR_ALLOW_S, 0)), 2),
+    ROUND (AVG(NVL(ALL_NUM, 0)), 2)
+    FROM
+      temp			
+        ]]>
+	</sql>
+
+
+	<sql comment="datagrid" id="setup_rows">
+        <![CDATA[
+         
+select t.CREATED_BY_S, t.CREATED_NAME_S
+  from AT_MX_MM_POLYTRAIN_PROD t
+ where t.s_factory_s = :s_factory_s
+   and t.PROD_DATE_S = to_char(sysdate - 1, 'yyyyMMdd')
+    <#if equip_code_s??>
+       and t.equip_code_s = :equip_code_s
+        </#if>
+   
+ group by t.CREATED_BY_S, t.CREATED_NAME_S
+  order by t.CREATED_NAME_S
+
+        ]]>
+	</sql>
+
+
+
+	<sql comment="datagrid" id="setup_total">
+        <![CDATA[
+select count(1)
+  from (select t.created_by_s, t.created_name_s
+          from AT_MX_MM_POLYTRAIN_PROD t
+         where t.s_factory_s = :s_factory_s
+           and t.PROD_DATE_S = to_char(sysdate - 1, 'yyyyMMdd')
+    <#if equip_code_s??>
+       and t.equip_code_s = :equip_code_s
+        </#if>
+         group by t.CREATED_BY_S, t.CREATED_NAME_S
+          order by t.CREATED_NAME_S) a
+
+        ]]>
+	</sql>
+
+
+	<sql comment="datagrid" id="setup_rows2">
+        <![CDATA[
+         
+select u.usercode created_by_s, u.username created_name_s
+  from core_user u
+ where  (u.memo like '%炼胶主机%' or (u.memo like '%班长%' and u.memo like '%炼胶%'))
+   and u.deptid in (SELECT t.id
+                      FROM CORE_DEPARTMENT t
+                     START WITH NAME like '%湖北%'
+                    CONNECT BY PRIOR t.ID = t.pid)
+                     and u.jobstate = '在职'
+                     order by u.username
+                     
+                     
+                    
+             
+
+        ]]>
+	</sql>
+
+
+
+	<sql comment="datagrid" id="setup_total2">
+        <![CDATA[
+select count(1)
+  from (select u.usercode created_by_s, u.username created_name_s
+  from core_user u
+ where (u.memo like '%炼胶主机%' or (u.memo like '%班长%' and u.memo like '%炼胶%'))
+   and u.deptid in (SELECT t.id
+                      FROM CORE_DEPARTMENT t
+                     START WITH NAME like '%湖北%'
+                    CONNECT BY PRIOR t.ID = t.pid)
+                    and u.jobstate = '在职'
+                     order by u.username                                 
+          ) a
+
+        ]]>
+	</sql>
+
+	<sql comment="datagrid" id="geterpcode_s">
+        <![CDATA[
+select t.dictname_s, t.erpcode_s,t.dictname_en_s,t.dictname_th_s
+  from at_cm_bs_coredictionary t
+ where t.dictcode_s like '090%'
+   and t.erpcode_s  like  :erpcode_s || '%'
+  
+
+        ]]>
+
+	</sql>
+
+</sqls>

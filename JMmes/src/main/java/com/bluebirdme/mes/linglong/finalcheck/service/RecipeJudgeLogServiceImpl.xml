@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_D_BS_RECIPEJUDGE_LOG where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if airpressure_s??>
+                     and AIRPRESSURE_S=:airpressure_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if beadwidth_s??>
+                     and BEADWIDTH_S=:beadwidth_s
+                </#if>
+                <#if category_s??>
+                     and CATEGORY_S=:category_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if checkno_s??>
+                     and CHECKNO_S=:checkno_s
+                </#if>
+                <#if comment_s??>
+                     and COMMENT_S=:comment_s
+                </#if>
+                <#if con_s??>
+                     and CON_S=:con_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if description_s??>
+                     and DESCRIPTION_S=:description_s
+                </#if>
+                <#if dyn_1_plane_s??>
+                     and DYN_1_PLANE_S=:dyn_1_plane_s
+                </#if>
+                <#if dyn_2_planes_s??>
+                     and DYN_2_PLANES_S=:dyn_2_planes_s
+                </#if>
+                <#if grade_s??>
+                     and GRADE_S=:grade_s
+                </#if>
+                <#if hierarchy_s??>
+                     and HIERARCHY_S=:hierarchy_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if insidediameter_s??>
+                     and INSIDEDIAMETER_S=:insidediameter_s
+                </#if>
+                <#if lb_bulging_s??>
+                     and LB_Bulging_S=:lb_bulging_s
+                </#if>
+                <#if lb_dent_s??>
+                     and LB_Dent_S=:lb_dent_s
+                </#if>
+                <#if lfv_s??>
+                     and LFV_S=:lfv_s
+                </#if>
+                <#if lro_s??>
+                     and LRO_S=:lro_s
+                </#if>
+                <#if lt_bulging_s??>
+                     and LT_Bulging_S=:lt_bulging_s
+                </#if>
+                <#if lt_dent_s??>
+                     and LT_Dent_S=:lt_dent_s
+                </#if>
+                <#if load_s??>
+                     and Load_S=:load_s
+                </#if>
+                <#if max_diameter_s??>
+                     and MAX_Diameter_S=:max_diameter_s
+                </#if>
+                <#if min_diameter_s??>
+                     and MIN_Diameter_S=:min_diameter_s
+                </#if>
+                <#if markingradius_1_s??>
+                     and MarkingRadius_1_S=:markingradius_1_s
+                </#if>
+                <#if markingradius_2_s??>
+                     and MarkingRadius_2_S=:markingradius_2_s
+                </#if>
+                <#if markingradius_3_s??>
+                     and MarkingRadius_3_S=:markingradius_3_s
+                </#if>
+                <#if markingradius_4_s??>
+                     and MarkingRadius_4_S=:markingradius_4_s
+                </#if>
+                <#if markingradius_5_s??>
+                     and MarkingRadius_5_S=:markingradius_5_s
+                </#if>
+                <#if outsidediameter_s??>
+                     and OutsideDiameter_S=:outsidediameter_s
+                </#if>
+                <#if pattern_s??>
+                     and PATTERN_S=:pattern_s
+                </#if>
+                <#if pressure_s??>
+                     and PRESSURE_S=:pressure_s
+                </#if>
+                <#if recipeno_s??>
+                     and RECIPENO_S=:recipeno_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if rfv_s??>
+                     and RFV_S=:rfv_s
+                </#if>
+                <#if rih_s??>
+                     and RIH_S=:rih_s
+                </#if>
+                <#if rro_s??>
+                     and RRO_S=:rro_s
+                </#if>
+                <#if sap_code_s??>
+                     and SAP_CODE_S=:sap_code_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if specification_s??>
+                     and SPECIFICATION_S=:specification_s
+                </#if>
+                <#if staticbalance_s??>
+                     and STATICBALANCE_S=:staticbalance_s
+                </#if>
+                <#if sync_create_time_t??>
+                     and SYNC_CREATE_TIME_T=:sync_create_time_t
+                </#if>
+                <#if sync_flag_s??>
+                     and SYNC_FLAG_S=:sync_flag_s
+                </#if>
+                <#if sync_hand_flag_s??>
+                     and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                </#if>
+                <#if sync_hand_msg_s??>
+                     and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                </#if>
+                <#if sync_hand_time_t??>
+                     and SYNC_HAND_TIME_T=:sync_hand_time_t
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tolerance_minus_s??>
+                     and TOLERANCE_MINUS_S=:tolerance_minus_s
+                </#if>
+                <#if tolerance_positive_s??>
+                     and TOLERANCE_POSITIVE_S=:tolerance_positive_s
+                </#if>
+                <#if tyrewidth_s??>
+                     and TYREWIDTH_S=:tyrewidth_s
+                </#if>
+                <#if tyrespecification_s??>
+                     and TyreSpecification_S=:tyrespecification_s
+                </#if>
+                <#if widthoftyresection_s??>
+                     and WidthOfTyreSection_S=:widthoftyresection_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_D_BS_RECIPEJUDGE_LOG where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if airpressure_s??>
+                         and AIRPRESSURE_S=:airpressure_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if beadwidth_s??>
+                         and BEADWIDTH_S=:beadwidth_s
+                    </#if>
+                    <#if category_s??>
+                         and CATEGORY_S=:category_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if checkno_s??>
+                         and CHECKNO_S=:checkno_s
+                    </#if>
+                    <#if comment_s??>
+                         and COMMENT_S=:comment_s
+                    </#if>
+                    <#if con_s??>
+                         and CON_S=:con_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if description_s??>
+                         and DESCRIPTION_S=:description_s
+                    </#if>
+                    <#if dyn_1_plane_s??>
+                         and DYN_1_PLANE_S=:dyn_1_plane_s
+                    </#if>
+                    <#if dyn_2_planes_s??>
+                         and DYN_2_PLANES_S=:dyn_2_planes_s
+                    </#if>
+                    <#if grade_s??>
+                         and GRADE_S=:grade_s
+                    </#if>
+                    <#if hierarchy_s??>
+                         and HIERARCHY_S=:hierarchy_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if insidediameter_s??>
+                         and INSIDEDIAMETER_S=:insidediameter_s
+                    </#if>
+                    <#if lb_bulging_s??>
+                         and LB_Bulging_S=:lb_bulging_s
+                    </#if>
+                    <#if lb_dent_s??>
+                         and LB_Dent_S=:lb_dent_s
+                    </#if>
+                    <#if lfv_s??>
+                         and LFV_S=:lfv_s
+                    </#if>
+                    <#if lro_s??>
+                         and LRO_S=:lro_s
+                    </#if>
+                    <#if lt_bulging_s??>
+                         and LT_Bulging_S=:lt_bulging_s
+                    </#if>
+                    <#if lt_dent_s??>
+                         and LT_Dent_S=:lt_dent_s
+                    </#if>
+                    <#if load_s??>
+                         and Load_S=:load_s
+                    </#if>
+                    <#if max_diameter_s??>
+                         and MAX_Diameter_S=:max_diameter_s
+                    </#if>
+                    <#if min_diameter_s??>
+                         and MIN_Diameter_S=:min_diameter_s
+                    </#if>
+                    <#if markingradius_1_s??>
+                         and MarkingRadius_1_S=:markingradius_1_s
+                    </#if>
+                    <#if markingradius_2_s??>
+                         and MarkingRadius_2_S=:markingradius_2_s
+                    </#if>
+                    <#if markingradius_3_s??>
+                         and MarkingRadius_3_S=:markingradius_3_s
+                    </#if>
+                    <#if markingradius_4_s??>
+                         and MarkingRadius_4_S=:markingradius_4_s
+                    </#if>
+                    <#if markingradius_5_s??>
+                         and MarkingRadius_5_S=:markingradius_5_s
+                    </#if>
+                    <#if outsidediameter_s??>
+                         and OutsideDiameter_S=:outsidediameter_s
+                    </#if>
+                    <#if pattern_s??>
+                         and PATTERN_S=:pattern_s
+                    </#if>
+                    <#if pressure_s??>
+                         and PRESSURE_S=:pressure_s
+                    </#if>
+                    <#if recipeno_s??>
+                         and RECIPENO_S=:recipeno_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if rfv_s??>
+                         and RFV_S=:rfv_s
+                    </#if>
+                    <#if rih_s??>
+                         and RIH_S=:rih_s
+                    </#if>
+                    <#if rro_s??>
+                         and RRO_S=:rro_s
+                    </#if>
+                    <#if sap_code_s??>
+                         and SAP_CODE_S=:sap_code_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if specification_s??>
+                         and SPECIFICATION_S=:specification_s
+                    </#if>
+                    <#if staticbalance_s??>
+                         and STATICBALANCE_S=:staticbalance_s
+                    </#if>
+                    <#if sync_create_time_t??>
+                         and SYNC_CREATE_TIME_T=:sync_create_time_t
+                    </#if>
+                    <#if sync_flag_s??>
+                         and SYNC_FLAG_S=:sync_flag_s
+                    </#if>
+                    <#if sync_hand_flag_s??>
+                         and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                    </#if>
+                    <#if sync_hand_msg_s??>
+                         and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                    </#if>
+                    <#if sync_hand_time_t??>
+                         and SYNC_HAND_TIME_T=:sync_hand_time_t
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tolerance_minus_s??>
+                         and TOLERANCE_MINUS_S=:tolerance_minus_s
+                    </#if>
+                    <#if tolerance_positive_s??>
+                         and TOLERANCE_POSITIVE_S=:tolerance_positive_s
+                    </#if>
+                    <#if tyrewidth_s??>
+                         and TYREWIDTH_S=:tyrewidth_s
+                    </#if>
+                    <#if tyrespecification_s??>
+                         and TyreSpecification_S=:tyrespecification_s
+                    </#if>
+                    <#if widthoftyresection_s??>
+                         and WidthOfTyreSection_S=:widthoftyresection_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

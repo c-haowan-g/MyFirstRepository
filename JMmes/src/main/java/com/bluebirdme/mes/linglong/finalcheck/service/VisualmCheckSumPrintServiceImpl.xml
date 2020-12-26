@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_C_MM_MAINTYRE where 1=1 and visualgradecode_s is not null
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if barcode_s??>
+                     and BARCODE_S=:barcode_s
+                </#if>
+                <#if blistercode_s??>
+                     and BLISTERCODE_S=:blistercode_s
+                </#if>
+                <#if blistercount_i??>
+                     and BLISTERCOUNT_I=:blistercount_i
+                </#if>
+                <#if blistergradecode_s??>
+                     and BLISTERGRADECODE_S=:blistergradecode_s
+                </#if>
+                <#if blistermbarcode_s??>
+                     and BLISTERMBARCODE_S=:blistermbarcode_s
+                </#if>
+                <#if blisterpasstime_t??>
+                     and BLISTERPASSTIME_T=:blisterpasstime_t
+                </#if>
+                <#if blisteruserid_s??>
+                     and BLISTERUSERID_S=:blisteruserid_s
+                </#if>
+                <#if buildingfirstflag_s??>
+                     and BUILDINGFIRSTFLAG_S=:buildingfirstflag_s
+                </#if>
+                <#if buildingradecode_s??>
+                     and BUILDINGRADECODE_S=:buildingradecode_s
+                </#if>
+                <#if buildingspeccode_s??>
+                     and BUILDINGSPECCODE_S=:buildingspeccode_s
+                </#if>
+                <#if buildingtaskid_s??>
+                     and BUILDINGTASKID_S=:buildingtaskid_s
+                </#if>
+                <#if buildingtime_t??>
+                     and BUILDINGTIME_T=:buildingtime_t
+                </#if>
+                <#if buildinmachinecode_s??>
+                     and BUILDINMACHINECODE_S=:buildinmachinecode_s
+                </#if>
+                <#if cagenumber_s??>
+                     and CAGENUMBER_S=:cagenumber_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if curingclosemouldtime_t??>
+                     and CURINGCLOSEMOULDTIME_T=:curingclosemouldtime_t
+                </#if>
+                <#if curingfirstflag_s??>
+                     and CURINGFIRSTFLAG_S=:curingfirstflag_s
+                </#if>
+                <#if curinggradecode_s??>
+                     and CURINGGRADECODE_S=:curinggradecode_s
+                </#if>
+                <#if curingmachinecode_s??>
+                     and CURINGMACHINECODE_S=:curingmachinecode_s
+                </#if>
+                <#if curingopenmouldtime_t??>
+                     and CURINGOPENMOULDTIME_T=:curingopenmouldtime_t
+                </#if>
+                <#if curingspeccode_s??>
+                     and CURINGSPECCODE_S=:curingspeccode_s
+                </#if>
+                <#if curingtimedelay_s??>
+                     and CURINGTIMEDELAY_S=:curingtimedelay_s
+                </#if>
+                <#if curinguserid_s??>
+                     and CURINGUSERID_S=:curinguserid_s
+                </#if>
+                <#if doubtflag_s??>
+                     and DOUBTFLAG_S=:doubtflag_s
+                </#if>
+                <#if dynamicbalancecount_i??>
+                     and DYNAMICBALANCECOUNT_I=:dynamicbalancecount_i
+                </#if>
+                <#if dynamicbalancegradecode_s??>
+                     and DYNAMICBALANCEGRADECODE_S=:dynamicbalancegradecode_s
+                </#if>
+                <#if dynamicbalanceindex_i??>
+                     and DYNAMICBALANCEINDEX_I=:dynamicbalanceindex_i
+                </#if>
+                <#if dynamicbalancembarcode_s??>
+                     and DYNAMICBALANCEMBARCODE_S=:dynamicbalancembarcode_s
+                </#if>
+                <#if dynamicbalancepasstime_t??>
+                     and DYNAMICBALANCEPASSTIME_T=:dynamicbalancepasstime_t
+                </#if>
+                <#if dynamicbalancereascode_s??>
+                     and DYNAMICBALANCEREASCODE_S=:dynamicbalancereascode_s
+                </#if>
+                <#if dynamicbalanceuserid_s??>
+                     and DYNAMICBALANCEUSERID_S=:dynamicbalanceuserid_s
+                </#if>
+                <#if gradecode_s??>
+                     and GRADECODE_S=:gradecode_s
+                </#if>
+                <#if grossweight_i??>
+                     and GROSSWEIGHT_I=:grossweight_i
+                </#if>
+                <#if hairscount_i??>
+                     and HAIRSCOUNT_I=:hairscount_i
+                </#if>
+                <#if hairsgradecode_s??>
+                     and HAIRSGRADECODE_S=:hairsgradecode_s
+                </#if>
+                <#if hairspasstime_t??>
+                     and HAIRSPASSTIME_T=:hairspasstime_t
+                </#if>
+                <#if handcount_i??>
+                     and HANDCOUNT_I=:handcount_i
+                </#if>
+                <#if handflag_s??>
+                     and HANDFLAG_S=:handflag_s
+                </#if>
+                <#if hollowedbarcode_s??>
+                     and HOLLOWEDBARCODE_S=:hollowedbarcode_s
+                </#if>
+                <#if integratedcode_s??>
+                     and INTEGRATEDCODE_S=:integratedcode_s
+                </#if>
+                <#if isrck_s??>
+                     and ISRCK_S=:isrck_s
+                </#if>
+                <#if proess_s??>
+                     and PROESS_S=:proess_s
+                </#if>
+                <#if reascode_s??>
+                     and REASCODE_S=:reascode_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if returnmsg_s??>
+                     and RETURNMSG_S=:returnmsg_s
+                </#if>
+                <#if returnstatus_s??>
+                     and RETURNSTATUS_S=:returnstatus_s
+                </#if>
+                <#if saletype_s??>
+                     and SALETYPE_S=:saletype_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if statecode_s??>
+                     and STATECODE_S=:statecode_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tackchecktime_t??>
+                     and TACKCHECKTIME_T=:tackchecktime_t
+                </#if>
+                <#if tackcheckuserid_s??>
+                     and TACKCHECKUSERID_S=:tackcheckuserid_s
+                </#if>
+                <#if totalreworknum_i??>
+                     and TOTALREWORKNUM_I=:totalreworknum_i
+                </#if>
+                <#if trackdirection_s??>
+                     and TRACKDIRECTION_S=:trackdirection_s
+                </#if>
+                <#if uniformitycount_i??>
+                     and UNIFORMITYCOUNT_I=:uniformitycount_i
+                </#if>
+                <#if uniformitygradecode_s??>
+                     and UNIFORMITYGRADECODE_S=:uniformitygradecode_s
+                </#if>
+                <#if uniformityindex_i??>
+                     and UNIFORMITYINDEX_I=:uniformityindex_i
+                </#if>
+                <#if uniformitymbarcode_s??>
+                     and UNIFORMITYMBARCODE_S=:uniformitymbarcode_s
+                </#if>
+                <#if uniformitypasstime_t??>
+                     and UNIFORMITYPASSTIME_T=:uniformitypasstime_t
+                </#if>
+                <#if uniformityreascode_s??>
+                     and UNIFORMITYREASCODE_S=:uniformityreascode_s
+                </#if>
+                <#if uniformityuserid_s??>
+                     and UNIFORMITYUSERID_S=:uniformityuserid_s
+                </#if>
+                <#if visualcount_i??>
+                     and VISUALCOUNT_I=:visualcount_i
+                </#if>
+                <#if visuald1_s??>
+                     and VISUALD1_S=:visuald1_s
+                </#if>
+                <#if visuald3_s??>
+                     and VISUALD3_S=:visuald3_s
+                </#if>
+                <#if visualgradecode_s??>
+                     and VISUALGRADECODE_S=:visualgradecode_s
+                </#if>
+                <#if visualmbarcode1_s??>
+                     and VISUALMBARCODE1_S=:visualmbarcode1_s
+                </#if>
+                <#if visualmbarcode2_s??>
+                     and VISUALMBARCODE2_S=:visualmbarcode2_s
+                </#if>
+               <#if begin_created_time??&&end_created_time??>
+               	  and CM.visualpasstime_t between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				  and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+				</#if>
+                <#if visualuserid1_s??>
+                     and VISUALUSERID1_S=:visualuserid1_s
+                </#if>
+                <#if visualuserid2_s??>
+                     and VISUALUSERID2_S=:visualuserid2_s
+                </#if>
+                <#if weeklynumber_s??>
+                     and WEEKLYNUMBER_S=:weeklynumber_s
+                </#if>
+                <#if xlightcount_i??>
+                     and XLIGHTCOUNT_I=:xlightcount_i
+                </#if>
+                <#if xlightgradecode_s??>
+                     and XLIGHTGRADECODE_S=:xlightgradecode_s
+                </#if>
+                <#if xlightindex_i??>
+                     and XLIGHTINDEX_I=:xlightindex_i
+                </#if>
+                <#if xlightmbarcode_s??>
+                     and XLIGHTMBARCODE_S=:xlightmbarcode_s
+                </#if>
+                <#if xlightpasstime_t??>
+                     and XLIGHTPASSTIME_T=:xlightpasstime_t
+                </#if>
+                <#if xlightreascode_s??>
+                     and XLIGHTREASCODE_S=:xlightreascode_s
+                </#if>
+                <#if xlightuserid_s??>
+                     and XLIGHTUSERID_S=:xlightuserid_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_C_MM_MAINTYRE where 1=1 and visualgradecode_s is not null
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if blistercode_s??>
+                         and BLISTERCODE_S=:blistercode_s
+                    </#if>
+                    <#if blistercount_i??>
+                         and BLISTERCOUNT_I=:blistercount_i
+                    </#if>
+                    <#if blistergradecode_s??>
+                         and BLISTERGRADECODE_S=:blistergradecode_s
+                    </#if>
+                    <#if blistermbarcode_s??>
+                         and BLISTERMBARCODE_S=:blistermbarcode_s
+                    </#if>
+                    <#if blisterpasstime_t??>
+                         and BLISTERPASSTIME_T=:blisterpasstime_t
+                    </#if>
+                    <#if blisteruserid_s??>
+                         and BLISTERUSERID_S=:blisteruserid_s
+                    </#if>
+                    <#if buildingfirstflag_s??>
+                         and BUILDINGFIRSTFLAG_S=:buildingfirstflag_s
+                    </#if>
+                    <#if buildingradecode_s??>
+                         and BUILDINGRADECODE_S=:buildingradecode_s
+                    </#if>
+                    <#if buildingspeccode_s??>
+                         and BUILDINGSPECCODE_S=:buildingspeccode_s
+                    </#if>
+                    <#if buildingtaskid_s??>
+                         and BUILDINGTASKID_S=:buildingtaskid_s
+                    </#if>
+                    <#if buildingtime_t??>
+                         and BUILDINGTIME_T=:buildingtime_t
+                    </#if>
+                    <#if buildinmachinecode_s??>
+                         and BUILDINMACHINECODE_S=:buildinmachinecode_s
+                    </#if>
+                    <#if cagenumber_s??>
+                         and CAGENUMBER_S=:cagenumber_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if curingclosemouldtime_t??>
+                         and CURINGCLOSEMOULDTIME_T=:curingclosemouldtime_t
+                    </#if>
+                    <#if curingfirstflag_s??>
+                         and CURINGFIRSTFLAG_S=:curingfirstflag_s
+                    </#if>
+                    <#if curinggradecode_s??>
+                         and CURINGGRADECODE_S=:curinggradecode_s
+                    </#if>
+                    <#if curingmachinecode_s??>
+                         and CURINGMACHINECODE_S=:curingmachinecode_s
+                    </#if>
+                    <#if curingopenmouldtime_t??>
+                         and CURINGOPENMOULDTIME_T=:curingopenmouldtime_t
+                    </#if>
+                    <#if curingspeccode_s??>
+                         and CURINGSPECCODE_S=:curingspeccode_s
+                    </#if>
+                    <#if curingtimedelay_s??>
+                         and CURINGTIMEDELAY_S=:curingtimedelay_s
+                    </#if>
+                    <#if curinguserid_s??>
+                         and CURINGUSERID_S=:curinguserid_s
+                    </#if>
+                    <#if doubtflag_s??>
+                         and DOUBTFLAG_S=:doubtflag_s
+                    </#if>
+                    <#if dynamicbalancecount_i??>
+                         and DYNAMICBALANCECOUNT_I=:dynamicbalancecount_i
+                    </#if>
+                    <#if dynamicbalancegradecode_s??>
+                         and DYNAMICBALANCEGRADECODE_S=:dynamicbalancegradecode_s
+                    </#if>
+                    <#if dynamicbalanceindex_i??>
+                         and DYNAMICBALANCEINDEX_I=:dynamicbalanceindex_i
+                    </#if>
+                    <#if dynamicbalancembarcode_s??>
+                         and DYNAMICBALANCEMBARCODE_S=:dynamicbalancembarcode_s
+                    </#if>
+                    <#if dynamicbalancepasstime_t??>
+                         and DYNAMICBALANCEPASSTIME_T=:dynamicbalancepasstime_t
+                    </#if>
+                    <#if dynamicbalancereascode_s??>
+                         and DYNAMICBALANCEREASCODE_S=:dynamicbalancereascode_s
+                    </#if>
+                    <#if dynamicbalanceuserid_s??>
+                         and DYNAMICBALANCEUSERID_S=:dynamicbalanceuserid_s
+                    </#if>
+                    <#if gradecode_s??>
+                         and GRADECODE_S=:gradecode_s
+                    </#if>
+                    <#if grossweight_i??>
+                         and GROSSWEIGHT_I=:grossweight_i
+                    </#if>
+                    <#if hairscount_i??>
+                         and HAIRSCOUNT_I=:hairscount_i
+                    </#if>
+                    <#if hairsgradecode_s??>
+                         and HAIRSGRADECODE_S=:hairsgradecode_s
+                    </#if>
+                    <#if hairspasstime_t??>
+                         and HAIRSPASSTIME_T=:hairspasstime_t
+                    </#if>
+                    <#if handcount_i??>
+                         and HANDCOUNT_I=:handcount_i
+                    </#if>
+                    <#if handflag_s??>
+                         and HANDFLAG_S=:handflag_s
+                    </#if>
+                    <#if hollowedbarcode_s??>
+                         and HOLLOWEDBARCODE_S=:hollowedbarcode_s
+                    </#if>
+                    <#if integratedcode_s??>
+                         and INTEGRATEDCODE_S=:integratedcode_s
+                    </#if>
+                    <#if isrck_s??>
+                         and ISRCK_S=:isrck_s
+                    </#if>
+                    <#if proess_s??>
+                         and PROESS_S=:proess_s
+                    </#if>
+                    <#if reascode_s??>
+                         and REASCODE_S=:reascode_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if returnmsg_s??>
+                         and RETURNMSG_S=:returnmsg_s
+                    </#if>
+                    <#if returnstatus_s??>
+                         and RETURNSTATUS_S=:returnstatus_s
+                    </#if>
+                    <#if saletype_s??>
+                         and SALETYPE_S=:saletype_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if statecode_s??>
+                         and STATECODE_S=:statecode_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tackchecktime_t??>
+                         and TACKCHECKTIME_T=:tackchecktime_t
+                    </#if>
+                    <#if tackcheckuserid_s??>
+                         and TACKCHECKUSERID_S=:tackcheckuserid_s
+                    </#if>
+                    <#if totalreworknum_i??>
+                         and TOTALREWORKNUM_I=:totalreworknum_i
+                    </#if>
+                    <#if trackdirection_s??>
+                         and TRACKDIRECTION_S=:trackdirection_s
+                    </#if>
+                    <#if uniformitycount_i??>
+                         and UNIFORMITYCOUNT_I=:uniformitycount_i
+                    </#if>
+                    <#if uniformitygradecode_s??>
+                         and UNIFORMITYGRADECODE_S=:uniformitygradecode_s
+                    </#if>
+                    <#if uniformityindex_i??>
+                         and UNIFORMITYINDEX_I=:uniformityindex_i
+                    </#if>
+                    <#if uniformitymbarcode_s??>
+                         and UNIFORMITYMBARCODE_S=:uniformitymbarcode_s
+                    </#if>
+                    <#if uniformitypasstime_t??>
+                         and UNIFORMITYPASSTIME_T=:uniformitypasstime_t
+                    </#if>
+                    <#if uniformityreascode_s??>
+                         and UNIFORMITYREASCODE_S=:uniformityreascode_s
+                    </#if>
+                    <#if uniformityuserid_s??>
+                         and UNIFORMITYUSERID_S=:uniformityuserid_s
+                    </#if>
+                    <#if visualcount_i??>
+                         and VISUALCOUNT_I=:visualcount_i
+                    </#if>
+                    <#if visuald1_s??>
+                         and VISUALD1_S=:visuald1_s
+                    </#if>
+                    <#if visuald3_s??>
+                         and VISUALD3_S=:visuald3_s
+                    </#if>
+                    <#if visualgradecode_s??>
+                         and VISUALGRADECODE_S=:visualgradecode_s
+                    </#if>
+                    <#if visualmbarcode1_s??>
+                         and VISUALMBARCODE1_S=:visualmbarcode1_s
+                    </#if>
+                    <#if visualmbarcode2_s??>
+                         and VISUALMBARCODE2_S=:visualmbarcode2_s
+                    </#if>
+                    <#if visualpasstime_t??>
+                         and VISUALPASSTIME_T=:visualpasstime_t
+                    </#if>
+                    <#if visualuserid1_s??>
+                         and VISUALUSERID1_S=:visualuserid1_s
+                    </#if>
+                    <#if visualuserid2_s??>
+                         and VISUALUSERID2_S=:visualuserid2_s
+                    </#if>
+                    <#if weeklynumber_s??>
+                         and WEEKLYNUMBER_S=:weeklynumber_s
+                    </#if>
+                    <#if xlightcount_i??>
+                         and XLIGHTCOUNT_I=:xlightcount_i
+                    </#if>
+                    <#if xlightgradecode_s??>
+                         and XLIGHTGRADECODE_S=:xlightgradecode_s
+                    </#if>
+                    <#if xlightindex_i??>
+                         and XLIGHTINDEX_I=:xlightindex_i
+                    </#if>
+                    <#if xlightmbarcode_s??>
+                         and XLIGHTMBARCODE_S=:xlightmbarcode_s
+                    </#if>
+                    <#if xlightpasstime_t??>
+                         and XLIGHTPASSTIME_T=:xlightpasstime_t
+                    </#if>
+                    <#if xlightreascode_s??>
+                         and XLIGHTREASCODE_S=:xlightreascode_s
+                    </#if>
+                    <#if xlightuserid_s??>
+                         and XLIGHTUSERID_S=:xlightuserid_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_rows2">
+        <![CDATA[
+          	SELECT
+	PA.PART_NUMBER AS materialcode_s,
+	PA.DESCRIPTION AS materialspec_s,
+	A .TYREBARCODE_S AS barcode_s,
+	B.machinecode_s AS buildinmachinecode_s,
+	U1.USERNAME AS buildingtaskname_s,
+	B.OVERTIME_T AS buildingtime_t,
+	C.MACHINECODE_S AS curingmachinecode_s,
+	U2.USERNAME AS curingusername_s,
+	C.ATPRESENTGRADECODE_S AS curinggradecode_s,
+	C.OVERTIME_T AS curingopenmouldtime_t,
+	U3.USERNAME AS visualusername_s,
+	E .VISUALVAR_S AS visualmbarcode1_s,
+	E .GRADECD_S AS visualgradecode_s,
+	E .REASCD_S AS visualreascode_s,
+	E .OPERTIME_T AS visualpasstime_t,
+	F.machinecode_s AS xraycode_s,
+	U4.USERNAME AS xrayname_s,
+	F.OVERTIME_T AS xraytime_t,
+	F.REASCODE_S AS xrayreascode_s,
+	F.ATPRESENTGRADECODE_S AS xraygradecode_s,
+	G .machinecode_s AS dynamicbalancecode_s,
+	U5.USERNAME AS dynamicbalancename_s,
+	G .OVERTIME_T AS dynamicbalancetime_t,
+	G .REASCODE_S AS dynamicbalancereascode_s,
+	G .ATPRESENTGRADECODE_S AS dynamicbalancegradecode_s,
+	R.APPEARANCEJUDGE_TIME_T AS APPEARANCEJUDGE_TIME_T
+FROM
+	(
+		SELECT
+			TYREBARCODE_S,
+			MIN (PROESS_S) AS PROESS_S,
+			MIN (MATERIALCODE_S) AS MATERIALCODE_S
+		FROM
+			AT_C_MM_CURING_MAINTYRE X
+		WHERE
+			1 = 1
+		AND ATPRESENTGRADECODE_S IN ('253006', '253012', '253013')
+		AND AGENC_NO_S =:agenc_no_s
+		AND s_factory_s =:s_factory_s
+		GROUP BY
+			TYREBARCODE_S
+	) A
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252005'
+) B ON A .TYREBARCODE_S = B.TYREBARCODE_S
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252006'
+) c ON A .TYREBARCODE_S = C.TYREBARCODE_S
+LEFT JOIN (
+	SELECT
+	*  
+FROM
+	AT_D_QM_DETIAL D
+WHERE
+	PROESS_S = '252008'
+AND D .OPERTIME_T IN (
+	SELECT
+		MAX (OPERTIME_T)
+	FROM
+		AT_D_QM_DETIAL D WHERE  PROESS_S='252008' GROUP BY BARCODE_S
+	 
+)
+) E ON A .TYREBARCODE_S = E . BARCODE_S
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252009'
+) F ON A .TYREBARCODE_S = F.TYREBARCODE_S
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252010'
+) G ON A .TYREBARCODE_S = G .TYREBARCODE_S
+LEFT JOIN PART PA ON A .MATERIALCODE_S = PA.PART_NUMBER
+LEFT JOIN CORE_USER U1 ON B.USERID_S = u1.USERCODE
+LEFT JOIN CORE_USER U2 ON C.USERID_S = u2.USERCODE
+LEFT JOIN CORE_USER U3 ON E .OPERBY_S = u3.USERCODE
+LEFT JOIN CORE_USER U4 ON F.USERID_S = u4.USERCODE
+LEFT JOIN CORE_USER U5 ON G .USERID_S = u5.USERCODE
+LEFT JOIN AT_REVISION_WORK_RESUME R ON A.TYREBARCODE_S=R.BARCODE_S
+
+WHERE
+	1=1
+
+           <#if begin_created_time_building??&&end_created_time_building??>
+            	 and B.OVERTIME_T  between TO_DATE(:begin_created_time_building,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_building,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           <#if begin_created_time_curing??&&end_created_time_curing??>
+           		 and C.OVERTIME_T  between TO_DATE(:begin_created_time_curing,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_curing,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>  
+		   <#if begin_created_time_visual??&&end_created_time_visual??>
+			     and E.OPERTIME_T between TO_DATE(:begin_created_time_visual,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_visual,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           
+             <#if begin_created_time_rev??&&end_created_time_rev??>
+			     and R.APPEARANCEJUDGE_TIME_T between TO_DATE(:begin_created_time_rev,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_rev,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           
+           <#if begin_created_time_xray??&&end_created_time_xray??>
+            	 and F.OVERTIME_T  between TO_DATE(:begin_created_time_xray,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_xray,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           <#if begin_created_time_dynamicbalance??&&end_created_time_dynamicbalance??>
+            	 and G.OVERTIME_T  between TO_DATE(:begin_created_time_dynamicbalance,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_dynamicbalance,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           <#if barcode_s??>
+                 and A.TYREBARCODE_S=:barcode_s
+           </#if>
+           <#if materialcode_s??>
+                 and PA.PART_NUMBER=:materialcode_s
+           </#if>
+           <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                  
+ORDER BY
+	B.OVERTIME_T,
+	C.OVERTIME_T,
+	E .OPERTIME_T,
+	F.OVERTIME_T,
+	G .OVERTIME_T DESC
+           </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total2">
+        <![CDATA[
+           SELECT
+				COUNT(1)
+					FROM(
+						SELECT
+	PA.PART_NUMBER AS materialcode_s,
+	PA.DESCRIPTION AS materialspec_s,
+	A .TYREBARCODE_S AS barcode_s,
+	B.machinecode_s AS buildinmachinecode_s,
+	U1.USERNAME AS buildingtaskname_s,
+	B.OVERTIME_T AS buildingtime_t,
+	C.MACHINECODE_S AS curingmachinecode_s,
+	U2.USERNAME AS curingusername_s,
+	C.ATPRESENTGRADECODE_S AS curinggradecode_s,
+	C.OVERTIME_T AS curingopenmouldtime_t,
+	U3.USERNAME AS visualusername_s,
+	E .VISUALVAR_S AS visualmbarcode1_s,
+	E .GRADECD_S AS visualgradecode_s,
+	E .REASCD_S AS visualreascode_s,
+	E .OPERTIME_T AS visualpasstime_t,
+	F.machinecode_s AS xraycode_s,
+	U4.USERNAME AS xrayname_s,
+	F.OVERTIME_T AS xraytime_t,
+	F.REASCODE_S AS xrayreascode_s,
+	F.ATPRESENTGRADECODE_S AS xraygradecode_s,
+	G .machinecode_s AS dynamicbalancecode_s,
+	U5.USERNAME AS dynamicbalancename_s,
+	G .OVERTIME_T AS dynamicbalancetime_t,
+	G .REASCODE_S AS dynamicbalancereascode_s,
+	G .ATPRESENTGRADECODE_S AS dynamicbalancegradecode_s,
+	R.APPEARANCEJUDGE_TIME_T AS APPEARANCEJUDGE_TIME_T
+FROM
+	(
+		SELECT
+			TYREBARCODE_S,
+			MIN (PROESS_S) AS PROESS_S,
+			MIN (MATERIALCODE_S) AS MATERIALCODE_S
+		FROM
+			AT_C_MM_CURING_MAINTYRE X
+		WHERE
+			1 = 1
+		AND ATPRESENTGRADECODE_S IN ('253006', '253012', '253013')
+		AND AGENC_NO_S =:agenc_no_s
+		AND s_factory_s =:s_factory_s
+		GROUP BY
+			TYREBARCODE_S
+	) A
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252005'
+) B ON A .TYREBARCODE_S = B.TYREBARCODE_S
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252006'
+) c ON A .TYREBARCODE_S = C.TYREBARCODE_S
+LEFT JOIN (
+	SELECT
+	*  
+FROM
+	AT_D_QM_DETIAL D
+WHERE
+	PROESS_S = '252008'
+AND D .OPERTIME_T IN (
+	SELECT
+		MAX (OPERTIME_T)
+	FROM
+		AT_D_QM_DETIAL D WHERE  PROESS_S='252008' GROUP BY BARCODE_S
+	 
+)
+) E ON A .TYREBARCODE_S = E . BARCODE_S
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252009'
+) F ON A .TYREBARCODE_S = F.TYREBARCODE_S
+LEFT JOIN (
+	SELECT
+		*
+	FROM
+		AT_C_MM_CURING_MAINTYRE
+	WHERE
+		PROESS_S = '252010'
+) G ON A .TYREBARCODE_S = G .TYREBARCODE_S
+LEFT JOIN PART PA ON A .MATERIALCODE_S = PA.PART_NUMBER
+LEFT JOIN CORE_USER U1 ON B.USERID_S = u1.USERCODE
+LEFT JOIN CORE_USER U2 ON C.USERID_S = u2.USERCODE
+LEFT JOIN CORE_USER U3 ON E .OPERBY_S = u3.USERCODE
+LEFT JOIN CORE_USER U4 ON F.USERID_S = u4.USERCODE
+LEFT JOIN CORE_USER U5 ON G .USERID_S = u5.USERCODE
+LEFT JOIN AT_REVISION_WORK_RESUME R ON A.TYREBARCODE_S=R.BARCODE_S
+WHERE
+	1=1
+
+           <#if begin_created_time_building??&&end_created_time_building??>
+            	 and B.OVERTIME_T  between TO_DATE(:begin_created_time_building,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_building,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           <#if begin_created_time_curing??&&end_created_time_curing??>
+           		 and C.OVERTIME_T  between TO_DATE(:begin_created_time_curing,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_curing,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>  
+		   <#if begin_created_time_visual??&&end_created_time_visual??>
+			     and E.OPERTIME_T between TO_DATE(:begin_created_time_visual,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_visual,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           
+           
+           <#if begin_created_time_rev??&&end_created_time_rev??>
+			     and R.APPEARANCEJUDGE_TIME_T between TO_DATE(:begin_created_time_rev,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_rev,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           
+           <#if begin_created_time_xray??&&end_created_time_xray??>
+            	 and F.OVERTIME_T  between TO_DATE(:begin_created_time_xray,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_xray,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           <#if begin_created_time_dynamicbalance??&&end_created_time_dynamicbalance??>
+            	 and G.OVERTIME_T  between TO_DATE(:begin_created_time_dynamicbalance,'YYYY-mm-dd HH24:MI:SS')
+				 and TO_DATE(:end_created_time_dynamicbalance,'YYYY-mm-dd HH24:MI:SS') 
+           </#if>
+           <#if barcode_s??>
+                 and A.TYREBARCODE_S=:barcode_s
+           </#if>
+           <#if materialcode_s??>
+                 and PA.PART_NUMBER=:materialcode_s
+           </#if>
+           <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                  
+ORDER BY
+	B.OVERTIME_T,
+	C.OVERTIME_T,
+	E .OPERTIME_T,
+	F.OVERTIME_T,
+	G .OVERTIME_T DESC
+           </#if>
+			)
+				
+        ]]>
+    </sql>
+    
+</sqls>

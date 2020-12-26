@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select a.barcode_s,a.appearancejudge_time_t,a.curinggradecode_s,a.curingspeccode_s,
+            CONCAT(a.operator_s,
+            u.USERNAME) as operator_s 
+            from AT_D_QM_APPEARANCEJUDGEWORK a ,CORE_USER u where a.operator_s=u.usercode(+) 
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if appearancejudge_time_t??>
+                     and APPEARANCEJUDGE_TIME_T=:appearancejudge_time_t
+                </#if>
+                <#if begin_created_time?? && end_created_time??>
+               		and to_char(APPEARANCEJUDGE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+               		:begin_created_time and :end_created_time
+              	</#if>
+                <#if barcode_s??>
+                     and BARCODE_S=:barcode_s
+                </#if>
+                <#if curinggradecode_s??>
+                     and CURINGGRADECODE_S=:curinggradecode_s
+                </#if>
+                <#if curingspeccode_s??>
+                     and CURINGSPECCODE_S=:curingspeccode_s
+                </#if>
+                <#if operator_s??>
+                     and OPERATOR_S=:operator_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_D_QM_APPEARANCEJUDGEWORK where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if appearancejudge_time_t??>
+                         and APPEARANCEJUDGE_TIME_T=:appearancejudge_time_t
+                    </#if>
+                    <#if begin_created_time?? && end_created_time??>
+               		and to_char(APPEARANCEJUDGE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+               		:begin_created_time and :end_created_time
+              	</#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if curinggradecode_s??>
+                         and CURINGGRADECODE_S=:curinggradecode_s
+                    </#if>
+                    <#if curingspeccode_s??>
+                         and CURINGSPECCODE_S=:curingspeccode_s
+                    </#if>
+                    <#if operator_s??>
+                         and OPERATOR_S=:operator_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

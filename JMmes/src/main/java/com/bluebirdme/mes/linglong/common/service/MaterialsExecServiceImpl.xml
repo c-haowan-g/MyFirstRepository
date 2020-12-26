@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+        <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_INT_SAP_MATERIALS_EXEC_HIS where 1=1
+                <#if baseunit_s??>
+                     and BaseUnit_S=:baseunit_s
+                </#if>
+                <#if brand_s??>
+                     and Brand_S=:brand_s
+                </#if>
+                <#if cj_s??>
+                     and CJ_S=:cj_s
+                </#if>
+                <#if ctime_s??>
+                     and CTIME_S=:ctime_s
+                </#if>
+                <#if cdate_s??>
+                     and Cdate_S=:cdate_s
+                </#if>
+                <#if companycode_s??>
+                     and CompanyCode_S=:companycode_s
+                </#if>
+                <#if division_s??>
+                     and Division_S=:division_s
+                </#if>
+                <#if dummy1_s??>
+                     and Dummy1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and Dummy2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and Dummy3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and Dummy4_S=:dummy4_s
+                </#if>
+                <#if ewbez_s??>
+                     and EWBEZ_S=:ewbez_s
+                </#if>
+                <#if extwg_s??>
+                     and EXTWG_S=:extwg_s
+                </#if>
+                <#if gissueunit_s??>
+                     and GIssueUnit_S=:gissueunit_s
+                </#if>
+                <#if hh_s??>
+                     and HH_S=:hh_s
+                </#if>
+                <#if hs_s??>
+                     and HS_S=:hs_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if isoeorre_s??>
+                     and ISOEORRE_S=:isoeorre_s
+                </#if>
+                <#if lbmc_s??>
+                     and LBMC_S=:lbmc_s
+                </#if>
+                <#if lotname_s??>
+                     and LotName_S=:lotname_s
+                </#if>
+                <#if matdescfull_en_s??>
+                     and MatDescFull_EN_S=:matdescfull_en_s
+                </#if>
+                <#if matdescfull_s??>
+                     and MatDescFull_S=:matdescfull_s
+                </#if>
+                <#if matdescfull_th_s??>
+                     and MatDescFull_TH_S=:matdescfull_th_s
+                </#if>
+                <#if matgrp_s??>
+                     and MatGrp_S=:matgrp_s
+                </#if>
+                <#if matstatus_s??>
+                     and MatStatus_S=:matstatus_s
+                </#if>
+                <#if mattyp_s??>
+                     and MatTyp_S=:mattyp_s
+                </#if>
+                <#if materialcode_s??>
+                     and MaterialCode_S=:materialcode_s
+                </#if>
+                <#if materialdesc_en_s??>
+                     and MaterialDesc_EN_S=:materialdesc_en_s
+                </#if>
+                <#if materialdesc_s??>
+                     and MaterialDesc_S=:materialdesc_s
+                </#if>
+                <#if materialdesc_th_s??>
+                     and MaterialDesc_TH_S=:materialdesc_th_s
+                </#if>
+                <#if materialgroup_s??>
+                     and MaterialGroup_S=:materialgroup_s
+                </#if>
+                <#if materialname_s??>
+                     and MaterialName_S=:materialname_s
+                </#if>
+                <#if materialpure_s??>
+                     and MaterialPure_S=:materialpure_s
+                </#if>
+                <#if materialshort_s??>
+                     and MaterialShort_S=:materialshort_s
+                </#if>
+                <#if materialspec_s??>
+                     and MaterialSpec_S=:materialspec_s
+                </#if>
+                <#if netheavy_f??>
+                     and NetHeavy_F=:netheavy_f
+                </#if>
+                <#if oldmatcode_s??>
+                     and OldMatCode_S=:oldmatcode_s
+                </#if>
+                <#if overdeliveryrate_f??>
+                     and OverDeliveryRate_F=:overdeliveryrate_f
+                </#if>
+                <#if pattern_s??>
+                     and Pattern_S=:pattern_s
+                </#if>
+                <#if plant_s??>
+                     and Plant_S=:plant_s
+                </#if>
+                <#if productunit_s??>
+                     and ProductUnit_S=:productunit_s
+                </#if>
+                <#if purchaseunit_s??>
+                     and PurchaseUnit_S=:purchaseunit_s
+                </#if>
+                <#if rategi2b_s??>
+                     and RateGI2b_S=:rategi2b_s
+                </#if>
+                <#if ratepp2b_s??>
+                     and RatePp2b_S=:ratepp2b_s
+                </#if>
+                <#if ratepr2b_s??>
+                     and RatePr2b_S=:ratepr2b_s
+                </#if>
+                <#if rateso2b_s??>
+                     and RateSo2b_S=:rateso2b_s
+                </#if>
+                <#if ratest2b_s??>
+                     and RateSt2b_S=:ratest2b_s
+                </#if>
+                <#if sobsl_s??>
+                     and SOBSL_S=:sobsl_s
+                </#if>
+                <#if spmc_s??>
+                     and SPMC_S=:spmc_s
+                </#if>
+                <#if synchronous_time_t??>
+                     and SYNCHRONOUS_TIME_T=:synchronous_time_t
+                </#if>
+               <#if start_time?? && end_time??>
+                 and SYNC_CREATE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                </#if>
+                <#if start_time?? && !end_time??>
+                     and SYNC_CREATE_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                </#if>
+                <#if !start_time?? && end_time??>
+                     and SYNC_CREATE_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                </#if>
+                <#if sync_flag_s??>
+                     and SYNC_FLAG_S=:sync_flag_s
+                </#if>
+                <#if sync_hand_flag_s??>
+                     and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                </#if>
+                <#if sync_hand_msg_s??>
+                     and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                </#if>
+                <#if sync_hand_time_t??>
+                     and SYNC_HAND_TIME_T=:sync_hand_time_t
+                </#if>
+                <#if salesunit_s??>
+                     and SalesUnit_S=:salesunit_s
+                </#if>
+                <#if statusz1_s??>
+                     and StatusZ1_S=:statusz1_s
+                </#if>
+                <#if status_s??>
+                     and Status_S=:status_s
+                </#if>
+                <#if stockunit_s??>
+                     and StockUnit_S=:stockunit_s
+                </#if>
+                <#if subplant_s??>
+                     and SubPlant_S=:subplant_s
+                </#if>
+                <#if thspec_s??>
+                     and THSpec_S=:thspec_s
+                </#if>
+                <#if tpno_s??>
+                     and TPNo_S=:tpno_s
+                </#if>
+                <#if utime_s??>
+                     and UTIME_S=:utime_s
+                </#if>
+                <#if udate_s??>
+                     and Udate_S=:udate_s
+                </#if>
+                <#if zbyz1_s??>
+                     and ZBYZ1_S=:zbyz1_s
+                </#if>
+                <#if zcs01_s??>
+                     and ZCS01_S=:zcs01_s
+                </#if>
+                <#if zcs02_s??>
+                     and ZCS02_S=:zcs02_s
+                </#if>
+                <#if zcs03_s??>
+                     and ZCS03_S=:zcs03_s
+                </#if>
+                <#if zcs04_s??>
+                     and ZCS04_S=:zcs04_s
+                </#if>
+                <#if zcs05_s??>
+                     and ZCS05_S=:zcs05_s
+                </#if>
+                <#if zcs06_s??>
+                     and ZCS06_S=:zcs06_s
+                </#if>
+                <#if zcs07_s??>
+                     and ZCS07_S=:zcs07_s
+                </#if>
+                <#if zcs08_s??>
+                     and ZCS08_S=:zcs08_s
+                </#if>
+                <#if zcs09_s??>
+                     and ZCS09_S=:zcs09_s
+                </#if>
+                <#if zcs10_s??>
+                     and ZCS10_S=:zcs10_s
+                </#if>
+                <#if zcs11_s??>
+                     and ZCS11_S=:zcs11_s
+                </#if>
+                <#if zcs12_s??>
+                     and ZCS12_S=:zcs12_s
+                </#if>
+                <#if zcs13_s??>
+                     and ZCS13_S=:zcs13_s
+                </#if>
+                <#if zcs15_s??>
+                     and ZCS15_S=:zcs15_s
+                </#if>
+                <#if zcs16_s??>
+                     and ZCS16_S=:zcs16_s
+                </#if>
+                <#if zcs17_s??>
+                     and ZCS17_S=:zcs17_s
+                </#if>
+                <#if zml3_s??>
+                     and ZML3_S=:zml3_s
+                </#if>
+                <#if zml4_s??>
+                     and ZML4_S=:zml4_s
+                </#if>
+                <#if zpel_s??>
+                     and ZPEL_S=:zpel_s
+                </#if>
+                <#if zpos_s??>
+                     and ZPOS_S=:zpos_s
+                </#if>
+                <#if ztic_s??>
+                     and ZTIC_S=:ztic_s
+                </#if>
+                <#if zwbm_s??>
+                     and ZWBM_S=:zwbm_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_INT_SAP_MATERIALS_EXEC_HIS where 1=1
+                    <#if baseunit_s??>
+                         and BaseUnit_S=:baseunit_s
+                    </#if>
+                    <#if brand_s??>
+                         and Brand_S=:brand_s
+                    </#if>
+                    <#if cj_s??>
+                         and CJ_S=:cj_s
+                    </#if>
+                    <#if ctime_s??>
+                         and CTIME_S=:ctime_s
+                    </#if>
+                    <#if cdate_s??>
+                         and Cdate_S=:cdate_s
+                    </#if>
+                    <#if companycode_s??>
+                         and CompanyCode_S=:companycode_s
+                    </#if>
+                    <#if division_s??>
+                         and Division_S=:division_s
+                    </#if>
+                    <#if dummy1_s??>
+                         and Dummy1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and Dummy2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and Dummy3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and Dummy4_S=:dummy4_s
+                    </#if>
+                    <#if ewbez_s??>
+                         and EWBEZ_S=:ewbez_s
+                    </#if>
+                    <#if extwg_s??>
+                         and EXTWG_S=:extwg_s
+                    </#if>
+                    <#if gissueunit_s??>
+                         and GIssueUnit_S=:gissueunit_s
+                    </#if>
+                    <#if hh_s??>
+                         and HH_S=:hh_s
+                    </#if>
+                    <#if hs_s??>
+                         and HS_S=:hs_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if isoeorre_s??>
+                         and ISOEORRE_S=:isoeorre_s
+                    </#if>
+                    <#if lbmc_s??>
+                         and LBMC_S=:lbmc_s
+                    </#if>
+                    <#if lotname_s??>
+                         and LotName_S=:lotname_s
+                    </#if>
+                    <#if matdescfull_en_s??>
+                         and MatDescFull_EN_S=:matdescfull_en_s
+                    </#if>
+                    <#if matdescfull_s??>
+                         and MatDescFull_S=:matdescfull_s
+                    </#if>
+                    <#if matdescfull_th_s??>
+                         and MatDescFull_TH_S=:matdescfull_th_s
+                    </#if>
+                    <#if matgrp_s??>
+                         and MatGrp_S=:matgrp_s
+                    </#if>
+                    <#if matstatus_s??>
+                         and MatStatus_S=:matstatus_s
+                    </#if>
+                    <#if mattyp_s??>
+                         and MatTyp_S=:mattyp_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MaterialCode_S=:materialcode_s
+                    </#if>
+                    <#if materialdesc_en_s??>
+                         and MaterialDesc_EN_S=:materialdesc_en_s
+                    </#if>
+                    <#if materialdesc_s??>
+                         and MaterialDesc_S=:materialdesc_s
+                    </#if>
+                    <#if materialdesc_th_s??>
+                         and MaterialDesc_TH_S=:materialdesc_th_s
+                    </#if>
+                    <#if materialgroup_s??>
+                         and MaterialGroup_S=:materialgroup_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MaterialName_S=:materialname_s
+                    </#if>
+                    <#if materialpure_s??>
+                         and MaterialPure_S=:materialpure_s
+                    </#if>
+                    <#if materialshort_s??>
+                         and MaterialShort_S=:materialshort_s
+                    </#if>
+                    <#if materialspec_s??>
+                         and MaterialSpec_S=:materialspec_s
+                    </#if>
+                    <#if netheavy_f??>
+                         and NetHeavy_F=:netheavy_f
+                    </#if>
+                    <#if oldmatcode_s??>
+                         and OldMatCode_S=:oldmatcode_s
+                    </#if>
+                    <#if overdeliveryrate_f??>
+                         and OverDeliveryRate_F=:overdeliveryrate_f
+                    </#if>
+                    <#if pattern_s??>
+                         and Pattern_S=:pattern_s
+                    </#if>
+                    <#if plant_s??>
+                         and Plant_S=:plant_s
+                    </#if>
+                    <#if productunit_s??>
+                         and ProductUnit_S=:productunit_s
+                    </#if>
+                    <#if purchaseunit_s??>
+                         and PurchaseUnit_S=:purchaseunit_s
+                    </#if>
+                    <#if rategi2b_s??>
+                         and RateGI2b_S=:rategi2b_s
+                    </#if>
+                    <#if ratepp2b_s??>
+                         and RatePp2b_S=:ratepp2b_s
+                    </#if>
+                    <#if ratepr2b_s??>
+                         and RatePr2b_S=:ratepr2b_s
+                    </#if>
+                    <#if rateso2b_s??>
+                         and RateSo2b_S=:rateso2b_s
+                    </#if>
+                    <#if ratest2b_s??>
+                         and RateSt2b_S=:ratest2b_s
+                    </#if>
+                    <#if sobsl_s??>
+                         and SOBSL_S=:sobsl_s
+                    </#if>
+                    <#if spmc_s??>
+                         and SPMC_S=:spmc_s
+                    </#if>
+                    <#if synchronous_time_t??>
+                         and SYNCHRONOUS_TIME_T=:synchronous_time_t
+                    </#if>
+                     <#if start_time?? && end_time??>
+                     and SYNC_CREATE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                     and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                    </#if>
+                    <#if start_time?? && !end_time??>
+                         and SYNC_CREATE_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                    </#if>
+                    <#if !start_time?? && end_time??>
+                         and SYNC_CREATE_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                    </#if>
+                    <#if sync_flag_s??>
+                         and SYNC_FLAG_S=:sync_flag_s
+                    </#if>
+                    <#if sync_hand_flag_s??>
+                         and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                    </#if>
+                    <#if sync_hand_msg_s??>
+                         and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                    </#if>
+                    <#if sync_hand_time_t??>
+                         and SYNC_HAND_TIME_T=:sync_hand_time_t
+                    </#if>
+                    <#if salesunit_s??>
+                         and SalesUnit_S=:salesunit_s
+                    </#if>
+                    <#if statusz1_s??>
+                         and StatusZ1_S=:statusz1_s
+                    </#if>
+                    <#if status_s??>
+                         and Status_S=:status_s
+                    </#if>
+                    <#if stockunit_s??>
+                         and StockUnit_S=:stockunit_s
+                    </#if>
+                    <#if subplant_s??>
+                         and SubPlant_S=:subplant_s
+                    </#if>
+                    <#if thspec_s??>
+                         and THSpec_S=:thspec_s
+                    </#if>
+                    <#if tpno_s??>
+                         and TPNo_S=:tpno_s
+                    </#if>
+                    <#if utime_s??>
+                         and UTIME_S=:utime_s
+                    </#if>
+                    <#if udate_s??>
+                         and Udate_S=:udate_s
+                    </#if>
+                    <#if zbyz1_s??>
+                         and ZBYZ1_S=:zbyz1_s
+                    </#if>
+                    <#if zcs01_s??>
+                         and ZCS01_S=:zcs01_s
+                    </#if>
+                    <#if zcs02_s??>
+                         and ZCS02_S=:zcs02_s
+                    </#if>
+                    <#if zcs03_s??>
+                         and ZCS03_S=:zcs03_s
+                    </#if>
+                    <#if zcs04_s??>
+                         and ZCS04_S=:zcs04_s
+                    </#if>
+                    <#if zcs05_s??>
+                         and ZCS05_S=:zcs05_s
+                    </#if>
+                    <#if zcs06_s??>
+                         and ZCS06_S=:zcs06_s
+                    </#if>
+                    <#if zcs07_s??>
+                         and ZCS07_S=:zcs07_s
+                    </#if>
+                    <#if zcs08_s??>
+                         and ZCS08_S=:zcs08_s
+                    </#if>
+                    <#if zcs09_s??>
+                         and ZCS09_S=:zcs09_s
+                    </#if>
+                    <#if zcs10_s??>
+                         and ZCS10_S=:zcs10_s
+                    </#if>
+                    <#if zcs11_s??>
+                         and ZCS11_S=:zcs11_s
+                    </#if>
+                    <#if zcs12_s??>
+                         and ZCS12_S=:zcs12_s
+                    </#if>
+                    <#if zcs13_s??>
+                         and ZCS13_S=:zcs13_s
+                    </#if>
+                    <#if zcs15_s??>
+                         and ZCS15_S=:zcs15_s
+                    </#if>
+                    <#if zcs16_s??>
+                         and ZCS16_S=:zcs16_s
+                    </#if>
+                    <#if zcs17_s??>
+                         and ZCS17_S=:zcs17_s
+                    </#if>
+                    <#if zml3_s??>
+                         and ZML3_S=:zml3_s
+                    </#if>
+                    <#if zml4_s??>
+                         and ZML4_S=:zml4_s
+                    </#if>
+                    <#if zpel_s??>
+                         and ZPEL_S=:zpel_s
+                    </#if>
+                    <#if zpos_s??>
+                         and ZPOS_S=:zpos_s
+                    </#if>
+                    <#if ztic_s??>
+                         and ZTIC_S=:ztic_s
+                    </#if>
+                    <#if zwbm_s??>
+                         and ZWBM_S=:zwbm_s
+                    </#if>
+        ]]>
+    </sql>
+
+    <sql comment="datagrid" id="datagrid_rows2">
+        <![CDATA[
+            select * from AT_INT_SAP_MATERIALS_EXEC where 1=1
+                <#if baseunit_s??>
+                     and BaseUnit_S=:baseunit_s
+                </#if>
+                <#if brand_s??>
+                     and Brand_S=:brand_s
+                </#if>
+                <#if cj_s??>
+                     and CJ_S=:cj_s
+                </#if>
+                <#if ctime_s??>
+                     and CTIME_S=:ctime_s
+                </#if>
+                <#if cdate_s??>
+                     and Cdate_S=:cdate_s
+                </#if>
+                <#if companycode_s??>
+                     and CompanyCode_S=:companycode_s
+                </#if>
+                <#if division_s??>
+                     and Division_S=:division_s
+                </#if>
+                <#if dummy1_s??>
+                     and Dummy1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and Dummy2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and Dummy3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and Dummy4_S=:dummy4_s
+                </#if>
+                <#if ewbez_s??>
+                     and EWBEZ_S=:ewbez_s
+                </#if>
+                <#if extwg_s??>
+                     and EXTWG_S=:extwg_s
+                </#if>
+                <#if gissueunit_s??>
+                     and GIssueUnit_S=:gissueunit_s
+                </#if>
+                <#if hh_s??>
+                     and HH_S=:hh_s
+                </#if>
+                <#if hs_s??>
+                     and HS_S=:hs_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if isoeorre_s??>
+                     and ISOEORRE_S=:isoeorre_s
+                </#if>
+                <#if lbmc_s??>
+                     and LBMC_S=:lbmc_s
+                </#if>
+                <#if lotname_s??>
+                     and LotName_S=:lotname_s
+                </#if>
+                <#if matdescfull_en_s??>
+                     and MatDescFull_EN_S=:matdescfull_en_s
+                </#if>
+                <#if matdescfull_s??>
+                     and MatDescFull_S=:matdescfull_s
+                </#if>
+                <#if matdescfull_th_s??>
+                     and MatDescFull_TH_S=:matdescfull_th_s
+                </#if>
+                <#if matgrp_s??>
+                     and MatGrp_S=:matgrp_s
+                </#if>
+                <#if matstatus_s??>
+                     and MatStatus_S=:matstatus_s
+                </#if>
+                <#if mattyp_s??>
+                     and MatTyp_S=:mattyp_s
+                </#if>
+                <#if materialcode_s??>
+                     and MaterialCode_S=:materialcode_s
+                </#if>
+                <#if materialdesc_en_s??>
+                     and MaterialDesc_EN_S=:materialdesc_en_s
+                </#if>
+                <#if materialdesc_s??>
+                     and MaterialDesc_S=:materialdesc_s
+                </#if>
+                <#if materialdesc_th_s??>
+                     and MaterialDesc_TH_S=:materialdesc_th_s
+                </#if>
+                <#if materialgroup_s??>
+                     and MaterialGroup_S=:materialgroup_s
+                </#if>
+                <#if materialname_s??>
+                     and MaterialName_S=:materialname_s
+                </#if>
+                <#if materialpure_s??>
+                     and MaterialPure_S=:materialpure_s
+                </#if>
+                <#if materialshort_s??>
+                     and MaterialShort_S=:materialshort_s
+                </#if>
+                <#if materialspec_s??>
+                     and MaterialSpec_S=:materialspec_s
+                </#if>
+                <#if netheavy_f??>
+                     and NetHeavy_F=:netheavy_f
+                </#if>
+                <#if oldmatcode_s??>
+                     and OldMatCode_S=:oldmatcode_s
+                </#if>
+                <#if overdeliveryrate_f??>
+                     and OverDeliveryRate_F=:overdeliveryrate_f
+                </#if>
+                <#if pattern_s??>
+                     and Pattern_S=:pattern_s
+                </#if>
+                <#if plant_s??>
+                     and Plant_S=:plant_s
+                </#if>
+                <#if productunit_s??>
+                     and ProductUnit_S=:productunit_s
+                </#if>
+                <#if purchaseunit_s??>
+                     and PurchaseUnit_S=:purchaseunit_s
+                </#if>
+                <#if rategi2b_s??>
+                     and RateGI2b_S=:rategi2b_s
+                </#if>
+                <#if ratepp2b_s??>
+                     and RatePp2b_S=:ratepp2b_s
+                </#if>
+                <#if ratepr2b_s??>
+                     and RatePr2b_S=:ratepr2b_s
+                </#if>
+                <#if rateso2b_s??>
+                     and RateSo2b_S=:rateso2b_s
+                </#if>
+                <#if ratest2b_s??>
+                     and RateSt2b_S=:ratest2b_s
+                </#if>
+                <#if sobsl_s??>
+                     and SOBSL_S=:sobsl_s
+                </#if>
+                <#if spmc_s??>
+                     and SPMC_S=:spmc_s
+                </#if>
+                <#if synchronous_time_t??>
+                     and SYNCHRONOUS_TIME_T=:synchronous_time_t
+                </#if>
+                <#if start_time?? && end_time??>
+                 and SYNC_CREATE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                </#if>
+                <#if start_time?? && !end_time??>
+                     and SYNC_CREATE_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                </#if>
+                <#if !start_time?? && end_time??>
+                     and SYNC_CREATE_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                </#if>
+                <#if sync_flag_s??>
+                     and SYNC_FLAG_S=:sync_flag_s
+                </#if>
+                <#if sync_hand_flag_s??>
+                     and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                </#if>
+                <#if sync_hand_msg_s??>
+                     and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                </#if>
+                <#if sync_hand_time_t??>
+                     and SYNC_HAND_TIME_T=:sync_hand_time_t
+                </#if>
+                <#if salesunit_s??>
+                     and SalesUnit_S=:salesunit_s
+                </#if>
+                <#if statusz1_s??>
+                     and StatusZ1_S=:statusz1_s
+                </#if>
+                <#if status_s??>
+                     and Status_S=:status_s
+                </#if>
+                <#if stockunit_s??>
+                     and StockUnit_S=:stockunit_s
+                </#if>
+                <#if subplant_s??>
+                     and SubPlant_S=:subplant_s
+                </#if>
+                <#if thspec_s??>
+                     and THSpec_S=:thspec_s
+                </#if>
+                <#if tpno_s??>
+                     and TPNo_S=:tpno_s
+                </#if>
+                <#if utime_s??>
+                     and UTIME_S=:utime_s
+                </#if>
+                <#if udate_s??>
+                     and Udate_S=:udate_s
+                </#if>
+                <#if zbyz1_s??>
+                     and ZBYZ1_S=:zbyz1_s
+                </#if>
+                <#if zcs01_s??>
+                     and ZCS01_S=:zcs01_s
+                </#if>
+                <#if zcs02_s??>
+                     and ZCS02_S=:zcs02_s
+                </#if>
+                <#if zcs03_s??>
+                     and ZCS03_S=:zcs03_s
+                </#if>
+                <#if zcs04_s??>
+                     and ZCS04_S=:zcs04_s
+                </#if>
+                <#if zcs05_s??>
+                     and ZCS05_S=:zcs05_s
+                </#if>
+                <#if zcs06_s??>
+                     and ZCS06_S=:zcs06_s
+                </#if>
+                <#if zcs07_s??>
+                     and ZCS07_S=:zcs07_s
+                </#if>
+                <#if zcs08_s??>
+                     and ZCS08_S=:zcs08_s
+                </#if>
+                <#if zcs09_s??>
+                     and ZCS09_S=:zcs09_s
+                </#if>
+                <#if zcs10_s??>
+                     and ZCS10_S=:zcs10_s
+                </#if>
+                <#if zcs11_s??>
+                     and ZCS11_S=:zcs11_s
+                </#if>
+                <#if zcs12_s??>
+                     and ZCS12_S=:zcs12_s
+                </#if>
+                <#if zcs13_s??>
+                     and ZCS13_S=:zcs13_s
+                </#if>
+                <#if zcs15_s??>
+                     and ZCS15_S=:zcs15_s
+                </#if>
+                <#if zcs16_s??>
+                     and ZCS16_S=:zcs16_s
+                </#if>
+                <#if zcs17_s??>
+                     and ZCS17_S=:zcs17_s
+                </#if>
+                <#if zml3_s??>
+                     and ZML3_S=:zml3_s
+                </#if>
+                <#if zml4_s??>
+                     and ZML4_S=:zml4_s
+                </#if>
+                <#if zpel_s??>
+                     and ZPEL_S=:zpel_s
+                </#if>
+                <#if zpos_s??>
+                     and ZPOS_S=:zpos_s
+                </#if>
+                <#if ztic_s??>
+                     and ZTIC_S=:ztic_s
+                </#if>
+                <#if zwbm_s??>
+                     and ZWBM_S=:zwbm_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total2">
+        <![CDATA[
+            select count(1) from AT_INT_SAP_MATERIALS_EXEC where 1=1
+                    <#if baseunit_s??>
+                         and BaseUnit_S=:baseunit_s
+                    </#if>
+                    <#if brand_s??>
+                         and Brand_S=:brand_s
+                    </#if>
+                    <#if cj_s??>
+                         and CJ_S=:cj_s
+                    </#if>
+                    <#if ctime_s??>
+                         and CTIME_S=:ctime_s
+                    </#if>
+                    <#if cdate_s??>
+                         and Cdate_S=:cdate_s
+                    </#if>
+                    <#if companycode_s??>
+                         and CompanyCode_S=:companycode_s
+                    </#if>
+                    <#if division_s??>
+                         and Division_S=:division_s
+                    </#if>
+                    <#if dummy1_s??>
+                         and Dummy1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and Dummy2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and Dummy3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and Dummy4_S=:dummy4_s
+                    </#if>
+                    <#if ewbez_s??>
+                         and EWBEZ_S=:ewbez_s
+                    </#if>
+                    <#if extwg_s??>
+                         and EXTWG_S=:extwg_s
+                    </#if>
+                    <#if gissueunit_s??>
+                         and GIssueUnit_S=:gissueunit_s
+                    </#if>
+                    <#if hh_s??>
+                         and HH_S=:hh_s
+                    </#if>
+                    <#if hs_s??>
+                         and HS_S=:hs_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if isoeorre_s??>
+                         and ISOEORRE_S=:isoeorre_s
+                    </#if>
+                    <#if lbmc_s??>
+                         and LBMC_S=:lbmc_s
+                    </#if>
+                    <#if lotname_s??>
+                         and LotName_S=:lotname_s
+                    </#if>
+                    <#if matdescfull_en_s??>
+                         and MatDescFull_EN_S=:matdescfull_en_s
+                    </#if>
+                    <#if matdescfull_s??>
+                         and MatDescFull_S=:matdescfull_s
+                    </#if>
+                    <#if matdescfull_th_s??>
+                         and MatDescFull_TH_S=:matdescfull_th_s
+                    </#if>
+                    <#if matgrp_s??>
+                         and MatGrp_S=:matgrp_s
+                    </#if>
+                    <#if matstatus_s??>
+                         and MatStatus_S=:matstatus_s
+                    </#if>
+                    <#if mattyp_s??>
+                         and MatTyp_S=:mattyp_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MaterialCode_S=:materialcode_s
+                    </#if>
+                    <#if materialdesc_en_s??>
+                         and MaterialDesc_EN_S=:materialdesc_en_s
+                    </#if>
+                    <#if materialdesc_s??>
+                         and MaterialDesc_S=:materialdesc_s
+                    </#if>
+                    <#if materialdesc_th_s??>
+                         and MaterialDesc_TH_S=:materialdesc_th_s
+                    </#if>
+                    <#if materialgroup_s??>
+                         and MaterialGroup_S=:materialgroup_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MaterialName_S=:materialname_s
+                    </#if>
+                    <#if materialpure_s??>
+                         and MaterialPure_S=:materialpure_s
+                    </#if>
+                    <#if materialshort_s??>
+                         and MaterialShort_S=:materialshort_s
+                    </#if>
+                    <#if materialspec_s??>
+                         and MaterialSpec_S=:materialspec_s
+                    </#if>
+                    <#if netheavy_f??>
+                         and NetHeavy_F=:netheavy_f
+                    </#if>
+                    <#if oldmatcode_s??>
+                         and OldMatCode_S=:oldmatcode_s
+                    </#if>
+                    <#if overdeliveryrate_f??>
+                         and OverDeliveryRate_F=:overdeliveryrate_f
+                    </#if>
+                    <#if pattern_s??>
+                         and Pattern_S=:pattern_s
+                    </#if>
+                    <#if plant_s??>
+                         and Plant_S=:plant_s
+                    </#if>
+                    <#if productunit_s??>
+                         and ProductUnit_S=:productunit_s
+                    </#if>
+                    <#if purchaseunit_s??>
+                         and PurchaseUnit_S=:purchaseunit_s
+                    </#if>
+                    <#if rategi2b_s??>
+                         and RateGI2b_S=:rategi2b_s
+                    </#if>
+                    <#if ratepp2b_s??>
+                         and RatePp2b_S=:ratepp2b_s
+                    </#if>
+                    <#if ratepr2b_s??>
+                         and RatePr2b_S=:ratepr2b_s
+                    </#if>
+                    <#if rateso2b_s??>
+                         and RateSo2b_S=:rateso2b_s
+                    </#if>
+                    <#if ratest2b_s??>
+                         and RateSt2b_S=:ratest2b_s
+                    </#if>
+                    <#if sobsl_s??>
+                         and SOBSL_S=:sobsl_s
+                    </#if>
+                    <#if spmc_s??>
+                         and SPMC_S=:spmc_s
+                    </#if>
+                    <#if synchronous_time_t??>
+                         and SYNCHRONOUS_TIME_T=:synchronous_time_t
+                    </#if>
+                    <#if start_time?? && end_time??>
+                     and SYNC_CREATE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                     and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                    </#if>
+                    <#if start_time?? && !end_time??>
+                         and SYNC_CREATE_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                    </#if>
+                    <#if !start_time?? && end_time??>
+                         and SYNC_CREATE_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+                    </#if>
+                    <#if sync_flag_s??>
+                         and SYNC_FLAG_S=:sync_flag_s
+                    </#if>
+                    <#if sync_hand_flag_s??>
+                         and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                    </#if>
+                    <#if sync_hand_msg_s??>
+                         and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                    </#if>
+                    <#if sync_hand_time_t??>
+                         and SYNC_HAND_TIME_T=:sync_hand_time_t
+                    </#if>
+                    <#if salesunit_s??>
+                         and SalesUnit_S=:salesunit_s
+                    </#if>
+                    <#if statusz1_s??>
+                         and StatusZ1_S=:statusz1_s
+                    </#if>
+                    <#if status_s??>
+                         and Status_S=:status_s
+                    </#if>
+                    <#if stockunit_s??>
+                         and StockUnit_S=:stockunit_s
+                    </#if>
+                    <#if subplant_s??>
+                         and SubPlant_S=:subplant_s
+                    </#if>
+                    <#if thspec_s??>
+                         and THSpec_S=:thspec_s
+                    </#if>
+                    <#if tpno_s??>
+                         and TPNo_S=:tpno_s
+                    </#if>
+                    <#if utime_s??>
+                         and UTIME_S=:utime_s
+                    </#if>
+                    <#if udate_s??>
+                         and Udate_S=:udate_s
+                    </#if>
+                    <#if zbyz1_s??>
+                         and ZBYZ1_S=:zbyz1_s
+                    </#if>
+                    <#if zcs01_s??>
+                         and ZCS01_S=:zcs01_s
+                    </#if>
+                    <#if zcs02_s??>
+                         and ZCS02_S=:zcs02_s
+                    </#if>
+                    <#if zcs03_s??>
+                         and ZCS03_S=:zcs03_s
+                    </#if>
+                    <#if zcs04_s??>
+                         and ZCS04_S=:zcs04_s
+                    </#if>
+                    <#if zcs05_s??>
+                         and ZCS05_S=:zcs05_s
+                    </#if>
+                    <#if zcs06_s??>
+                         and ZCS06_S=:zcs06_s
+                    </#if>
+                    <#if zcs07_s??>
+                         and ZCS07_S=:zcs07_s
+                    </#if>
+                    <#if zcs08_s??>
+                         and ZCS08_S=:zcs08_s
+                    </#if>
+                    <#if zcs09_s??>
+                         and ZCS09_S=:zcs09_s
+                    </#if>
+                    <#if zcs10_s??>
+                         and ZCS10_S=:zcs10_s
+                    </#if>
+                    <#if zcs11_s??>
+                         and ZCS11_S=:zcs11_s
+                    </#if>
+                    <#if zcs12_s??>
+                         and ZCS12_S=:zcs12_s
+                    </#if>
+                    <#if zcs13_s??>
+                         and ZCS13_S=:zcs13_s
+                    </#if>
+                    <#if zcs15_s??>
+                         and ZCS15_S=:zcs15_s
+                    </#if>
+                    <#if zcs16_s??>
+                         and ZCS16_S=:zcs16_s
+                    </#if>
+                    <#if zcs17_s??>
+                         and ZCS17_S=:zcs17_s
+                    </#if>
+                    <#if zml3_s??>
+                         and ZML3_S=:zml3_s
+                    </#if>
+                    <#if zml4_s??>
+                         and ZML4_S=:zml4_s
+                    </#if>
+                    <#if zpel_s??>
+                         and ZPEL_S=:zpel_s
+                    </#if>
+                    <#if zpos_s??>
+                         and ZPOS_S=:zpos_s
+                    </#if>
+                    <#if ztic_s??>
+                         and ZTIC_S=:ztic_s
+                    </#if>
+                    <#if zwbm_s??>
+                         and ZWBM_S=:zwbm_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

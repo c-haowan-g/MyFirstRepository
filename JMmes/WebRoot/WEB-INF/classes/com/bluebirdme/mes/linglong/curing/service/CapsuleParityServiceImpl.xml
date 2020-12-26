@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            
+			select 
+            	AC.*,(AC.CHANGED_BY_S||US1.USERNAME) as CHANGED_BY_Name,
+				(AC.CREATED_BY_S||US2.USERNAME) as CREATED_BY_Name
+				from  AT_C_QM_CapsuleStandard  AC
+				LEFT JOIN CORE_USER US1 ON AC.CHANGED_BY_S=US1.USERCODE
+				LEFT JOIN CORE_USER US2 ON AC.CREATED_BY_S=US2.USERCODE
+			where 1=1
+               and  AC.record_flag_s ='A'
+                <#if agenc_no_s??>
+                     and AC.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alarm_number_i??>
+                     and AC.ALARM_NUMBER_I=:alarm_number_i
+                </#if>
+                <#if capsule_factory_s??>
+                     and AC.CAPSULE_FACTORY_S=:capsule_factory_s
+                </#if>
+                <#if capsule_spec_s??>
+                     and AC.CAPSULE_SPEC_S like:capsule_spec_s
+                </#if>
+                <#if changed_by_s??>
+                     and AC.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and AC.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and AC.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and AC.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if material_capsulecode_s??>
+                     and AC.MATERIAL_CAPSULECODE_S like:material_capsulecode_s
+                </#if>
+                <#if max_limit_i??>
+                     and AC.MAX_LIMIT_I=:max_limit_i
+                </#if>
+                <#if over_limit_i??>
+                     and AC.OVER_LIMIT_I=:over_limit_i
+                </#if>
+                <#if parity_code_s??>
+                     and AC.PARITY_CODE_S like:parity_code_s
+                </#if>
+                <#if record_flag_s??>
+                     and AC.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and AC.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and AC.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and AC.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and AC.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and AC.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and AC.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if ids??>
+                    and ATR_KEY IN(:ids)
+             	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by AC.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+		select 
+           COUNT(1) 
+            from  AT_C_QM_CapsuleStandard  AC
+				LEFT JOIN CORE_USER US1 ON AC.CHANGED_BY_S=US1.USERCODE
+				LEFT JOIN CORE_USER US2 ON AC.CREATED_BY_S=US2.USERCODE
+			where 1=1
+               and  AC.record_flag_s ='A'
+                <#if alarm_number_i??>
+                     and AC. ALARM_NUMBER_I=:alarm_number_i
+                </#if>
+                <#if capsule_factory_s??>
+                     and AC.CAPSULE_FACTORY_S=:capsule_factory_s
+                </#if>
+                <#if capsule_spec_s??>
+                     and AC.CAPSULE_SPEC_S like:capsule_spec_s
+                </#if>
+                <#if changed_by_s??>
+                     and AC.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and AC.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and AC.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and AC.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if material_capsulecode_s??>
+                     and AC.MATERIAL_CAPSULECODE_S like:material_capsulecode_s
+                </#if>
+                <#if max_limit_i??>
+                     and AC.MAX_LIMIT_I=:max_limit_i
+                </#if>
+                <#if over_limit_i??>
+                     and AC.OVER_LIMIT_I=:over_limit_i
+                </#if>
+                <#if parity_code_s??>
+                     and AC.PARITY_CODE_S like:parity_code_s
+                </#if>
+                <#if record_flag_s??>
+                     and AC.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and AC.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and AC.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and AC.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and AC.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and AC.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and AC.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if ids??>
+                    and ATR_KEY IN(:ids)
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by AC.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="修改" id="update1">
+       <![CDATA[
+            select count(1) from AT_C_QM_CapsuleStandard 
+            where  material_capsulecode_s =:material_capsulecode_s 
+            and s_factory_s =:s_factory_s
+            and record_flag_s ='A'
+            and atr_key<>:atr_key
+        ]]>
+	</sql>
+    <sql comment="胶囊物料的查询" id="materialQuery">
+       <![CDATA[
+	      select DISTINCT A.PART_NUMBER AS MaterialCode_S from PART A
+			  WHERE (A.PART_NUMBER='104002' OR A.PART_NUMBER LIKE '308%')
+	  		  and A.PART_NUMBER not in (select B.material_capsulecode_s from AT_C_QM_CapsuleStandard B  where  B.record_flag_s ='A' and A.PART_NUMBER =B.material_capsulecode_s and B.s_factory_s=:s_factory_s)
+	  	]]>
+	</sql>
+    <sql comment="胶囊规格" id="searchBycapsule">
+       <![CDATA[
+       select DISTINCT UP.MATERIALSPEC_S as MaterialSpec_S from PART pa,UDA_PART up
+		WHERE pa.PART_KEY = up.OBJECT_KEY
+       	and pa.PART_NUMBER =:materialCode_S
+		
+        ]]>
+	</sql>
+</sqls>

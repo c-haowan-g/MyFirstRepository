@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+			select 
+             AC.*,0 as opening_time,
+             trunc((to_number((TO_DATE((to_char(AC.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+             TO_DATE(to_char(AC.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+             as closing_time from AT_C_MM_WORKORDERRESULT AC
+			 where  AC.record_flag_s ='A' 
+			 AND AC.CURING_CLOSEMOULDDATE_T IS NOT NULL
+			 AND AC.CURING_OPENMOULDDATE_T IS NOT NULL
+                <#if agenc_no_s??>
+                     and AC.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if capsule_id_s??>
+                     and AC.CAPSULE_ID_S=:capsule_id_s
+                </#if>
+                <#if changed_by_s??>
+                     and AC.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and AC.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if class_id_s??>
+                     and AC.CLASS_ID_S like:class_id_s
+                </#if>
+                <#if created_by_s??>
+                     and AC.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and AC.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if curing_closemoulddate_t??>
+                     and AC.CURING_CLOSEMOULDDATE_T=:curing_closemoulddate_t
+                </#if>
+                
+                <#if start_time?? && end_time??>
+	                 and AC.CURING_CLOSEMOULDDATE_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+	            
+                <#if curing_worker_s??>
+                     and AC.CURING_WORKER_S=:curing_worker_s
+                </#if>
+                <#if dot_s??>
+                     and AC.DOT_S=:dot_s
+                </#if>
+                <#if equip_code_s??>
+                     and AC.EQUIP_CODE_S like upper(:equip_code_s)
+                </#if>
+                <#if first_potflag_s??>
+                     and AC.FIRST_POTFLAG_S=:first_potflag_s
+                </#if>
+                <#if isflag_s??>
+                     and AC.ISFLAG_S=:isflag_s
+                </#if>
+                <#if material_code_s??>
+                     and AC.MATERIAL_CODE_S like:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and AC.MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if memo_s??>
+                     and AC.MEMO_S=:memo_s
+                </#if>
+                <#if mold_code_s??>
+                     and AC.MOLD_CODE_S=:mold_code_s
+                </#if>
+                <#if patch_curingflag_s??>
+                     and AC.PATCH_CURINGFLAG_S=:patch_curingflag_s
+                </#if>
+                <#if plan_no_s??>
+                     and AC.PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if product_date_s??>
+                     and AC.PRODUCT_DATE_S=:product_date_s
+                </#if>
+                <#if quality_status_s??>
+                     and AC.QUALITY_STATUS_S=:quality_status_s
+                </#if>
+                <#if record_flag_s??>
+                     and AC.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if shift_id_s??>
+                     and AC.SHIFT_ID_S=:shift_id_s
+                </#if>
+                <#if solidif_yflag_s??>
+                     and AC.SOLIDIF_YFLAG_S=:solidif_yflag_s
+                </#if>
+                <#if spare1_s??>
+                     and AC.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and AC.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and AC.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and AC.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and AC.SPARE5_S=:spare5_s
+                </#if>
+                <#if special_mark_s??>
+                     and AC.SPECIAL_MARK_S=:special_mark_s
+                </#if>
+                <#if s_factory_s??>
+                     and AC.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tyreno_s??>
+                     and AC.TYRENO_S=:tyreno_s
+                </#if>
+                <#if tyre_barcode_s??>
+                     and AC.TYRE_BARCODE_S like:tyre_barcode_s
+                </#if>
+                <#if unit_s??>
+                     and AC.UNIT_S=:unit_s
+                </#if>
+                <#if productionver_s??>
+                     and AC.PRODUCTIONVER_S=:productionver_s
+                </#if>
+                <#if embryos_point_s??>
+                     and AC.EMBRYOS_POINT_S=:embryos_point_s
+                </#if>
+                <#if ids??>
+                    and ATR_KEY IN(:ids)
+             	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by AC.CURING_CLOSEMOULDDATE_T desc
+            </#if>
+            
+            
+            
+            
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+        	select count(1)
+            from AT_C_MM_WORKORDERRESULT AC
+			 where  AC.record_flag_s ='A' 
+			 AND AC.CURING_CLOSEMOULDDATE_T IS NOT NULL
+			 AND AC.CURING_OPENMOULDDATE_T IS NOT NULL
+                    <#if agenc_no_s??>
+                         and AC.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if capsule_id_s??>
+                         and AC.CAPSULE_ID_S=:capsule_id_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and AC.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and AC.CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if class_id_s??>
+                         and AC.CLASS_ID_S like:class_id_s
+                    </#if>
+                    <#if created_by_s??>
+                         and AC.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and AC.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if curing_closemoulddate_t??>
+                         and AC.CURING_CLOSEMOULDDATE_T=:curing_closemoulddate_t
+                    </#if>
+                    
+	                <#if start_time?? && end_time??>
+		                 and AC.CURING_CLOSEMOULDDATE_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+		                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+                    
+                    <#if curing_worker_s??>
+                         and AC.CURING_WORKER_S=:curing_worker_s
+                    </#if>
+                    <#if dot_s??>
+                         and AC.DOT_S=:dot_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and AC.EQUIP_CODE_S like  upper(:equip_code_s)
+                    </#if>
+                    <#if first_potflag_s??>
+                         and AC.FIRST_POTFLAG_S=:first_potflag_s
+                    </#if>
+                    <#if isflag_s??>
+                         and AC.ISFLAG_S=:isflag_s
+                    </#if>
+                    <#if material_code_s??>
+                         and AC.MATERIAL_CODE_S like:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and AC.MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if memo_s??>
+                         and AC.MEMO_S=:memo_s
+                    </#if>
+                    <#if mold_code_s??>
+                         and AC.MOLD_CODE_S=:mold_code_s
+                    </#if>
+                    <#if patch_curingflag_s??>
+                         and AC.PATCH_CURINGFLAG_S=:patch_curingflag_s
+                    </#if>
+                    <#if plan_no_s??>
+                         and AC.PLAN_NO_S=:plan_no_s
+                    </#if>
+                    <#if product_date_s??>
+                         and AC.PRODUCT_DATE_S=:product_date_s
+                    </#if>
+                    <#if quality_status_s??>
+                         and AC.QUALITY_STATUS_S=:quality_status_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and AC.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if shift_id_s??>
+                         and AC.SHIFT_ID_S=:shift_id_s
+                    </#if>
+                    <#if solidif_yflag_s??>
+                         and AC.SOLIDIF_YFLAG_S=:solidif_yflag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and AC.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and AC.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and AC.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and AC.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and AC.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if special_mark_s??>
+                         and AC.SPECIAL_MARK_S=:special_mark_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and AC.S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tyreno_s??>
+                         and AC.TYRENO_S=:tyreno_s
+                    </#if>
+                    <#if tyre_barcode_s??>
+                         and AC.TYRE_BARCODE_S like:tyre_barcode_s
+                    </#if>
+                    <#if unit_s??>
+                         and AC.UNIT_S=:unit_s
+                    </#if>
+                    <#if productionver_s??>
+                         and AC.PRODUCTIONVER_S=:productionver_s
+                    </#if>
+                    <#if embryos_point_s??>
+                         and AC.EMBRYOS_POINT_S=:embryos_point_s
+                    </#if>
+                    <#if ids??>
+	                    and ATR_KEY IN(:ids)
+	             	</#if>
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="datagrid_rows2">
+        <![CDATA[
+			SELECT equip_code_s, CASE WHEN SUM(time) IS NULL THEN 0 ELSE SUM(time) END opening_time,
+			CASE WHEN SUM(time1) IS NULL THEN 0 ELSE SUM(time1) END closeing_time
+			 FROM (
+			with 
+			test as 
+			(
+			SELECT EQUIP_CODE_S,CURING_CLOSEMOULDDATE_T,CURING_OPENMOULDDATE_T FROM AT_C_MM_WORKORDERRESULT
+			WHERE 1=1 
+			<#if start_time?? && end_time??>
+		         and CURING_CLOSEMOULDDATE_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+		         and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		    </#if>
+			<#if equip_code_s??>
+                 and EQUIP_CODE_S like  upper(:equip_code_s)
+            </#if>
+           <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+			
+			ORDER BY EQUIP_CODE_S,CURING_CLOSEMOULDDATE_T
+			),
+			test1 as 
+			(
+			 select rownum rn , a.* from test a
+			)
+			select a.EQUIP_CODE_S,case  when a.EQUIP_CODE_S=b.EQUIP_CODE_S
+			 then trunc((to_number((TO_DATE((to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(b.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			end  as time,
+			
+			 trunc((to_number((TO_DATE((to_char(a.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			 as time1
+			  from test1  a 
+			FULL JOIN test1 b on b.rn+1 = a.rn
+			  order by a.rn
+			)
+			WHERE EQUIP_CODE_S IS NOT NULL
+			GROUP BY EQUIP_CODE_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total2">
+        <![CDATA[
+        	select count(1)
+            FROM 
+            (SELECT EQUIP_CODE_S, CASE WHEN SUM(time) IS NULL THEN 0 ELSE SUM(time) END opening_time,
+			CASE WHEN SUM(time1) IS NULL THEN 0 ELSE SUM(time1) END closeing_time
+			 FROM (
+			with 
+			test as 
+			(
+			SELECT EQUIP_CODE_S,CURING_CLOSEMOULDDATE_T,CURING_OPENMOULDDATE_T FROM AT_C_MM_WORKORDERRESULT
+			WHERE 1=1 
+			<#if start_time?? && end_time??>
+		         and CURING_CLOSEMOULDDATE_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+		         and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		    </#if>
+			<#if equip_code_s??>
+                 and EQUIP_CODE_S like  upper(:equip_code_s)
+            </#if>
+			<#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+			ORDER BY EQUIP_CODE_S,CURING_CLOSEMOULDDATE_T
+			),
+			test1 as 
+			(
+			 select rownum rn , a.* from test a
+			)
+			select a.EQUIP_CODE_S,case  when a.EQUIP_CODE_S=b.EQUIP_CODE_S
+			 then trunc((to_number((TO_DATE((to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(b.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			end  as time,
+			
+			 trunc((to_number((TO_DATE((to_char(a.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			 as time1
+			  from test1  a 
+			FULL JOIN test1 b on b.rn+1 = a.rn
+			  order by a.rn
+			)
+			WHERE EQUIP_CODE_S IS NOT NULL
+			GROUP BY EQUIP_CODE_S)
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagrid_rows3">
+        <![CDATA[
+			SELECT EQUIP_CODE_S,TYRE_BARCODE_S,MATERIAL_CODE_S,MATERIAL_NAME_S,
+			CASE WHEN opentime IS NULL THEN 0 ELSE opentime END opening_time,
+			CASE WHEN closetime IS NULL THEN 0 ELSE closetime END closeing_time
+			 FROM (
+			with 
+			test as 
+			(
+			SELECT EQUIP_CODE_S,TYRE_BARCODE_S,CURING_CLOSEMOULDDATE_T,CURING_OPENMOULDDATE_T,MATERIAL_CODE_S,MATERIAL_NAME_S FROM AT_C_MM_WORKORDERRESULT
+			WHERE 1=1 
+			<#if start_time?? && end_time??>
+		         and CURING_CLOSEMOULDDATE_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+		         and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		    </#if>
+			<#if equip_code_s??>
+                 and EQUIP_CODE_S like  upper(:equip_code_s)
+            </#if>
+			<#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+			ORDER BY EQUIP_CODE_S,CURING_CLOSEMOULDDATE_T
+			),
+			test1 as 
+			(
+			 select rownum rn , a.* from test a
+			)
+			select a.EQUIP_CODE_S,a.TYRE_BARCODE_S,a.MATERIAL_CODE_S,a.MATERIAL_NAME_S,case  when a.EQUIP_CODE_S=b.EQUIP_CODE_S
+			 then trunc((to_number((TO_DATE((to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(b.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			end  as opentime,
+			 trunc((to_number((TO_DATE((to_char(a.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			 as closetime
+			 from test1  a 
+			 FULL JOIN test1 b on b.rn+1 = a.rn
+			 order by a.rn
+			)
+			WHERE EQUIP_CODE_S IS NOT NULL
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagrid_total3">
+        <![CDATA[
+        	select count(1)
+            FROM 
+            (SELECT EQUIP_CODE_S,TYRE_BARCODE_S,MATERIAL_CODE_S,MATERIAL_NAME_S,
+            CASE WHEN opentime IS NULL THEN 0 ELSE opentime END opening_time,
+			CASE WHEN closetime IS NULL THEN 0 ELSE closetime END closeing_time
+			 FROM (
+			with 
+			test as 
+			(
+			SELECT EQUIP_CODE_S,TYRE_BARCODE_S,CURING_CLOSEMOULDDATE_T,CURING_OPENMOULDDATE_T,MATERIAL_CODE_S,MATERIAL_NAME_S FROM AT_C_MM_WORKORDERRESULT
+			WHERE 1=1 
+			<#if start_time?? && end_time??>
+		         and CURING_CLOSEMOULDDATE_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+		         and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		    </#if>
+			<#if equip_code_s??>
+                 and EQUIP_CODE_S like  upper(:equip_code_s)
+            </#if>
+			<#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+			ORDER BY EQUIP_CODE_S,CURING_CLOSEMOULDDATE_T
+			),
+			test1 as 
+			(
+			 select rownum rn , a.* from test a
+			)
+			select a.EQUIP_CODE_S,a.TYRE_BARCODE_S,a.MATERIAL_CODE_S,a.MATERIAL_NAME_S,case  when a.EQUIP_CODE_S=b.EQUIP_CODE_S
+			 then trunc((to_number((TO_DATE((to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(b.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			end  as opentime,
+			 trunc((to_number((TO_DATE((to_char(a.CURING_OPENMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss')),'yyyy-mm-dd hh24:mi:ss')-
+			 TO_DATE(to_char(a.CURING_CLOSEMOULDDATE_T, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')))* 1440),2) 
+			 as closetime
+			 from test1  a 
+			 FULL JOIN test1 b on b.rn+1 = a.rn
+			 order by a.rn
+			)
+			WHERE EQUIP_CODE_S IS NOT NULL)
+        ]]>
+    </sql>
+    
+    <sql comment="机台编码" id="equipCode">
+       <![CDATA[
+          select equip_code_s from at_c_mm_machinecontrol where record_flag_s=:record_flag_s and s_factory_s=:s_factory_s
+          ORDER BY equip_code_s
+        ]]>
+	</sql>
+	
+</sqls>

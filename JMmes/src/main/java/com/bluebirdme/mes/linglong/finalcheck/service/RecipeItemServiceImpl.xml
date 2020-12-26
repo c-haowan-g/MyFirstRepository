@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select t.*, a.materialdesc_s,a.materialspec_s,a.pattern_s,a.cj_s
+					  from AT_D_BS_RecipeItem t, AT_INT_SAP_MATERIALS a
+					 where 1 = 1
+             and t.itemid_s = a.materialcode_s(+)
+                and t.record_flag_s='A'
+                 and a.mattyp_s='FERT'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and t.ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if itemid_s??>
+                     and t.ITEMID_S=:itemid_s
+                </#if>
+                <#if recipeid_i??>
+                     and t.RECIPEID_I=:recipeid_i
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_D_BS_RecipeItem t, AT_INT_SAP_MATERIALS a
+					 where 1 = 1
+                and t.itemid_s = a.materialcode_s(+)
+                and t.record_flag_s='A'
+                 and a.mattyp_s='FERT'
+                    <#if agenc_no_s??>
+                         and t.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and t.ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and t.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and t.CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and t.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and t.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if itemid_s??>
+                         and t.ITEMID_S=:itemid_s
+                    </#if>
+                    <#if recipeid_i??>
+                         and t.RECIPEID_I=:recipeid_i
+                    </#if>
+                    <#if record_flag_s??>
+                         and t.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and t.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and t.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and t.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and t.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and t.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and t.S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+   
+   <sql comment="datagrid" id="datagrid_rows2">
+   <![CDATA[
+           SELECT
+				T .*, P .DESCRIPTION AS materialdesc_s,
+				UP .materialspec_s,
+				UP .pattern_s,
+				UP .cj_s,
+				t1.recipeno_s
+			FROM
+				AT_D_BS_RecipeItem T,
+				part P,
+				AT_D_BS_Recipe t1,
+				UDA_PART UP
+			WHERE
+				1 = 1
+			AND T .itemid_s = P .PART_NUMBER (+)
+			AND UP.OBJECT_KEY=P.PART_KEY
+			AND T .recipeid_i = t1.atr_key
+			AND T .record_flag_s = 'A'
+			AND t1.record_flag_s = 'A'
+			AND UP.mattyp_s = 'FERT'
+			   <#if s_factory_s??>
+                    and t.S_FACTORY_S=:s_factory_s
+                    and t1.S_FACTORY_S=:s_factory_s
+               </#if>
+		       <#if agenc_no_s??>
+                        and t.AGENC_NO_S=:agenc_no_s
+                        and t1.AGENC_NO_S=:agenc_no_s
+               </#if>
+			   <#if enttype_i??>
+                       and t1.ENTTYPE_I=:enttype_i
+               </#if>
+			   <#if recipeno_s??>
+                       and t1.RECIPENO_S=:recipeno_s
+               </#if>    
+               <#if remark_s??>
+                       and t1.REMARK_S  like '%' ||  :remark_s || '%'
+               </#if> 
+	]]>   
+   </sql>
+   <sql comment="datagrid" id="datagrid_total2">
+   <![CDATA[
+          SELECT
+				count(1)
+			FROM
+				AT_D_BS_RecipeItem T,
+				part P,
+				AT_D_BS_Recipe t1,
+				UDA_PART UP
+			WHERE
+				1 = 1
+			AND T .itemid_s = P .PART_NUMBER (+)
+			AND UP.OBJECT_KEY=P.PART_KEY
+			AND T .recipeid_i = t1.atr_key
+			AND T .record_flag_s = 'A'
+			AND t1.record_flag_s = 'A'
+			AND UP.mattyp_s = 'FERT'
+			  <#if s_factory_s??>
+                    and t.S_FACTORY_S=:s_factory_s
+                    and t1.S_FACTORY_S=:s_factory_s
+               </#if>
+		       <#if agenc_no_s??>
+                        and t.AGENC_NO_S=:agenc_no_s
+                        and t1.AGENC_NO_S=:agenc_no_s
+               </#if>
+			   <#if enttype_i??>
+                       and t1.ENTTYPE_I=:enttype_i
+               </#if>
+			   <#if recipeno_s??>
+                       and t1.RECIPENO_S=:recipeno_s
+               </#if>    
+               <#if remark_s??>
+                       and t1.REMARK_S  like '%' ||  :remark_s || '%'
+               </#if>   
+                
+	]]>   
+   </sql>
+   
+     <sql comment="datagrid" id="recipe_no_countbyid">
+	   <![CDATA[
+	           select nvl(count(1),0) from AT_D_BS_RecipeItem t,AT_D_BS_Recipe t1
+		       where t.recipeid_i = t1.atr_key
+		         and t.record_flag_s = 'A' 
+		         and t.RECIPEID_I=:recipeid_i
+		         and t1.ENTTYPE_I=:entType
+		]]>   
+   </sql>
+   
+   <!-- 分拣规则维护第三个页面使用 -->
+   <sql comment="datagrid" id="datagrid_rows3">
+   <![CDATA[
+		          SELECT
+					T .*, P .DESCRIPTION AS materialdesc_s,
+					UP .Materialspec_s,
+					UP .pattern_s,
+					UP .cj_s,
+					t1.recipeno_s
+				FROM
+					AT_D_BS_RecipeItem T,
+					PART P,
+					UDA_PART UP,
+					AT_D_BS_Recipe t1
+				WHERE
+					1 = 1
+				AND T .itemid_s = P .PART_NUMBER (+)
+				AND T .recipeid_i = t1.atr_key
+				AND P.PART_KEY=UP.OBJECT_KEY
+				AND T .record_flag_s = 'A'
+				AND t1.record_flag_s = 'A'
+				AND UP .mattyp_s = 'FERT'
+			   <#if entType??>
+                    and t1.ENTTYPE_I=:entType
+               </#if>
+			   <#if s_factory_s??>
+                    and t.S_FACTORY_S=:s_factory_s
+                    and t1.S_FACTORY_S=:s_factory_s
+               </#if>
+		       <#if agenc_no_s??>
+                        and t.AGENC_NO_S=:agenc_no_s
+                        and t1.AGENC_NO_S=:agenc_no_s
+               </#if>
+			   and t.itemid_s not in (select a.itemid_s
+			                            from At_d_Bs_Sortitem a
+			                           where a.ENTBARCODE_S = :entbarcode_s
+			                             and a.STATION_I = :station_i
+			                              and a.record_flag_s='A')
+			    <#if recipeno_s??>
+                    and t1.recipeno_s like :recipeno_s
+               </#if>
+               <#if itemid_s??>
+                     and t.itemid_s like :itemid_s
+               </#if> 
+               <#if materialdesc_s??>
+                     and a.materialdesc_s like :materialdesc_s
+                </#if>
+                
+                <#if materialspec_s??>
+                     and a.materialspec_s like :materialspec_s
+                </#if>
+                
+                 <#if pattern_s??>
+                     and a.pattern_s like :pattern_s
+                </#if>
+                
+                 <#if cj_s??>
+                     and a.cj_s like :cj_s
+                </#if>
+                   <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by to_number(t1.recipeno_s)
+            </#if>
+		]]>   
+	   </sql>
+	   <sql comment="datagrid" id="datagrid_total3">
+	   <![CDATA[
+	          SELECT
+					COUNT(1)
+				FROM
+					AT_D_BS_RecipeItem T,
+					PART P,
+					UDA_PART UP,
+					AT_D_BS_Recipe t1
+				WHERE
+					1 = 1
+				AND T .itemid_s = P .PART_NUMBER (+)
+				AND T .recipeid_i = t1.atr_key
+				AND P.PART_KEY=UP.OBJECT_KEY
+				AND T .record_flag_s = 'A'
+				AND t1.record_flag_s = 'A'
+				AND UP .mattyp_s = 'FERT'
+			   <#if entType??>
+                    and t1.ENTTYPE_I=:entType
+               </#if>
+			   <#if s_factory_s??>
+                    and t.S_FACTORY_S=:s_factory_s
+                    and t1.S_FACTORY_S=:s_factory_s
+               </#if>
+		       <#if agenc_no_s??>
+                        and t.AGENC_NO_S=:agenc_no_s
+                        and t1.AGENC_NO_S=:agenc_no_s
+               </#if>
+			   and t.itemid_s not in (select a.itemid_s
+			                            from At_d_Bs_Sortitem a
+			                           where a.ENTBARCODE_S = :entbarcode_s
+			                             and a.STATION_I = :station_i
+			                              and a.record_flag_s='A')
+			    			    <#if recipeno_s??>
+                    and t1.recipeno_s like :recipeno_s
+               </#if>
+               <#if itemid_s??>
+                     and t.itemid_s like :itemid_s
+               </#if> 
+               <#if materialdesc_s??>
+                     and a.materialdesc_s like :materialdesc_s
+                </#if>
+                
+                <#if materialspec_s??>
+                     and a.materialspec_s like :materialspec_s
+                </#if>
+                
+                 <#if pattern_s??>
+                     and a.pattern_s like :pattern_s
+                </#if>
+                
+                 <#if cj_s??>
+                     and a.cj_s like :cj_s
+                </#if>
+               
+		]]>   
+	   </sql>
+	   
+	   
+   <!-- 分拣规则维护第三个页面使用(外观前、X光前使用) -->
+   <sql comment="datagrid" id="datagrid_rows4">
+   <![CDATA[
+		          SELECT
+					T .*, P .DESCRIPTION AS materialdesc_s,
+					UP .Materialspec_s,
+					UP .pattern_s,
+					UP .cj_s,
+					t1.recipeno_s
+				FROM
+					AT_D_BS_RecipeItem T,
+					PART P,
+					UDA_PART UP,
+					AT_D_BS_Recipe t1
+				WHERE
+					1 = 1
+				AND T .itemid_s = P .PART_NUMBER (+)
+				AND T .recipeid_i = t1.atr_key
+				AND P.PART_KEY=UP.OBJECT_KEY
+				AND T .record_flag_s = 'A'
+				AND t1.record_flag_s = 'A'
+				AND UP .mattyp_s = 'FERT'
+			   <#if entType??>
+                    and t1.ENTTYPE_I=:entType
+               </#if>
+			   <#if s_factory_s??>
+                    and t.S_FACTORY_S=:s_factory_s
+                    and t1.S_FACTORY_S=:s_factory_s
+               </#if>
+		       <#if agenc_no_s??>
+                        and t.AGENC_NO_S=:agenc_no_s
+                        and t1.AGENC_NO_S=:agenc_no_s
+               </#if>
+			   and t.itemid_s not in (select a.itemid_s
+			                            from At_d_Bs_Sortitem a
+			                           where a.ENTBARCODE_S = :entbarcode_s
+			                             and a.STATION_I = :station_i
+			                              and a.record_flag_s='A')
+			    <#if recipeno_s??>
+                    and t1.recipeno_s like :recipeno_s
+               </#if>
+               <#if itemid_s??>
+                     and t.itemid_s like :itemid_s
+               </#if> 
+               <#if materialdesc_s??>
+                     and a.materialdesc_s like :materialdesc_s
+                </#if>
+                
+                <#if materialspec_s??>
+                     and a.materialspec_s like :materialspec_s
+                </#if>
+                
+                 <#if pattern_s??>
+                     and a.pattern_s like :pattern_s
+                </#if>
+                
+                 <#if cj_s??>
+                     and a.cj_s like :cj_s
+                </#if>
+                   <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by to_number(t1.recipeno_s)
+            </#if>
+		]]>   
+	   </sql>
+	   <sql comment="datagrid" id="datagrid_total4">
+	   <![CDATA[
+	          SELECT
+					COUNT(1)
+				FROM
+					AT_D_BS_RecipeItem T,
+					PART P,
+					UDA_PART UP,
+					AT_D_BS_Recipe t1
+				WHERE
+					1 = 1
+				AND T .itemid_s = P .PART_NUMBER (+)
+				AND T .recipeid_i = t1.atr_key
+				AND P.PART_KEY=UP.OBJECT_KEY
+				AND T .record_flag_s = 'A'
+				AND t1.record_flag_s = 'A'
+				AND UP .mattyp_s = 'FERT'
+			   <#if entType??>
+                    and t1.ENTTYPE_I=:entType
+               </#if>
+			   <#if s_factory_s??>
+                    and t.S_FACTORY_S=:s_factory_s
+                    and t1.S_FACTORY_S=:s_factory_s
+               </#if>
+		       <#if agenc_no_s??>
+                        and t.AGENC_NO_S=:agenc_no_s
+                        and t1.AGENC_NO_S=:agenc_no_s
+               </#if>
+			   and t.itemid_s not in (select a.itemid_s
+			                            from At_d_Bs_Sortitem a
+			                           where a.ENTBARCODE_S = :entbarcode_s
+			                             and a.STATION_I = :station_i
+			                              and a.record_flag_s='A')
+			    			    <#if recipeno_s??>
+                    and t1.recipeno_s like :recipeno_s
+               </#if>
+               <#if itemid_s??>
+                     and t.itemid_s like :itemid_s
+               </#if> 
+               <#if materialdesc_s??>
+                     and a.materialdesc_s like :materialdesc_s
+                </#if>
+                
+                <#if materialspec_s??>
+                     and a.materialspec_s like :materialspec_s
+                </#if>
+                
+                 <#if pattern_s??>
+                     and a.pattern_s like :pattern_s
+                </#if>
+                
+                 <#if cj_s??>
+                     and a.cj_s like :cj_s
+                </#if>
+               
+		]]>   
+	   </sql>
+</sqls>

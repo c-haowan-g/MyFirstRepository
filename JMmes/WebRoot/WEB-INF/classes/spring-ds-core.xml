@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 查找最新的schemaLocation 访问 http://www.springframework.org/schema/ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 池数据源 ，分布式数据源不可以用com.alibaba.druid.pool.DruidDataSource -->
+	<bean id="ds_core" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="jdbc:oracle:thin:@(DESCRIPTION =   (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.2.107)(PORT = 1521))    (CONNECT_DATA =  (SERVER = DEDICATED)   (SERVICE_NAME = lzcsdb)  )  )" />
+		<property name="username" value="jmmes" />
+		<property name="password" value="jmmes" />
+		<!-- <property name="url" value="jdbc:oracle:thin:@(DESCRIPTION =   (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.86.29)(PORT = 1521))    (CONNECT_DATA =  (SERVER = DEDICATED)   (SERVICE_NAME = qgmesdb)  )  )" />
+		<property name="username" value="mes" />
+		<property name="password" value="Linglongqg2019" /> -->
+		<!-- <property name="url" value="jdbc:oracle:thin:@(DESCRIPTION =   (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.86.56)(PORT = 1521))    (CONNECT_DATA =  (SERVER = DEDICATED)   (SERVICE_NAME = bgmesdb)  )  )" />
+		<property name="username" value="mes" />
+		<property name="password" value="Linglongbg2019" /> -->
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="10" />
+		<property name="minIdle" value="10" />
+		<property name="maxActive" value="200" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+		<property name="filters" value="stat" />
+		<property name="useGlobalDataSourceStat" value="true" />
+	</bean>
+
+	<!-- sessionfactory 配置 -->
+	<bean id="sf_core"
+		  class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- connection -->
+		<property name="dataSource">
+			<ref bean="ds_core" />
+		</property>
+		<!-- hibernate属性配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.default_schema">${hibernate.default_schema}</prop> -->
+				<!-- org.hibernate.dialect.Oracle10gDialect com.bluebirdme.core.system.orm.datasource.RockWellOracleDialect -->
+				<!-- hibernate.default_schema=platform -->
+				<prop key="hibernate.default_schema">JMMES</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.fetch_size">30</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext
+				</prop>
+				<!-- <prop key="hibernate.cache.use_query_cache">true</prop> <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+					<prop key="hibernate.cache.use_second_level_cache">true</prop> <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+					<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache.xml</prop> -->
+			</props>
+		</property>
+
+		<!-- packagesToScan搜索所有标注了Entity的Class -->
+		<property name="packagesToScan">
+			<list>
+				<!-- 添加各自业务的entity -->
+				<value>com.bluebirdme.core.*</value>
+				<value>com.bluebirdme.mes.linglong.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sf_core" />
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>  

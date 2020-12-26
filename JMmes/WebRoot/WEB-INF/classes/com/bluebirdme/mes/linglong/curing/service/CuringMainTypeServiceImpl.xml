@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select AT_C_MM_CURING_MAINTYRE.*,C1.USERCODE || C1.USERNAME callnames,
+            AR.REAS_CN_S as conumber from AT_C_MM_CURING_MAINTYRE
+            LEFT JOIN CORE_USER C1 ON AT_C_MM_CURING_MAINTYRE.userid_s = C1.USERCODE
+            LEFT JOIN AT_D_BS_REAS AR ON AT_C_MM_CURING_MAINTYRE.REASCODE_S = AR.REAS_CODE_S
+             where 1=1
+             AND (AR.RECORD_FLAG_S ='A' OR AR.RECORD_FLAG_S IS NULL)
+            	<#if begin_created_time??&&end_created_time??>
+            		and AT_C_MM_CURING_MAINTYRE.last_modified_time between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				    and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                </#if>
+                <#if agenc_no_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Agenc_No_S=:agenc_no_s
+                </#if>
+                <#if alarm_flag_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Alarm_flag_S=:alarm_flag_s
+                </#if>
+                <#if arch_flag_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Arch_Flag_S=:arch_flag_s
+                </#if>
+                <#if atpresentgradecode_s??>
+                     and AT_C_MM_CURING_MAINTYRE.AtPresentGradeCode_S=:atpresentgradecode_s
+                </#if>
+                <#if curingtimedelay_s??>
+                     and AT_C_MM_CURING_MAINTYRE.CuringTimeDelay_S=:curingtimedelay_s
+                </#if>
+                <#if curingtotaltime_s??>
+                     and AT_C_MM_CURING_MAINTYRE.CuringTotalTime_S=:curingtotaltime_s
+                </#if>
+                <#if firstflag_s??>
+                     and AT_C_MM_CURING_MAINTYRE.FirstFlag_S=:firstflag_s
+                </#if>
+                <#if gross_weight_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Gross_Weight_S=:gross_weight_s
+                </#if>
+                <#if machinecode_s??>
+                     and AT_C_MM_CURING_MAINTYRE.MachineCode_S like :machinecode_s||'%'
+                </#if>
+                <#if overtime_t??>
+                     and AT_C_MM_CURING_MAINTYRE.OverTime_T=:overtime_t
+                </#if>
+                <#if proess_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Proess_S=:proess_s
+                </#if>
+                <#if quality_grade_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Quality_grade_S=:quality_grade_s
+                </#if>
+                <#if record_flag_s??>
+                     and AT_C_MM_CURING_MAINTYRE.Record_Flag_S=:record_flag_s
+                </#if>
+                <#if reservedate10_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate10_S=:reservedate10_s
+                </#if>
+                <#if reservedate1_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate1_S=:reservedate1_s
+                </#if>
+                <#if reservedate2_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate2_S=:reservedate2_s
+                </#if>
+                <#if reservedate3_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate3_S=:reservedate3_s
+                </#if>
+                <#if reservedate4_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate4_S=:reservedate4_s
+                </#if>
+                <#if reservedate5_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate5_S=:reservedate5_s
+                </#if>
+                <#if reservedate6_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate6_S=:reservedate6_s
+                </#if>
+                <#if reservedate7_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate7_S=:reservedate7_s
+                </#if>
+                <#if reservedate8_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate8_S=:reservedate8_s
+                </#if>
+                <#if reservedate9_s??>
+                     and AT_C_MM_CURING_MAINTYRE.ReserveDate9_S=:reservedate9_s
+                </#if>
+                <#if s_factory_s??>
+                     and AT_C_MM_CURING_MAINTYRE.S_Factory_S=:s_factory_s
+                </#if>
+                <#if starttime_t??>
+                     and AT_C_MM_CURING_MAINTYRE.StartTime_T=:starttime_t
+                </#if>
+                <#if tyrebarcode_s??>
+                     and AT_C_MM_CURING_MAINTYRE.TyreBarCode_S like :tyrebarcode_s||'%'
+                </#if>
+                <#if userid_s??>
+                     and AT_C_MM_CURING_MAINTYRE.UserId_S=:userid_s
+                </#if>
+                <#if weeklynumber_s??>
+                     and AT_C_MM_CURING_MAINTYRE.WeeklyNumber_S=:weeklynumber_s
+                </#if>
+                <#if materialcode_s??>
+                     and AT_C_MM_CURING_MAINTYRE.materialCode_S like :materialcode_s ||'%'
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by AT_C_MM_CURING_MAINTYRE.last_modified_time desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_C_MM_CURING_MAINTYRE
+            LEFT JOIN CORE_USER C1 ON AT_C_MM_CURING_MAINTYRE.userid_s = C1.USERCODE where 1=1
+            <#if begin_created_time??&&end_created_time??>
+            		and AT_C_MM_CURING_MAINTYRE.last_modified_time between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				    and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                </#if>
+                    <#if agenc_no_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Agenc_No_S=:agenc_no_s
+                    </#if>
+                    <#if alarm_flag_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Alarm_flag_S=:alarm_flag_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Arch_Flag_S=:arch_flag_s
+                    </#if>
+                    <#if atpresentgradecode_s??>
+                         and AT_C_MM_CURING_MAINTYRE.AtPresentGradeCode_S=:atpresentgradecode_s
+                    </#if>
+                    <#if curingtimedelay_s??>
+                         and AT_C_MM_CURING_MAINTYRE.CuringTimeDelay_S=:curingtimedelay_s
+                    </#if>
+                    <#if curingtotaltime_s??>
+                         and AT_C_MM_CURING_MAINTYRE.CuringTotalTime_S=:curingtotaltime_s
+                    </#if>
+                    <#if firstflag_s??>
+                         and AT_C_MM_CURING_MAINTYRE.FirstFlag_S=:firstflag_s
+                    </#if>
+                    <#if gross_weight_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Gross_Weight_S=:gross_weight_s
+                    </#if>
+                    <#if machinecode_s??>
+                         and AT_C_MM_CURING_MAINTYRE.MachineCode_S like :machinecode_s||'%'
+                    </#if>
+                    
+
+                    <#if overtime_t??>
+                         and AT_C_MM_CURING_MAINTYRE.OverTime_T=:overtime_t
+                    </#if>
+                    <#if proess_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Proess_S=:proess_s
+                    </#if>
+                    <#if quality_grade_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Quality_grade_S=:quality_grade_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and AT_C_MM_CURING_MAINTYRE.Record_Flag_S=:record_flag_s
+                    </#if>
+                    <#if reservedate10_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate10_S=:reservedate10_s
+                    </#if>
+                    <#if reservedate1_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate1_S=:reservedate1_s
+                    </#if>
+                    <#if reservedate2_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate2_S=:reservedate2_s
+                    </#if>
+                    <#if reservedate3_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate3_S=:reservedate3_s
+                    </#if>
+                    <#if reservedate4_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate4_S=:reservedate4_s
+                    </#if>
+                    <#if reservedate5_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate5_S=:reservedate5_s
+                    </#if>
+                    <#if reservedate6_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate6_S=:reservedate6_s
+                    </#if>
+                    <#if reservedate7_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate7_S=:reservedate7_s
+                    </#if>
+                    <#if reservedate8_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate8_S=:reservedate8_s
+                    </#if>
+                    <#if reservedate9_s??>
+                         and AT_C_MM_CURING_MAINTYRE.ReserveDate9_S=:reservedate9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and AT_C_MM_CURING_MAINTYRE.S_Factory_S=:s_factory_s
+                    </#if>
+                    <#if starttime_t??>
+                         and AT_C_MM_CURING_MAINTYRE.StartTime_T=:starttime_t
+                    </#if>
+                    <#if tyrebarcode_s??>
+                         and AT_C_MM_CURING_MAINTYRE.TyreBarCode_S like :tyrebarcode_s||'%'
+                    </#if>
+                    <#if userid_s??>
+                         and AT_C_MM_CURING_MAINTYRE.UserId_S=:userid_s
+                    </#if>
+                    <#if weeklynumber_s??>
+                         and AT_C_MM_CURING_MAINTYRE.WeeklyNumber_S=:weeklynumber_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and AT_C_MM_CURING_MAINTYRE.materialCode_S like :materialcode_s||'%'
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_MX_PP_MATERIALAPPLY where 1=1
+            	     and RECORD_FLAG_S='A'
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if prod_date_s??>
+                     and PROD_DATE_S=:prod_date_s
+                </#if>
+                <#if prod_shift_s??>
+                     and PROD_SHIFT_S=:prod_shift_s
+                </#if>
+                <#if prod_type_s??>
+                     and PROD_TYPE_S=:prod_type_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if status_check_s??>
+                     and STATUS_CHECK_S=:status_check_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_MX_PP_MATERIALAPPLY where 1=1
+                    and RECORD_FLAG_S='A'
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if prod_date_s??>
+                     and PROD_DATE_S=:prod_date_s
+                </#if>
+                <#if prod_shift_s??>
+                     and PROD_SHIFT_S=:prod_shift_s
+                </#if>
+                <#if prod_type_s??>
+                     and PROD_TYPE_S=:prod_type_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if status_check_s??>
+                     and STATUS_CHECK_S=:status_check_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+        ]]>
+    </sql>
+    <sql comment="根据条码查询机台名称" id="searchMixEquipName">
+        <![CDATA[
+            SELECT
+				PL.DESCRIPTION
+			FROM
+				AREA A,
+				AREA_PRODUCTION_LINE AP,
+				PRODUCTION_LINE PL
+			WHERE
+			    A.AREA_NAME = :factory
+			AND
+			    PL.P_LINE_NAME = :equipcode
+			AND
+			    A.AREA_KEY = AP.PARENT_KEY
+			AND
+			    AP.CHILD_KEY = PL.P_LINE_KEY
+        ]]>
+    </sql>
+</sqls>

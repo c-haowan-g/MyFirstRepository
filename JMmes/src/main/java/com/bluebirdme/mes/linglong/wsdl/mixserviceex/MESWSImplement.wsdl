@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservice.mes.linglong.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://tempuri.org/" name="MESWSImplementService" targetNamespace="http://webservice.mes.linglong.com/">
+  <wsdl:import location="http://192.168.71.26:11002/MESWSImplement?wsdl=MESWSInterface.wsdl" namespace="http://tempuri.org/">
+    </wsdl:import>
+  <wsdl:binding name="MESWSImplementServiceSoapBinding" type="ns1:MESWSInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="reciveWoCreateByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveWoCreateByMES" style="document"/>
+      <wsdl:input name="reciveWoCreateByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveWoCreateByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="recivePolyTrainProdByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/recivePolyProdByMes" style="document"/>
+      <wsdl:input name="recivePolyTrainProdByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="recivePolyTrainProdByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveMaterialApplyAddQtyByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveMaterialApplyAddQtyByMES" style="document"/>
+      <wsdl:input name="reciveMaterialApplyAddQtyByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveMaterialApplyAddQtyByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveFeedSwitchSendByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveFeedSwitchSendByMES" style="document"/>
+      <wsdl:input name="reciveFeedSwitchSendByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveFeedSwitchSendByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="recivePlanMoveByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/recivePlanMoveByMES" style="document"/>
+      <wsdl:input name="recivePlanMoveByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="recivePlanMoveByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveWoMoveByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveWoMoveByMES" style="document"/>
+      <wsdl:input name="reciveWoMoveByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveWoMoveByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveMixerMasterByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveMixerMasterByMES" style="document"/>
+      <wsdl:input name="reciveMixerMasterByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveMixerMasterByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveMaterialApplyByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveMaterialApplyByMES" style="document"/>
+      <wsdl:input name="reciveMaterialApplyByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveMaterialApplyByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveWoCloseByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveWoCloseByMES" style="document"/>
+      <wsdl:input name="reciveWoCloseByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveWoCloseByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveWoSendByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveWoSendByMES" style="document"/>
+      <wsdl:input name="reciveWoSendByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveWoSendByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reciveSiloMaterialSendByMES">
+      <soap:operation soapAction="http://tempuri.org/MESWSInterface/reciveSiloMaterialSendByMES" style="document"/>
+      <wsdl:input name="reciveSiloMaterialSendByMES">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reciveSiloMaterialSendByMESResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MESWSImplementService">
+    <wsdl:port binding="tns:MESWSImplementServiceSoapBinding" name="MESWSImplementPort">
+      <soap:address location="http://192.168.71.26:11002/MESWSImplement"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+                SELECT
+					PART_NUMBER,
+					MATERIALGROUP_S,
+					DESCRIPTION,
+					SPARE1_S,
+					SMALLTIME_F,
+					OVERTIME_F,
+					CHANGED_BY_S,
+					CHANGED_TIME_T,
+					ATR_KEY,
+					SITE_NUM,
+					ATR_NAME,
+					TRX_ID,
+					BEADWIDTH_D,
+					INNERDIA_D,
+					OUTERDIA_D,
+					TYREHEIGHT_D,
+					TYREWIDTH_D,
+					RECORD_FLAG_S,
+					AGENC_NO_S,
+					MATERIALCODE_S 
+				FROM
+					(
+					SELECT
+						P.PART_NUMBER,
+						P.PART_KEY,
+						P.DESCRIPTION,
+						AC.DICTNAME_S MATERIALGROUP_S,
+						MP.SPARE1_S,
+						MP.SMALLTIME_F,
+						MP.OVERTIME_F,
+						MP.CHANGED_BY_S,
+						MP.CHANGED_TIME_T,
+						MP.ATR_KEY,
+						MP.SITE_NUM,
+						MP.ATR_NAME,
+						MP.TRX_ID,
+						MP.BEADWIDTH_D,
+						MP.INNERDIA_D,
+						MP.OUTERDIA_D,
+						MP.TYREHEIGHT_D,
+						MP.TYREWIDTH_D,
+						MP.RECORD_FLAG_S,
+						MP.AGENC_NO_S,
+						MP.MATERIALCODE_S 
+					FROM
+						PART P,
+						AT_INT_SAP_MATERIALSPLUS MP,
+						PART_CLASS PC,
+						PART_CLASS_PART PCP,
+						UDA_PART UP,
+						AT_CM_BS_COREDICTIONARY AC 
+					WHERE
+						1 = 1 
+						AND P.PART_NUMBER = MP.MATERIALCODE_S 
+						AND P.PART_KEY = PCP.PART_KEY 
+						AND PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+						AND UP.OBJECT_KEY = P.PART_KEY 
+						AND PC.PART_CLASS_NAME = AC.ERPCODE_S 
+						AND UP.MATTYP_S = 'HALB'
+						AND AC.DICTCODE_S LIKE '%308%'
+						<#if sfs??>
+		                     and AC.DICTNAME_S NOT LIKE :sfs
+		                </#if> 	
+						<#if materialcode_s ??> 
+						    AND P.PART_NUMBER = :materialcode_s 
+						</#if>
+						<#if materialspec_s ??> 
+						    AND UP.MATERIALSPEC_S =:materialspec_s 
+						</#if>
+						<#if materialgroup_s ??> 
+						    AND AC.DICTNAME_S =:materialgroup_s 
+						</#if> 
+						ORDER BY
+							MP.ATR_KEY DESC 
+						) 
+						GROUP BY
+							PART_NUMBER,
+							MATERIALGROUP_S,
+							DESCRIPTION,
+							SPARE1_S,
+							SMALLTIME_F,
+							OVERTIME_F,
+							CHANGED_BY_S,
+							CHANGED_TIME_T,
+							ATR_KEY,
+							SITE_NUM,
+							ATR_NAME,
+							TRX_ID,
+							BEADWIDTH_D,
+							INNERDIA_D,
+							OUTERDIA_D,
+							TYREHEIGHT_D,
+							TYREWIDTH_D,
+							RECORD_FLAG_S,
+							AGENC_NO_S,
+							MATERIALCODE_S 
+						ORDER BY
+							ATR_KEY
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            SELECT
+				COUNT( 1 ) 
+			FROM
+				(
+				SELECT
+					PART_NUMBER,
+					MATERIALGROUP_S,
+					DESCRIPTION,
+					SPARE1_S,
+					SMALLTIME_F,
+					OVERTIME_F,
+					CHANGED_BY_S,
+					CHANGED_TIME_T,
+					ATR_KEY,
+					SITE_NUM,
+					ATR_NAME,
+					TRX_ID,
+					BEADWIDTH_D,
+					INNERDIA_D,
+					OUTERDIA_D,
+					TYREHEIGHT_D,
+					TYREWIDTH_D,
+					RECORD_FLAG_S,
+					AGENC_NO_S,
+					MATERIALCODE_S 
+				FROM
+					(
+					SELECT
+						P.PART_NUMBER,
+						P.PART_KEY,
+						P.DESCRIPTION,
+						AC.DICTNAME_S MATERIALGROUP_S,
+						MP.SPARE1_S,
+						MP.SMALLTIME_F,
+						MP.OVERTIME_F,
+						MP.CHANGED_BY_S,
+						MP.CHANGED_TIME_T,
+						MP.ATR_KEY,
+						MP.SITE_NUM,
+						MP.ATR_NAME,
+						MP.TRX_ID,
+						MP.BEADWIDTH_D,
+						MP.INNERDIA_D,
+						MP.OUTERDIA_D,
+						MP.TYREHEIGHT_D,
+						MP.TYREWIDTH_D,
+						MP.RECORD_FLAG_S,
+						MP.AGENC_NO_S,
+						MP.MATERIALCODE_S 
+					FROM
+						PART P,
+						AT_INT_SAP_MATERIALSPLUS MP,
+						PART_CLASS PC,
+						PART_CLASS_PART PCP,
+						UDA_PART UP,
+						AT_CM_BS_COREDICTIONARY AC 
+					WHERE
+						1 = 1 
+						AND P.PART_NUMBER = MP.MATERIALCODE_S 
+						AND P.PART_KEY = PCP.PART_KEY 
+						AND PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+						AND UP.OBJECT_KEY = P.PART_KEY 
+						AND PC.PART_CLASS_NAME = AC.ERPCODE_S 
+						AND UP.MATTYP_S = 'HALB'
+						AND AC.DICTCODE_S LIKE '%308%'
+						<#if sfs??>
+		                     and AC.DICTNAME_S NOT LIKE :sfs
+		                </#if>
+						<#if materialcode_s ??> 
+						    AND P.PART_NUMBER = :materialcode_s 
+						</#if>
+						<#if materialspec_s ??> 
+						    AND UP.MATERIALSPEC_S = :materialspec_s 
+						</#if>
+						<#if materialgroup_s ??> 
+						    AND AC.DICTNAME_S = :materialgroup_s 
+						</#if> 
+					ORDER BY
+						MP.ATR_KEY DESC 
+					) 
+				GROUP BY
+					PART_NUMBER,
+					MATERIALGROUP_S,
+					DESCRIPTION,
+					SPARE1_S,
+					SMALLTIME_F,
+					OVERTIME_F,
+					CHANGED_BY_S,
+					CHANGED_TIME_T,
+					ATR_KEY,
+					SITE_NUM,
+					ATR_NAME,
+					TRX_ID,
+					BEADWIDTH_D,
+					INNERDIA_D,
+					OUTERDIA_D,
+					TYREHEIGHT_D,
+					TYREWIDTH_D,
+					RECORD_FLAG_S,
+					AGENC_NO_S,
+				MATERIALCODE_S 
+				)
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridgroupUDA_rows">
+        <![CDATA[
+           SELECT
+				MAX( AC.DICTNAME_S ) MATERIALGROUP_S,
+				MAX( PC.UDA_0 ) SMALLTIME_F,
+				MAX( PC.UDA_1 ) OVERTIME_F,
+				MAX( PC.UDA_2 ) SPARE1_S,
+				MAX( PC.UDA_3 ) SPARE2_S,
+				MAX( MP.CHANGED_BY_S ) CHANGED_BY_S,
+				MAX( MP.CHANGED_TIME_T ) CHANGED_TIME_T,
+				MAX( MP.ATR_KEY ) ATR_KEY,
+				MAX( MP.SITE_NUM ) SITE_NUM,
+				MAX( MP.ATR_NAME ) ATR_NAME,
+				MAX( MP.TRX_ID ) TRX_ID,
+				MAX( MP.BEADWIDTH_D ) BEADWIDTH_D,
+				MAX( MP.INNERDIA_D ) INNERDIA_D,
+				MAX( MP.OUTERDIA_D ) OUTERDIA_D,
+				MAX( MP.TYREHEIGHT_D ) TYREHEIGHT_D,
+				MAX( MP.TYREWIDTH_D ) TYREWIDTH_D,
+				MAX( MP.RECORD_FLAG_S ) RECORD_FLAG_S,
+				MAX( MP.AGENC_NO_S ) AGENC_NO_S,
+				MAX( MP.MATERIALCODE_S ) MATERIALCODE_S
+			FROM
+				PART P,
+				AT_INT_SAP_MATERIALSPLUS MP,
+				PART_CLASS PC,
+				PART_CLASS_PART PCP,
+				UDA_PART UP,
+				AT_CM_BS_COREDICTIONARY AC 
+			WHERE
+				1 = 1 
+			AND 
+				MP.MATERIALCODE_S = P.PART_NUMBER 
+			AND 
+				P.PART_KEY = PCP.PART_KEY 
+			AND 
+				PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+			AND 
+				UP.OBJECT_KEY = P.PART_KEY 
+			AND 
+				PC.PART_CLASS_NAME = AC.ERPCODE_S 
+			AND 
+				UP.MATTYP_S = 'HALB'
+			AND
+		        AC.DICTCODE_S LIKE '%308%'	
+			AND 
+				MP.RECORD_FLAG_S = 'A'	
+				<#if sfs??>
+                     and AC.DICTNAME_S NOT LIKE :sfs
+                </#if>
+                <#if materialgroup_s??>
+                     and AC.DICTNAME_S = :materialgroup_s
+                </#if>
+            GROUP BY
+				AC.ERPCODE_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridgroupUDA_total">
+        <![CDATA[
+        	SELECT 
+        		COUNT(1) 
+        	FROM
+        		(
+	            SELECT 
+	                MAX( AC.DICTNAME_S ) MATERIALGROUP_S,
+					MAX( PC.UDA_0 ) SMALLTIME_F,
+					MAX( PC.UDA_1 ) OVERTIME_F,
+					MAX( PC.UDA_2 ) SPARE1_S,
+					MAX( PC.UDA_3 ) SPARE2_S,
+					MAX( MP.CHANGED_BY_S ) CHANGED_BY_S,
+					MAX( MP.CHANGED_TIME_T ) CHANGED_TIME_T 
+				FROM
+					PART P,
+					AT_INT_SAP_MATERIALSPLUS MP,
+					PART_CLASS PC,
+					PART_CLASS_PART PCP,
+					UDA_PART UP,
+					AT_CM_BS_COREDICTIONARY AC 
+				WHERE
+					1 = 1 
+				AND 
+					MP.MATERIALCODE_S = P.PART_NUMBER 
+				AND 
+					P.PART_KEY = PCP.PART_KEY 
+				AND 
+					PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+				AND 
+					UP.OBJECT_KEY = P.PART_KEY 
+				AND 
+					PC.PART_CLASS_NAME = AC.ERPCODE_S 
+				AND 
+					UP.MATTYP_S = 'HALB'
+				AND
+		            AC.DICTCODE_S LIKE '%308%'	
+				AND 
+					MP.RECORD_FLAG_S = 'A'	
+					<#if sfs??>
+	                     and AC.DICTNAME_S NOT LIKE :sfs
+	                </#if>
+	                <#if materialgroup_s??>
+	                     and AC.DICTNAME_S = :materialgroup_s
+	                </#if>
+	            GROUP BY
+					AC.ERPCODE_S
+				)	   
+        ]]>
+    </sql>
+    
+    <sql comment="查出物料规格显示在JSP页面下拉列表处" id="searchMaterialSpec">
+       <![CDATA[
+            SELECT
+				UP.MATERIALSPEC_S,
+				AC.DICTNAME_S MATERIALGROUP_S
+			FROM
+				PART P,
+				AT_INT_SAP_MATERIALSPLUS MP,
+				PART_CLASS PC,
+				PART_CLASS_PART PCP,
+				UDA_PART UP,
+				AT_CM_BS_COREDICTIONARY AC 
+			WHERE
+				1 = 1 
+				AND P.PART_NUMBER = MP.MATERIALCODE_S 
+				AND P.PART_KEY = PCP.PART_KEY 
+				AND PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+				AND UP.OBJECT_KEY = P.PART_KEY 
+				AND PC.PART_CLASS_NAME = AC.ERPCODE_S 
+				AND UP.MATTYP_S = 'HALB'
+				AND AC.DICTCODE_S LIKE '%308%'	 
+			GROUP BY
+				UP.MATERIALSPEC_S,
+				AC.DICTNAME_S	
+        ]]>
+	</sql>
+	
+	<sql comment="查出物料编码显示在JSP页面下拉列表处" id="searchMaterialCode">
+       <![CDATA[
+            SELECT
+				P.PART_NUMBER,
+				AC.DICTNAME_S MATERIALGROUP_S 
+			FROM
+				PART P,
+				AT_INT_SAP_MATERIALSPLUS MP,
+				PART_CLASS PC,
+				PART_CLASS_PART PCP,
+				UDA_PART UP,
+				AT_CM_BS_COREDICTIONARY AC 
+			WHERE
+				1 = 1 
+				AND P.PART_NUMBER = MP.MATERIALCODE_S 
+				AND P.PART_KEY = PCP.PART_KEY 
+				AND PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+				AND UP.OBJECT_KEY = P.PART_KEY 
+				AND PC.PART_CLASS_NAME = AC.ERPCODE_S 
+				AND UP.MATTYP_S = 'HALB' 
+				AND AC.DICTCODE_S LIKE '%308%'	
+			GROUP BY
+				P.PART_NUMBER,
+				AC.DICTNAME_S
+        ]]>
+	</sql>
+	
+	<sql comment="查出物料组显示在JSP页面下拉列表处" id="searchMaterialGroup">
+       <![CDATA[
+            SELECT
+				AC.DICTNAME_S MATERIALGROUP_S 
+			FROM
+				PART P,
+				UDA_PART UP,
+				PART_CLASS PC,
+				PART_CLASS_PART PCP,
+				AT_CM_BS_COREDICTIONARY AC 
+			WHERE
+				1 = 1 
+				AND P.PART_KEY = PCP.PART_KEY 
+				AND PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+				AND PC.PART_CLASS_NAME = AC.ERPCODE_S 
+				AND UP.OBJECT_KEY = P.PART_KEY 
+				AND UP.MATTYP_S = 'HALB'
+				AND AC.DICTCODE_S LIKE '%308%' 
+			GROUP BY
+				AC.DICTNAME_S 	
+        ]]>
+	</sql>
+	
+	<sql comment="根据用户号码查询姓名" id="toUserName">
+       <![CDATA[
+            SELECT USERNAME FROM CORE_USER WHERE USERCODE = :usercode
+        ]]>
+	</sql>
+	
+	<sql comment="根据物料编号查询规格" id="getMaterialSpecByCode">
+       <![CDATA[
+            SELECT
+				UP.MATERIALSPEC_S MATERIALSPEC
+			FROM
+				PART P,
+				UDA_PART UP
+			WHERE
+				1 = 1 
+			AND 
+				UP.OBJECT_KEY = P.PART_KEY
+			AND
+				P.PART_NUMBER = :materialcode	
+        ]]>
+	</sql>
+	
+	<sql comment="根据物料编号查询物料信息" id="getInfoByCode">
+       <![CDATA[
+            SELECT 
+				DISTINCT AC.DICTNAME_S AS MATERIALGROUP_S,
+				MP.*
+			FROM 
+			    PART P,
+				AT_INT_SAP_MATERIALSPLUS MP,
+				PART_CLASS PC,
+				PART_CLASS_PART PCP,
+				UDA_PART UP,
+				AT_CM_BS_COREDICTIONARY AC
+			WHERE 
+			    1 = 1 
+			AND 
+				MP.MATERIALCODE_S = P.PART_NUMBER 
+			AND 
+				P.PART_KEY = PCP.PART_KEY 
+			AND 
+				PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+			AND 
+				UP.OBJECT_KEY = P.PART_KEY 
+			AND 
+				PC.PART_CLASS_NAME = AC.ERPCODE_S 
+			AND 
+				UP.MATTYP_S = 'HALB'
+			AND
+		        AC.DICTCODE_S LIKE '%308%'	
+			AND 
+				MP.RECORD_FLAG_S = 'A'	
+			AND 
+		        MP.MATERIALCODE_S = :materialcode
+        ]]>
+	</sql>
+	
+	<sql comment="同种物料设置相同时效" id="searchSameGroupByCode">
+       <![CDATA[
+			SELECT
+				SPARE1_S,
+				SMALLTIME_F,
+				OVERTIME_F,
+				CHANGED_BY_S,
+				CHANGED_TIME_T,
+				ATR_KEY,
+				SITE_NUM,
+				ATR_NAME,
+				TRX_ID,
+				BEADWIDTH_D,
+				INNERDIA_D,
+				OUTERDIA_D,
+				TYREHEIGHT_D,
+				TYREWIDTH_D,
+				RECORD_FLAG_S,
+				AGENC_NO_S,
+				MATERIALCODE_S 
+			FROM
+				(
+				SELECT
+					P.PART_NUMBER,
+					P.PART_KEY,
+					P.DESCRIPTION,
+					AC.DICTNAME_S MATERIALGROUP_S,
+					MP.SPARE1_S,
+					MP.SMALLTIME_F,
+					MP.OVERTIME_F,
+					MP.CHANGED_BY_S,
+					MP.CHANGED_TIME_T,
+					MP.ATR_KEY,
+					MP.SITE_NUM,
+					MP.ATR_NAME,
+					MP.TRX_ID,
+					MP.BEADWIDTH_D,
+					MP.INNERDIA_D,
+					MP.OUTERDIA_D,
+					MP.TYREHEIGHT_D,
+					MP.TYREWIDTH_D,
+					MP.RECORD_FLAG_S,
+					MP.AGENC_NO_S,
+					MP.MATERIALCODE_S 
+				FROM
+					PART P,
+					AT_INT_SAP_MATERIALSPLUS MP,
+					PART_CLASS PC,
+					PART_CLASS_PART PCP,
+					UDA_PART UP,
+					AT_CM_BS_COREDICTIONARY AC 
+				WHERE
+					1 = 1 
+					AND P.PART_NUMBER = MP.MATERIALCODE_S 
+					AND P.PART_KEY = PCP.PART_KEY 
+					AND PCP.PART_CLASS_KEY = PC.PART_CLASS_KEY 
+					AND UP.OBJECT_KEY = P.PART_KEY 
+					AND PC.PART_CLASS_NAME = AC.ERPCODE_S 
+					AND UP.MATTYP_S = 'HALB' 
+					AND AC.DICTCODE_S LIKE '%308%'
+					AND AC.DICTNAME_S = :materialgroup
+					ORDER BY
+						MP.ATR_KEY DESC 
+					) 
+					GROUP BY
+						PART_NUMBER,
+						MATERIALGROUP_S,
+						DESCRIPTION,
+						SPARE1_S,
+						SMALLTIME_F,
+						OVERTIME_F,
+						CHANGED_BY_S,
+						CHANGED_TIME_T,
+						ATR_KEY,
+						SITE_NUM,
+						ATR_NAME,
+						TRX_ID,
+						BEADWIDTH_D,
+						INNERDIA_D,
+						OUTERDIA_D,
+						TYREHEIGHT_D,
+						TYREWIDTH_D,
+						RECORD_FLAG_S,
+						AGENC_NO_S,
+						MATERIALCODE_S 
+					ORDER BY
+						ATR_KEY
+        ]]>
+	</sql>
+	
+	<sql comment="savepartclass" id="savepartclass">
+       <![CDATA[
+			UPDATE 
+				PART_CLASS PC 
+			SET 
+				PC.UDA_0 = :smalltime,
+				PC.UDA_1 = :overtime,
+				PC.UDA_2 = :spare1_s,
+				PC.UDA_3 = :spare2_s 
+			WHERE
+				PC.PART_CLASS_NAME = 
+				( SELECT 
+					PC.PART_CLASS_NAME FROM PART_CLASS PC, 
+					AT_CM_BS_COREDICTIONARY AC 
+				  WHERE PC.PART_CLASS_NAME = AC.ERPCODE_S 
+				  AND AC.DICTNAME_S = :materialgroup )   	
+        ]]>
+	</sql>
+	
+	
+</sqls>

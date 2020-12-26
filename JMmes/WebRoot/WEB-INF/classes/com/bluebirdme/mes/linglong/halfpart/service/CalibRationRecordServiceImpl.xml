@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_A_EM_CALIBRATIONRECORD where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if classcode_s??>
+                     and CLASSCODE_S=:classcode_s
+                </#if>
+                <#if classteam_s??>
+                     and CLASSTEAM_S=:classteam_s
+                </#if>
+                <#if start_time??&&end_time??>
+                     and DETECTIONTIME_T between TO_DATE(:start_time,'yyyy-mm-dd hh24:MI:ss')
+	                 and TO_DATE(:end_time,'yyyy-mm-dd hh24:MI:ss') 
+                </#if>
+                <#if productionline_s??>
+                     and PRODUCTIONLINE_S=:productionline_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if result_s??>
+                     and RESULT_S=:result_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if standardweight_f??>
+                     and STANDARDWEIGHT_F=:standardweight_f
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tolerance_f??>
+                     and TOLERANCE_F=:tolerance_f
+                </#if>
+                <#if weight_f??>
+                     and WEIGHT_F=:weight_f
+                </#if>
+                <#if workerid_s??>
+                     and WORKERID_S=:workerid_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by DETECTIONTIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_EM_CALIBRATIONRECORD where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if classcode_s??>
+                         and CLASSCODE_S=:classcode_s
+                    </#if>
+                    <#if classteam_s??>
+                         and CLASSTEAM_S=:classteam_s
+                    </#if>
+                    <#if start_time??&&end_time??>
+	                     and DETECTIONTIME_T between TO_DATE(:start_time,'yyyy-mm-dd hh24:MI:ss')
+		                 and TO_DATE(:end_time,'yyyy-mm-dd hh24:MI:ss') 
+                    </#if>
+                    <#if productionline_s??>
+                         and PRODUCTIONLINE_S=:productionline_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if result_s??>
+                         and RESULT_S=:result_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if standardweight_f??>
+                         and STANDARDWEIGHT_F=:standardweight_f
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tolerance_f??>
+                         and TOLERANCE_F=:tolerance_f
+                    </#if>
+                    <#if weight_f??>
+                         and WEIGHT_F=:weight_f
+                    </#if>
+                    <#if workerid_s??>
+                         and WORKERID_S=:workerid_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

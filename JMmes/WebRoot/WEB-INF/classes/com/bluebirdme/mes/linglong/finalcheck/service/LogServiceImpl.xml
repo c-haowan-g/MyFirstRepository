@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from  AT_D_QM_LOCK_LOG T,
+            CORE_USER U where 1=1
+            AND T.LOCK_BY_S=U.USERCODE(+)
+                <#if agenc_no_s??>
+                     and T.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if barcode_s??>
+                     and T.BARCODE_S=:barcode_s
+                </#if>
+                <#if lock_ago_s??>
+                     and T.LOCK_AGO_S=:lock_ago_s
+                </#if>
+                <#if lock_by_s??>
+                     and T.LOCK_BY_S=:lock_by_s
+                </#if>
+                <#if lock_name_s??>
+                     and T.LOCK_NAME_S=:lock_name_s
+                </#if>
+                <#if lock_rear_s??>
+                     and T.LOCK_REAR_S=:lock_rear_s
+                </#if>
+                <#if lock_reas_s??>
+                     and T.LOCK_REAS_S=:lock_reas_s
+                </#if>
+                <#if lock_remark_s??>
+                     and T.LOCK_REMARK_S=:lock_remark_s
+                </#if>
+                <#if lock_time_t??>
+                     and T.LOCK_TIME_T=:lock_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and T.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare10_s??>
+                     and T.SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and T.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and T.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and T.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and T.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and T.SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and T.SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and T.SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and T.SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and T.SPARE9_S=:spare9_s
+                </#if>
+                <#if state_s??>
+                     and T.STATE_S=:state_s
+                </#if>
+                <#if s_factory_s??>
+                     and T.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tyrebarcode_s??>
+                     and T.TYREBARCODE_S=:tyrebarcode_s
+                </#if>
+                <#if unlock_by_s??>
+                     and T.UNLOCK_BY_S=:unlock_by_s
+                </#if>
+                <#if unlock_name_s??>
+                     and T.UNLOCK_NAME_S=:unlock_name_s
+                </#if>
+                <#if unlock_reas_s??>
+                     and T.UNLOCK_REAS_S=:unlock_reas_s
+                </#if>
+                <#if unlock_time_t??>
+                     and T.UNLOCK_TIME_T=:unlock_time_t
+                </#if>
+                 <#if begin_lock_time??&&end_lock_time??>
+               	  and T.LOCK_TIME_T between TO_DATE(:begin_lock_time,'YYYY-mm-dd HH24:MI:SS')
+				  and TO_DATE(:end_lock_time,'YYYY-mm-dd HH24:MI:SS') 
+				</#if>
+				<#if begin_unlock_time??&&end_unlock_time??>
+               	  and T.UNLOCK_TIME_T between TO_DATE(:begin_unlock_time,'YYYY-mm-dd HH24:MI:SS')
+				  and TO_DATE(:end_unlock_time,'YYYY-mm-dd HH24:MI:SS') 
+				</#if>
+            order by T.LOCK_TIME_T desc
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_D_QM_LOCK_LOG where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if lock_ago_s??>
+                         and LOCK_AGO_S=:lock_ago_s
+                    </#if>
+                    <#if lock_by_s??>
+                         and LOCK_BY_S=:lock_by_s
+                    </#if>
+                    <#if lock_name_s??>
+                         and LOCK_NAME_S=:lock_name_s
+                    </#if>
+                    <#if lock_rear_s??>
+                         and LOCK_REAR_S=:lock_rear_s
+                    </#if>
+                    <#if lock_reas_s??>
+                         and LOCK_REAS_S=:lock_reas_s
+                    </#if>
+                    <#if lock_remark_s??>
+                         and LOCK_REMARK_S=:lock_remark_s
+                    </#if>
+                    <#if lock_time_t??>
+                         and LOCK_TIME_T=:lock_time_t
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if state_s??>
+                         and STATE_S=:state_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tyrebarcode_s??>
+                         and TYREBARCODE_S=:tyrebarcode_s
+                    </#if>
+                    <#if unlock_by_s??>
+                         and UNLOCK_BY_S=:unlock_by_s
+                    </#if>
+                    <#if unlock_name_s??>
+                         and UNLOCK_NAME_S=:unlock_name_s
+                    </#if>
+                    <#if unlock_reas_s??>
+                         and UNLOCK_REAS_S=:unlock_reas_s
+                    </#if>
+                    <#if unlock_time_t??>
+                         and UNLOCK_TIME_T=:unlock_time_t
+                    </#if>
+                    <#if begin_lock_time??&&end_lock_time??>
+               	  and LOCK_TIME_T between TO_DATE(:begin_lock_time,'YYYY-mm-dd HH24:MI:SS')
+				  and TO_DATE(:end_lock_time,'YYYY-mm-dd HH24:MI:SS') 
+				</#if>
+				<#if begin_unlock_time??&&end_unlock_time??>
+               	  and UNLOCK_TIME_T between TO_DATE(:begin_unlock_time,'YYYY-mm-dd HH24:MI:SS')
+				  and TO_DATE(:end_unlock_time,'YYYY-mm-dd HH24:MI:SS') 
+				</#if>
+        ]]>
+    </sql>
+</sqls>

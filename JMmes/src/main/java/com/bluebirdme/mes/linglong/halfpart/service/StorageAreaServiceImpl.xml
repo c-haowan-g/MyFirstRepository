@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_A_MM_STORAGEAREA where 1=1
+           		<#if begin_created_time??&&end_created_time??>
+				    and created_time_t between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				    and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                </#if>
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if barcode_s??>
+                     and BARCODE_S=:barcode_s
+                </#if>
+                <#if boxcode_s??>
+                     and BOXCODE_S=:boxcode_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if current_num_f??>
+                     and CURRENT_NUM_F=:current_num_f
+                </#if>
+                <#if delaytime_t??>
+                     and DELAYTIME_T=:delaytime_t
+                </#if>
+                <#if deliverier_s??>
+                     and DELIVERIER_S=:deliverier_s
+                </#if>
+                <#if deliverytime_t??>
+                     and DELIVERYTIME_T=:deliverytime_t
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if ini_num_f??>
+                     and INI_NUM_F=:ini_num_f
+                </#if>
+                <#if isrunout_s??>
+                     and ISRUNOUT_S=:isrunout_s
+                </#if>
+                <#if location_s??>
+                     and LOCATION_S=:location_s
+                </#if>
+                <#if materialgroup_s??>
+                     and MATERIALGROUP_S=:materialgroup_s
+                </#if>
+                <#if materielcode_s??>
+                     and MATERIELCODE_S=:materielcode_s
+                </#if>
+                <#if materielname_s??>
+                     and MATERIELNAME_S=:materielname_s
+                </#if>
+                <#if m_group_s??>
+                     and M_GROUP_S=:m_group_s
+                </#if>
+                <#if m_type_s??>
+                     and M_TYPE_S=:m_type_s
+                </#if>
+                <#if m_units_s??>
+                     and M_UNITS_S=:m_units_s
+                </#if>
+                <#if outputtime_t??>
+                     and OUTPUTTIME_T=:outputtime_t
+                </#if>
+                <#if outtime_t??>
+                     and OUTTIME_T=:outtime_t
+                </#if>
+                <#if quality_status_s??>
+                     and QUALITY_STATUS_S=:quality_status_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if specification_s??>
+                     and SPECIFICATION_S=:specification_s
+                </#if>
+                <#if stocktype_s??>
+                     and STOCKTYPE_S=:stocktype_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and VEHICLES_CODE_S=:vehicles_code_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_MM_STORAGEAREA where 1=1
+            		<#if begin_created_time??&&end_created_time??>
+				   	 	and created_time_t between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				   		and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                	</#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if boxcode_s??>
+                         and BOXCODE_S=:boxcode_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if current_num_f??>
+                         and CURRENT_NUM_F=:current_num_f
+                    </#if>
+                    <#if delaytime_t??>
+                         and DELAYTIME_T=:delaytime_t
+                    </#if>
+                    <#if deliverier_s??>
+                         and DELIVERIER_S=:deliverier_s
+                    </#if>
+                    <#if deliverytime_t??>
+                         and DELIVERYTIME_T=:deliverytime_t
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if ini_num_f??>
+                         and INI_NUM_F=:ini_num_f
+                    </#if>
+                    <#if isrunout_s??>
+                         and ISRUNOUT_S=:isrunout_s
+                    </#if>
+                    <#if location_s??>
+                         and LOCATION_S=:location_s
+                    </#if>
+                    <#if materialgroup_s??>
+                         and MATERIALGROUP_S=:materialgroup_s
+                    </#if>
+                    <#if materielcode_s??>
+                         and MATERIELCODE_S=:materielcode_s
+                    </#if>
+                    <#if materielname_s??>
+                         and MATERIELNAME_S=:materielname_s
+                    </#if>
+                    <#if m_group_s??>
+                         and M_GROUP_S=:m_group_s
+                    </#if>
+                    <#if m_type_s??>
+                         and M_TYPE_S=:m_type_s
+                    </#if>
+                    <#if m_units_s??>
+                         and M_UNITS_S=:m_units_s
+                    </#if>
+                    <#if outputtime_t??>
+                         and OUTPUTTIME_T=:outputtime_t
+                    </#if>
+                    <#if outtime_t??>
+                         and OUTTIME_T=:outtime_t
+                    </#if>
+                    <#if quality_status_s??>
+                         and QUALITY_STATUS_S=:quality_status_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if specification_s??>
+                         and SPECIFICATION_S=:specification_s
+                    </#if>
+                    <#if stocktype_s??>
+                         and STOCKTYPE_S=:stocktype_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if vehicles_code_s??>
+                         and VEHICLES_CODE_S=:vehicles_code_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

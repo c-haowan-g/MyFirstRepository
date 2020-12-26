@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select t.*,
+            (select u.username from core_user u where u.usercode = t.created_by_s) createdname
+             from AT_B_BM_TIRECAR t where 1=1  and t.record_flag_s ='A' 
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if full_loaded_number_i??>
+                     and FULL_LOADED_NUMBER_I=:full_loaded_number_i
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if rfidcode_s??>
+                     and RFIDCODE_S=:rfidcode_s
+                </#if>
+                <#if space1_s??>
+                     and SPACE1_S=:space1_s
+                </#if>
+                <#if space2_s??>
+                     and SPACE2_S=:space2_s
+                </#if>
+                <#if space3_s??>
+                     and SPACE3_S=:space3_s
+                </#if>
+                <#if space4_s??>
+                     and SPACE4_S=:space4_s
+                </#if>
+                <#if space5_s??>
+                     and SPACE5_S=:space5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tire_shelf_code_s??>
+                     and TIRE_SHELF_CODE_S like :tire_shelf_code_s
+                </#if>
+                <#if tire_shelf_description_s??>
+                     and TIRE_SHELF_DESCRIPTION_S=:tire_shelf_description_s
+                </#if>
+                <#if tire_shelf_name_s??>
+                     and TIRE_SHELF_NAME_S=:tire_shelf_name_s
+                </#if>
+            
+                <#if start_time??&&end_time??>
+	                 and CREATED_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+	            
+	            <#if sort??&&order??>
+                     order by ${sort} ${order}
+                <#else>
+                     order by t.tire_shelf_code_s desc
+                </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_B_BM_TIRECAR  t where 1=1 and t.record_flag_s ='A'
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if full_loaded_number_i??>
+                         and FULL_LOADED_NUMBER_I=:full_loaded_number_i
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if rfidcode_s??>
+                         and RFIDCODE_S=:rfidcode_s
+                    </#if>
+                    <#if space1_s??>
+                         and SPACE1_S=:space1_s
+                    </#if>
+                    <#if space2_s??>
+                         and SPACE2_S=:space2_s
+                    </#if>
+                    <#if space3_s??>
+                         and SPACE3_S=:space3_s
+                    </#if>
+                    <#if space4_s??>
+                         and SPACE4_S=:space4_s
+                    </#if>
+                    <#if space5_s??>
+                         and SPACE5_S=:space5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tire_shelf_code_s??>
+                         and TIRE_SHELF_CODE_S like :tire_shelf_code_s
+                    </#if>
+                    <#if tire_shelf_description_s??>
+                         and TIRE_SHELF_DESCRIPTION_S=:tire_shelf_description_s
+                    </#if>
+                    <#if tire_shelf_name_s??>
+                         and TIRE_SHELF_NAME_S=:tire_shelf_name_s
+                    </#if>
+                     
+                    <#if start_time??&&end_time??>
+	                     and CREATED_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                     and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+	                </#if>
+        ]]>
+    </sql>
+    <sql comment="胎胚车编码查询" id="TireCarCodeQuery">
+       <![CDATA[
+           select t.tire_shelf_code_s from AT_B_BM_TireCar t
+		   where 1=1 and t.record_flag_s ='A' 
+		   order by t.tire_shelf_code_s
+        ]]>
+	</sql>
+	    <sql comment="根据胎胚车数据字典编码查编码值" id="searchCode">
+       <![CDATA[
+           select t.erpcode_s from at_cm_bs_coredictionary t 
+           where t.dictcode_s=:dictCode
+        ]]>
+	</sql>
+</sqls>

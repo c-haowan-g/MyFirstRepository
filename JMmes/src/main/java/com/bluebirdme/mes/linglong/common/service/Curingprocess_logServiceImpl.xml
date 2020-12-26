@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select s.*,m.mastersap_s mtsap,m.subitemrevision_s,
+      to_date(s.expireddate_s,'yyyy-mm-dd hh24:MI:ss') expireddate
+        from AT_INT_PLM_CURINGPROCESS_LOG s, 
+           (select * from AT_INT_PLM_BOM_LOG m where m.record_flag_s = 'A') m
+      where s.sapmat_s = m.subitemsap_s(+)
+        and s.stage_s = m.prophase_s(+)
+        and m.record_flag_s='A'
+          and s.record_flag_s='A'
+                <#if createdate_s??>
+                     and s.CREATEDATE_S=:createdate_s
+                </#if>
+                <#if createuser_s??>
+                     and s.CREATEUSER_S=:createuser_s
+                </#if>
+                <#if dummy1_s??>
+                     and s.DUMMY1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and s.DUMMY2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and s.DUMMY3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and s.DUMMY4_S=:dummy4_s
+                </#if>
+                <#if dummy5_s??>
+                     and s.DUMMY5_S=:dummy5_s
+                </#if>
+                <#if expireddate_s??>
+                     and s.EXPIREDDATE_S=:expireddate_s
+                </#if>
+                <#if id_s??>
+                     and s.ID_S=:id_s
+                </#if>
+                <#if modifier_s??>
+                     and s.MODIFIER_S=:modifier_s
+                </#if>
+                <#if pdmmat_s??>
+                     and s.PDMMAT_S  like :pdmmat_s
+                </#if>
+                <#if processroute_s??>
+                     and s.PROCESSROUTE_S=:processroute_s
+                </#if>
+                <#if processversion_s??>
+                     and s.PROCESSVERSION_S=:processversion_s
+                </#if>
+                <#if receive_time_t??>
+                     and s.RECEIVE_TIME_T=:receive_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and s.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if sapmat_s??>
+                     and s.SAPMAT_S like  :sapmat_s
+                </#if>
+                <#if stage_s??>
+                     and s.STAGE_S=:stage_s
+                </#if>
+                <#if version_s??>
+                     and s.VERSION_S=:version_s
+                </#if>
+                <#if werks_s??>
+                     and s.WERKS_S=:werks_s
+                </#if>
+                 <#if mtsap??>
+                     and m.mastersap_s like :mtsap
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by s.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            	select count(1)
+  				from AT_INT_PLM_CURINGPROCESS_LOG s, 
+  				(select * from AT_INT_PLM_BOM_LOG m where m.record_flag_s = 'A') m
+ 				where s.sapmat_s = m.subitemsap_s(+)
+   				and s.stage_s = m.prophase_s(+)
+   				and m.record_flag_s='A'
+        		and s.record_flag_s='A'
+                    <#if createdate_s??>
+                         and s.CREATEDATE_S=:createdate_s
+                    </#if>
+                    <#if createuser_s??>
+                         and s.CREATEUSER_S=:createuser_s
+                    </#if>
+                    <#if dummy1_s??>
+                         and s.DUMMY1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and s.DUMMY2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and s.DUMMY3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and s.DUMMY4_S=:dummy4_s
+                    </#if>
+                    <#if dummy5_s??>
+                         and s.DUMMY5_S=:dummy5_s
+                    </#if>
+                    <#if expireddate_s??>
+                         and s.EXPIREDDATE_S=:expireddate_s
+                    </#if>
+                    <#if id_s??>
+                         and s.ID_S=:id_s
+                    </#if>
+                    <#if modifier_s??>
+                         and s.MODIFIER_S=:modifier_s
+                    </#if>
+                    <#if pdmmat_s??>
+                         and s.PDMMAT_S  like :pdmmat_s
+                    </#if>
+                    <#if processroute_s??>
+                         and s.PROCESSROUTE_S=:processroute_s
+                    </#if>
+                    <#if processversion_s??>
+                         and s.PROCESSVERSION_S=:processversion_s
+                    </#if>
+                    <#if receive_time_t??>
+                         and s.RECEIVE_TIME_T=:receive_time_t
+                    </#if>
+                    <#if record_flag_s??>
+                         and s.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if sapmat_s??>
+                         and s.SAPMAT_S like  :sapmat_s
+                    </#if>
+                    <#if stage_s??>
+                         and s.STAGE_S=:stage_s
+                    </#if>
+                    <#if version_s??>
+                         and s.VERSION_S=:version_s
+                    </#if>
+                    <#if werks_s??>
+                         and s.WERKS_S=:werks_s
+                    </#if>
+                  <#if mtsap??>
+                     and m.mastersap_s like :mtsap
+                </#if>
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="curingparameterm">
+        <![CDATA[
+       		SELECT b.dictname_s parmtypecode_sall,
+				       m.objectid_s,
+				       m.parmcode_s,
+				       m.parmtypecode_s,
+				       m.parmtypename_s,
+				       m.parmname_s,
+				       m.value_s,
+				       s.version_s,
+				       r.receive_time_t,
+               		   m.receive_time_t  rectime,
+				       s.dummy1_s
+				  FROM AT_INT_PLM_CURINGPROCESS_LOG    s,
+				       AT_INT_PLM_CURINGPARA_LOG r,
+				       AT_INT_PLM_CURINGPARAM_LOG m,
+				       AT_CM_BS_COREDICTIONARY     b
+				 where s.id_s = r.process_id_s(+)
+				   and r.parmindx_s = m.objectid_s(+)
+				   and r.parmtypecode_s=b.erpcode_s
+				   and b.pid_i=283545
+				   and s.record_flag_s='A'
+           		   and r.record_flag_s='A'
+           		   and m.record_flag_s='A'
+				   and m.objectid_s is not null and s.id_s=:ids
+                   order by m.parmtypecode_s,m.parmcode_s desc
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="curingparameterm_total">
+        <![CDATA[
+            select count(1)   FROM AT_INT_PLM_CURINGPROCESS    s,
+				       AT_INT_PLM_CURINGPARAMETER  r,
+				       AT_INT_PLM_CURINGPARAMETERM m,
+				       AT_CM_BS_COREDICTIONARY     b
+				 where s.id_s = r.process_id_s(+)
+				   and r.parmindx_s = m.objectid_s(+)
+				   and r.parmtypecode_s=b.erpcode_s
+				   and b.pid_i=283545
+				   and m.objectid_s is not null and s.id_s=:ids      
+        ]]>
+    </sql>
+</sqls>

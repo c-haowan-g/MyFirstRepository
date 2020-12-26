@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select TH.*,(select u.username from core_user u where u.usercode = TH.changed_by_s) changebyname
+				from AT_INT_PLM_BUILDRECIPEPARA TH
+ 				 where 1 = 1
+                <#if agenc_no_s??>
+                     and TH.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if basetype_s??>
+                     and TH.BASETYPE_S=:basetype_s
+                </#if>
+                <#if changed_by_s??>
+                     and TH.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and TH.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if equipmentcode_s??>
+                     and TH.EQUIPMENTCODE_S=:equipmentcode_s
+                </#if>
+                <#if equipmenttypecode_s??>
+                     and TH.EQUIPMENTTYPECODE_S=:equipmenttypecode_s
+                </#if>
+                <#if id_i??>
+                     and TH.ID_I=:id_i
+                </#if>
+                <#if is_max_min_s??>
+                     and TH.IS_MAX_MIN_S=:is_max_min_s
+                </#if>
+                <#if logicaladdress_max_name_s??>
+                     and TH.LOGICALADDRESS_MAX_NAME_S=:logicaladdress_max_name_s
+                </#if>
+                <#if logicaladdress_max_s??>
+                     and TH.LOGICALADDRESS_MAX_S=:logicaladdress_max_s
+                </#if>
+                <#if logicaladdress_min_name_s??>
+                     and TH.LOGICALADDRESS_MIN_NAME_S=:logicaladdress_min_name_s
+                </#if>
+                <#if logicaladdress_min_s??>
+                     and TH.LOGICALADDRESS_MIN_S=:logicaladdress_min_s
+                </#if>
+                <#if logicaladdress_s??>
+                     and TH.LOGICALADDRESS_S=:logicaladdress_s
+                </#if>
+                <#if parmcode_s??>
+                     and TH.PARMCODE_S like :parmcode_s
+                </#if>
+                <#if parmname_s??>
+                     and TH.PARMNAME_S like :parmname_s
+                </#if>
+                <#if parmtypecode_s??>
+                     and TH.PARMTYPECODE_S=:parmtypecode_s
+                </#if>
+                <#if parmtypename_s??>
+                     and TH.PARMTYPENAME_S=:parmtypename_s
+                </#if>
+                <#if record_flag_s??>
+                     and TH.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if remark_s??>
+                     and TH.REMARK_S=:remark_s
+                </#if>
+                <#if s_factory_s??>
+                     and TH.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if unit_s??>
+                     and TH.UNIT_S=:unit_s
+                </#if>
+                <#if valuemaxsign_s??>
+                     and TH.VALUEMAXSIGN_S=:valuemaxsign_s
+                </#if>
+                <#if valuemax_s??>
+                     and TH.VALUEMAX_S=:valuemax_s
+                </#if>
+                <#if valueminsign_s??>
+                     and TH.VALUEMINSIGN_S=:valueminsign_s
+                </#if>
+                <#if valuemin_s??>
+                     and TH.VALUEMIN_S=:valuemin_s
+                </#if>
+                <#if value_s??>
+                     and TH.VALUE_S=:value_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by TH.parmtypecode_s asc,TH.parmcode_s asc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+         select count(1) from AT_INT_PLM_BuildRecipePara where 1=1
+             <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if basetype_s??>
+                         and BASETYPE_S=:basetype_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if equipmentcode_s??>
+                         and EQUIPMENTCODE_S=:equipmentcode_s
+                    </#if>
+                    <#if equipmenttypecode_s??>
+                         and EQUIPMENTTYPECODE_S=:equipmenttypecode_s
+                    </#if>
+                    <#if id_i??>
+                         and ID_I=:id_i
+                    </#if>
+                    <#if is_max_min_s??>
+                         and IS_MAX_MIN_S=:is_max_min_s
+                    </#if>
+                    <#if logicaladdress_max_name_s??>
+                         and LOGICALADDRESS_MAX_NAME_S=:logicaladdress_max_name_s
+                    </#if>
+                    <#if logicaladdress_max_s??>
+                         and LOGICALADDRESS_MAX_S=:logicaladdress_max_s
+                    </#if>
+                    <#if logicaladdress_min_name_s??>
+                         and LOGICALADDRESS_MIN_NAME_S=:logicaladdress_min_name_s
+                    </#if>
+                    <#if logicaladdress_min_s??>
+                         and LOGICALADDRESS_MIN_S=:logicaladdress_min_s
+                    </#if>
+                    <#if logicaladdress_s??>
+                         and LOGICALADDRESS_S=:logicaladdress_s
+                    </#if>
+                    <#if parmcode_s??>
+                         and PARMCODE_S like :parmcode_s
+                    </#if>
+                    <#if parmname_s??>
+                         and PARMNAME_S like :parmname_s
+                    </#if>
+                    <#if parmtypecode_s??>
+                         and PARMTYPECODE_S=:parmtypecode_s
+                    </#if>
+                    <#if parmtypename_s??>
+                         and PARMTYPENAME_S=:parmtypename_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if remark_s??>
+                         and REMARK_S=:remark_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if unit_s??>
+                         and UNIT_S=:unit_s
+                    </#if>
+                    <#if valuemaxsign_s??>
+                         and VALUEMAXSIGN_S=:valuemaxsign_s
+                    </#if>
+                    <#if valuemax_s??>
+                         and VALUEMAX_S=:valuemax_s
+                    </#if>
+                    <#if valueminsign_s??>
+                         and VALUEMINSIGN_S=:valueminsign_s
+                    </#if>
+                    <#if valuemin_s??>
+                         and VALUEMIN_S=:valuemin_s
+                    </#if>
+                    <#if value_s??>
+                         and VALUE_S=:value_s
+                    </#if>
+        ]]>
+    </sql>
+    
+    <sql comment="根据成型工艺配方ID获取工艺配方参数" id="getBuildingParaByProcessid">
+        <![CDATA[
+		    select 
+			    cp.*,x.value_s valuedata
+			from 
+			     At_Int_Plm_Buildrecipepara cp
+			 join 
+				(
+            SELECT p.parmcode_s,p.parmname_s,p.value_s
+            from AT_INT_PLM_BUILDINGPARAMETER p,route r
+            where 
+                p.process_id_s=r.route_name
+                and r.route_name=:processID
+                and p.record_flag_s='A'
+		        ) x
+		      on 
+		          x.parmcode_s=cp.PARMCODE_S 
+		      where 
+		          cp. RECORD_FLAG_S='A'
+                  and cp.logicaladdress_s is not null
+		          and cp.s_Factory_s=:factory
+		          and cp.equipmenttypecode_s=:equipmenttype
+        ]]>
+    </sql>
+    
+      <sql comment="查询参数类型下拉框内容" id="comboxparamtype">
+        <![CDATA[
+            	select t.parmtypecode_s,t.parmtypecode_s || t.parmtypename_s parmtypename_s
+ 				 from at_int_plm_buildrecipepara t
+ 				  where t.s_factory_s=:factory
+ 				group by t.parmtypecode_s,t.parmtypecode_s || t.parmtypename_s
+        ]]>
+    </sql>
+    
+    <sql comment="查询设备类型下拉框内容" id="comboxequiptype">
+        <![CDATA[
+            select t.equipmenttypecode_s, t.equipmenttypename_s
+ 				 from at_int_plm_devicelist t
+				 where t.equipmenttypecode_s in
+     			  (select t.equipmenttypecode_s
+       			   from at_int_plm_buildrecipepara t
+       			   where 1=1 
+                   and s_factory_s = :factory
+       			  group by t.equipmenttypecode_s)
+       			  and ROWNUM <= 5
+       			  group by t.equipmenttypecode_s, t.equipmenttypename_s
+        		 order by t.equipmenttypecode_s
+        ]]>
+    </sql>
+    
+      <sql comment="获取设备类型的PLM代码" id="getPLMEntType">
+        <![CDATA[
+ 			    select b.erpcode_s
+ 				   from production_line p, p_line_work_center    r1,
+			       work_center           wc,
+			       work_center_equipment r2,
+			       equipment             e,
+			       uda_equipment         u,
+			       equipment_class       ec,
+                   equipment_class_equip ece,
+                   AT_CM_BS_COREDICTIONARY b
+ 					where p.p_line_key = r1.parent_key
+			   and r1.child_key = wc.wc_key
+			   and wc.wc_key = r2.parent_key
+			   and r2.child_key = e.equip_key
+			   and e.equip_key = u.object_key(+)
+			    and ece.equip_class_key=ec.equip_class_key
+               and ece.equip_key=e.equip_key
+               and EC.EQUIP_CLASS_NAME=b.dictcode_s
+			   and p.p_line_name = :plinename		
+        ]]>
+    </sql>
+    
+</sqls>

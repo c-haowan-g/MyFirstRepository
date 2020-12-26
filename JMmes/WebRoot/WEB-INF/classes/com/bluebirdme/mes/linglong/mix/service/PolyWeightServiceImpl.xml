@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+        select a.* from(
+				   with temp as
+	 (select pt.prod_date_s,
+	         pt.shift_code_s, 
+	         pt.equip_name_s, 
+	         w.qty_complete_i, 
+	         pt.serial_id_i, 
+	         w.spare8_s        recipe_name, 
+	         pw.warning_sgn_s, 
+	         pw.weight_time_s, 
+	         pw.material_name_s, 
+	         pw.set_weight_s, 
+	         pw.real_weight_s, 
+	         pw.error_allow_s, 
+	         pw.error_out_s, 
+	         pw.weight_type_s, 
+	         cy.dictname_s, 
+	         pw.spare1_s        prodtype, 
+	         pw.spare4_s        warning_sgn_flag 
+	    from  at_mx_mm_polytrain_prod  pt,
+	          at_mx_pp_wo_edit         w,
+	          at_mx_mm_polyweight_prod pw,
+	           AT_CM_BS_COREDICTIONARY cy
+			   where pt.wo_no_s = w.wo_no_s(+)
+			     and pt.lot_no_s = pw.trainprod_id_s(+)
+			     and  pw.weight_type_s=cy.erpcode_s(+)
+     			 and cy.pid_i='33872770'
+			     <#if s_factory_s??>
+                     and pw.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if receive_time_t??>
+                     and pt.PROD_DATE_S>=:receive_time_t
+                </#if>
+                 <#if receive_time_t??>
+                     and pt.PROD_DATE_S<=:end_time_t
+                </#if>
+                <#if equip_code_s??>
+                     and pt.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if shift_code_s??>
+                     and pt.SHIFT_CODE_S=:shift_code_s
+                </#if>
+                <#if wweight_type_s??>
+                     and cy.DICTNAME_S=:wweight_type_s
+                </#if>
+                <#if warning_sgn_s??>
+                     and pw.WARNING_SGN_S=:warning_sgn_s
+                </#if>
+                <#if material_name_s??>
+                     and pw.MATERIAL_NAME_S=:material_name_s
+                </#if>
+			     )
+					select t.prod_date_s, 
+		       t.shift_code_s, 
+		       t.equip_name_s, 
+		       t.qty_complete_i, 
+		       t.serial_id_i, 
+		       t.dictname_s, 
+		       t.recipe_name, 
+		       case t.warning_sgn_s
+		         when N'0' then
+		          '否'
+		         when N'1' then
+		          '是'
+		         else
+		          '未知'
+		       end warning_sgn_s, 
+		       to_char(to_date(t.weight_time_s, 'yyyy-MM-dd HH24:mi:ss'),
+		               'HH24:mi:ss') weight_time_s, 
+		       t.material_name_s, 
+		       t.set_weight_s, 
+		       t.real_weight_s, 
+		       t.error_allow_s, 
+		       t.error_out_s, 
+		       t.weight_type_s, 
+		       t.prodtype 
+		  from temp t
+		 order by t.prod_date_s,
+		          t.shift_code_s,
+		          t.equip_name_s,
+		          t.serial_id_i,
+		          t.weight_time_s) a where 1=1
+		      <#if prodtype??>
+                     and a.prodtype=:prodtype
+                </#if>    
+		          
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+        		select count(*) from (
+		                with temp as
+	 (select pt.prod_date_s,
+	         pt.shift_code_s, 
+	         pt.equip_name_s, 
+	         w.qty_complete_i, 
+	         pt.serial_id_i, 
+	         w.spare8_s        recipe_name, 
+	         pw.warning_sgn_s, 
+	         pw.weight_time_s, 
+	         pw.material_name_s, 
+	         pw.set_weight_s, 
+	         pw.real_weight_s, 
+	         pw.error_allow_s, 
+	         pw.error_out_s, 
+	         pw.weight_type_s, 
+	         cy.dictname_s, 
+	         pw.spare1_s        prodtype, 
+	         pw.spare4_s        warning_sgn_flag 
+	    from  at_mx_mm_polytrain_prod  pt,
+	          at_mx_pp_wo_edit         w,
+	          at_mx_mm_polyweight_prod pw,
+	           AT_CM_BS_COREDICTIONARY cy
+			   where pt.wo_no_s = w.wo_no_s(+)
+			     and pt.lot_no_s = pw.trainprod_id_s(+)
+			     and  pw.weight_type_s=cy.erpcode_s(+)
+     			 and cy.pid_i='33872770'
+			    
+              	 <#if s_factory_s??>
+                     and pw.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if receive_time_t??>
+                     and pt.PROD_DATE_S>=:receive_time_t
+                </#if>
+                 <#if receive_time_t??>
+                     and pt.PROD_DATE_S<=:end_time_t
+                </#if>
+                <#if equip_code_s??>
+                     and pt.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if shift_code_s??>
+                     and pt.SHIFT_CODE_S=:shift_code_s
+                </#if>
+                <#if wweight_type_s??>
+                     and cy.DICTNAME_S=:wweight_type_s
+                </#if>
+                <#if warning_sgn_s??>
+                     and pw.WARNING_SGN_S=:warning_sgn_s
+                </#if>
+                <#if material_name_s??>
+                     and pw.MATERIAL_NAME_S=:material_name_s
+                </#if>
+			     )
+					select t.prod_date_s, 
+		       t.shift_code_s, 
+		       t.equip_name_s, 
+		       t.qty_complete_i, 
+		       t.serial_id_i, 
+		       t.dictname_s, 
+		       t.recipe_name, 
+		       case t.warning_sgn_s
+		         when N'0' then
+		          '否'
+		         when N'1' then
+		          '是'
+		         else
+		          '未知'
+		       end warning_sgn_s, 
+		       to_char(to_date(t.weight_time_s, 'yyyy-MM-dd HH24:mi:ss'),
+		               'HH24:mi:ss') weight_time_s, 
+		       t.material_name_s, 
+		       t.set_weight_s, 
+		       t.real_weight_s, 
+		       t.error_allow_s, 
+		       t.error_out_s, 
+		       t.weight_type_s, 
+		       t.prodtype 
+		  from temp t
+		 order by t.prod_date_s,
+		          t.shift_code_s,
+		          t.equip_name_s,
+		          t.serial_id_i,
+		          t.weight_time_s ) a where 1=1
+		        <#if prodtype??>
+                     and a.prodtype=:prodtype
+                </#if>    
+                    
+        ]]>
+    </sql>
+    
+    
+    <sql comment="datagrid" id="datagridUDA_rowshg">
+        <![CDATA[
+				with temp as
+		 (select pt.prod_date_s, 
+		         pt.shift_code_s, 
+		         pt.equip_name_s, 
+		         w.qty_complete_i,
+		         pt.serial_id_i, 
+		         w.spare8_s recipe_name,
+		         decode(pw.warning_sgn_s, '0', 1, 0) goodp,
+		         decode(pw.warning_sgn_s, '1', 1, 0) badp, 
+		         pw.weight_time_s,
+		         pw.material_name_s, 
+		         pw.set_weight_s,
+		         pw.real_weight_s, 
+		         pw.error_allow_s, 
+		         pw.error_out_s, 
+		         pw.weight_type_s, 
+		          cy.dictname_s, 
+		         pw.spare1_s prodtype, 
+		         case
+		           when pw.spare4_s = '1' then
+		            '1'
+		           else
+		            '0'
+		         end up,     
+		         case
+		           when pw.spare4_s = '2' then
+		            '1'
+		           else
+		            '0'
+		         end down 
+		    from  at_mx_mm_polytrain_prod  pt,
+		          at_mx_pp_wo_edit         w,
+		          at_mx_mm_polyweight_prod pw,
+		          AT_CM_BS_COREDICTIONARY cy
+		   where pt.wo_no_s = w.wo_no_s(+)
+		     and pt.lot_no_s = pw.trainprod_id_s(+)
+		     and  pw.weight_type_s=cy.erpcode_s(+)
+		     and cy.pid_i='33872770'
+		  		<#if s_factory_s??>
+                     and pw.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if receive_time_t??>
+                     and pt.PROD_DATE_S>=:receive_time_t
+                </#if>
+                 <#if end_time_t??>
+                     and pt.PROD_DATE_S<=:end_time_t
+                </#if>
+                <#if equip_code_s??>
+                     and pt.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if shift_code_s??>
+                     and pt.SHIFT_CODE_S=:shift_code_s
+                </#if>
+                <#if wweight_type_s??>
+                     and cy.DICTNAME_S=:wweight_type_s
+                </#if>
+                <#if warning_sgn_s??>
+                     and pw.WARNING_SGN_S=:warning_sgn_s
+                </#if>
+                <#if material_name_s??>
+                     and pw.MATERIAL_NAME_S=:material_name_s
+                </#if>
+                	<#if prodtype??>
+                     	and pw.spare1_s=:prodtype
+                	</#if> 
+		     )
+						select t.material_name_s, 
+		       t.weight_type_s, 
+		       count(t.qty_complete_i) qty_complete_i,  
+		       sum(t.goodp) goodtotal,
+		       sum(t.badp) badtotal,
+		       round((sum(t.goodp) / count(t.qty_complete_i)) * 100, 2)||'%' goodp,
+		       round((sum(t.badp) / count(t.qty_complete_i)) * 100, 2) badp,
+		       sum(t.up) up,        
+		       sum(t.down) down 
+		  from temp t
+		 group by t.material_name_s, 
+		          t.weight_type_s 
+		 order by t.weight_type_s
+		 			
+		 
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_totalhg">
+        <![CDATA[
+				        select count(*) from (
+								with temp as
+		 (select pt.prod_date_s, 
+		         pt.shift_code_s, 
+		         pt.equip_name_s, 
+		         w.qty_complete_i,
+		         pt.serial_id_i, 
+		         w.spare8_s recipe_name,
+		         decode(pw.warning_sgn_s, '0', 1, 0) goodp,
+		         decode(pw.warning_sgn_s, '1', 1, 0) badp, 
+		         pw.weight_time_s,
+		         pw.material_name_s, 
+		         pw.set_weight_s,
+		         pw.real_weight_s, 
+		         pw.error_allow_s, 
+		         pw.error_out_s, 
+		         pw.weight_type_s, 
+		          cy.dictname_s, 
+		         pw.spare1_s prodtype, 
+		         case
+		           when pw.spare4_s = '1' then
+		            '1'
+		           else
+		            '0'
+		         end up,     
+		         case
+		           when pw.spare4_s = '2' then
+		            '1'
+		           else
+		            '0'
+		         end down 
+		    from  at_mx_mm_polytrain_prod  pt,
+		          at_mx_pp_wo_edit         w,
+		          at_mx_mm_polyweight_prod pw,
+		          AT_CM_BS_COREDICTIONARY cy
+		   where pt.wo_no_s = w.wo_no_s(+)
+		     and pt.lot_no_s = pw.trainprod_id_s(+)
+		     and  pw.weight_type_s=cy.erpcode_s(+)
+				     and cy.pid_i='33872770'
+				  		<#if s_factory_s??>
+		                     and pw.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if receive_time_t??>
+		                     and pt.PROD_DATE_S>=:receive_time_t
+		                </#if>
+		                 <#if end_time_t??>
+		                     and pt.PROD_DATE_S<=:end_time_t
+		                </#if>
+		                <#if equip_code_s??>
+		                     and pt.EQUIP_CODE_S=:equip_code_s
+		                </#if>
+		                <#if shift_code_s??>
+		                     and pt.SHIFT_CODE_S=:shift_code_s
+		                </#if>
+		                <#if wweight_type_s??>
+		                     and cy.DICTNAME_S=:wweight_type_s
+		                </#if>
+		                <#if warning_sgn_s??>
+		                     and pw.WARNING_SGN_S=:warning_sgn_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and pw.MATERIAL_NAME_S=:material_name_s
+		                </#if>
+		                <#if prodtype??>
+                     		and pw.spare1_s=:prodtype
+                		</#if> 
+				     )
+											select t.material_name_s, 
+		       t.weight_type_s, 
+		       count(t.qty_complete_i) qty_complete_i,  
+		       sum(t.goodp) goodtotal,
+		       sum(t.badp) badtotal,
+		       round((sum(t.goodp) / count(t.qty_complete_i)) * 100, 2)||'%' goodp,
+		       round((sum(t.badp) / count(t.qty_complete_i)) * 100, 2) badp,
+		       sum(t.up) up,        
+		       sum(t.down) down 
+		  from temp t
+		 group by t.material_name_s, 
+		          t.weight_type_s 
+		 order by t.weight_type_s) a 
+	           
+        ]]>
+    </sql>
+    
+    <sql comment="名称查询" id="serchname">
+        <![CDATA[
+			  select dictname_s from  AT_CM_BS_COREDICTIONARY 
+			  where dictcode_s=:ids
+	     		
+        ]]>
+    </sql>
+    
+    
+     <sql comment="datagrid" id="datagridUDA_xlcl">
+        <![CDATA[
+				      with temp as
+		 (select pt.prod_date_s, 
+		         pt.shift_code_s, 
+		         pt.equip_name_s, 
+		         w.qty_complete_i, 
+		         pt.serial_id_s serial_id_i, 
+		         w.spare8_s         recipe_name, 
+		         pw.warning_sgn_s, 
+		         pw.weight_time_s, 
+		         pw.material_name_s, 
+		         pw.set_weight_s, 
+		         pw.real_weight_s, 
+		         pw.error_allow_s, 
+		         pw.error_out_s, 
+		         pw.weight_type_s, 
+		         cy.dictname_s, 
+		         pw.spare1_s        prodtype,
+		         pw.spare4_s        warning_sgn_flag 
+		    from  at_mx_mm_recipebag_prod  pt,
+		          at_mx_pp_wo_edit         w,
+		          at_mx_mm_recipeweight_prod pw,
+		          AT_CM_BS_COREDICTIONARY cy
+		   where pt.wo_no_s = w.wo_no_s(+)
+		     and pt.lot_no_s = pw.recipeprod_id_s(+)
+		     and  pw.weight_type_s=cy.erpcode_s(+)
+		      and cy.pid_i='33872770'
+		     			<#if s_factory_s??>
+		                     and pw.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if receive_time_t??>
+		                     and pt.PROD_DATE_S>=:receive_time_t
+		                </#if>
+		                 <#if end_time_t??>
+		                     and pt.PROD_DATE_S<=:end_time_t
+		                </#if>
+		                <#if equip_code_s??>
+		                     and pt.EQUIP_CODE_S=:equip_code_s
+		                </#if>
+		                <#if shift_code_s??>
+		                     and pt.SHIFT_CODE_S=:shift_code_s
+		                </#if>
+		                <#if wweight_type_s??>
+		                     and cy.DICTNAME_S=:wweight_type_s
+		                </#if>
+		                <#if warning_sgn_s??>
+		                     and pw.WARNING_SGN_S=:warning_sgn_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and pw.MATERIAL_NAME_S=:material_name_s
+		                </#if>
+		                <#if prodtype??>
+                     	and a.prodtype=:prodtype
+                	</#if> 
+		    	)
+				select t.prod_date_s,
+		       t.shift_code_s, 
+		       t.equip_name_s, 
+		       t.qty_complete_i, 
+		       t.serial_id_i, 
+		       t.recipe_name, 
+		       case t.warning_sgn_s
+		         when N'0' then
+		          '否'
+		         when N'1' then
+		          '是'
+		         else
+		          '未知'
+		       end warning_sgn_s, 
+		       to_char(to_date(t.weight_time_s, 'yyyy-MM-dd HH24:mi:ss'),
+		               'HH24:mi:ss') weight_time_s, 
+		       t.material_name_s,
+		       t.set_weight_s, 
+		       t.real_weight_s, 
+		       t.error_allow_s, 
+		       t.dictname_s, 
+		       t.error_out_s, 
+		       t.weight_type_s, 
+		       t.prodtype 
+		  from temp t
+		 order by t.prod_date_s,
+		          t.shift_code_s,
+		          t.equip_name_s,
+		          t.serial_id_i,
+		          t.weight_time_s
+		          
+	           
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridUDA_totalxlcl">
+        <![CDATA[
+	        select count(*) from(
+			           with temp as
+			 (select pt.prod_date_s, 
+			         pt.shift_code_s, 
+			         pt.equip_name_s, 
+			         w.qty_complete_i, 
+			         pt.serial_id_s serial_id_i, 
+			         w.spare8_s         recipe_name, 
+			         pw.warning_sgn_s, 
+			         pw.weight_time_s, 
+			         pw.material_name_s, 
+			         pw.set_weight_s, 
+			         pw.real_weight_s, 
+			         pw.error_allow_s, 
+			         pw.error_out_s, 
+			         pw.weight_type_s, 
+			         cy.dictname_s, 
+			         pw.spare1_s        prodtype,
+			         pw.spare4_s        warning_sgn_flag 
+			    from  at_mx_mm_recipebag_prod  pt,
+			          at_mx_pp_wo_edit         w,
+			          at_mx_mm_recipeweight_prod pw,
+			          AT_CM_BS_COREDICTIONARY cy
+			   where pt.wo_no_s = w.wo_no_s(+)
+			     and pt.lot_no_s = pw.recipeprod_id_s(+)
+			     and  pw.weight_type_s=cy.erpcode_s(+)
+			      and cy.pid_i='33872770'
+		     			<#if s_factory_s??>
+		                     and pw.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if receive_time_t??>
+		                     and pt.PROD_DATE_S>=:receive_time_t
+		                </#if>
+		                 <#if end_time_t??>
+		                     and pt.PROD_DATE_S<=:end_time_t
+		                </#if>
+		                <#if equip_code_s??>
+		                     and pt.EQUIP_CODE_S=:equip_code_s
+		                </#if>
+		                <#if shift_code_s??>
+		                     and pt.SHIFT_CODE_S=:shift_code_s
+		                </#if>
+		                <#if wweight_type_s??>
+		                     and cy.DICTNAME_S=:wweight_type_s
+		                </#if>
+		                <#if warning_sgn_s??>
+		                     and pw.WARNING_SGN_S=:warning_sgn_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and pw.MATERIAL_NAME_S=:material_name_s
+		                </#if>
+		                <#if prodtype??>
+                     		and pw.spare1_s=:prodtype
+                		</#if> 
+		    	)
+				select t.prod_date_s,
+		       t.shift_code_s, 
+		       t.equip_name_s, 
+		       t.qty_complete_i, 
+		       t.serial_id_i, 
+		       t.recipe_name, 
+		       case t.warning_sgn_s
+		         when N'0' then
+		          '否'
+		         when N'1' then
+		          '是'
+		         else
+		          '未知'
+		       end warning_sgn_s, 
+		       to_char(to_date(t.weight_time_s, 'yyyy-MM-dd HH24:mi:ss'),
+		               'HH24:mi:ss') weight_time_s, 
+		       t.material_name_s,
+		       t.set_weight_s, 
+		       t.real_weight_s, 
+		       t.error_allow_s, 
+		       t.dictname_s, 
+		       t.error_out_s, 
+		       t.weight_type_s, 
+		       t.prodtype 
+		  from temp t
+		 order by t.prod_date_s,
+		          t.shift_code_s,
+		          t.equip_name_s,
+		          t.serial_id_i,
+		          t.weight_time_s ) a 
+	           
+        ]]>
+    </sql>
+    
+      <sql comment="datagrid" id="datagridUDA_xlclhg">
+        <![CDATA[
+						with temp as
+		 (select pt.prod_date_s, 
+		         pt.shift_code_s, 
+		         pt.equip_name_s, 
+		         w.qty_complete_i, 
+		         pt.serial_id_s serial_id_i, 
+		         w.spare8_s recipe_name, 
+		         decode(pw.warning_sgn_s, '0', 1, 0) goodp,
+		         decode(pw.warning_sgn_s, '1', 1, 0) badp, 
+		         pw.weight_time_s, 
+		         pw.material_name_s,
+		         pw.set_weight_s, 
+		         pw.real_weight_s, 
+		         pw.error_allow_s, 
+		         pw.error_out_s,
+		         pw.weight_type_s, 
+		          cy.dictname_s, 
+		         pw.spare1_s prodtype, 
+		         case
+		           when pw.spare4_s = '1' then
+		            '1'
+		           else
+		            '0'
+		         end up,     
+		         case
+		           when pw.spare4_s = '2' then
+		            '1'
+		           else
+		            '0'
+		         end down 
+		    from  at_mx_mm_recipebag_prod  pt,
+		          at_mx_pp_wo_edit         w,
+		          at_mx_mm_recipeweight_prod pw,
+		          AT_CM_BS_COREDICTIONARY cy
+		   where pt.wo_no_s = w.wo_no_s(+)
+		     and pt.lot_no_s = pw.recipeprod_id_s(+)
+		      and  pw.weight_type_s=cy.erpcode_s(+)
+				     and cy.pid_i='33872770'
+		    			<#if s_factory_s??>
+		                     and pw.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if receive_time_t??>
+		                     and pt.PROD_DATE_S>=:receive_time_t
+		                </#if>
+		                 <#if end_time_t??>
+		                     and pt.PROD_DATE_S<=:end_time_t
+		                </#if>
+		                <#if equip_code_s??>
+		                     and pt.EQUIP_CODE_S=:equip_code_s
+		                </#if>
+		                <#if shift_code_s??>
+		                     and pt.SHIFT_CODE_S=:shift_code_s
+		                </#if>
+		                <#if wweight_type_s??>
+		                     and cy.DICTNAME_S=:wweight_type_s
+		                </#if>
+		                <#if warning_sgn_s??>
+		                     and pw.WARNING_SGN_S=:warning_sgn_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and pw.MATERIAL_NAME_S=:material_name_s
+		                </#if>
+		                <#if prodtype??>
+                     		and pw.spare1_s=:prodtype
+                		</#if> 
+		     
+		     )
+				select t.material_name_s, 
+		       t.dictname_s, 
+		       t.weight_type_s, 
+		       count(t.qty_complete_i) qty_complete_i,
+		       sum(t.goodp) goodtotal,
+		       sum(t.badp) badtotal,
+		       round((sum(t.goodp) / count(t.qty_complete_i)) * 100, 2)||'%' goodp,
+		       round((sum(t.badp) / count(t.qty_complete_i)) * 100, 2) badp,
+		       sum(t.up) up,         
+		       sum(t.down) down 
+		  from temp t
+		 group by t.material_name_s,
+		           t.dictname_s, 
+		          t.weight_type_s 
+		 order by t.weight_type_s
+	           
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridUDA_totalxlclhg">
+        <![CDATA[
+        select count(*) from(
+				       with temp as
+		 (select pt.prod_date_s, 
+		         pt.shift_code_s, 
+		         pt.equip_name_s, 
+		         w.qty_complete_i, 
+		         pt.serial_id_s serial_id_i, 
+		         w.spare8_s recipe_name, 
+		         decode(pw.warning_sgn_s, '0', 1, 0) goodp,
+		         decode(pw.warning_sgn_s, '1', 1, 0) badp, 
+		         pw.weight_time_s, 
+		         pw.material_name_s,
+		         pw.set_weight_s, 
+		         pw.real_weight_s, 
+		         pw.error_allow_s, 
+		         pw.error_out_s,
+		         pw.weight_type_s, 
+		          cy.dictname_s, 
+		         pw.spare1_s prodtype, 
+		         case
+		           when pw.spare4_s = '1' then
+		            '1'
+		           else
+		            '0'
+		         end up,     
+		         case
+		           when pw.spare4_s = '2' then
+		            '1'
+		           else
+		            '0'
+		         end down 
+		    from  at_mx_mm_recipebag_prod  pt,
+		          at_mx_pp_wo_edit         w,
+		          at_mx_mm_recipeweight_prod pw,
+		          AT_CM_BS_COREDICTIONARY cy
+		   where pt.wo_no_s = w.wo_no_s(+)
+		     and pt.lot_no_s = pw.recipeprod_id_s(+)
+		      and  pw.weight_type_s=cy.erpcode_s(+)
+				     and cy.pid_i='33872770'
+		     			<#if s_factory_s??>
+		                     and pw.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if receive_time_t??>
+		                     and pt.PROD_DATE_S>=:receive_time_t
+		                </#if>
+		                 <#if end_time_t??>
+		                     and pt.PROD_DATE_S<=:end_time_t
+		                </#if>
+		                <#if equip_code_s??>
+		                     and pt.EQUIP_CODE_S=:equip_code_s
+		                </#if>
+		                <#if shift_code_s??>
+		                     and pt.SHIFT_CODE_S=:shift_code_s
+		                </#if>
+		                <#if wweight_type_s??>
+		                     and cy.DICTNAME_S=:wweight_type_s
+		                </#if>
+		                <#if warning_sgn_s??>
+		                     and pw.WARNING_SGN_S=:warning_sgn_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and pw.MATERIAL_NAME_S=:material_name_s
+		                </#if>
+		                <#if prodtype??>
+                     		and pw.spare1_s=:prodtype
+                		</#if> 
+		     
+		     )
+				select t.material_name_s, 
+		       t.dictname_s, 
+		       t.weight_type_s, 
+		       count(t.qty_complete_i) qty_complete_i,
+		       sum(t.goodp) goodtotal,
+		       sum(t.badp) badtotal,
+		       round((sum(t.goodp) / count(t.qty_complete_i)) * 100, 2)||'%' goodp,
+		       round((sum(t.badp) / count(t.qty_complete_i)) * 100, 2) badp,
+		       sum(t.up) up,         
+		       sum(t.down) down 
+		  from temp t
+		 group by t.material_name_s,
+		           t.dictname_s, 
+		          t.weight_type_s 
+		 order by t.weight_type_s ) a 
+	           
+        ]]>
+    </sql>
+
+    
+</sqls>

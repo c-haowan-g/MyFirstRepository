@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+             select  
+        		case when a.quantity_dayplan_left_i=0 or a.quantity_dayplan_left_i=0 then 0
+                 else trunc(a.qty_dayproduct_left_i/a.quantity_dayplan_left_i*100,2) end  as qty_dayproduct_left_bl,
+            case when a.qty_dayproduct_right_i=0 or a.quantity_dayplan_right_i=0 then 0
+                 else trunc(a.qty_dayproduct_right_i/a.quantity_dayplan_right_i*100,2) end  as qty_dayproduct_right_bl,  
+            case when a.output_morclass_left_i=0 or a.planamount_mor_left_i=0 then 0
+                 else trunc(a.output_morclass_left_i/a.planamount_mor_left_i*100,2) end  as qty_dayproduct_left_zbwcbfb,
+            case when a.output_midclass_left_i=0 or a.planamount_mid_left_i=0 then 0
+                 else trunc(a.output_midclass_left_i/a.planamount_mid_left_i*100,2) end  as qty_dayproduct_left_zwbwcbfb, 
+            case when a.output_nigclass_left_i=0 or a.planamount_nig_left_i=0 then 0
+                 else trunc(a.output_nigclass_left_i/a.planamount_nig_left_i*100,2) end  as qty_dayproduct_left_wbwcbfb,  
+            case when a.output_morclass_right_i=0 or a.planamount_mor_right_i=0 then 0
+                 else trunc(a.output_morclass_right_i/a.planamount_mor_right_i*100,2) end  as qty_dayproduct_right_wbwcbfb,  
+            case when a.output_midclass_right_i=0 or a.planamount_mid_right_i=0 then 0
+                 else trunc(a.output_midclass_right_i/a.planamount_mor_right_i*100,2) end  as qty_dayproduct_right_zwcbfb,
+            case when a.output_nigclass_right_i=0 or a.planamount_nig_right_i=0 then 0
+                 else trunc(a.output_nigclass_right_i/a.planamount_nig_right_i*100,2) end  as qty_dayproduct_right_wcbwcbfb,                                                                         
+        a.* from AT_C_PP_PRODUCTIONDAYPLAN a where 1=1 and record_flag_s='A'
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if approval_time_s??>
+                     and APPROVAL_TIME_S=:approval_time_s
+                </#if>
+                <#if approver_s??>
+                     and APPROVER_S=:approver_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if childbom_ver_left_s??>
+                     and CHILDBOM_VER_LEFT_S=:childbom_ver_left_s
+                </#if>
+                <#if childbom_ver_right_s??>
+                     and CHILDBOM_VER_RIGHT_S=:childbom_ver_right_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if equip_code_left_s??>
+                     and EQUIP_CODE_LEFT_S=:equip_code_left_s
+                </#if>
+                <#if equip_code_right_s??>
+                     and EQUIP_CODE_RIGHT_S=:equip_code_right_s
+                </#if>
+                <#if material_code_left_s??>
+                     and MATERIAL_CODE_LEFT_S like :material_code_left_s
+                </#if>
+                <#if material_code_right_s??>
+                     and MATERIAL_CODE_RIGHT_S=:material_code_right_s
+                </#if>
+                <#if material_desc_left_s??>
+                     and MATERIAL_DESC_LEFT_S like :material_desc_left_s
+                </#if>
+                <#if material_desc_right_s??>
+                     and MATERIAL_DESC_RIGHT_S=:material_desc_right_s
+                </#if>
+                <#if material_name_left_s??>
+                     and MATERIAL_NAME_LEFT_S=:material_name_left_s
+                </#if>
+                <#if memo_left_s??>
+                     and MEMO_LEFT_S=:memo_left_s
+                </#if>
+                <#if memo_right_s??>
+                     and MEMO_RIGHT_S=:memo_right_s
+                </#if>
+                <#if output_midclass_left_i??>
+                     and OUTPUT_MIDCLASS_LEFT_I=:output_midclass_left_i
+                </#if>
+                <#if output_midclass_right_i??>
+                     and OUTPUT_MIDCLASS_RIGHT_I=:output_midclass_right_i
+                </#if>
+                <#if output_morclass_left_i??>
+                     and OUTPUT_MORCLASS_LEFT_I=:output_morclass_left_i
+                </#if>
+                <#if output_morclass_right_i??>
+                     and OUTPUT_MORCLASS_RIGHT_I=:output_morclass_right_i
+                </#if>
+                <#if output_nigclass_left_i??>
+                     and OUTPUT_NIGCLASS_LEFT_I=:output_nigclass_left_i
+                </#if>
+                <#if output_nigclass_right_i??>
+                     and OUTPUT_NIGCLASS_RIGHT_I=:output_nigclass_right_i
+                </#if>
+                <#if planamount_mid_left_i??>
+                     and PLANAMOUNT_MID_LEFT_I=:planamount_mid_left_i
+                </#if>
+                <#if planamount_mid_right_i??>
+                     and PLANAMOUNT_MID_RIGHT_I=:planamount_mid_right_i
+                </#if>
+                <#if planamount_mor_left_i??>
+                     and PLANAMOUNT_MOR_LEFT_I=:planamount_mor_left_i
+                </#if>
+                <#if planamount_mor_right_i??>
+                     and PLANAMOUNT_MOR_RIGHT_I=:planamount_mor_right_i
+                </#if>
+                <#if planamount_nig_left_i??>
+                     and PLANAMOUNT_NIG_LEFT_I=:planamount_nig_left_i
+                </#if>
+                <#if planamount_nig_right_i??>
+                     and PLANAMOUNT_NIG_RIGHT_I=:planamount_nig_right_i
+                </#if>
+                <#if planno_month_s??>
+                     and PLANNO_MONTH_S=:planno_month_s
+                </#if>
+                <#if planqty_mid_left_i??>
+                     and PLANQTY_MID_LEFT_I=:planqty_mid_left_i
+                </#if>
+                <#if planqty_mid_right_i??>
+                     and PLANQTY_MID_RIGHT_I=:planqty_mid_right_i
+                </#if>
+                <#if planqty_mor_left_i??>
+                     and PLANQTY_MOR_LEFT_I=:planqty_mor_left_i
+                </#if>
+                <#if planqty_mor_right_i??>
+                     and PLANQTY_MOR_RIGHT_I=:planqty_mor_right_i
+                </#if>
+                <#if planqty_nigclass_left_i??>
+                     and PLANQTY_NIGCLASS_LEFT_I=:planqty_nigclass_left_i
+                </#if>
+                <#if planqty_nigclass_right_i??>
+                     and PLANQTY_NIGCLASS_RIGHT_I=:planqty_nigclass_right_i
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S like:plan_no_s
+                </#if>
+                <#if plan_queue_s??>
+                     and PLAN_QUEUE_S=:plan_queue_s
+                </#if>
+                <#if processbom_index_build_s??>
+                     and PROCESSBOM_INDEX_BUILD_S=:processbom_index_build_s
+                </#if>
+                <#if processbom_index_curing_s??>
+                     and PROCESSBOM_INDEX_CURING_S=:processbom_index_curing_s
+                </#if>
+                <#if productionver_left_s??>
+                     and PRODUCTIONVER_LEFT_S=:productionver_left_s
+                </#if>
+                <#if productionver_right_s??>
+                     and PRODUCTIONVER_RIGHT_S=:productionver_right_s
+                </#if>
+                <#if production_bom_left_s??>
+                     and PRODUCTION_BOM_LEFT_S=:production_bom_left_s
+                </#if>
+                <#if production_bom_right_s??>
+                     and PRODUCTION_BOM_RIGHT_S=:production_bom_right_s
+                </#if>
+                <#if production_date_s??>
+                     and PRODUCTION_DATE_S=:production_date_s
+                </#if>
+                <#if production_line_s??>
+                     and PRODUCTION_LINE_S=:production_line_s
+                </#if>
+                <#if production_step_left_s??>
+                     and PRODUCTION_STEP_LEFT_S=:production_step_left_s
+                </#if>
+                <#if production_step_right_s??>
+                     and PRODUCTION_STEP_RIGHT_S=:production_step_right_s
+                </#if>
+                <#if qty_dayproduct_left_i??>
+                     and QTY_DAYPRODUCT_LEFT_I=:qty_dayproduct_left_i
+                </#if>
+                <#if qty_dayproduct_right_i??>
+                     and QTY_DAYPRODUCT_RIGHT_I=:qty_dayproduct_right_i
+                </#if>
+                <#if quantity_dayplan_left_i??>
+                     and QUANTITY_DAYPLAN_LEFT_I=:quantity_dayplan_left_i
+                </#if>
+                <#if quantity_dayplan_right_i??>
+                     and QUANTITY_DAYPLAN_RIGHT_I=:quantity_dayplan_right_i
+                </#if>
+                <#if reason_midclass_left_s??>
+                     and REASON_MIDCLASS_LEFT_S=:reason_midclass_left_s
+                </#if>
+                <#if reason_midclass_right_s??>
+                     and REASON_MIDCLASS_RIGHT_S=:reason_midclass_right_s
+                </#if>
+                <#if reason_morclass_left_s??>
+                     and REASON_MORCLASS_LEFT_S=:reason_morclass_left_s
+                </#if>
+                <#if reason_morclass_right_s??>
+                     and REASON_MORCLASS_RIGHT_S=:reason_morclass_right_s
+                </#if>
+                <#if reason_nigclass_left_s??>
+                     and REASON_NIGCLASS_LEFT_S=:reason_nigclass_left_s
+                </#if>
+                <#if reason_nigclass_right_s??>
+                     and REASON_NIGCLASS_RIGHT_S=:reason_nigclass_right_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if specification_left_s??>
+                     and SPECIFICATION_LEFT_S=:specification_left_s
+                </#if>
+                <#if specification_right_s??>
+                     and SPECIFICATION_RIGHT_S=:specification_right_s
+                </#if>
+                <#if status_s??>
+                     and STATUS_S=:status_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_C_PP_PRODUCTIONDAYPLAN where 1=1 and record_flag_s='A'
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if approval_time_s??>
+                         and APPROVAL_TIME_S=:approval_time_s
+                    </#if>
+                    <#if approver_s??>
+                         and APPROVER_S=:approver_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if childbom_ver_left_s??>
+                         and CHILDBOM_VER_LEFT_S=:childbom_ver_left_s
+                    </#if>
+                    <#if childbom_ver_right_s??>
+                         and CHILDBOM_VER_RIGHT_S=:childbom_ver_right_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if equip_code_left_s??>
+                         and EQUIP_CODE_LEFT_S=:equip_code_left_s
+                    </#if>
+                    <#if equip_code_right_s??>
+                         and EQUIP_CODE_RIGHT_S=:equip_code_right_s
+                    </#if>
+                    <#if material_code_left_s??>
+                         and MATERIAL_CODE_LEFT_S like :material_code_left_s
+                    </#if>
+                    <#if material_code_right_s??>
+                         and MATERIAL_CODE_RIGHT_S=:material_code_right_s
+                    </#if>
+                    <#if material_desc_left_s??>
+                         and MATERIAL_DESC_LEFT_S like :material_desc_left_s
+                    </#if>
+                    <#if material_desc_right_s??>
+                         and MATERIAL_DESC_RIGHT_S=:material_desc_right_s
+                    </#if>
+                    <#if material_name_left_s??>
+                         and MATERIAL_NAME_LEFT_S=:material_name_left_s
+                    </#if>
+                    <#if memo_left_s??>
+                         and MEMO_LEFT_S=:memo_left_s
+                    </#if>
+                    <#if memo_right_s??>
+                         and MEMO_RIGHT_S=:memo_right_s
+                    </#if>
+                    <#if output_midclass_left_i??>
+                         and OUTPUT_MIDCLASS_LEFT_I=:output_midclass_left_i
+                    </#if>
+                    <#if output_midclass_right_i??>
+                         and OUTPUT_MIDCLASS_RIGHT_I=:output_midclass_right_i
+                    </#if>
+                    <#if output_morclass_left_i??>
+                         and OUTPUT_MORCLASS_LEFT_I=:output_morclass_left_i
+                    </#if>
+                    <#if output_morclass_right_i??>
+                         and OUTPUT_MORCLASS_RIGHT_I=:output_morclass_right_i
+                    </#if>
+                    <#if output_nigclass_left_i??>
+                         and OUTPUT_NIGCLASS_LEFT_I=:output_nigclass_left_i
+                    </#if>
+                    <#if output_nigclass_right_i??>
+                         and OUTPUT_NIGCLASS_RIGHT_I=:output_nigclass_right_i
+                    </#if>
+                    <#if planamount_mid_left_i??>
+                         and PLANAMOUNT_MID_LEFT_I=:planamount_mid_left_i
+                    </#if>
+                    <#if planamount_mid_right_i??>
+                         and PLANAMOUNT_MID_RIGHT_I=:planamount_mid_right_i
+                    </#if>
+                    <#if planamount_mor_left_i??>
+                         and PLANAMOUNT_MOR_LEFT_I=:planamount_mor_left_i
+                    </#if>
+                    <#if planamount_mor_right_i??>
+                         and PLANAMOUNT_MOR_RIGHT_I=:planamount_mor_right_i
+                    </#if>
+                    <#if planamount_nig_left_i??>
+                         and PLANAMOUNT_NIG_LEFT_I=:planamount_nig_left_i
+                    </#if>
+                    <#if planamount_nig_right_i??>
+                         and PLANAMOUNT_NIG_RIGHT_I=:planamount_nig_right_i
+                    </#if>
+                    <#if planno_month_s??>
+                         and PLANNO_MONTH_S=:planno_month_s
+                    </#if>
+                    <#if planqty_mid_left_i??>
+                         and PLANQTY_MID_LEFT_I=:planqty_mid_left_i
+                    </#if>
+                    <#if planqty_mid_right_i??>
+                         and PLANQTY_MID_RIGHT_I=:planqty_mid_right_i
+                    </#if>
+                    <#if planqty_mor_left_i??>
+                         and PLANQTY_MOR_LEFT_I=:planqty_mor_left_i
+                    </#if>
+                    <#if planqty_mor_right_i??>
+                         and PLANQTY_MOR_RIGHT_I=:planqty_mor_right_i
+                    </#if>
+                    <#if planqty_nigclass_left_i??>
+                         and PLANQTY_NIGCLASS_LEFT_I=:planqty_nigclass_left_i
+                    </#if>
+                    <#if planqty_nigclass_right_i??>
+                         and PLANQTY_NIGCLASS_RIGHT_I=:planqty_nigclass_right_i
+                    </#if>
+                    <#if plan_no_s??>
+                         and PLAN_NO_S like :plan_no_s
+                    </#if>
+                    <#if plan_queue_s??>
+                         and PLAN_QUEUE_S=:plan_queue_s
+                    </#if>
+                    <#if processbom_index_build_s??>
+                         and PROCESSBOM_INDEX_BUILD_S=:processbom_index_build_s
+                    </#if>
+                    <#if processbom_index_curing_s??>
+                         and PROCESSBOM_INDEX_CURING_S=:processbom_index_curing_s
+                    </#if>
+                    <#if productionver_left_s??>
+                         and PRODUCTIONVER_LEFT_S=:productionver_left_s
+                    </#if>
+                    <#if productionver_right_s??>
+                         and PRODUCTIONVER_RIGHT_S=:productionver_right_s
+                    </#if>
+                    <#if production_bom_left_s??>
+                         and PRODUCTION_BOM_LEFT_S=:production_bom_left_s
+                    </#if>
+                    <#if production_bom_right_s??>
+                         and PRODUCTION_BOM_RIGHT_S=:production_bom_right_s
+                    </#if>
+                    <#if production_date_s??>
+                         and PRODUCTION_DATE_S=:production_date_s
+                    </#if>
+                    <#if production_line_s??>
+                         and PRODUCTION_LINE_S=:production_line_s
+                    </#if>
+                    <#if production_step_left_s??>
+                         and PRODUCTION_STEP_LEFT_S=:production_step_left_s
+                    </#if>
+                    <#if production_step_right_s??>
+                         and PRODUCTION_STEP_RIGHT_S=:production_step_right_s
+                    </#if>
+                    <#if qty_dayproduct_left_i??>
+                         and QTY_DAYPRODUCT_LEFT_I=:qty_dayproduct_left_i
+                    </#if>
+                    <#if qty_dayproduct_right_i??>
+                         and QTY_DAYPRODUCT_RIGHT_I=:qty_dayproduct_right_i
+                    </#if>
+                    <#if quantity_dayplan_left_i??>
+                         and QUANTITY_DAYPLAN_LEFT_I=:quantity_dayplan_left_i
+                    </#if>
+                    <#if quantity_dayplan_right_i??>
+                         and QUANTITY_DAYPLAN_RIGHT_I=:quantity_dayplan_right_i
+                    </#if>
+                    <#if reason_midclass_left_s??>
+                         and REASON_MIDCLASS_LEFT_S=:reason_midclass_left_s
+                    </#if>
+                    <#if reason_midclass_right_s??>
+                         and REASON_MIDCLASS_RIGHT_S=:reason_midclass_right_s
+                    </#if>
+                    <#if reason_morclass_left_s??>
+                         and REASON_MORCLASS_LEFT_S=:reason_morclass_left_s
+                    </#if>
+                    <#if reason_morclass_right_s??>
+                         and REASON_MORCLASS_RIGHT_S=:reason_morclass_right_s
+                    </#if>
+                    <#if reason_nigclass_left_s??>
+                         and REASON_NIGCLASS_LEFT_S=:reason_nigclass_left_s
+                    </#if>
+                    <#if reason_nigclass_right_s??>
+                         and REASON_NIGCLASS_RIGHT_S=:reason_nigclass_right_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if specification_left_s??>
+                         and SPECIFICATION_LEFT_S=:specification_left_s
+                    </#if>
+                    <#if specification_right_s??>
+                         and SPECIFICATION_RIGHT_S=:specification_right_s
+                    </#if>
+                    <#if status_s??>
+                         and STATUS_S=:status_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+      <sql comment="产线编码的查询" id="searchByProductLine">
+       <![CDATA[
+         SELECT PRODUCT_LINE_S FROM AT_C_MM_MACHINECONTROL 
+         WHERE 1=1 AND S_FACTORY_S=:s_factory_s
+         GROUP BY PRODUCT_LINE_S
+        ]]>
+	</sql>
+</sqls>

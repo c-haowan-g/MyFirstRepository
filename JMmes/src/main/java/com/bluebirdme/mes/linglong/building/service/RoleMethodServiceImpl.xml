@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select t.*,US1.USERNAME  create_name,US2.USERNAME  changed_name from AT_B_MM_ROLEMETHOD t  
+            left join CORE_USER US1 ON t.CREATED_BY_S=US1.USERCODE 
+            left join CORE_USER US2 ON t.CHANGED_BY_S=US2.USERCODE 
+            where 1=1 and t.record_flag_s='A'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if method_code_s??>
+                     and t.METHOD_CODE_S=:method_code_s
+                </#if>
+                <#if method_name_s??>
+                     and t.METHOD_NAME_S=:method_name_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if role_id_s??>
+                     and t.ROLE_ID_S=:role_id_s
+                </#if>
+                <#if role_name_s??>
+                     and t.ROLE_NAME_S=:role_name_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_B_MM_ROLEMETHOD t
+            left join CORE_USER US1 ON t.CREATED_BY_S=US1.USERCODE 
+            left join CORE_USER US2 ON t.CHANGED_BY_S=US2.USERCODE 
+            where 1=1 and t.record_flag_s='A'
+                    <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if method_code_s??>
+                     and t.METHOD_CODE_S=:method_code_s
+                </#if>
+                <#if method_name_s??>
+                     and t.METHOD_NAME_S=:method_name_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if role_id_s??>
+                     and t.ROLE_ID_S=:role_id_s
+                </#if>
+                <#if role_name_s??>
+                     and t.ROLE_NAME_S=:role_name_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+        ]]>
+    </sql>
+
+	<sql comment="角色名称和角色ID查询" id="searchRoleName">
+       <![CDATA[
+           select t.id,t.name from CORE_ROLE t
+        ]]>
+	</sql>
+	
+    <sql comment="功能名称和功能代码查询" id="searchMethodName">
+       <![CDATA[
+            select t.dictname_s,t.erpcode_s from at_cm_bs_coredictionary t where t.dictcode_s like'1710%'
+        ]]>
+	</sql>
+
+</sqls>

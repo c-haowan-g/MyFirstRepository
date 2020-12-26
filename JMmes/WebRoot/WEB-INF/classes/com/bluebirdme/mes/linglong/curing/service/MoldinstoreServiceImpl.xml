@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+          select distinct e.*,
+ 			CONCAT (
+        	e.instore_worker_s,
+       		 C.USERNAME
+     		 ) AS changed_by,
+         s.DESCRIPTION remarks_s
+  			from AT_C_WH_MOLDINSTORE e, CORE_USER C,STORAGE_UNIT S
+    		where  e.instore_worker_s = c.usercode(+)
+				AND S.STORAGE_UNIT_NAME=E.STOREPLACE_S
+           		
+                <#if begin_created_time??&&end_created_time??>
+	           		     and e.instore_time_t between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+					    and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                </#if>
+                <#if agenc_no_s??>
+                     and e.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if block_s??>
+                     and e.BLOCK_S=:block_s
+                </#if>
+                <#if board_s??>
+                     and e.BOARD_S=:board_s
+                </#if>
+                <#if cable_s??>
+                     and e.CABLE_S=:cable_s
+                </#if>
+                <#if changed_by_s??>
+                     and e.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and e.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if class_id_s??>
+                     and e.CLASS_ID_S=:class_id_s
+                </#if>
+                <#if created_by_s??>
+                     and e.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and e.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if flower_pattern_s??>
+                     and e.FLOWER_PATTERN_S=:flower_pattern_s
+                </#if>
+                <#if instore_reason_s??>
+                     and e.INSTORE_REASON_S=:instore_reason_s
+                </#if>
+                <#if instore_record_s??>
+                     and e.INSTORE_RECORD_S=:instore_record_s
+                </#if>
+                <#if instore_time_t??>
+                     and e.INSTORE_TIME_T=:instore_time_t
+                </#if>
+                <#if instore_worker_s??>
+                     and e.INSTORE_WORKER_S=:instore_worker_s
+                </#if>
+                <#if memo_s??>
+                     and e.MEMO_S=:memo_s
+                </#if>
+                <#if mold_bar_s??>
+                     and e.MOLD_BAR_S like :mold_bar_s
+                </#if>
+                <#if mold_code_s??>
+                     and e.MOLD_CODE_S=:mold_code_s
+                </#if>
+                <#if mold_name_s??>
+                     and e.MOLD_NAME_S=:mold_name_s
+                </#if>
+                <#if mold_spec_s??>
+                     and e.MOLD_SPEC_S like :mold_spec_s
+                </#if>
+                <#if mold_status_s??>
+                     and e.MOLD_STATUS_S=:mold_status_s
+                </#if>
+                <#if ply_s??>
+                     and e.PLY_S=:ply_s
+                </#if>
+                <#if product_date_s??>
+                     and e.PRODUCT_DATE_S=:product_date_s
+                </#if>
+                <#if record_flag_s??>
+                     and e.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if shift_id_s??>
+                     and e.SHIFT_ID_S=:shift_id_s
+                </#if>
+                <#if spare1_s??>
+                     and e.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and e.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and e.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and e.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and e.SPARE5_S=:spare5_s
+                </#if>
+                <#if storeplace_s??>
+                     and e.STOREPLACE_S like :storeplace_s
+                </#if>
+                <#if s_factory_s??>
+                     and e.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if trade_mark_s??>
+                     and e.TRADE_MARK_S=:trade_mark_s
+                </#if>
+                <#if tray_code_s??>
+                     and e.TRAY_CODE_S=:tray_code_s
+                </#if>
+                <#if wind_type_s??>
+                     and e.WIND_TYPE_S=:wind_type_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by e.instore_time_t desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_C_WH_MOLDINSTORE where 1=1
+            			
+                <#if begin_created_time??&&end_created_time??>
+	           		     and instore_time_t between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+					    and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                </#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if block_s??>
+                         and BLOCK_S=:block_s
+                    </#if>
+                    <#if board_s??>
+                         and BOARD_S=:board_s
+                    </#if>
+                    <#if cable_s??>
+                         and CABLE_S=:cable_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if class_id_s??>
+                         and CLASS_ID_S=:class_id_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if flower_pattern_s??>
+                         and FLOWER_PATTERN_S=:flower_pattern_s
+                    </#if>
+                    <#if instore_reason_s??>
+                         and INSTORE_REASON_S=:instore_reason_s
+                    </#if>
+                    <#if instore_record_s??>
+                         and INSTORE_RECORD_S=:instore_record_s
+                    </#if>
+                    <#if instore_time_t??>
+                         and INSTORE_TIME_T=:instore_time_t
+                    </#if>
+                    <#if instore_worker_s??>
+                         and INSTORE_WORKER_S=:instore_worker_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if mold_bar_s??>
+                         and MOLD_BAR_S like :mold_bar_s
+                    </#if>
+                    <#if mold_code_s??>
+                         and MOLD_CODE_S=:mold_code_s
+                    </#if>
+                    <#if mold_name_s??>
+                         and MOLD_NAME_S=:mold_name_s
+                    </#if>
+                    <#if mold_spec_s??>
+                         and MOLD_SPEC_S like :mold_spec_s
+                    </#if>
+                    <#if mold_status_s??>
+                         and MOLD_STATUS_S=:mold_status_s
+                    </#if>
+                    <#if ply_s??>
+                         and PLY_S=:ply_s
+                    </#if>
+                    <#if product_date_s??>
+                         and PRODUCT_DATE_S=:product_date_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if shift_id_s??>
+                         and SHIFT_ID_S=:shift_id_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if storeplace_s??>
+                         and STOREPLACE_S like :storeplace_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if trade_mark_s??>
+                         and TRADE_MARK_S=:trade_mark_s
+                    </#if>
+                    <#if tray_code_s??>
+                         and TRAY_CODE_S=:tray_code_s
+                    </#if>
+                    <#if wind_type_s??>
+                         and WIND_TYPE_S=:wind_type_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

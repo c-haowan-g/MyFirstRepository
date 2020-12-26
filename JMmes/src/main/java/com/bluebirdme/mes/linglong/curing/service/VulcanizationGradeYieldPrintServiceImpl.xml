@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+			       select 
+				        max(atr_key) as atr_key,
+				        sum(planamount)as quantity_plan,
+				        username,
+				        usercode,
+				        sum(gradea) as gradea,
+				        sum(outputamount) as active_output,
+				        sum(secondlevel) as secondlevel,
+				        sum(waste) as waste,
+				        max(spare6) as first_grade,
+				        max(spare7) as percentofpass,
+				        max(spare8) as qualitycompletionrate
+				    from(
+				        select 
+				            max(a.atr_key) as atr_key,
+				            d.username,
+				            d.usercode,
+				            a.plan_no_s,
+				            max(decode(a.class_id_s,'252001',p.planamount_mor_left_i+p.planamount_mid_right_i
+				                                    ,'252002',p.planamount_mid_left_i+p.planamount_mid_right_i,
+				                                     p.planamount_nig_left_i+p.planamount_nig_right_i)) as planamount,
+				            count(1) as outputamount,
+				             sum(decode(b.quality_grade_s, '253007', 1, 0)) gradea,
+			            sum(decode( b.quality_grade_s, '253006', 1, 0)) secondlevel,
+			            sum(decode( b.quality_grade_s, '253012', 1, 0)) waste,
+			            max(a.spare6_s) spare6,
+			            max(a.spare7_s) spare7,
+			            max(a.spare8_s) spare8
+				        from at_c_mm_workorderresult a, core_user d,at_c_mm_curing_maintyre b,at_c_pp_productiondayplan p
+				        where a.created_by_s = d.usercode(+)
+				             and a.tyre_barcode_s = b.tyrebarcode_s(+)
+				             and b.PROESS_S='252006'
+				             and a.plan_no_s=p.plan_no_s(+) 
+				               
+				       <#if s_factory_s??>
+	                    and a.S_FACTORY_S=:s_factory_s
+		               </#if>
+		               <#if username??>
+		                    and d.USERNAME like :username
+		               </#if>
+		               <#if created_by_s??>
+		                    and a.created_by_s like :created_by_s
+		               </#if>
+		                <#if begin_created_time??&&end_created_time??>
+		            				and p.production_date_s between
+		            				replace(:begin_created_time,'-','') and replace(:end_created_time,'-','')
+		           		</#if>
+				          group by d.username,a.plan_no_s,d.usercode
+				          order by d.username) 
+				     group by username,usercode
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+	        select count(1) from (
+	            select 
+				        max(atr_key) as atr_key,
+				        sum(planamount)as quantity_plan,
+				        username,
+				        usercode,
+				        sum(gradea) as gradea,
+				        sum(outputamount) as active_output,
+				        sum(secondlevel) as secondlevel,
+				        sum(waste) as waste,
+				        max(spare6) as first_grade,
+				        max(spare7) as percentofpass,
+				        max(spare8) as qualitycompletionrate
+				    from(
+				        select 
+				            max(a.atr_key) as atr_key,
+				            d.username,
+				            d.usercode,
+				            a.plan_no_s,
+				            max(decode(a.class_id_s,'252001',p.planamount_mor_left_i+p.planamount_mid_right_i
+				                                    ,'252002',p.planamount_mid_left_i+p.planamount_mid_right_i,
+				                                     p.planamount_nig_left_i+p.planamount_nig_right_i)) as planamount,
+				            count(1) as outputamount,
+				             sum(decode(b.quality_grade_s, '253007', 1, 0)) gradea,
+			            sum(decode( b.quality_grade_s, '253006', 1, 0)) secondlevel,
+			            sum(decode( b.quality_grade_s, '253012', 1, 0)) waste,
+			            max(a.spare6_s) spare6,
+			            max(a.spare7_s) spare7,
+			            max(a.spare8_s) spare8
+				        from at_c_mm_workorderresult a, core_user d,at_c_mm_curing_maintyre b,at_c_pp_productiondayplan p
+				        where a.created_by_s = d.usercode(+)
+				             and a.tyre_barcode_s = b.tyrebarcode_s(+)
+				             and b.PROESS_S='252006'
+				             and a.plan_no_s=p.plan_no_s(+) 
+				               
+				       <#if s_factory_s??>
+	                    and a.S_FACTORY_S=:s_factory_s
+		               </#if>
+		               <#if username??>
+		                    and d.USERNAME like :username
+		               </#if>
+		               <#if created_by_s??>
+		                    and a.created_by_s like :created_by_s
+		               </#if>
+		                <#if begin_created_time??&&end_created_time??>
+		            				and p.production_date_s between
+		            				replace(:begin_created_time,'-','') and replace(:end_created_time,'-','')
+		           		</#if>
+				          group by d.username,a.plan_no_s,d.usercode
+				          order by d.username) 
+				     group by username,usercode)
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_rows2">
+        <![CDATA[
+			       select 
+			           w.CLASS_ID_S,w.MATERIAL_CODE_S,w.MATERIAL_NAME_S,ps.production_date_s  
+		           from AT_C_MM_WORKORDERRESULT w,at_c_pp_productiondayplan ps
+                      where 
+                          w.plan_no_s=ps.plan_no_s(+)
+                         and w.RECORD_FLAG_S='A'
+                       <#if s_factory_s??>
+                         and w.S_FACTORY_S=:s_factory_s
+		               </#if>
+		               <#if usercode??>
+		                    and w.CREATED_BY_S = :usercode
+		               </#if>
+		                <#if begin_created_time_detail??&&end_created_time_detail??>
+	            				and TO_CHAR(w.CREATED_TIME_T,'yyyyMMdd') between
+	            				replace(:begin_created_time_detail,'-','') and replace(:end_created_time_detail,'-','')
+	           		    </#if>
+	           		    group by w.CLASS_ID_S,w.MATERIAL_CODE_S,ps.production_date_s,w.MATERIAL_NAME_S
+                        ORDER BY PS.PRODUCTION_DATE_S DESC
+                       
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total2">
+        <![CDATA[
+	        select 
+	           count(1)  
+          from AT_C_MM_WORKORDERRESULT w,at_c_pp_productiondayplan ps
+                      where 
+                          w.plan_no_s=ps.plan_no_s(+)
+                         and w.RECORD_FLAG_S='A'
+                       <#if s_factory_s??>
+                         and w.S_FACTORY_S=:s_factory_s
+		               </#if>
+		               <#if usercode??>
+		                    and w.CREATED_BY_S = :usercode
+		               </#if>
+		                <#if begin_created_time_detail??&&end_created_time_detail??>
+	            				and TO_CHAR(w.CREATED_TIME_T,'yyyyMMdd') between
+	            				replace(:begin_created_time_detail,'-','') and replace(:end_created_time_detail,'-','')
+	           		    </#if>
+	           		    group by w.CLASS_ID_S,w.MATERIAL_CODE_S,ps.production_date_s,w.MATERIAL_NAME_S
+                        ORDER BY PS.PRODUCTION_DATE_S DESC
+        ]]>
+    </sql>
+</sqls>

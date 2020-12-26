@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+                SELECT
+					nvl(a_count,0) as a_count,nvl(b_count,0) as b_count,nvl(waste_count,0) as waste_count,
+					nvl(dynamic_waste_count,0) as dynamic_waste_count,nvl(xlight_waste_count,0) as xlight_waste_count,
+					nvl(visual_waste_count,0) as visual_waste_count
+				FROM
+					(
+						SELECT
+							(
+								CASE
+								WHEN A.QUALITY_GRADE_S = '253008'
+								OR A.QUALITY_GRADE_S = '253007' THEN
+									'level_one'
+								WHEN A.QUALITY_GRADE_S = '253006' THEN
+									'level_two'
+								WHEN A.QUALITY_GRADE_S = '253012'
+								OR A.QUALITY_GRADE_S = '253013' THEN
+									'level_watse'
+								END
+							) son,
+							COUNT (1) c
+						FROM
+							(select A.* from AT_C_MM_CURING_MAINTYRE C,(select m.* from AT_C_MM_CURING_MAINTYRE m,(select tyrebarcode_s,max(overtime_t) as overtime from AT_C_MM_CURING_MAINTYRE GROUP BY TYREBARCODE_S)mm
+                      where m.tyrebarcode_s=mm.tyrebarcode_s and m.overTime_t=mm.overtime and m.proess_s>'252007') A where 1=1 and c.proess_s='252006'
+					    and A.tyrebarcode_s=c.tyrebarcode_s) A
+						WHERE 
+							A.RECORD_FLAG_S = 'A'
+							<#if s_factory_s??>
+                         		and A.S_FACTORY_S=:s_factory_s
+                    		</#if>
+                    		<#if start_time?? && end_time??>
+			                	and  A.STARTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			                	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+				            </#if>
+				           	<#if start_time?? && !end_time??>
+				                 and A.STARTTIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+				            </#if>
+				            <#if !start_time?? && end_time??>
+				                 and A.STARTTIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+				            </#if>		
+						GROUP BY
+							A.QUALITY_GRADE_S
+					) PIVOT (
+						SUM (c) FOR son IN ('level_one' as a_count, 'level_two' as b_count, 'level_watse' as waste_count)
+					)
+				,(
+				SELECT
+					sum(COUNT (1)) dynamic_waste_count
+				FROM
+					AT_C_MM_CURING_MAINTYRE
+				WHERE
+				    PROESS_S='252010' AND 
+					RECORD_FLAG_S = 'A'
+					<#if s_factory_s??>
+                       	and S_FACTORY_S=:s_factory_s
+                 	</#if>
+                 	<#if start_time?? && end_time??>
+	                	and  STARTTIME_T  between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		           	<#if start_time?? && !end_time??>
+		                 and STARTTIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		            <#if !start_time?? && end_time??>
+		                 and STARTTIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+		            </#if>		
+                    AND ATPRESENTGRADECODE_S in ('253003','253012','253013')
+				GROUP BY
+					ATPRESENTGRADECODE_S
+				), (
+				SELECT
+					sum(COUNT (1)) xlight_waste_count
+				FROM
+					AT_C_MM_CURING_MAINTYRE
+				WHERE
+				    PROESS_S='252009' AND 
+					RECORD_FLAG_S = 'A'
+					<#if s_factory_s??>
+                       	and S_FACTORY_S=:s_factory_s
+                 	</#if>
+                 	<#if start_time?? && end_time??>
+	                	and  STARTTIME_T  between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		           	<#if start_time?? && !end_time??>
+		                 and STARTTIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		            <#if !start_time?? && end_time??>
+		                 and STARTTIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+		            </#if>	
+                 	AND ATPRESENTGRADECODE_S in ('253003','253012','253013')
+				GROUP BY
+					ATPRESENTGRADECODE_S
+				),  (
+				SELECT
+					sum(COUNT (1)) visual_waste_count
+				FROM
+					AT_C_MM_CURING_MAINTYRE
+				WHERE
+				    PROESS_S='252008' AND
+					RECORD_FLAG_S = 'A'
+					<#if s_factory_s??>
+                       	and S_FACTORY_S=:s_factory_s
+                 	</#if>
+                 	<#if start_time?? && end_time??>
+	                	and  STARTTIME_T  between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		           	<#if start_time?? && !end_time??>
+		                 and STARTTIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		            <#if !start_time?? && end_time??>
+		                 and STARTTIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+		            </#if>	
+					AND ATPRESENTGRADECODE_S in ('253003','253012','253013')
+				GROUP BY
+					ATPRESENTGRADECODE_S
+				)
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            SELECT
+					count(1)
+				FROM
+					(
+						SELECT
+							(
+								CASE
+								WHEN A.QUALITY_GRADE_S = '253008'
+								OR A.QUALITY_GRADE_S = '253007' THEN
+									'level_one'
+								WHEN A.QUALITY_GRADE_S = '253006' THEN
+									'level_two'
+								WHEN A.QUALITY_GRADE_S = '253012'
+								OR A.QUALITY_GRADE_S = '253013' THEN
+									'level_watse'
+								END
+							) son,
+							COUNT (1) c
+						FROM
+							(select A.* from AT_C_MM_CURING_MAINTYRE C,(select m.* from AT_C_MM_CURING_MAINTYRE m,(select tyrebarcode_s,max(overtime_t) as overtime from AT_C_MM_CURING_MAINTYRE GROUP BY TYREBARCODE_S)mm
+                      where m.tyrebarcode_s=mm.tyrebarcode_s and m.overTime_t=mm.overtime and m.proess_s>'252007') A where 1=1 and c.proess_s='252006'
+					    and A.tyrebarcode_s=c.tyrebarcode_s) A
+						WHERE 
+							A.RECORD_FLAG_S = 'A'
+							<#if s_factory_s??>
+                         		and A.S_FACTORY_S=:s_factory_s
+                    		</#if>
+                    		<#if start_time?? && end_time??>
+			                	and  A.STARTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			                	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+				            </#if>
+				           	<#if start_time?? && !end_time??>
+				                 and A.STARTTIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+				            </#if>
+				            <#if !start_time?? && end_time??>
+				                 and A.STARTTIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+				            </#if>		
+						GROUP BY
+							A.QUALITY_GRADE_S
+					) PIVOT (
+						SUM (c) FOR son IN ('level_one' as a_count, 'level_two' as b_count, 'level_watse' as waste_count)
+					)
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="根据数据字典查出所需控制项" id="searchBy119">
+       <![CDATA[
+            select DICTCODE_S,DICTNAME_S AS DICTNAME
+			from AT_CM_BS_COREDICTIONARY 
+			where deleted_i='0'
+			start with PID_I=(select ATR_KEY from AT_CM_BS_COREDICTIONARY 
+			where DICTCODE_S='119' and deleted_i='0')
+			connect by prior DICTCODE_S=PID_I
+        ]]>
+	</sql>
+	
+	<sql comment=" 根据菜单管理查出数据" id="searchFromCoreMenu">
+       <![CDATA[
+             select * from CORE_MENU where pid=(SELECT cm.id from CORE_MENU cm where cm.url=:url) and sortno is not null
+            order by sortno
+        ]]>
+	</sql>
+	
+	<sql comment="模态框内容查询" id="searchByModal">
+       <![CDATA[
+           select AU.*,US1.USERNAME as CHANGED_BY_NAME,AP.DESCRIPTION as MACHINENAME_S
+				from  AT_A_MM_USECONTROLLOG  AU
+				LEFT JOIN CORE_USER US1 ON AU.CHANGED_BY_S=US1.USERCODE
+				left join (SELECT p.DESCRIPTION ,p.P_LINE_NAME,p.P_LINE_KEY FROM AREA c,AREA_PRODUCTION_LINE d,PRODUCTION_LINE p where c.AREA_KEY=d.PARENT_KEY and d.CHILD_KEY=p.P_LINE_KEY and c.AREA_NAME =:area_name) AP on AU.MACHINEBARCODE_S=AP.P_LINE_NAME
+             where AU.record_flag_s ='A'
+             and AU.S_FACTORY_S=:s_factory_s
+             and AU.AGENC_NO_S=:agenc_no_s
+             and au.controltype_s = '3'
+            Order By AU.CHANGED_TIME_T desc
+        ]]>
+	</sql>
+	
+	 <sql comment=" 查出机台条码显示在JSP页面下拉列表处" id="searchDescription">
+       <![CDATA[
+            select B.P_LINE_NAME from
+			(SELECT
+				MACHINEBARCODE_S
+			FROM
+				AT_CM_EM_PRODUCTCONTROL
+		    where 1=1
+            and S_FACTORY_S=:s_factory_s
+            and AGENC_NO_S=:agenc_no_s
+			group by MACHINEBARCODE_S) A
+			right JOIN (SELECT p.DESCRIPTION ,p.P_LINE_NAME,p.P_LINE_KEY FROM AREA c,AREA_PRODUCTION_LINE d,PRODUCTION_LINE p where c.AREA_KEY=d.PARENT_KEY and d.CHILD_KEY=p.P_LINE_KEY and c.AREA_NAME =:area_name) B on A.MACHINEBARCODE_S=B.P_LINE_NAME 
+			LEFT JOIN UDA_ProductionLine D on B.P_LINE_KEY=D.OBJECT_KEY
+			where 
+			D.S_FACTORY_S=:s_factory_s
+			and D.Process_s = '252004'
+			order by B.P_LINE_NAME
+        ]]>
+	</sql>
+	
+</sqls>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_INT_PLM_EQUALMATERIAL where 1=1
+                <#if groupname_s??>
+                     and GROUPNAME_S=:groupname_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                     and RECORD_FLAG_S = 'A'
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if s_factory_s??>
+                     and :s_factory_s=:s_factory_s
+                </#if>
+            order by GROUPNAME_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_INT_PLM_EQUALMATERIAL where 1=1
+                    <#if groupname_s??>
+                     and GROUPNAME_S=:groupname_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                     and RECORD_FLAG_S = 'A'
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if s_factory_s??>
+                     and :s_factory_s=:s_factory_s
+                </#if>
+        ]]>
+    </sql>
+    <sql comment="获取机台列表" id="getGroupnamesList">
+        <![CDATA[
+            SELECT
+				DISTINCT GROUPNAME_S
+			FROM
+				AT_INT_PLM_EQUALMATERIAL
+		    ORDER BY GROUPNAME_S
+        ]]>
+    </sql>
+    <sql comment="获取等同物料列表" id="getEqualMatInfo">
+        <![CDATA[
+            SELECT DISTINCT
+				MATERIALCODE_S,
+				MATERIALNAME_S 
+			FROM
+				AT_INT_PLM_EQUALMATERIAL
+        ]]>
+    </sql>
+    <sql comment="获取密炼物料列表" id="getMixMatInfo">
+        <![CDATA[
+            SELECT DISTINCT
+				MATERIALCODE_S,
+				MATERIALNAME_S,
+				MATERIALSPEC_S 
+			FROM
+				AT_INT_PLM_MIXMATERIAL
+        ]]>
+    </sql>
+    
+    <sql comment="查询需要修改的数据" id="queryUpdate">
+       <![CDATA[
+            SELECT
+				* 
+			FROM
+				AT_INT_PLM_EQUALMATERIAL 
+			WHERE
+				GROUPNAME_S = ( SELECT GROUPNAME_S FROM AT_INT_PLM_EQUALMATERIAL WHERE MATERIALCODE_S = :materialcode )
+        ]]>
+	</sql>
+</sqls>

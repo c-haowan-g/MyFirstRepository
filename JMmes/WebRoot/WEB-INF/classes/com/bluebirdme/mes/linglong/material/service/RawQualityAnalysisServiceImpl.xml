@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select p.*,
+            d.sub_conclusion_s as sub_conclusion_d,
+            d.test_items_s as test_items_d,
+            d.test_paras_s as test_paras_d,
+            d.test_method_s as test_method_d,
+            d.test_result_s as test_result_d,
+            d.executive_standard_s as executive_standard_d,
+            d.executive_name_s as executive_name_d,
+            d.executive_unit_s as executive_unit_d,
+            d.executive_reqvalue_s as executive_reqvalue_d,
+            d.executive_actualvalue_s as executive_actualvalue_d,
+            d.decisionscope_s as decisionscope_d,
+            d.receive_time_t as receive_time_d
+            from AT_INT_TDM_TESTTASKPUSH p
+            left join  AT_INT_TDM_TESTTASKDETIAL d on p.mesbusinesscode_s=d.mesbusinesscode_s
+             where 1=1
+             <#if suppliername_s??>
+                     and p.suppliername_s like'%'||:suppliername_s||'%'
+             </#if>
+             <#if sapcode_s??>
+                     and p.SAPCODE_S like'%'||:sapcode_s||'%'
+             </#if>
+             <#if samplename_s??>
+                     and p.SAMPLENAME_S like'%'||:samplename_s||'%'
+             </#if>
+             <#if start_time?? && end_time??>
+             and d.RECEIVE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+             and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by p.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_INT_TDM_TESTTASKPUSH p
+            left join  AT_INT_TDM_TESTTASKDETIAL d on p.mesbusinesscode_s=d.mesbusinesscode_s
+             where 1=1
+                   <#if suppliername_s??>
+                     and p.suppliername_s like'%'||:suppliername_s||'%'
+             </#if>
+             <#if sapcode_s??>
+                     and p.SAPCODE_S like'%'||:sapcode_s||'%'
+             </#if>
+             <#if samplename_s??>
+                     and p.SAMPLENAME_S like'%'||:samplename_s||'%'
+             </#if>
+             <#if start_time?? && end_time??>
+             and d.RECEIVE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+             and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select p.*,
+            d.sub_conclusion_s as sub_conclusion_d,
+            d.test_items_s as test_items_d,
+            d.test_paras_s as test_paras_d,
+            d.test_method_s as test_method_d,
+            d.test_result_s as test_result_d,
+            d.executive_standard_s as executive_standard_d,
+            d.executive_name_s as executive_name_d,
+            d.executive_unit_s as executive_unit_d,
+            d.executive_reqvalue_s as executive_reqvalue_d,
+            d.executive_actualvalue_s as executive_actualvalue_d,
+            d.decisionscope_s as decisionscope_d,
+            d.receive_time_t as receive_time_d
+            from AT_INT_TDM_TESTTASKPUSH p
+            left join  AT_INT_TDM_TESTTASKDETIAL d on p.mesbusinesscode_s=d.mesbusinesscode_s
+             where 1=1
+             <#if suppliername_s??>
+                     and p.suppliername_s like'%'||:suppliername_s||'%'
+             </#if>
+             <#if sapcode_s??>
+                     and p.SAPCODE_S like'%'||:sapcode_s||'%'
+             </#if>
+             <#if samplename_s??>
+                     and p.SAMPLENAME_S like'%'||:samplename_s||'%'
+             </#if>
+             <#if start_time?? && end_time??>
+             and d.RECEIVE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+             and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by p.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_INT_TDM_TESTTASKPUSH p
+            left join  AT_INT_TDM_TESTTASKDETIAL d on p.mesbusinesscode_s=d.mesbusinesscode_s
+             where 1=1
+                   <#if suppliername_s??>
+                     and p.suppliername_s like'%'||:suppliername_s||'%'
+             </#if>
+             <#if sapcode_s??>
+                     and p.SAPCODE_S like'%'||:sapcode_s||'%'
+             </#if>
+             <#if samplename_s??>
+                     and p.SAMPLENAME_S like'%'||:samplename_s||'%'
+             </#if>
+             <#if start_time?? && end_time??>
+             and d.RECEIVE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+             and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+        ]]>
+    </sql>
+</sqls>

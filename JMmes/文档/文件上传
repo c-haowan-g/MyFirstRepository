@@ -1,0 +1,55 @@
+
+1. 上传文本框使用EasyUI的filebox
+    如：<input type="file" class="easyui-filebox" name="file" id="file" >
+    
+2. 调用方法
+    file.upload(fileInputId,dir,single,sucFunc,errFunc)
+    参数说明：
+    fileInputId:输入框的ID
+    dir:文件上传后存储的目录名称
+    single:true 单文件上传   false:多文件上传
+    sucFunc:上传成功后的回调
+    errFunc:上传失败后的回调
+
+3. 上传成功后，主表的文件字段，使用第二步的dir来作为外键，查看文件的时候，查询CORE_ATTACHMENT表中的数据即可
+
+
+4.  表数据展示
+
+    用户照片表
+
+    ID      NAME        PIC
+
+    1       张三      678yuiopjkj
+
+    2       李四      jkj87902320
+
+
+    附件表
+
+    dir                     webpath                     filename        WEB访问路径
+    678yuiopjkj             /678yuiopjkj/uuid.jpg       xxx.jpg         (js变量)file_server+/678yuiopjkj/uuid.jpg
+    678yuiopjkj             /678yuiopjkj/uuid2.jpg      xxx.jpg
+    jkj87902320             /jkj87902320/uuid3.jpg      yyy.jpg
+
+    表单          如何限制上传一张照片？single:true
+
+    id      1
+
+    name    张三
+
+    pic     678yuiopjkj
+
+5. 展示？如何获取上传的数据？
+    
+    返回文件列表
+    http://<ip>:<port>/<proj>/attachment/list/<dir>
+    
+6. JS方法调用
+
+    file.upload(fileInputId,dir,single,sucFunc,errFunc)
+    file.deleteFile(file,callback)
+    file.deleteDir(dir,callback)
+    file.downloadFile(fileUUIDName)
+    file.downloadDir(dir)
+    file.list(dir,callback)

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select t.equip_code_s,t.class_id_s,sum(count_i) count_i
+          
+             from AT_D_QM_PIMIDDLE  t where 1=1 
+                <#if class_id_s??>
+                     and CLASS_ID_S=:class_id_s
+                </#if>
+                <#if begin_created_time??&&end_created_time??>
+                	and CREATE_TIME_T between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				    and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+                </#if>
+                group by t.equip_code_s,t.class_id_s
+               order by equip_code_s 
+           
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+         select count(1) from (
+            select equip_code_s from AT_D_QM_PIMIDDLE where 1=1
+                    <#if class_id_s??>
+                         and CLASS_ID_S=:class_id_s
+                    </#if>
+                   
+                    <#if begin_created_time??&&end_created_time??>
+               			and CREATE_TIME_T between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				    	and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+               		 </#if>
+                   
+                      group by equip_code_s,class_id_s
+                    )
+        ]]>
+    </sql>
+</sqls>

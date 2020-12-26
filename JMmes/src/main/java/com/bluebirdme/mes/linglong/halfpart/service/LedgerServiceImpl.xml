@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select MATERIELCODE_S,
+					STOCKTYPE_S,
+            	   MATERIELNAME_S,
+            	   ATR_KEY,
+            	    L_NUM_F AS CURRENT_NUM
+            	 from AT_A_SM_LEDGER where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if assistantoperator_s??>
+                     and ASSISTANTOPERATOR_S=:assistantoperator_s
+                </#if>
+                <#if barcode_s??>
+                     and BARCODE_S=:barcode_s
+                </#if>
+                <#if batchstatus_s??>
+                     and BATCHSTATUS_S=:batchstatus_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if customerflag_s??>
+                     and CUSTOMERFLAG_S=:customerflag_s
+                </#if>
+                <#if delaytime_t??>
+                     and DELAYTIME_T=:delaytime_t
+                </#if>
+                <#if diseasecode_s??>
+                     and DISEASECODE_S=:diseasecode_s
+                </#if>
+                <#if equipdescription_s??>
+                     and EQUIPDESCRIPTION_S=:equipdescription_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if firstinout_s??>
+                     and FIRSTINOUT_S=:firstinout_s
+                </#if>
+                <#if freezeflag_s??>
+                     and FREEZEFLAG_S=:freezeflag_s
+                </#if>
+                <#if half_confirm_s??>
+                     and HALF_CONFIRM_S=:half_confirm_s
+                </#if>
+                <#if inorout_s??>
+                     and INOROUT_S=:inorout_s
+                </#if>
+                <#if inventory_status_s??>
+                     and INVENTORY_STATUS_S=:inventory_status_s
+                </#if>
+                <#if isrequest_s??>
+                     and ISREQUEST_S=:isrequest_s
+                </#if>
+                <#if isrunout_s??>
+                     and ISRUNOUT_S=:isrunout_s
+                </#if>
+                <#if location_s??>
+                     and LOCATION_S=:location_s
+                </#if>
+                <#if l_num_f??>
+                     and L_NUM_F=:l_num_f
+                </#if>
+                <#if machinetype_s??>
+                     and MACHINETYPE_S=:machinetype_s
+                </#if>
+                <#if mainoperator_s??>
+                     and MAINOPERATOR_S=:mainoperator_s
+                </#if>
+                <#if materielcode_s??>
+                     and MATERIELCODE_S=:materielcode_s
+                </#if>
+                <#if materielname_s??>
+                     and MATERIELNAME_S=:materielname_s
+                </#if>
+                <#if m_group_s??>
+                     and M_GROUP_S=:m_group_s
+                </#if>
+                <#if m_type_s??>
+                     and M_TYPE_S=:m_type_s
+                </#if>
+                <#if m_units_s??>
+                     and M_UNITS_S=:m_units_s
+                </#if>
+                <#if outputtime_t??>
+                     and OUTPUTTIME_T=:outputtime_t
+                </#if>
+                <#if outtime_t??>
+                     and OUTTIME_T=:outtime_t
+                </#if>
+                <#if plate_code_s??>
+                     and PLATE_CODE_S=:plate_code_s
+                </#if>
+                <#if productiondate_t??>
+                     and PRODUCTIONDATE_T=:productiondate_t
+                </#if>
+                <#if qualityby_s??>
+                     and QUALITYBY_S=:qualityby_s
+                </#if>
+                <#if qualitydate_t??>
+                     and QUALITYDATE_T=:qualitydate_t
+                </#if>
+                <#if quality_status_s??>
+                     and QUALITY_STATUS_S=:quality_status_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if release_s??>
+                     and RELEASE_S=:release_s
+                </#if>
+                <#if rollworker_s??>
+                     and ROLLWORKER_S=:rollworker_s
+                </#if>
+                <#if sapm_group_s??>
+                     and SAPM_GROUP_S=:sapm_group_s
+                </#if>
+                <#if shifts_s??>
+                     and SHIFTS_S=:shifts_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if specification_s??>
+                     and SPECIFICATION_S=:specification_s
+                </#if>
+                <#if stocktype_s??>
+                     and STOCKTYPE_S=:stocktype_s
+                </#if>
+                <#if stoptime_t??>
+                     and STOPTIME_T=:stoptime_t
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if timelimit_f??>
+                     and TIMELIMIT_F=:timelimit_f
+                </#if>
+                <#if vehicles_code_s??>
+                     and VEHICLES_CODE_S=:vehicles_code_s
+                </#if>
+                <#if weight_f??>
+                     and WEIGHT_F=:weight_f
+                </#if>
+                <#if yl_num_f??>
+                     and YL_NUM_F=:yl_num_f
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_SM_LEDGER where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if assistantoperator_s??>
+                         and ASSISTANTOPERATOR_S=:assistantoperator_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if batchstatus_s??>
+                         and BATCHSTATUS_S=:batchstatus_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if customerflag_s??>
+                         and CUSTOMERFLAG_S=:customerflag_s
+                    </#if>
+                    <#if delaytime_t??>
+                         and DELAYTIME_T=:delaytime_t
+                    </#if>
+                    <#if diseasecode_s??>
+                         and DISEASECODE_S=:diseasecode_s
+                    </#if>
+                    <#if equipdescription_s??>
+                         and EQUIPDESCRIPTION_S=:equipdescription_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if firstinout_s??>
+                         and FIRSTINOUT_S=:firstinout_s
+                    </#if>
+                    <#if freezeflag_s??>
+                         and FREEZEFLAG_S=:freezeflag_s
+                    </#if>
+                    <#if half_confirm_s??>
+                         and HALF_CONFIRM_S=:half_confirm_s
+                    </#if>
+                    <#if inorout_s??>
+                         and INOROUT_S=:inorout_s
+                    </#if>
+                    <#if inventory_status_s??>
+                         and INVENTORY_STATUS_S=:inventory_status_s
+                    </#if>
+                    <#if isrequest_s??>
+                         and ISREQUEST_S=:isrequest_s
+                    </#if>
+                    <#if isrunout_s??>
+                         and ISRUNOUT_S=:isrunout_s
+                    </#if>
+                    <#if location_s??>
+                         and LOCATION_S=:location_s
+                    </#if>
+                    <#if l_num_f??>
+                         and L_NUM_F=:l_num_f
+                    </#if>
+                    <#if machinetype_s??>
+                         and MACHINETYPE_S=:machinetype_s
+                    </#if>
+                    <#if mainoperator_s??>
+                         and MAINOPERATOR_S=:mainoperator_s
+                    </#if>
+                    <#if materielcode_s??>
+                         and MATERIELCODE_S=:materielcode_s
+                    </#if>
+                    <#if materielname_s??>
+                         and MATERIELNAME_S=:materielname_s
+                    </#if>
+                    <#if m_group_s??>
+                         and M_GROUP_S=:m_group_s
+                    </#if>
+                    <#if m_type_s??>
+                         and M_TYPE_S=:m_type_s
+                    </#if>
+                    <#if m_units_s??>
+                         and M_UNITS_S=:m_units_s
+                    </#if>
+                    <#if outputtime_t??>
+                         and OUTPUTTIME_T=:outputtime_t
+                    </#if>
+                    <#if outtime_t??>
+                         and OUTTIME_T=:outtime_t
+                    </#if>
+                    <#if plate_code_s??>
+                         and PLATE_CODE_S=:plate_code_s
+                    </#if>
+                    <#if productiondate_t??>
+                         and PRODUCTIONDATE_T=:productiondate_t
+                    </#if>
+                    <#if qualityby_s??>
+                         and QUALITYBY_S=:qualityby_s
+                    </#if>
+                    <#if qualitydate_t??>
+                         and QUALITYDATE_T=:qualitydate_t
+                    </#if>
+                    <#if quality_status_s??>
+                         and QUALITY_STATUS_S=:quality_status_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if release_s??>
+                         and RELEASE_S=:release_s
+                    </#if>
+                    <#if rollworker_s??>
+                         and ROLLWORKER_S=:rollworker_s
+                    </#if>
+                    <#if sapm_group_s??>
+                         and SAPM_GROUP_S=:sapm_group_s
+                    </#if>
+                    <#if shifts_s??>
+                         and SHIFTS_S=:shifts_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if specification_s??>
+                         and SPECIFICATION_S=:specification_s
+                    </#if>
+                    <#if stocktype_s??>
+                         and STOCKTYPE_S=:stocktype_s
+                    </#if>
+                    <#if stoptime_t??>
+                         and STOPTIME_T=:stoptime_t
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if timelimit_f??>
+                         and TIMELIMIT_F=:timelimit_f
+                    </#if>
+                    <#if vehicles_code_s??>
+                         and VEHICLES_CODE_S=:vehicles_code_s
+                    </#if>
+                    <#if weight_f??>
+                         and WEIGHT_F=:weight_f
+                    </#if>
+                    <#if yl_num_f??>
+                         and YL_NUM_F=:yl_num_f
+                    </#if>
+        ]]>
+    </sql>
+
+<sql comment=" 按物料编码和库存类型查询" id="searchAll">
+       <![CDATA[
+            select MATERIELCODE_S,
+            		STOCKTYPE_S,
+            		SUM(L_NUM_F) AS CURRENT_NUM,
+            	   MATERIELNAME_S
+             from
+			AT_A_SM_LEDGER where 1=1 AND
+				  RECORD_FLAG_S='A' and 
+           		  s_factory_s = 1 
+           		  <#if materielcode_s??>
+                         and 'on'=:materielcode_s
+                  </#if>
+                  <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+               	  </#if>
+                  <#if stocktype_s??>
+                         and 'on'=:stocktype_s
+                  </#if>
+			group by MATERIELCODE_S,
+            	   MATERIELNAME_S,
+            	   STOCKTYPE_S
+        ]]>
+	</sql>
+	
+	
+	<sql comment=" 按物料编码和库存类型查询" id="searchAll_total">
+       <![CDATA[
+            select count(1) from(select MATERIELCODE_S,
+            		STOCKTYPE_S,
+            		SUM(L_NUM_F) AS CURRENT_NUM,
+            	   MATERIELNAME_S
+             from
+			AT_A_SM_LEDGER where 1=1 AND
+				  RECORD_FLAG_S='A' and 
+           		  s_factory_s = 1
+           		  <#if materielcode_s??>
+                         and 'on'=:materielcode_s
+                  </#if>
+                  <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if stocktype_s??>
+                         and 'on'=:stocktype_s
+                  </#if>
+			group by MATERIELCODE_S,
+            	   MATERIELNAME_S,
+            	   STOCKTYPE_S)
+        ]]>
+	</sql>
+
+
+<sql comment=" 按物料编码查询" id="searchByMaterialCode">
+       <![CDATA[
+            select MATERIELCODE_S,
+            		SUM(L_NUM_F) AS CURRENT_NUM,
+            	   MATERIELNAME_S
+             from
+			AT_A_SM_LEDGER where 1=1 AND
+				  RECORD_FLAG_S='A' and 
+           		  s_factory_s = 1
+           		  <#if materielcode_s??>
+                         and 'on'=:materielcode_s
+                  </#if>
+                  <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if stocktype_s??>
+                         and 'on'=:stocktype_s
+                  </#if>
+			group by MATERIELCODE_S,
+            	   MATERIELNAME_S
+        ]]>
+	</sql>
+	
+	
+	<sql comment=" 按物料编码查询" id="searchByMaterialCode_total">
+       <![CDATA[
+            select count(1) from(select MATERIELCODE_S,
+            		SUM(L_NUM_F) AS CURRENT_NUM,
+            	   MATERIELNAME_S
+             from
+			AT_A_SM_LEDGER where 1=1 AND
+				  RECORD_FLAG_S='A' and 
+           		  s_factory_s = 1
+           		  <#if materielcode_s??>
+                         and 'on'=:materielcode_s
+                  </#if>
+                  <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if stocktype_s??>
+                         and 'on'=:stocktype_s
+                  </#if>
+			group by MATERIELCODE_S,
+            	   MATERIELNAME_S)
+        ]]>
+	</sql>
+
+<sql comment=" 按库存类型查询" id="searchByStockType">
+       <![CDATA[
+            select STOCKTYPE_S,
+            	   MATERIELNAME_S,
+            	   SUM(L_NUM_F) AS CURRENT_NUM
+             from
+			AT_A_SM_LEDGER where 1=1 AND
+				  RECORD_FLAG_S='A' and 
+           		  s_factory_s = 1
+           		  <#if materielcode_s??>
+                         and 'on'=:materielcode_s
+                  </#if>
+                  <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if stocktype_s??>
+                         and 'on'=:stocktype_s
+                  </#if>
+			group by STOCKTYPE_S,
+            	   MATERIELNAME_S
+        ]]>
+	</sql>
+	
+	
+	<sql comment=" 按库存类型查询" id="searchByStockType_total">
+       <![CDATA[
+            select count(1) from(select STOCKTYPE_S,
+            	   MATERIELNAME_S,
+            	   SUM(L_NUM_F) AS CURRENT_NUM
+             from
+			AT_A_SM_LEDGER where 1=1 AND
+				  RECORD_FLAG_S='A' and 
+           		  s_factory_s = 1
+           		  <#if materielcode_s??>
+                         and 'on'=:materielcode_s
+                  </#if>
+                  <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if stocktype_s??>
+                         and 'on'=:stocktype_s
+                  </#if>
+			group by STOCKTYPE_S,
+            	   MATERIELNAME_S)
+        ]]>
+	</sql>
+	<sql comment="库存查询" id="getSummaryInfo">
+        <![CDATA[
+		select 
+			<#if barcode_s??> 
+			       barcode_s,
+			</#if>
+			<#if vehicles_code_s??> 
+			       vehicles_code_s,
+			</#if>
+			<#if materielcode_s??> 
+			       materielcode_s, 
+			</#if>	
+			<#if materielname_s??> 
+			       materielname_s,   
+			</#if>	
+			<#if quality_status_s??> 
+			       quality_status_s,  
+			</#if>
+			<#if equip_code_s??> 
+			       equip_code_s,  
+			</#if>
+			<#if equipdescription_s??> 
+			       equipdescription_s,  
+			</#if>
+			<#if mainoperator_s??> 
+			       mainoperator_s, 
+			</#if>
+			<#if location_s??> 
+			       location_s,    
+			</#if>
+			<#if productiondate_t??> 
+			       productiondate_t,
+			</#if>
+			<#if storage_time_t??> 
+			       storage_time_t,  
+			</#if>
+			<#if stocktype_s??>
+			       stocktype_s,
+			</#if>
+		    sum(l_num_f) current_num_f
+		  from AT_A_SM_LEDGER t
+		 where t.RECORD_FLAG_S = 'A'
+		   and t.S_FACTORY_S = '1'
+		   <#if start_time_t??&&end_time_t??>
+		   and storage_time_t between
+		       to_date(:start_time_t, 'YYYY-mm-dd HH24:MI:SS') and
+		       to_date(:end_time_t, 'YYYY-mm-dd HH24:MI:SS')
+		   </#if>
+		   <#if equip_code_s_s??>
+		   and equip_code_s like: equip_code_s_s
+		   </#if>
+		   <#if equipdescription_s_s??>
+		   and equipdescription_s like: equipdescription_s_s
+		   </#if>
+		   <#if location_s_s??>
+		   and location_s like:location_s_s
+		   </#if>
+		   <#if materielcode_s_s??>
+		   and materielcode_s like: materielcode_s_s
+		   </#if>
+		   <#if materielname_s_s??>
+		   and materielname_s like: materielname_s_s
+		   </#if>
+		 group by 
+		 	<#if barcode_s??> 
+		 	        barcode_s,
+		 	</#if>
+			<#if vehicles_code_s??> 
+			        vehicles_code_s,
+			</#if>
+			<#if materielcode_s??> 
+			        materielcode_s,
+			</#if>	
+			<#if materielname_s??> 
+			        materielname_s,
+			</#if>	
+			<#if quality_status_s??> 
+			        quality_status_s,
+			</#if>
+			<#if equip_code_s??> 
+			        equip_code_s,
+			</#if>
+			<#if equipdescription_s??> 
+			        equipdescription_s,
+			</#if>
+			<#if mainoperator_s??> 
+			        mainoperator_s,
+			</#if>
+			<#if location_s??> 
+			        location_s,
+			</#if>
+			<#if productiondate_t??> 
+			        productiondate_t,
+			</#if>
+			<#if storage_time_t??> 
+			        storage_time_t,
+			</#if>
+			<#if stocktype_s??> 
+			        stocktype_s
+			</#if>
+		<#if sort??&&order??>
+		     order by ${sort} ${order}
+		<#else>
+		     order by storage_time_t desc
+		</#if>
+ 
+        ]]>
+    </sql>
+	
+</sqls>

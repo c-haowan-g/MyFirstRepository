@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select T.*,L.STOPTIME_T,L.OUTTIME_T,(TO_CHAR(L.STOPTIME_T,'YYYY-mm-dd HH24:MI:SS')||'至'||TO_CHAR(L.OUTTIME_T,'YYYY-mm-dd HH24:MI:SS')) as valuetime from AT_A_MM_OUTPUT T LEFT JOIN AT_A_SM_LEDGER L  ON T.BARCODE_S = L.BARCODE_S 
+            WHERE 1=1 AND T.RECORD_FLAG_S='A'
+                <#if barcode_s??>
+                     and T.BARCODE_S=:barcode_s
+                </#if>
+                <#if machinecode_s??>
+                     and T.MACHINECODE_S=:machinecode_s
+                </#if>
+                <#if machinename_s??>
+                     and T.MACHINENAME_S=:machinename_s
+                </#if>
+                <#if materialcode_s??>
+                     and T.MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if planno_s??>
+                     and T.PLANNO_S=:planno_s
+                </#if>
+                
+                <#if materspec_s??>
+                     and T.MATERSPEC_S=:materspec_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and T.VEHICLES_CODE_S=:vehicles_code_s
+                </#if>
+                <#if outflag_s??>
+                     and T.OUTFLAG_S=:outflag_s
+                </#if>
+                <#if s_factory_s??>
+                     and T.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if start_time?? && end_time??>
+               		and to_char(T.outputtime_t,'yyyy-mm-dd hh24:MI:ss') between
+               		:start_time and :end_time
+              	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by T.outputtime_t desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            SELECT count(1) FROM AT_A_MM_OUTPUT T LEFT JOIN AT_A_SM_LEDGER L  ON T.BARCODE_S = L.BARCODE_S  
+            WHERE  1=1 
+                  <#if barcode_s??>
+                     and T.BARCODE_S=:barcode_s
+                </#if>
+                <#if machinecode_s??>
+                     and T.MACHINECODE_S=:machinecode_s
+                </#if>
+                <#if machinename_s??>
+                     and T.MACHINENAME_S=:machinename_s
+                </#if>
+                <#if materialcode_s??>
+                     and T.MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if planno_s??>
+                     and T.PLANNO_S=:planno_s
+                </#if>
+                
+                <#if materspec_s??>
+                     and T.MATERSPEC_S=:materspec_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and T.VEHICLES_CODE_S=:vehicles_code_s
+                </#if>
+                <#if outflag_s??>
+                     and T.OUTFLAG_S=:outflag_s
+                </#if>
+                <#if s_factory_s??>
+                     and T.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if start_time?? && end_time??>
+               		and to_char(T.outputtime_t,'yyyy-mm-dd hh24:MI:ss') between
+               		:start_time and :end_time
+              	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by T.outputtime_t desc
+            </#if>
+        ]]>
+    </sql>
+    
+    <!-- <sql comment="查出机台条码显示在JSP页面下拉列表处" id="searchDescription">
+       <![CDATA[
+            SELECT
+	description
+            FROM
+	PRODUCTION_LINE PL,
+    AREA_PRODUCTION_LINE APL
+ 
+    WHERE PL.P_LINE_KEY=APL.CHILD_KEY
+            AND 
+    APL.PARENT_KEY=(SELECT AREA_KEY FROM AREA WHERE AREA_NAME='80231A') 
+         
+        ]]>
+	</sql> -->
+	<sql comment="查出物料编码显示在JSP页面下拉列表处" id="searchMaterialcode_s">
+       <![CDATA[
+             SELECT  MATERIALCODE_S FROM AT_INT_SAP_MATERIALS WHERE MATERIALCODE_S LIKE '301%'
+        ]]>
+	</sql>
+	<sql comment="查出物料编码显示在JSP页面下拉列表处" id="searchMaterialcode_sb">
+       <![CDATA[
+             SELECT  MATERIALCODE_S FROM AT_INT_SAP_MATERIALS WHERE MATERIALCODE_S LIKE '302%'
+        ]]>
+	</sql>
+	<sql comment="查出规格显示在JSP页面下拉列表处" id="searchMaterspec_s">
+       <![CDATA[
+            select   t.materialcode_s,t.materialdesc_s,t.oldmatcode_s,
+                  m.erpcode_s   
+           from   at_int_sap_materials t,at_cm_bs_coredictionary m
+           where  t.matgrp_s=m.erpcode_s
+             and  m.dictcode_s like '308%' 
+             and  m.erpcode_s like '301%'
+        ]]>
+	</sql>
+	<sql comment="查出规格显示在JSP页面下拉列表处" id="searchMaterspec_sb">
+       <![CDATA[
+            select   t.materialcode_s,t.materialdesc_s,t.oldmatcode_s,
+                  m.erpcode_s   
+           from   at_int_sap_materials t,at_cm_bs_coredictionary m
+           where  t.matgrp_s=m.erpcode_s
+             and  m.dictcode_s like '308%' 
+             and  m.erpcode_s like '302%'
+        ]]>
+	</sql>
+	<sql comment="查出usercode，username" id="searchUsercode">
+       <![CDATA[
+            SELECT USERCODE,USERNAME FROM CORE_USER
+        ]]>
+	</sql>
+</sqls>

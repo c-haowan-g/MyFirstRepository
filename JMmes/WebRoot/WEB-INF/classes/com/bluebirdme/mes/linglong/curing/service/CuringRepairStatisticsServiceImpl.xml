@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select WORKER_ID_S,MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S,
+            sum(TOTAL_NUM_I) as TOTAL_NUM_I,
+            sum(ONEDAY_I) as ONEDAY_I,
+            sum(TWODAY_I) as TWODAY_I,
+            sum(THREEDAY_I) as THREEDAY_I,
+            sum(FOURDAY_I) as FOURDAY_I,
+            sum(FIVEDAY_I) as FIVEDAY_I,
+            sum(SIXDAY_I) as SIXDAY_I,
+            sum(SEVENDAY_I) as SEVENDAY_I,
+            sum(EIGHTDAY_I) as EIGHTDAY_I,
+            sum(NINEDAY_I) as NINEDAY_I,
+            sum(TENDAY_I) as TENDAY_I,
+            sum(ELEVENDAY_I) as ELEVENDAY_I,
+            sum(TWELVENDAY_I) as TWELVENDAY_I,
+            sum(THIRTEENDAY_I) as THIRTEENDAY_I,
+            sum(FOURTEENDAY_I) as FOURTEENDAY_I,
+            sum(FIFTEENDAY_I) as FIFTEENDAY_I,
+            sum(SIXTEENDAY_I) as SIXTEENDAY_I,
+            sum(SEVENTEENDAY_I) as SEVENTEENDAY_I,
+            sum(EIGHTEENDAY_I) as EIGHTEENDAY_I,
+            sum(NINTEENDAY_I) as NINTEENDAY_I,
+            sum(TWENTYDAY_I) as TWENTYDAY_I,
+            sum(TWENTYONEDAY_I) as TWENTYONEDAY_I,
+            sum(TWENTYTWODAY_I) as TWENTYTWODAY_I,
+            sum(TWENTYTHREEDAY_I) as TWENTYTHREEDAY_I,
+            sum(TWENTYFOURDAY_I) as TWENTYFOURDAY_I,
+            sum(TWENTYFIVEDAY_I) as TWENTYFIVEDAY_I,
+            sum(TWENTYSIXDAY_I) as TWENTYSIXDAY_I,
+            sum(TWENTYSEVENDAY_I) as TWENTYSEVENDAY_I,
+            sum(TWENTYEIGHTDAY_I) as TWENTYEIGHTDAY_I,
+            sum(TWENTYNINEDAY_I) as TWENTYNINEDAY_I,
+            sum(THIRTYDAY_I) as THIRTYDAY_I,
+            sum(THIRTYONEDAY_I) as THIRTYONEDAY_I
+			from AT_C_QM_REPAIR_STATISTICS
+			where 1=1
+			<#if material_code_s??>
+                  and MATERIAL_CODE_S=:material_code_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if begin_created_time?? && end_created_time??>
+          		and to_char(UPDATE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+          		:begin_created_time and :end_created_time
+         	 </#if>
+            <#if worker_id_s??>
+                 and WORKER_ID_S like '%' || :worker_id_s || '%'
+            </#if>
+            <#if month_s??>
+                 and MONTH_S = :month_s
+            </#if>
+            <#if work_id??>
+                 and 'on' = :work_id
+            </#if>
+            <#if material_code??>
+                 and 'on' = :material_code
+            </#if>
+			GROUP BY
+				WORKER_ID_S,
+				MATERIAL_CODE_S,
+				MTERIAL_DESC_S,
+				MONTH_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from( 
+            select WORKER_ID_S,MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S,sum(TOTAL_NUM_I) as TOTAL_NUM_I
+			from AT_C_QM_REPAIR_STATISTICS
+			where 1=1
+			<#if material_code_s??>
+                  and MATERIAL_CODE_S=:material_code_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if begin_created_time?? && end_created_time??>
+          		and to_char(UPDATE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+          		:begin_created_time and :end_created_time
+         	 </#if>
+            <#if worker_id_s??>
+                 and WORKER_ID_S like '%' || :worker_id_s || '%'
+            </#if>
+            <#if month_s??>
+                 and MONTH_S = :month_s
+            </#if>
+            <#if work_id??>
+                 and 'on' = :work_id
+            </#if>
+            <#if material_code??>
+                 and 'on' = :material_code
+            </#if>
+			GROUP BY WORKER_ID_S,MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S)
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridUDA_rows2">
+        <![CDATA[
+            select WORKER_ID_S,MONTH_S,
+            sum(TOTAL_NUM_I) as TOTAL_NUM_I,
+            sum(ONEDAY_I) as ONEDAY_I,
+            sum(TWODAY_I) as TWODAY_I,
+            sum(THREEDAY_I) as THREEDAY_I,
+            sum(FOURDAY_I) as FOURDAY_I,
+            sum(FIVEDAY_I) as FIVEDAY_I,
+            sum(SIXDAY_I) as SIXDAY_I,
+            sum(SEVENDAY_I) as SEVENDAY_I,
+            sum(EIGHTDAY_I) as EIGHTDAY_I,
+            sum(NINEDAY_I) as NINEDAY_I,
+            sum(TENDAY_I) as TENDAY_I,
+            sum(ELEVENDAY_I) as ELEVENDAY_I,
+            sum(TWELVENDAY_I) as TWELVENDAY_I,
+            sum(THIRTEENDAY_I) as THIRTEENDAY_I,
+            sum(FOURTEENDAY_I) as FOURTEENDAY_I,
+            sum(FIFTEENDAY_I) as FIFTEENDAY_I,
+            sum(SIXTEENDAY_I) as SIXTEENDAY_I,
+            sum(SEVENTEENDAY_I) as SEVENTEENDAY_I,
+            sum(EIGHTEENDAY_I) as EIGHTEENDAY_I,
+            sum(NINTEENDAY_I) as NINTEENDAY_I,
+            sum(TWENTYDAY_I) as TWENTYDAY_I,
+            sum(TWENTYONEDAY_I) as TWENTYONEDAY_I,
+            sum(TWENTYTWODAY_I) as TWENTYTWODAY_I,
+            sum(TWENTYTHREEDAY_I) as TWENTYTHREEDAY_I,
+            sum(TWENTYFOURDAY_I) as TWENTYFOURDAY_I,
+            sum(TWENTYFIVEDAY_I) as TWENTYFIVEDAY_I,
+            sum(TWENTYSIXDAY_I) as TWENTYSIXDAY_I,
+            sum(TWENTYSEVENDAY_I) as TWENTYSEVENDAY_I,
+            sum(TWENTYEIGHTDAY_I) as TWENTYEIGHTDAY_I,
+            sum(TWENTYNINEDAY_I) as TWENTYNINEDAY_I,
+            sum(THIRTYDAY_I) as THIRTYDAY_I,
+            sum(THIRTYONEDAY_I) as THIRTYONEDAY_I
+			from AT_C_QM_REPAIR_STATISTICS
+			where 1=1
+			<#if material_code_s??>
+                  and MATERIAL_CODE_S=:material_code_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if begin_created_time?? && end_created_time??>
+          		and to_char(UPDATE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+          		:begin_created_time and :end_created_time
+         	 </#if>
+            <#if worker_id_s??>
+                 and WORKER_ID_S like '%' || :worker_id_s || '%'
+            </#if>
+            <#if month_s??>
+                 and MONTH_S = :month_s
+            </#if>
+            <#if work_id??>
+                 and 'on' = :work_id
+            </#if>
+            <#if material_code??>
+                 and 'on' = :material_code
+            </#if>
+			GROUP BY
+				WORKER_ID_S,MONTH_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total2">
+        <![CDATA[
+            select count(1) from( 
+            select WORKER_ID_S,MONTH_S,sum(TOTAL_NUM_I) as TOTAL_NUM_I
+			from AT_C_QM_REPAIR_STATISTICS
+			where 1=1
+			<#if material_code_s??>
+                  and MATERIAL_CODE_S=:material_code_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if begin_created_time?? && end_created_time??>
+          		and to_char(UPDATE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+          		:begin_created_time and :end_created_time
+         	 </#if>
+            <#if worker_id_s??>
+                 and WORKER_ID_S like '%' || :worker_id_s || '%'
+            </#if>
+            <#if month_s??>
+                 and MONTH_S = :month_s
+            </#if>
+            <#if work_id??>
+                 and 'on' = :work_id
+            </#if>
+            <#if material_code??>
+                 and 'on' = :material_code
+            </#if>
+			GROUP BY WORKER_ID_S,MONTH_S)
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridUDA_rows3">
+        <![CDATA[
+            select MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S,
+            sum(TOTAL_NUM_I) as TOTAL_NUM_I,
+            sum(ONEDAY_I) as ONEDAY_I,
+            sum(TWODAY_I) as TWODAY_I,
+            sum(THREEDAY_I) as THREEDAY_I,
+            sum(FOURDAY_I) as FOURDAY_I,
+            sum(FIVEDAY_I) as FIVEDAY_I,
+            sum(SIXDAY_I) as SIXDAY_I,
+            sum(SEVENDAY_I) as SEVENDAY_I,
+            sum(EIGHTDAY_I) as EIGHTDAY_I,
+            sum(NINEDAY_I) as NINEDAY_I,
+            sum(TENDAY_I) as TENDAY_I,
+            sum(ELEVENDAY_I) as ELEVENDAY_I,
+            sum(TWELVENDAY_I) as TWELVENDAY_I,
+            sum(THIRTEENDAY_I) as THIRTEENDAY_I,
+            sum(FOURTEENDAY_I) as FOURTEENDAY_I,
+            sum(FIFTEENDAY_I) as FIFTEENDAY_I,
+            sum(SIXTEENDAY_I) as SIXTEENDAY_I,
+            sum(SEVENTEENDAY_I) as SEVENTEENDAY_I,
+            sum(EIGHTEENDAY_I) as EIGHTEENDAY_I,
+            sum(NINTEENDAY_I) as NINTEENDAY_I,
+            sum(TWENTYDAY_I) as TWENTYDAY_I,
+            sum(TWENTYONEDAY_I) as TWENTYONEDAY_I,
+            sum(TWENTYTWODAY_I) as TWENTYTWODAY_I,
+            sum(TWENTYTHREEDAY_I) as TWENTYTHREEDAY_I,
+            sum(TWENTYFOURDAY_I) as TWENTYFOURDAY_I,
+            sum(TWENTYFIVEDAY_I) as TWENTYFIVEDAY_I,
+            sum(TWENTYSIXDAY_I) as TWENTYSIXDAY_I,
+            sum(TWENTYSEVENDAY_I) as TWENTYSEVENDAY_I,
+            sum(TWENTYEIGHTDAY_I) as TWENTYEIGHTDAY_I,
+            sum(TWENTYNINEDAY_I) as TWENTYNINEDAY_I,
+            sum(THIRTYDAY_I) as THIRTYDAY_I,
+            sum(THIRTYONEDAY_I) as THIRTYONEDAY_I
+			from AT_C_QM_REPAIR_STATISTICS
+			where 1=1
+			<#if material_code_s??>
+                  and MATERIAL_CODE_S=:material_code_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if begin_created_time?? && end_created_time??>
+          		and to_char(UPDATE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+          		:begin_created_time and :end_created_time
+         	 </#if>
+            <#if worker_id_s??>
+                 and WORKER_ID_S like '%' || :worker_id_s || '%'
+            </#if>
+            <#if month_s??>
+                 and MONTH_S = :month_s
+            </#if>
+            <#if work_id??>
+                 and 'on' = :work_id
+            </#if>
+            <#if material_code??>
+                 and 'on' = :material_code
+            </#if>
+			GROUP BY
+				MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total3">
+        <![CDATA[
+            select count(1) from( 
+            select MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S,sum(TOTAL_NUM_I) as TOTAL_NUM_I
+			from AT_C_QM_REPAIR_STATISTICS
+			where 1=1
+			<#if material_code_s??>
+                  and MATERIAL_CODE_S=:material_code_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if begin_created_time?? && end_created_time??>
+          		and to_char(UPDATE_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+          		:begin_created_time and :end_created_time
+         	 </#if>
+            <#if worker_id_s??>
+                 and WORKER_ID_S like '%' || :worker_id_s || '%'
+            </#if>
+            <#if month_s??>
+                 and MONTH_S = :month_s
+            </#if>
+            <#if work_id??>
+                 and 'on' = :work_id
+            </#if>
+            <#if material_code??>
+                 and 'on' = :material_code
+            </#if>
+			GROUP BY MATERIAL_CODE_S,MTERIAL_DESC_S,MONTH_S)
+        ]]>
+    </sql>
+</sqls>

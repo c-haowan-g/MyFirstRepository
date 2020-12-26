@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+
+	<sql comment="datagrid" id="datagridUDA_rowsjl">
+        <![CDATA[
+            select * from AT_MX_PP_PLAN where 1=1
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if plan_date_s??>
+                     and PLAN_DATE_S=:plan_date_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if plan_status_s??>
+                     and PLAN_STATUS_S=:plan_status_s
+                </#if>
+                     and PLAN_TYPE_S = '051003'
+                     and RECORD_FLAG_S= 'A'
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+	</sql>
+
+	<sql comment="datagrid" id="datagridUDA_totaljl">
+        <![CDATA[
+            select count(1) from AT_MX_PP_PLAN where 1=1
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if plan_date_s??>
+                     and PLAN_DATE_S=:plan_date_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if plan_status_s??>
+                     and PLAN_STATUS_S=:plan_status_s
+                </#if>
+                     and PLAN_TYPE_S = '051003'
+                     and RECORD_FLAG_S= 'A'
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+        ]]>
+	</sql>
+
+	<sql comment="datagrid" id="datagridUDA_rowsxl">
+        <![CDATA[
+            select * from AT_MX_PP_PLAN where 1=1
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if plan_date_s??>
+                     and PLAN_DATE_S=:plan_date_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if plan_status_s??>
+                     and PLAN_STATUS_S=:plan_status_s
+                </#if>
+                     and PLAN_TYPE_S != '051003'
+                     and RECORD_FLAG_S= 'A'
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+	</sql>
+
+	<sql comment="datagrid" id="datagridUDA_totalxl">
+        <![CDATA[
+            select count(1) from AT_MX_PP_PLAN where 1=1
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if plan_date_s??>
+                     and PLAN_DATE_S=:plan_date_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if plan_status_s??>
+                     and PLAN_STATUS_S=:plan_status_s
+                </#if>
+                     and PLAN_TYPE_S != '051003'
+                     and RECORD_FLAG_S= 'A'
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>    
+        ]]>
+	</sql>
+
+	<sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_MX_PP_PLAN where 1=1
+                <#if plan_date_s??>
+                     and PLAN_DATE_S = :plan_date_s
+                </#if>
+                <#if plan_type_s??>
+                     and PLAN_TYPE_S = :plan_type_s
+                </#if>
+                <#if plan_status_s??>
+                     and PLAN_STATUS_S = :plan_status_s
+                </#if>
+                     and RECORD_FLAG_S = 'A'
+                <#if s_factory_s??>
+                     and S_FACTORY_S = :s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by PLAN_DATE_S desc
+            </#if>
+        ]]>
+	</sql>
+
+	<sql comment="密炼机台列表查询" id="searchMixEquip">
+        <![CDATA[
+            SELECT
+				PL.P_LINE_NAME,
+				PL.DESCRIPTION
+			FROM
+				AREA A,
+				AREA_PRODUCTION_LINE AP,
+				PRODUCTION_LINE PL
+			WHERE
+			    A.AREA_NAME = :factory
+			AND
+			    A.AREA_KEY = AP.PARENT_KEY
+			AND
+			    AP.CHILD_KEY = PL.P_LINE_KEY
+        ]]>
+	</sql>
+
+	<sql comment="根据用户号码查询姓名" id="toUserName">
+       <![CDATA[
+            SELECT USERNAME FROM CORE_USER WHERE USERCODE = :usercode
+        ]]>
+	</sql>
+
+	<sql comment="根据机台查询胶料物料信息" id="mixJLMaterialList">
+       <![CDATA[
+            SELECT
+				MATER_NAME_S,
+				MATER_CODE_S
+			FROM
+				AT_INT_PLM_MIXRECIPE_EDIT
+			WHERE
+				MATER_TYPE_S IN ( 'LLMasterBatch', 'LLFinalBatchMPart' ) 
+				AND RECORD_FLAG_S = 'A' 
+				AND CHECK_STATE_S = '1' 
+				AND MES_EQUIP_CODE_S = :equipcode 
+			GROUP BY
+				MATER_NAME_S,
+				MATER_CODE_S
+        ]]>
+	</sql>
+
+	<sql comment="根据机台查询小料物料信息" id="mixXLMaterialList">
+       <![CDATA[
+            SELECT
+				MATER_NAME_S,
+				MATER_CODE_S
+			FROM
+				AT_INT_PLM_MIXRECIPE_EDIT
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND CHECK_STATE_S = '1' 
+				AND MATER_TYPE_S = :mater_type_s 
+				AND MES_EQUIP_CODE_S LIKE :equipcode || '%' 
+			GROUP BY
+				MATER_NAME_S,
+				MATER_CODE_S
+        ]]>
+	</sql>
+
+	<sql comment="根据机台查询小料物料信息" id="mixXLMaterialListAll">
+       <![CDATA[
+            SELECT
+				MATER_NAME_S,
+				MATER_CODE_S
+			FROM
+				AT_INT_PLM_MIXRECIPE_EDIT
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND CHECK_STATE_S = '1' 
+				AND MATER_TYPE_S IN ( 'LLOrdinaryBagBatch', 'LLSulfurBagBatch' ) 
+				AND MES_EQUIP_CODE_S LIKE :equipcode || '%' 
+			GROUP BY
+				MATER_NAME_S,
+				MATER_CODE_S
+        ]]>
+	</sql>
+
+	<sql comment="获取密炼物料表信息" id="getMaterialNameByCode">
+        <![CDATA[
+			SELECT DISTINCT
+				MATERIALNAME_S
+			FROM
+				AT_INT_PLM_MIXMATERIAL
+			WHERE
+				MATERIALCODE_S = :materialcode
+        ]]>
+	</sql>
+
+	<sql comment="查询计划表最大顺序号" id="getMixDayPlanMaxSeq">
+        <![CDATA[
+            SELECT
+			    NVL( MAX( TO_NUMBER( SPARE8_S )) + 1, 1) MAXSEQ
+			FROM
+				AT_MX_PP_PLAN 
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND S_FACTORY_S = :factory 
+				AND PLAN_DATE_S = :plandate 
+				AND EQUIP_CODE_S = :equipcode
+        ]]>
+	</sql>
+
+	<sql comment="根据物料号获取快检抽检比例" id="getSipByMaterialCode">
+        <![CDATA[
+            SELECT
+				NVL( SIP_I, 0 ) SIP
+			FROM
+				AT_INT_PLM_MIXMATERIAL
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND MATERIALCODE_S = :materialcode
+        ]]>
+	</sql>
+
+	<sql comment="获取配方信息" id="getRecipeListByMaterialcode">
+        <![CDATA[
+            SELECT
+				*
+			FROM
+				AT_INT_PLM_MIXRECIPE_EDIT
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND CHECK_STATE_S = '1' 
+				AND RECIPE_STATUS_S != '323003'
+				AND MATER_CODE_S = :materialcode 
+				AND MES_EQUIP_CODE_S = :equipcode
+        ]]>
+	</sql>
+
+	<sql comment="获取快检信息" id="getQuickCheckListByMaterialcode">
+        <![CDATA[
+            SELECT
+				* 
+			FROM
+				AT_INT_PLM_QUICKCHECK 
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND CHECK_STATE_S = '1' 
+				AND PLANT_S = '8023' 
+				AND MATERSAP_S = :materialcode
+        ]]>
+	</sql>
+
+	<sql comment="验证计划是否已经存在该机台" id="validEquipcodeExitInPlan">
+        <![CDATA[
+			SELECT
+				NVL(COUNT(1), 0)
+			FROM
+				AT_MX_PP_PLAN
+			WHERE
+				PLAN_DATE_S = :plandate 
+				AND RECORD_FLAG_S = 'A' 
+				AND EQUIP_CODE_S = :equipment 
+				AND S_FACTORY_S = :factory 
+				AND MATERIAL_CODE_S = :materialcode 
+				AND MIXRECIPE_RECIPE_CODE_S = :recipecode
+        ]]>
+	</sql>
+
+	<sql comment="获取密炼配方执行表信息" id="getRecipeEditListByRecipecode">
+        <![CDATA[
+            SELECT
+				*
+			FROM
+				AT_INT_PLM_MIXRECIPE_EDIT
+			WHERE
+				CHECK_STATE_S = '1' 
+				AND RECORD_FLAG_S = 'A' 
+				AND RECIPE_CODE_S = :recipecode
+        ]]>
+	</sql>
+
+	<sql comment="获取快检信息" id="getQuickCheckListByRecipecode">
+        <![CDATA[
+            SELECT
+				* 
+			FROM
+				AT_INT_PLM_QUICKCHECK p 
+			WHERE
+				MATERSAP_S = :matersap_s 
+				AND PRESCRIPTIONSTAGE_S = :prescriptionstage_s
+				AND RECORD_FLAG_S = 'A' 
+				AND RECIPE_STATUS_S = '323002'
+        ]]>
+	</sql>
+
+	<sql comment="获取等同物料" id="getEqualMaterialcode">
+        <![CDATA[
+            WITH temp AS (
+				SELECT
+					e.groupname_s,
+					w.child_matercode_s,
+					w.child_matername_s,
+					ms.matchingcode_s,
+					ms.supplycode_s 
+				FROM
+					at_int_plm_equalmaterial e,
+					at_int_plm_mixrecipe_edit rm,
+					at_int_plm_mixweight_edit w,
+					( SELECT s.material_code_s FROM at_mx_mm_silomaterial s WHERE s.equip_code_s =:equipcode ) s,
+					at_int_plm_materialsupply ms 
+				WHERE
+					e.record_flag_s = 'A' 
+					AND w.record_flag_s = 'A' 
+					AND w.child_matercode_s = e.materialcode_s ( + ) 
+					AND e.materialcode_s = s.material_code_s ( + ) 
+					AND rm.recipe_code_s = w.recipe_code_s ( + ) 
+					AND rm.matchingcode_s = ms.matchingcode_s ( + ) 
+					AND w.child_matercode_s = ms.erpcode_s ( + ) 
+					AND rm.recipe_code_s = :recipecode 
+				) SELECT
+				e.groupname_s,
+			CASE	
+					WHEN w.child_matercode_s = e.materialcode_s THEN
+					'称量'
+					else
+					'等同'
+				END flag,
+				w.child_matercode_s,
+				w.child_matername_s,
+				e.materialcode_s,
+				e.materialname_s,
+				e.grade_i,
+				e.dummy2_s,
+				nvl( s.equip_name_s, '-' ) equip_name_s,
+				sum( r.qty_left_f ) rmcount,
+				min( r.lot_no_s ) lot_no_s,
+				r.supplier_code_s,
+				w.supplycode_s
+			FROM
+				at_int_plm_equalmaterial e,
+				temp w,
+				( SELECT s.equip_name_s, s.material_code_s FROM at_mx_mm_silomaterial s WHERE s.equip_code_s =:equipcode ) s,
+				at_rm_wh_item_inv r 
+			WHERE
+				e.record_flag_s = 'A' 
+				AND e.groupname_s IN (
+				SELECT
+					e.groupname_s 
+				FROM
+					at_int_plm_equalmaterial e,
+					temp w 
+				WHERE
+					e.record_flag_s = 'A' 
+					AND w.child_matercode_s = e.materialcode_s ( + ) 
+				) 
+				AND e.groupname_s = w.groupname_s ( + ) 
+				AND e.materialcode_s = r.material_code_s ( + ) 
+				AND e.materialcode_s = s.material_code_s ( + ) 
+			GROUP BY
+				w.child_matercode_s,
+				w.child_matername_s,
+				w.supplycode_s,
+				s.equip_name_s,
+				e.materialcode_s,
+				e.materialname_s,
+				e.grade_i,
+				e.dummy2_s,
+				e.groupname_s,
+				r.supplier_code_s,
+				e.materialgroup_name_s 
+			ORDER BY
+				e.groupname_s,
+				flag,
+				e.materialgroup_name_s
+        ]]>
+	</sql>
+
+	<sql comment="获取等同物料等级" id="getEqualMaterialLevel">
+        <![CDATA[
+           SELECT
+				* 
+			FROM
+				AT_INT_PLM_EQUALMATERIAL
+			WHERE
+				MATERIALCODE_S = :materialcode
+        ]]>
+	</sql>
+
+	<sql comment="获取密炼配方执行表信息" id="getRecipeEditListByRecipecode">
+        <![CDATA[
+           SELECT
+				* 
+			FROM
+				AT_INT_PLM_MIXRECIPE_EDIT
+			WHERE
+				CHECK_STATE_S = '1' 
+				AND RECORD_FLAG_S = 'A' 
+				AND RECIPE_CODE_S = :recipecode
+        ]]>
+	</sql>
+
+	<sql comment="查询工单管理表最大顺序号" id="getWorkOrderEditMaxSeq">
+        <![CDATA[
+			SELECT
+				NVL(MAX(WO_SEQ_I) + 1, 1) MAXSEQ
+			FROM
+				AT_MX_PP_WO_EDIT 
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND S_FACTORY_S = :factory 
+				AND WO_DATE_S = :plandate 
+				AND WO_SHIFT_S = :woshift 
+				AND EQUIP_CODE_S = :equipcode
+        ]]>
+	</sql>
+
+	<sql comment="查询日计划顺序号" id="getMixPlanMaxSeq">
+        <![CDATA[
+			SELECT
+			  NVL(COUNT(*) + 1, 1) NUM
+			FROM
+				AT_MX_PP_PLAN
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND S_FACTORY_S = :factory 
+				AND PLAN_DATE_S = :plandate
+        ]]>
+	</sql>
+
+	<sql comment="根据条码查询机台名称" id="searchMixEquipName">
+        <![CDATA[
+            SELECT
+				PL.DESCRIPTION
+			FROM
+				AREA A,
+				AREA_PRODUCTION_LINE AP,
+				PRODUCTION_LINE PL
+			WHERE
+			    A.AREA_NAME = :factory
+			AND
+			    PL.P_LINE_NAME = :equipcode
+			AND
+			    A.AREA_KEY = AP.PARENT_KEY
+			AND
+			    AP.CHILD_KEY = PL.P_LINE_KEY
+        ]]>
+	</sql>
+
+	<sql comment="获取密炼物料信息" id="getMixMatInfo">
+        <![CDATA[
+			SELECT DISTINCT
+				MATERIALNAME_S,
+				MATERIALCODE_S,
+				MATERIALSPEC_S 
+			FROM
+				AT_INT_PLM_MIXMATERIAL
+        ]]>
+	</sql>
+
+</sqls>

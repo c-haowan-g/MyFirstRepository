@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_MX_MM_POLYMIX_PROD where 1=1
+                <#if act_code_s??>
+                     and ACT_CODE_S=:act_code_s
+                </#if>
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if coolspeed_mix_d??>
+                     and COOLSPEED_MIX_D=:coolspeed_mix_d
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if mix_id_i??>
+                     and MIX_ID_I=:mix_id_i
+                </#if>
+                <#if openmixspeed_mix_d??>
+                     and OPENMIXSPEED_MIX_D=:openmixspeed_mix_d
+                </#if>
+                <#if receive_time_t??>
+                     and RECEIVE_TIME_T=:receive_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if rollor_mix_d??>
+                     and ROLLOR_MIX_D=:rollor_mix_d
+                </#if>
+                <#if rubtemp_mix_d??>
+                     and RUBTEMP_MIX_D=:rubtemp_mix_d
+                </#if>
+                <#if set_enter_d??>
+                     and SET_ENTER_D=:set_enter_d
+                </#if>
+                <#if set_power_d??>
+                     and SET_POWER_D=:set_power_d
+                </#if>
+                <#if set_press_d??>
+                     and SET_PRESS_D=:set_press_d
+                </#if>
+                <#if set_rota_d??>
+                     and SET_ROTA_D=:set_rota_d
+                </#if>
+                <#if set_temp_d??>
+                     and SET_TEMP_D=:set_temp_d
+                </#if>
+                <#if set_time_d??>
+                     and SET_TIME_D=:set_time_d
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if speeddiff_mix_d??>
+                     and SPEEDDIFF_MIX_D=:speeddiff_mix_d
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if term_code_s??>
+                     and TERM_CODE_S=:term_code_s
+                </#if>
+                <#if trainprod_id_s??>
+                     and TRAINPROD_ID_S=:trainprod_id_s
+                </#if>
+                <#if watrtemp_mix_d??>
+                     and WATRTEMP_MIX_D=:watrtemp_mix_d
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_MX_MM_POLYMIX_PROD where 1=1
+                    <#if act_code_s??>
+                         and ACT_CODE_S=:act_code_s
+                    </#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if coolspeed_mix_d??>
+                         and COOLSPEED_MIX_D=:coolspeed_mix_d
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if mix_id_i??>
+                         and MIX_ID_I=:mix_id_i
+                    </#if>
+                    <#if openmixspeed_mix_d??>
+                         and OPENMIXSPEED_MIX_D=:openmixspeed_mix_d
+                    </#if>
+                    <#if receive_time_t??>
+                         and RECEIVE_TIME_T=:receive_time_t
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if rollor_mix_d??>
+                         and ROLLOR_MIX_D=:rollor_mix_d
+                    </#if>
+                    <#if rubtemp_mix_d??>
+                         and RUBTEMP_MIX_D=:rubtemp_mix_d
+                    </#if>
+                    <#if set_enter_d??>
+                         and SET_ENTER_D=:set_enter_d
+                    </#if>
+                    <#if set_power_d??>
+                         and SET_POWER_D=:set_power_d
+                    </#if>
+                    <#if set_press_d??>
+                         and SET_PRESS_D=:set_press_d
+                    </#if>
+                    <#if set_rota_d??>
+                         and SET_ROTA_D=:set_rota_d
+                    </#if>
+                    <#if set_temp_d??>
+                         and SET_TEMP_D=:set_temp_d
+                    </#if>
+                    <#if set_time_d??>
+                         and SET_TIME_D=:set_time_d
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if speeddiff_mix_d??>
+                         and SPEEDDIFF_MIX_D=:speeddiff_mix_d
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if term_code_s??>
+                         and TERM_CODE_S=:term_code_s
+                    </#if>
+                    <#if trainprod_id_s??>
+                         and TRAINPROD_ID_S=:trainprod_id_s
+                    </#if>
+                    <#if watrtemp_mix_d??>
+                         and WATRTEMP_MIX_D=:watrtemp_mix_d
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="获取工厂模型树结构" id="getFactoryList">
+        <![CDATA[
+            with temp as
+             (
+             select  cast('' as number(19))  parent_id,
+     		    cast('' as nvarchar2(80)) parent_desc,
+    		    s.site_key     child_key,
+     		    s.description child_desc
+ 				 from site s
+	        union
+             select s.site_key    parent_id,
+     			  s.description parent_desc,
+     			  a.area_key    child_key,
+    			  a.description child_desc
+ 				from site s, site_area l, area a
+ 				where l.parent_key = s.site_key
+  				 and l.child_key = a.area_key
+			union
+				select a.area_key    parent_id,
+   			    a.description parent_desc,
+  			     p.p_line_key  child_key,
+  			     p.description child_desc
+ 				 from area a, area_production_line l2, production_line p
+ 				 where l2.parent_key = a.area_key
+ 				  and l2.child_key = p.p_line_key
+			union
+				select p.p_line_key  parent_id,
+     		    p.description parent_desc,
+    		    w.wc_key      child_key,
+    		    w.wc_name     child_desc
+  				from production_line p, p_line_work_center l3, work_center w
+ 				where l3.parent_key = p.p_line_key
+ 			    and l3.child_key = w.wc_key
+			union
+				select w.wc_key parent_id, w.wc_name parent_desc, e.equip_key child_key, e.description child_desc
+ 				from work_center w, work_center_equipment l4, equipment e
+ 				where l4.parent_key = w.wc_key
+  			    and l4.child_key = e.equip_key
+			union
+			select fe.equip_key parent_id,fe.description parent_desc,CE.equip_key child_key,ce.description child_desc
+			from equipment fe,equipment_equipment ee,equipment ce
+			where fe.equip_key=EE.parent_key
+			and CE.equip_key=EE.child_key)
+				select distinct  parent_id,
+				                parent_desc,
+				                child_key,
+				                child_desc
+				  from temp t
+				 start with t.parent_id is  null
+				connect by prior t.child_key =  t.parent_id
+				 order by child_desc
+        ]]>
+    </sql>
+    
+    <sql comment="获取Site的信息" id="getSiteInfoByKey">
+        <![CDATA[
+           select t.site_name name,t.description,u.*
+ 				 from site t, uda_site u
+ 				 where t.site_key = u.object_key(+) 
+				 and t.site_key = :key
+        ]]>
+    </sql>
+    <sql comment="获取Area的信息" id="getAreaInfoByKey">
+        <![CDATA[
+           select t.area_name name,t.description
+ 				 from area t
+ 				where  t.area_key = :key
+        ]]>
+    </sql>
+    <sql comment="获取Production的信息" id="getProductionInfoByKey">
+        <![CDATA[
+           select t.p_line_name name,t.description,u.*
+                from production_line t,uda_productionline u
+ 			where 
+  				t.p_line_key=u.object_key(+)
+ 			    and t.p_line_key=:key
+        ]]>
+    </sql>
+    <sql comment="获取Workcenter的信息" id="getWorkcenterInfoByKey">
+        <![CDATA[
+           select t.wc_name name,t.description from work_center t
+              where t.wc_key=:key
+        ]]>
+    </sql>
+    <sql comment="获取父设备Equipment的信息" id="getFatherEquipmentInfoByKey">
+        <![CDATA[
+           select t.equip_name name,t.description,u.*
+             from equipment t, uda_equipment u
+              where t.equip_key = u.object_key(+)
+              and t.equip_key = :key
+        ]]>
+    </sql>
+     <sql comment="获取子设备Equipment的信息" id="getChildEquipmentInfoByKey">
+        <![CDATA[
+           select t.equip_name name,t.description,u.*
+             from equipment t, uda_equipment u,equipment_equipment ee
+              where t.equip_key = u.object_key(+)
+              and t.equip_key=ee.child_key
+              and t.equip_key = :key
+        ]]>
+    </sql>
+    
+      <sql comment="通过工段名称返回该工段下的产线信息" id="getProductionInfoByAreaName">
+        <![CDATA[
+           select   a.area_name,a.description areadescription,p.p_line_name,p.description,up.*
+          from area a, area_production_line l2, production_line p,uda_productionline up
+          where l2.parent_key = a.area_key
+           and l2.child_key = p.p_line_key
+          and p.p_line_key=up.object_key(+)
+            and a.area_name=:areaname
+              order by p.p_line_name
+        ]]>
+    </sql>
+</sqls>

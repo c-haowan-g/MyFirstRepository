@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select ms.*,ms.CREATED_BY_S||US1.USERNAME  created_by_name from AT_B_MM_MOULDSTOCK ms
+            left join CORE_USER US1 ON ms.CREATED_BY_S=US1.USERCODE
+             where  ms.RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and ms.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alarm_number_s??>
+                     and ms.ALARM_NUMBER_S=:alarm_number_s
+                </#if>
+                <#if capsule_code_s??>
+                     and ms.CAPSULE_CODE_S like  :capsule_code_s ||'%'
+                </#if>
+                <#if capsule_factory_s??>
+                     and ms.CAPSULE_FACTORY_S=:capsule_factory_s
+                </#if>
+                <#if capsule_id_s??>
+                     and ms.CAPSULE_ID_S=:capsule_id_s
+                </#if>
+                <#if capsule_name_s??>
+                     and ms.CAPSULE_NAME_S like  :capsule_name_s ||'%'
+                </#if>
+                <#if capsule_specification_s??>
+                     and ms.CAPSULE_SPECIFICATION_S like :capsule_specification_s ||'%'
+                </#if>
+                <#if capsule_type_s??>
+                     and ms.CAPSULE_TYPE_S=:capsule_type_s
+                </#if>
+                <#if changed_by_s??>
+                     and ms.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and ms.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and ms.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and ms.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if in_time_t??>
+                     and ms.IN_TIME_T=:in_time_t
+                </#if>
+                <#if parity_code_s??>
+                     and ms.PARITY_CODE_S=:parity_code_s
+                </#if>
+                <#if purchaser_s??>
+                     and ms.PURCHASER_S=:purchaser_s
+                </#if>
+                <#if put_time_t??>
+                     and ms.PUT_TIME_T=:put_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and ms.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if replaced_time_t??>
+                     and ms.REPLACED_TIME_T=:replaced_time_t
+                </#if>
+                <#if spare1_s??>
+                     and ms.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and ms.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and ms.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and ms.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and ms.SPARE5_S=:spare5_s
+                </#if>
+                <#if status_s??>
+                     and ms.STATUS_S=:status_s
+                </#if>
+                <#if store_area_s??>
+                     and ms.STORE_AREA_S=:store_area_s
+                </#if>
+                <#if store_location_s??>
+                     and ms.STORE_LOCATION_S=:store_location_s
+                </#if>
+                <#if suppliers_no_s??>
+                     and ms.SUPPLIERS_NO_S=:suppliers_no_s
+                </#if>
+                <#if s_factory_s??>
+                     and ms.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if total_number_s??>
+                     and ms.TOTAL_NUMBER_S=:total_number_s
+                </#if>
+                <#if user_id_s??>
+                     and ms.USER_ID_S=:user_id_s
+                </#if>
+                <#if use_time_t??>
+                     and ms.USE_TIME_T=:use_time_t
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by ms.created_time_t desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_B_MM_MOULDSTOCK ms 
+            left join CORE_USER US1 ON ms.CREATED_BY_S=US1.USERCODE
+            where 1=1 
+            and ms.RECORD_FLAG_S='A'
+                   <#if agenc_no_s??>
+                     and ms.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alarm_number_s??>
+                     and ms.ALARM_NUMBER_S=:alarm_number_s
+                </#if>
+                <#if capsule_code_s??>
+                     and ms.CAPSULE_CODE_S like  :capsule_code_s ||'%'
+                </#if>
+                <#if capsule_factory_s??>
+                     and ms.CAPSULE_FACTORY_S=:capsule_factory_s
+                </#if>
+                <#if capsule_id_s??>
+                     and ms.CAPSULE_ID_S=:capsule_id_s
+                </#if>
+                <#if capsule_name_s??>
+                     and ms.CAPSULE_NAME_S like  :capsule_name_s ||'%'
+                </#if>
+                <#if capsule_specification_s??>
+                     and ms.CAPSULE_SPECIFICATION_S= :capsule_specification_s
+                </#if>
+                <#if capsule_type_s??>
+                     and ms.CAPSULE_TYPE_S=:capsule_type_s
+                </#if>
+                <#if changed_by_s??>
+                     and ms.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and ms.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and ms.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and ms.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if in_time_t??>
+                     and ms.IN_TIME_T=:in_time_t
+                </#if>
+                <#if parity_code_s??>
+                     and ms.PARITY_CODE_S=:parity_code_s
+                </#if>
+                <#if purchaser_s??>
+                     and ms.PURCHASER_S=:purchaser_s
+                </#if>
+                <#if put_time_t??>
+                     and ms.PUT_TIME_T=:put_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and ms.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if replaced_time_t??>
+                     and ms.REPLACED_TIME_T=:replaced_time_t
+                </#if>
+                <#if spare1_s??>
+                     and ms.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and ms.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and ms.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and ms.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and ms.SPARE5_S=:spare5_s
+                </#if>
+                <#if status_s??>
+                     and ms.STATUS_S=:status_s
+                </#if>
+                <#if store_area_s??>
+                     and ms.STORE_AREA_S=:store_area_s
+                </#if>
+                <#if store_location_s??>
+                     and ms.STORE_LOCATION_S=:store_location_s
+                </#if>
+                <#if suppliers_no_s??>
+                     and ms.SUPPLIERS_NO_S=:suppliers_no_s
+                </#if>
+                <#if s_factory_s??>
+                     and ms.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if total_number_s??>
+                     and ms.TOTAL_NUMBER_S=:total_number_s
+                </#if>
+                <#if user_id_s??>
+                     and ms.USER_ID_S=:user_id_s
+                </#if>
+                <#if use_time_t??>
+                     and ms.USE_TIME_T=:use_time_t
+                </#if>
+        ]]>
+    </sql>
+    
+    <sql comment="修改" id="update1">
+       <![CDATA[
+            select count(1) from AT_B_MM_MOULDSTOCK 
+            where  CAPSULE_CODE_S =:capsulecode_s 
+            and s_factory_s =:s_factory_s
+            and record_flag_s ='A'
+            and atr_key<>:atr_key
+        ]]>
+	</sql>
+	
+	<sql comment="修改" id="searchByLocation">
+       <![CDATA[
+			SELECT  t.DESCRIPTION STORE_LOCATION_S FROM STORAGE_ZONE T 
+			LEFT JOIN UDA_STORAGEZONE V ON T.STORAGE_ZONE_KEY = V.OBJECT_KEY
+			WHERE V.STORAGE_TYPE_S='227005'  AND V.S_FACTORY_S = :factory
+        ]]>
+	</sql>
+	
+</sqls>

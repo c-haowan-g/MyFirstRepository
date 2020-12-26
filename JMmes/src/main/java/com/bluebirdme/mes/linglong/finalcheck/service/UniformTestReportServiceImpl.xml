@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="getRows">
+        <![CDATA[
+           select   
+           curingspeccode_s,description,
+           count(1) speccount,
+	        SUM(CASE  WHEN UFM_TOTAL_RANK_S ='1' THEN 1 ELSE 0 END ) jyxa1,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '1' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxa1pinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='1' THEN 1 ELSE 0 END ) tdda1,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '1' THEN 1 ELSE 0 END )/count(1),4)||'%')) tdda1pinlv,
+	       SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END ) a1,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END )/count(1),4)||'%')) a1pinlv,
+	       SUM(CASE  WHEN UFM_TOTAL_RANK_S ='2' THEN 1 ELSE 0 END ) jyxa,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '2' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxapinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='2' THEN 1 ELSE 0 END ) tdda,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '2' THEN 1 ELSE 0 END )/count(1),4)||'%')) tddapinlv,
+	       SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END ) a,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END )/count(1),4)||'%')) apinlv,
+	       SUM(CASE  WHEN UFM_TOTAL_RANK_S ='3' THEN 1 ELSE 0 END ) jyxa0,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '3' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxa0pinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='3' THEN 1 ELSE 0 END ) tdda0,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '3' THEN 1 ELSE 0 END )/count(1),4)||'%')) tdda0pinlv,
+	       SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END ) a0,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END )/count(1),4)||'%')) a0pinlv,
+	        SUM(CASE  WHEN UFM_TOTAL_RANK_S ='4' THEN 1 ELSE 0 END ) jyxd,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '4' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxdpinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='4' THEN 1 ELSE 0 END ) tddd,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '4' THEN 1 ELSE 0 END )/count(1),4)||'%')) tdddpinlv,
+	       SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END ) erji,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END )/count(1),4)||'%')) erjipinlv
+        from (
+         SELECT
+             t.barcode_s,
+             max(M .MATERIALCODE_S) curingspeccode_s,
+             max(P .DESCRIPTION) DESCRIPTION,
+             max(t.UFM_TOTAL_RANK_S) UFM_TOTAL_RANK_S,
+             max(t.Ro_Total_Rank_s) Ro_Total_Rank_s,
+             max(t.gradecode_s) gradecode_s,
+             max(t.created_time_t)
+         FROM
+             AT_D_QM_CHECKUNIFORMLOG T,
+             at_c_mm_curing_maintyre M,
+             part P
+         WHERE
+                 1 = 1
+           AND T .barcode_s = M .TYREBARCODE_S (+)
+           AND M .MATERIALCODE_S = P .part_number (+)
+           AND M .PROESS_S = '252010'
+           AND T .record_flag_s = 'A'
+           <#if begin_created_time??&&end_created_time??>
+               	and t.CREATED_TIME_T between to_date(:begin_created_time,'yyyy-mm-dd hh24:mi:ss')
+               	and to_date(:end_created_time,'yyyy-mm-dd hh24:mi:ss') 
+           </#if>
+           <#if curingspeccode_s??>
+                and P .part_number like :curingspeccode_s
+           </#if>
+          GROUP BY  t.barcode_s
+     ) GROUP BY  
+           curingspeccode_s,description
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="getTotal">
+        <![CDATA[
+        select count(1) from ( select   
+           curingspeccode_s,description,
+           count(1) speccount,
+	       SUM(CASE  WHEN UFM_TOTAL_RANK_S ='1' THEN 1 ELSE 0 END ) jyxa1,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '1' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxa1pinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='1' THEN 1 ELSE 0 END ) tdda1,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '1' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '1' THEN 1 ELSE 0 END )/count(1),4)||'%')) tdda1pinlv,
+	       SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END ) a1,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253009' THEN 1 ELSE 0 END )/count(1),4)||'%')) a1pinlv,
+	       SUM(CASE  WHEN UFM_TOTAL_RANK_S ='2' THEN 1 ELSE 0 END ) jyxa,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '2' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxapinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='2' THEN 1 ELSE 0 END ) tdda,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '2' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '2' THEN 1 ELSE 0 END )/count(1),4)||'%')) tddapinlv,
+	       SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END ) a,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253007' THEN 1 ELSE 0 END )/count(1),4)||'%')) apinlv,
+	       SUM(CASE  WHEN UFM_TOTAL_RANK_S ='3' THEN 1 ELSE 0 END ) jyxa0,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '3' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxa0pinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='3' THEN 1 ELSE 0 END ) tdda0,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '3' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '3' THEN 1 ELSE 0 END )/count(1),4)||'%')) tdda0pinlv,
+	       SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END ) a0,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253008' THEN 1 ELSE 0 END )/count(1),4)||'%')) a0pinlv,
+	        SUM(CASE  WHEN UFM_TOTAL_RANK_S ='4' THEN 1 ELSE 0 END ) jyxd,
+decode(substr((100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN UFM_TOTAL_RANK_S = '4' THEN 1 ELSE 0 END )/count(1),4)||'%')) jyxdpinlv,
+	       SUM(CASE  WHEN Ro_Total_Rank_s ='4' THEN 1 ELSE 0 END ) tddd,
+decode(substr((100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '4' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN Ro_Total_Rank_s = '4' THEN 1 ELSE 0 END )/count(1),4)||'%')) tdddpinlv,
+	       SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END ) erji,
+decode(substr((100*round( SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END )/count(1),4)||'%'),1,1),'.','0'||(100*round( SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END )/count(1),4)||'%'),(100*round( SUM(CASE  WHEN gradecode_s ='253006' THEN 1 ELSE 0 END )/count(1),4)||'%')) erjipinlv
+        from (
+         SELECT
+             t.barcode_s,
+             max(M .MATERIALCODE_S) curingspeccode_s,
+             max(P .DESCRIPTION) DESCRIPTION,
+             max(t.UFM_TOTAL_RANK_S) UFM_TOTAL_RANK_S,
+             max(t.Ro_Total_Rank_s) Ro_Total_Rank_s,
+             max(t.gradecode_s) gradecode_s,
+             max(t.created_time_t)
+         FROM
+             AT_D_QM_CHECKUNIFORMLOG T,
+             at_c_mm_curing_maintyre M,
+             part P
+         WHERE
+                 1 = 1
+           AND T .barcode_s = M .TYREBARCODE_S (+)
+           AND M .MATERIALCODE_S = P .part_number (+)
+           AND M .PROESS_S = '252010'
+           AND T .record_flag_s = 'A'
+           <#if begin_created_time??&&end_created_time??>
+               	and t.CREATED_TIME_T between to_date(:begin_created_time,'yyyy-mm-dd hh24:mi:ss')
+               	and to_date(:end_created_time,'yyyy-mm-dd hh24:mi:ss') 
+           </#if>
+           <#if curingspeccode_s??>
+                and P .part_number like :curingspeccode_s
+           </#if>
+          GROUP BY  t.barcode_s
+     ) GROUP BY  
+           curingspeccode_s,description)
+        ]]>
+    </sql>
+</sqls>

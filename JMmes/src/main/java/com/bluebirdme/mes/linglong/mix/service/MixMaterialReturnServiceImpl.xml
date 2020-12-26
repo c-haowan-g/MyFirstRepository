@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_MX_MM_POLY_RETURN where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if carrier_code_s??>
+                     and CARRIER_CODE_S=:carrier_code_s
+                </#if>
+                <#if carrier_weight_f??>
+                     and CARRIER_WEIGHT_F=:carrier_weight_f
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if begintime?? && endtime??>
+               		and CREATED_TIME_T between TO_DATE(:begintime,'YYYY-mm-dd HH24:MI:SS')
+               		and TO_DATE(:endtime,'YYYY-mm-dd HH24:MI:SS') 
+            	</#if>
+                <#if expiry_date_t??>
+                     and EXPIRY_DATE_T=:expiry_date_t
+                </#if>
+                <#if group_code_s??>
+                     and GROUP_CODE_S=:group_code_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if is_colorcode_s??>
+                     and IS_COLORCODE_S=:is_colorcode_s
+                </#if>
+                <#if is_impurity_s??>
+                     and IS_IMPURITY_S=:is_impurity_s
+                </#if>
+                <#if is_print_s??>
+                     and IS_PRINT_S=:is_print_s
+                </#if>
+                <#if is_return_s??>
+                     and IS_RETURN_S=:is_return_s
+                </#if>
+                <#if lot_no_s??>
+                     and LOT_NO_S=:lot_no_s
+                </#if>
+                <#if master_by_s??>
+                     and MASTER_BY_S=:master_by_s
+                </#if>
+                <#if master_name_s??>
+                     and MASTER_NAME_S=:master_name_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if net_weight_f??>
+                     and NET_WEIGHT_F=:net_weight_f
+                </#if>
+                <#if prod_time_t??>
+                     and PROD_TIME_T=:prod_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if return_type_s??>
+                     and RETURN_TYPE_S=:return_type_s
+                </#if>
+                <#if shift_code_s??>
+                     and SHIFT_CODE_S=:shift_code_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tare_weight_f??>
+                     and TARE_WEIGHT_F=:tare_weight_f
+                </#if>
+                <#if workarea_s??>
+                     and WORKAREA_S=:workarea_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_MX_MM_POLY_RETURN where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if carrier_code_s??>
+                         and CARRIER_CODE_S=:carrier_code_s
+                    </#if>
+                    <#if carrier_weight_f??>
+                         and CARRIER_WEIGHT_F=:carrier_weight_f
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if begintime?? && endtime??>
+               			and CREATED_TIME_T between TO_DATE(:begintime,'YYYY-mm-dd HH24:MI:SS')
+               			and TO_DATE(:endtime,'YYYY-mm-dd HH24:MI:SS') 
+            		</#if>
+                    <#if expiry_date_t??>
+                         and EXPIRY_DATE_T=:expiry_date_t
+                    </#if>
+                    <#if group_code_s??>
+                         and GROUP_CODE_S=:group_code_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if is_colorcode_s??>
+                         and IS_COLORCODE_S=:is_colorcode_s
+                    </#if>
+                    <#if is_impurity_s??>
+                         and IS_IMPURITY_S=:is_impurity_s
+                    </#if>
+                    <#if is_print_s??>
+                         and IS_PRINT_S=:is_print_s
+                    </#if>
+                    <#if is_return_s??>
+                         and IS_RETURN_S=:is_return_s
+                    </#if>
+                    <#if lot_no_s??>
+                         and LOT_NO_S=:lot_no_s
+                    </#if>
+                    <#if master_by_s??>
+                         and MASTER_BY_S=:master_by_s
+                    </#if>
+                    <#if master_name_s??>
+                         and MASTER_NAME_S=:master_name_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S=:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if net_weight_f??>
+                         and NET_WEIGHT_F=:net_weight_f
+                    </#if>
+                    <#if prod_time_t??>
+                         and PROD_TIME_T=:prod_time_t
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if return_type_s??>
+                         and RETURN_TYPE_S=:return_type_s
+                    </#if>
+                    <#if shift_code_s??>
+                         and SHIFT_CODE_S=:shift_code_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tare_weight_f??>
+                         and TARE_WEIGHT_F=:tare_weight_f
+                    </#if>
+                    <#if workarea_s??>
+                         and WORKAREA_S=:workarea_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

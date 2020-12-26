@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+                SELECT
+				    AW.*,
+				    CU.USERNAME AS CUUSERNAME
+				FROM
+					AT_A_MM_WORKERLOGIN_RECORD AW,
+					CORE_USER CU
+				WHERE
+					AW.CREATED_BY_S = CU.USERCODE
+                <#if classid_s??>
+                     and CLASSID_S=:classid_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if login_type_s??>
+                     and LOGIN_TYPE_S=:login_type_s
+                </#if>
+                     and RECORD_FLAG_S='A'           
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if worker_id_s??>
+                     and WORKER_ID_S=:worker_id_s
+                </#if>
+                <#if worker_name_s??>
+                     and WORKER_NAME_S=:worker_name_s
+                </#if>
+                <#if worker_type_s??>
+                     and WORKER_TYPE_S=:worker_type_s
+                </#if>
+                <#if begintime?? && endtime??>
+              		and to_char(created_time_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by AW.created_time_t desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (
+				SELECT
+				    AW.*,
+				    CU.USERNAME AS CUUSERNAME
+				FROM
+					AT_A_MM_WORKERLOGIN_RECORD AW,
+					CORE_USER CU
+				WHERE
+					AW.CREATED_BY_S = CU.USERCODE
+                <#if classid_s??>
+                     and CLASSID_S=:classid_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if login_type_s??>
+                     and LOGIN_TYPE_S=:login_type_s
+                </#if>
+                     and RECORD_FLAG_S='A'           
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if worker_id_s??>
+                     and WORKER_ID_S=:worker_id_s
+                </#if>
+                <#if worker_name_s??>
+                     and WORKER_NAME_S=:worker_name_s
+                </#if>
+                <#if worker_type_s??>
+                     and WORKER_TYPE_S=:worker_type_s
+                </#if>
+                <#if begintime?? && endtime??>
+              		and to_char(created_time_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if>            
+            )
+        ]]>
+    </sql>
+    <sql comment="查出机台条码显示在JSP页面下拉列表处" id="searchEquipCode">
+       <![CDATA[
+            SELECT
+				t.p_line_name
+			FROM
+				Production_Line t,
+				Uda_ProductionLine m 
+			WHERE
+				t.p_line_key = m.object_key 
+				and m.PROCESS_S = '252004'
+				and m.s_factory_s =1
+        ]]>
+	</sql>
+	
+	<sql comment="根据用户号码查询姓名" id="toChangedName">
+       <![CDATA[
+            SELECT USERNAME FROM CORE_USER WHERE USERCODE = :usercode
+        ]]>
+	</sql>
+	
+	<sql comment="查询操作工类型" id="toWorkerType">
+       <![CDATA[
+            SELECT DICTNAME_S FROM AT_CM_BS_COREDICTIONARY WHERE DICTCODE_S = :worker_type_s
+        ]]>
+	</sql>
+	
+</sqls>

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+<!-- 去掉了病象的工厂号 -->
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+          SELECT
+			D .*, (
+				SELECT
+					b.dictname_s
+				FROM
+					At_Cm_Bs_Coredictionary b
+				WHERE
+					b.dictcode_s = D .PROESS_S) || '-' || D .STATECD_S
+			 AS STATUS_S,
+		R.REAS_CN_S AS REAS_CN_S,
+			W.MATERIAL_NAME_S AS MATERIAL_NAME_S,
+			W.EQUIP_CODE_S AS EQUIP_CODE_S,
+			W.CURINGS_CANDATE_T AS CURINGS_CANDATE_T,
+			W.CURING_WORKER_S AS CURING_WORKER_S
+			FROM
+			AT_C_MM_WORKORDERRESULT	W ,
+			 AT_D_QM_Detial  D   
+	LEFT JOIN  AT_D_BS_REAS R on D .REASCD_S = R.ATR_KEY
+			where 
+  D .BARCODE_S = W.TYRE_BARCODE_S
+ W.FIRST_POTFLAG_S='1'
+            <#if itemid_s??>
+                  and D.ITEMID_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+               <#if equip_code_s??>
+                    and   W.EQUIP_CODE_S like :equip_code_s
+             </#if>   
+              
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by D.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+             SELECT
+			count(1)
+			FROM
+			AT_C_MM_WORKORDERRESULT	W ,
+			 AT_D_QM_Detial  D   
+				LEFT JOIN  AT_D_BS_REAS R on D .REASCD_S = R.ATR_KEY
+						where 
+			  D .BARCODE_S = W.TYRE_BARCODE_S
+			 W.FIRST_POTFLAG_S='1'
+               <#if itemid_s??>
+                 and D.ITEMID_S like  :itemid_s || '%'
+           	</#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	<#if start_opertime_t?? && !end_opertime_t??>
+                 and D.OPERTIME_T > TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+            <#if !start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T < TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+            </#if>   
+               <#if equip_code_s??>
+                    and   W.EQUIP_CODE_S like :equip_code_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>        
+        ]]>
+    </sql>
+    
+    
+    
+       <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+           select i.description materialdesc_s,m.machinecode_s curingmachinecode_s,m.startTime_t curingclosemouldtime_t,m.overTime_t curingopenmouldtime_t,d.*,
+        		(select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=n.proess_s)||  '-'|| (select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=n.ATPRESENTGRADECODE_S) nowstate,
+				(select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=d.proess_s)||  '-'|| (select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=d.gradecd_s ) pjstate,
+		           (select r.reas_cn_s
+		          from AT_D_BS_Reas r
+		         where d.reascd_s = r.reas_code_s(+)
+		           and r.s_factory_s = :s_factory_s
+		           and r.record_flag_s = 'A'
+		           and r.agenc_no_s='8023'
+		           ) reas_cn_s,
+		       (select r.collet_code_desc_cn_s
+		          from AT_D_BS_Reas r
+		         where d.reascd_s = r.reas_code_s(+)
+		           and r.s_factory_s = :s_factory_s
+		           and r.record_flag_s = 'A'
+		            and r.agenc_no_s='8023'
+		            ) collet_code_desc_cn_s,  
+		             n.reservedate3_s totalreworknum_i,
+		             n.checknumber_i totalchecknumber,
+		             u.username  operby,
+		             m.userid_s  userid,f.machinecode_s,f.overtime_t,f.userid_s ,
+		               (select username from CORE_USER r where m.USERID_S=r.usercode) as username_c,
+                    (select username from CORE_USER r where f.USERID_S=r.usercode) as username_b    
+				    from AT_D_QM_Detial d, (select * from AT_C_MM_Curing_MainTyre where proess_s='252006') m,
+				    (select * from AT_C_MM_Curing_MainTyre where proess_s='252008') n,
+				    (select * from AT_C_MM_Curing_MainTyre where proess_s='252005') f,
+             
+				    PART i,CORE_USER u
+         where 1=1
+           and d.itemid_s = i.part_number(+)
+           and d.barcode_s = m.tyrebarcode_s(+)
+           and m.tyrebarcode_s=n.tyrebarcode_s(+)
+           and d.proess_s='252008'   
+		   and d.operby_s=u.usercode(+)	
+		    AND n.tyrebarcode_s=f.tyrebarcode_s(+)	  
+            <#if itemid_s??>
+                  and D.ITEMID_S like :itemid_s 
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	<#if start_opertime_t?? && !end_opertime_t??>
+                 and D.OPERTIME_T > TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+            <#if !start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T < TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            <#if s_factory_s??>
+                    and d.s_factory_s=:s_factory_s
+             </#if>   
+              <#if agenc_no_s??>
+              	and d.agenc_no_s=:agenc_no_s
+             </#if>  
+                 <#if statecd_s??>
+                 and d.statecd_s=:statecd_s
+                </#if> 
+                 <#if gradecd_s??>
+                    and d.gradecd_s=:gradecd_s
+                </#if> 
+                 <#if barcode_s??>
+                    and d.barcode_s = :barcode_s
+                </#if> 
+                  <#if operby_s??>
+                    and (u.usercode like :operby_s or u.username like :operby_s)
+                </#if> 
+                  <#if visualvar_s??>
+                    and d.visualvar_s like :visualvar_s
+                </#if> 
+               
+                
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by D.OPERTIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+                       select count(1) from (select i.description materialdesc_s,m.machinecode_s curingmachinecode_s,m.startTime_t curingclosemouldtime_t,m.overTime_t curingopenmouldtime_t,d.*,
+        		(select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=n.proess_s)||  '-'|| (select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=n.ATPRESENTGRADECODE_S) nowstate,
+				(select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=d.proess_s)||  '-'|| (select b.dictname_s  from At_Cm_Bs_Coredictionary b where b.dictcode_s=d.gradecd_s ) pjstate,
+		          
+		             n.reservedate3_s totalreworknum_i,
+		             n.checknumber_i totalchecknumber,
+		             u.username  operby,
+		             m.userid_s  userid,f.machinecode_s,f.overtime_t,f.userid_s ,
+		               (select username from CORE_USER r where m.USERID_S=r.usercode) as username_c,
+                    (select username from CORE_USER r where f.USERID_S=r.usercode) as username_b    
+				    from AT_D_QM_Detial d, (select * from AT_C_MM_Curing_MainTyre where proess_s='252006') m,
+				    (select * from AT_C_MM_Curing_MainTyre where proess_s='252008') n,
+				    (select * from AT_C_MM_Curing_MainTyre where proess_s='252005') f,
+             
+				    PART i,CORE_USER u
+         where 1=1
+           and d.itemid_s = i.part_number(+)
+           and d.barcode_s = m.tyrebarcode_s(+)
+           and m.tyrebarcode_s=n.tyrebarcode_s(+)
+           and d.proess_s='252008'   
+		   and d.operby_s=u.usercode(+)	
+		    AND n.tyrebarcode_s=f.tyrebarcode_s(+)	  
+            <#if itemid_s??>
+                  and D.ITEMID_S like :itemid_s 
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	<#if start_opertime_t?? && !end_opertime_t??>
+                 and D.OPERTIME_T > TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+            <#if !start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T < TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            <#if s_factory_s??>
+                    and d.s_factory_s=:s_factory_s
+             </#if>   
+              <#if agenc_no_s??>
+              	and d.agenc_no_s=:agenc_no_s
+             </#if>  
+                 <#if statecd_s??>
+                 and d.statecd_s=:statecd_s
+                </#if> 
+                 <#if gradecd_s??>
+                    and d.gradecd_s=:gradecd_s
+                </#if> 
+                 <#if barcode_s??>
+                    and d.barcode_s = :barcode_s
+                </#if> 
+                  <#if operby_s??>
+                    and (u.usercode like :operby_s or u.username like :operby_s)
+                </#if> 
+                  <#if visualvar_s??>
+                    and d.visualvar_s like :visualvar_s
+                </#if> 
+               
+                
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by D.OPERTIME_T desc
+            </#if>)
+				  
+        ]]>
+    </sql>
+    
+    
+     <sql comment="datagrid" id="datagridgroupUDA_rows">
+        <![CDATA[
+           SELECT
+	(i.description) materialdesc_s,
+	(M .machinecode_s) curingmachinecode_s,
+	(M .startTime_t) curingclosemouldtime_t,
+	(M .overTime_t) curingopenmouldtime_t,
+	(D.BARCODE_S) BARCODE_S,
+(D.ITEMID_S) ITEMID_S,
+(D.SHIFTCD_S) SHIFTCD_S,
+(D.VISUALVAR_S) VISUALVAR_S,
+(D.OPERTIME_T) OPERTIME_T,
+(D.GROUPCD_S) GROUPCD_S,
+	 ((
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = n.proess_s
+	) || '-' || (
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = n.ATPRESENTGRADECODE_S
+	)) nowstate,
+	((
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = D .proess_s
+	) || '-' || (
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = D .gradecd_s
+	)) pjstate,
+	((
+		SELECT
+			r.reas_cn_s
+		FROM
+			AT_D_BS_Reas r
+		WHERE
+			D .reascd_s = r.reas_code_s (+)
+		
+		AND r.record_flag_s = 'A'
+		AND r.agenc_no_s = '8023'
+	)) reas_cn_s,
+	((
+		SELECT
+			r.collet_code_desc_cn_s
+		FROM
+			AT_D_BS_Reas r
+		WHERE
+			D .reascd_s = r.reas_code_s (+)
+		
+		AND r.record_flag_s = 'A'
+		AND r.agenc_no_s = '8023'
+	)) collet_code_desc_cn_s,
+	(n.reservedate3_s) totalreworknum_i,
+	(n.checknumber_i) totalchecknumber,
+	(U .username) operby,
+	(m.userid_s)  userid,
+	(f.machinecode_s),
+	(f.overtime_t),
+	(f.userid_s ),
+	((select username from CORE_USER r where m.USERID_S=r.usercode)) as username_c,
+    ( (select username from CORE_USER r where f.USERID_S=r.usercode)) as username_b 
+FROM
+	AT_D_QM_Detial D,
+	(
+		SELECT
+			*
+		FROM
+			AT_C_MM_Curing_MainTyre
+		WHERE
+			proess_s = '252006'
+	) M,
+	(
+		SELECT
+			*
+		FROM
+			AT_C_MM_Curing_MainTyre
+		WHERE
+			proess_s = '252008'
+	) n,
+	(select * from AT_C_MM_Curing_MainTyre where proess_s='252005') f,
+	PART i,
+	CORE_USER U,
+	(SELECT MIN(A.OPERTIME_T) OPERTIME_T , A.BARCODE_S FROM AT_D_QM_Detial A 
+WHERE 
+1=1
+GROUP BY 
+A.BARCODE_S
+) Q
+WHERE
+	1 = 1
+AND n.reservedate3_s IS NOT NULL
+AND n.reservedate3_s > '0'
+and  n.tyrebarcode_s=f.tyrebarcode_s(+)
+AND D .itemid_s = i.part_number (+)
+AND D .barcode_s = M .tyrebarcode_s (+)
+AND M .tyrebarcode_s = n.tyrebarcode_s (+)
+AND D .proess_s = '252008'
+AND D .operby_s = U .usercode (+)
+AND Q.OPERTIME_T=D.OPERTIME_T
+AND Q.BARCODE_S=D.BARCODE_S
+
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and d.s_factory_s=:s_factory_s
+             </#if>   
+              <#if agenc_no_s??>
+              	and d.agenc_no_s=:agenc_no_s
+             </#if>  
+              <#if barcode_s??>
+                   and d.barcode_s = :barcode_s
+                </#if> 
+             	<#if operby_s??>
+                   and (u.usercode like :operby_s or u.username like :operby_s)
+                </#if> 
+	             <#if visualvar_s??>
+	                    and d.visualvar_s like :visualvar_s
+	             </#if> 
+                
+
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridgroupUDA_total">
+        <![CDATA[
+        	SELECT 
+        		COUNT(1) 
+        	FROM
+        		(
+	                        SELECT
+	(i.description) materialdesc_s,
+	(M .machinecode_s) curingmachinecode_s,
+	(M .startTime_t) curingclosemouldtime_t,
+	(M .overTime_t) curingopenmouldtime_t,
+	(D.BARCODE_S) BARCODE_S,
+(D.ITEMID_S) ITEMID_S,
+(D.SHIFTCD_S) SHIFTCD_S,
+(D.VISUALVAR_S) VISUALVAR_S,
+(D.OPERTIME_T) OPERTIME_T,
+(D.GROUPCD_S) GROUPCD_S,
+	 ((
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = n.proess_s
+	) || '-' || (
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = n.ATPRESENTGRADECODE_S
+	)) nowstate,
+	((
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = D .proess_s
+	) || '-' || (
+		SELECT
+			b.dictname_s
+		FROM
+			At_Cm_Bs_Coredictionary b
+		WHERE
+			b.dictcode_s = D .gradecd_s
+	)) pjstate,
+	((
+		SELECT
+			r.reas_cn_s
+		FROM
+			AT_D_BS_Reas r
+		WHERE
+			D .reascd_s = r.reas_code_s (+)
+		
+		AND r.record_flag_s = 'A'
+		AND r.agenc_no_s = '8023'
+	)) reas_cn_s,
+	((
+		SELECT
+			r.collet_code_desc_cn_s
+		FROM
+			AT_D_BS_Reas r
+		WHERE
+			D .reascd_s = r.reas_code_s (+)
+		
+		AND r.record_flag_s = 'A'
+		AND r.agenc_no_s = '8023'
+	)) collet_code_desc_cn_s,
+	(n.reservedate3_s) totalreworknum_i,
+	(n.checknumber_i) totalchecknumber,
+	(U .username) operby,
+	(m.userid_s)  userid,
+	(f.machinecode_s),
+	(f.overtime_t),
+	(f.userid_s ),
+	((select username from CORE_USER r where m.USERID_S=r.usercode)) as username_c,
+    ( (select username from CORE_USER r where f.USERID_S=r.usercode)) as username_b 
+FROM
+	AT_D_QM_Detial D,
+	(
+		SELECT
+			*
+		FROM
+			AT_C_MM_Curing_MainTyre
+		WHERE
+			proess_s = '252006'
+	) M,
+	(
+		SELECT
+			*
+		FROM
+			AT_C_MM_Curing_MainTyre
+		WHERE
+			proess_s = '252008'
+	) n,
+	(select * from AT_C_MM_Curing_MainTyre where proess_s='252005') f,
+	PART i,
+	CORE_USER U,
+	(SELECT MIN(A.OPERTIME_T) OPERTIME_T , A.BARCODE_S FROM AT_D_QM_Detial A 
+WHERE 
+1=1
+GROUP BY 
+A.BARCODE_S
+) Q
+WHERE
+	1 = 1
+AND n.reservedate3_s IS NOT NULL
+AND n.reservedate3_s > '0'
+and  n.tyrebarcode_s=f.tyrebarcode_s(+)
+AND D .itemid_s = i.part_number (+)
+AND D .barcode_s = M .tyrebarcode_s (+)
+AND M .tyrebarcode_s = n.tyrebarcode_s (+)
+AND D .proess_s = '252008'
+AND D .operby_s = U .usercode (+)
+AND Q.OPERTIME_T=D.OPERTIME_T
+AND Q.BARCODE_S=D.BARCODE_S
+
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and d.s_factory_s=:s_factory_s
+             </#if>   
+              <#if agenc_no_s??>
+              	and d.agenc_no_s=:agenc_no_s
+             </#if>  
+              <#if barcode_s??>
+                   and d.barcode_s = :barcode_s
+                </#if> 
+             	<#if operby_s??>
+                   and (u.usercode like :operby_s or u.username like :operby_s)
+                </#if> 
+	             <#if visualvar_s??>
+	                    and d.visualvar_s like :visualvar_s
+	             </#if> 
+				)	   
+        ]]>
+    </sql>
+    
+    
+    
+    
+    
+    
+</sqls>

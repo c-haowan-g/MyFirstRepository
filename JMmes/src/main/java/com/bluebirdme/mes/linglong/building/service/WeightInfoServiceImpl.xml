@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+   
+
+    <sql comment=" 查询胎胚信息数据" id="datagridUDA_rows">
+        <![CDATA[
+	        select 
+			       WT.equip_code_s,
+			       WT.material_code_s,
+				   max(WT.standard_weight_s) standard_weight_s,
+				   count(*) total_number_count
+			from AT_B_MM_WORKORDERRESULT WT
+			where 1=1
+	            <#if s_factory_s??>
+                     and WT.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if agenc_no_s??>
+                     and WT.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if add_flag_s??>
+                     and WT.ADD_FLAG_S=:add_flag_s
+                </#if>
+                
+                <#if building_group_s??>
+                     and WT.BUILDING_GROUP_S=:building_group_s
+                </#if>
+                <#if building_shift_s??>
+                     and WT.BUILDING_SHIFT_S =:building_shift_s
+                </#if>
+                <#if building_weight_s??>
+                     and WT.BUILDING_WEIGHT_S=:building_weight_s
+                </#if>
+                <#if changed_by_s??>
+                     and WT.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and WT.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and WT.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and WT.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if dot_s??>
+                     and WT.DOT_S=:dot_s
+                </#if>
+                <#if equip_code_s??>
+                     and WT.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if equip_name_s??>
+                     and WT.EQUIP_NAME_S =:equip_name_s
+                </#if>
+                <#if first_s??>
+                     and WT.FIRST_S=:first_s
+                </#if>
+                <#if formula_index_s??>
+                     and WT.FORMULA_INDEX_S=:formula_index_s
+                </#if>
+                <#if is_flag_s??>
+                     and WT.IS_FLAG_S=:is_flag_s
+                </#if>
+                <#if material_code_s??>
+                     and WT.MATERIAL_CODE_S =:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and WT.MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if material_spec_s??>
+                     and WT.MATERIAL_SPEC_S=:material_spec_s
+                </#if>
+                <#if plan_no_s??>
+                     and WT.PLAN_NO_S =:plan_no_s
+                </#if>
+                <#if production_ver_s??>
+                     and WT.PRODUCTION_VER_S=:production_ver_s
+                </#if>
+                <#if quality_status_s??>
+                     and WT.QUALITY_STATUS_S=:quality_status_s
+                </#if>
+                <#if record_flag_s??>
+                     and WT.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if serial_number_s??>
+                     and WT.SERIAL_NUMBER_S=:serial_number_s
+                </#if>
+                <#if solid_time_s??>
+                     and WT.SOLID_TIME_S=:solid_time_s
+                </#if>
+                <#if solid_yflag_s??>
+                     and WT.SOLID_YFLAG_S=:solid_yflag_s
+                </#if>
+                <#if spare1_s??>
+                     and WT.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and WT.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and WT.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and WT.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and WT.SPARE5_S=:spare5_s
+                </#if>
+                <#if special_mark_s??>
+                     and WT.SPECIAL_MARK_S=:special_mark_s
+                </#if>
+                <#if status_s??>
+                     and WT.STATUS_S=:status_s
+                </#if>
+                <#if tyre_barcode_s??>
+                     and WT.TYRE_BARCODE_S=:tyre_barcode_s
+                </#if>
+                <#if unit_s??>
+                     and WT.UNIT_S=:unit_s
+                </#if>
+                <#if worker1_id_s??>
+                     and WT.WORKER1_ID_S=:worker1_id_s
+                </#if>
+                <#if worker2_id_s??>
+                     and WT.WORKER2_ID_S=:worker2_id_s
+                </#if>
+                <#if work_order_id_s??>
+                     and WT.WORK_ORDER_ID_S=:work_order_id_s
+                </#if>
+                <#if building_date_t??>
+                     and WT.BUILDING_DATE_T=:building_date_t
+                </#if>
+                <#if begintime?? && endtime??>
+               		and to_char(WT.building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+               		:begintime and :endtime
+              	</#if>
+		    group by WT.equip_code_s,
+		    		 WT.material_code_s
+		             
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+     	  select count(1) from (select WT.equip_code_s,
+			       WT.material_code_s,
+				   max(WT.standard_weight_s) standard_weight_s,
+				   count(*) total_number_count
+			 from AT_B_MM_WORKORDERRESULT WT
+			 	where 1=1
+	            <#if s_factory_s??>
+                     and WT.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if agenc_no_s??>
+                     and WT.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if add_flag_s??>
+                     and WT.ADD_FLAG_S=:add_flag_s
+                </#if>
+                <#if building_group_s??>
+                     and WT.BUILDING_GROUP_S=:building_group_s
+                </#if>
+                <#if building_shift_s??>
+                     and WT.BUILDING_SHIFT_S =:building_shift_s
+                </#if>
+                <#if building_weight_s??>
+                     and WT.BUILDING_WEIGHT_S=:building_weight_s
+                </#if>
+                <#if changed_by_s??>
+                     and WT.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and WT.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and WT.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and WT.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if dot_s??>
+                     and WT.DOT_S=:dot_s
+                </#if>
+                <#if equip_code_s??>
+                     and WT.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if equip_name_s??>
+                     and WT.EQUIP_NAME_S =:equip_name_s
+                </#if>
+                <#if first_s??>
+                     and WT.FIRST_S=:first_s
+                </#if>
+                <#if formula_index_s??>
+                     and WT.FORMULA_INDEX_S=:formula_index_s
+                </#if>
+                <#if is_flag_s??>
+                     and WT.IS_FLAG_S=:is_flag_s
+                </#if>
+                <#if material_code_s??>
+                     and WT.MATERIAL_CODE_S =:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and WT.MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if material_spec_s??>
+                     and WT.MATERIAL_SPEC_S=:material_spec_s
+                </#if>
+                <#if plan_no_s??>
+                     and WT.PLAN_NO_S =:plan_no_s
+                </#if>
+                <#if production_ver_s??>
+                     and WT.PRODUCTION_VER_S=:production_ver_s
+                </#if>
+                <#if quality_status_s??>
+                     and WT.QUALITY_STATUS_S=:quality_status_s
+                </#if>
+                <#if record_flag_s??>
+                     and WT.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if serial_number_s??>
+                     and WT.SERIAL_NUMBER_S=:serial_number_s
+                </#if>
+                <#if solid_time_s??>
+                     and WT.SOLID_TIME_S=:solid_time_s
+                </#if>
+                <#if solid_yflag_s??>
+                     and WT.SOLID_YFLAG_S=:solid_yflag_s
+                </#if>
+                <#if spare1_s??>
+                     and WT.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and WT.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and WT.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and WT.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and WT.SPARE5_S=:spare5_s
+                </#if>
+                <#if special_mark_s??>
+                     and WT.SPECIAL_MARK_S=:special_mark_s
+                </#if>
+                <#if status_s??>
+                     and WT.STATUS_S=:status_s
+                </#if>
+                <#if tyre_barcode_s??>
+                     and WT.TYRE_BARCODE_S =:tyre_barcode_s
+                </#if>
+                <#if unit_s??>
+                     and WT.UNIT_S=:unit_s
+                </#if>
+                <#if worker1_id_s??>
+                     and WT.WORKER1_ID_S=:worker1_id_s
+                </#if>
+                <#if worker2_id_s??>
+                     and WT.WORKER2_ID_S=:worker2_id_s
+                </#if>
+                <#if work_order_id_s??>
+                     and WT.WORK_ORDER_ID_S=:work_order_id_s
+                </#if>
+                <#if building_date_t??>
+                     and WT.BUILDING_DATE_T=:building_date_t
+                </#if>
+                <#if begintime?? && endtime??>
+               		and to_char(WT.building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+               		:begintime and :endtime
+              	</#if>
+              	group by WT.equip_code_s,
+		    		 WT.material_code_s)
+        ]]>
+    </sql>
+   
+	
+	 <sql comment="通过工艺配方查出胎胚重量公差参数" id="getWeightData">
+       <![CDATA[
+            select * from AT_INT_PLM_TolerancePara WHERE 1 = 1 
+              AND PARMCODE_S = '20000061' AND RECORD_FLAG_S = 'A'
+        ]]>
+	</sql>
+	
+	
+	<sql comment="统计胎坯重量合格率" id="getWeightPercent">
+		<![CDATA[
+			SELECT COUNT(CASE WHEN BUILDING_WEIGHT_S BETWEEN :min_weight_s AND :max_weight_s THEN 1 END) AS WEIGHT_OK_S,
+			       COUNT(CASE WHEN BUILDING_WEIGHT_S > :max_weight_s THEN 1 END) AS WEIGHT_BIG_S,
+			       COUNT(CASE WHEN (BUILDING_WEIGHT_S < :min_weight_s OR BUILDING_WEIGHT_S is null)  THEN 1 END) AS WEIGHT_SML_S
+			       FROM AT_B_MM_WORKORDERRESULT 
+			       WHERE 1 = 1 AND
+			       		 EQUIP_CODE_S =:equip_code_s AND
+			       		 MATERIAL_CODE_S =:material_code_s AND
+               			 to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+               			:begintime and :endtime
+		]]>
+	</sql>
+	
+	<sql comment="根据物料编码查物料名称" id="getMaterialName">
+		<![CDATA[
+			SELECT MATERIAL_NAME_S,MATERIAL_CODE_S
+			       FROM AT_B_MM_WORKORDERRESULT 
+			       WHERE 1 = 1 AND
+			       		 MATERIAL_CODE_S =:material_code_s 
+			       		 AND add_flag_s='105001' AND
+               			 to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+               			:begintime and :endtime
+		]]>
+	</sql>
+	
+	
+	
+</sqls>

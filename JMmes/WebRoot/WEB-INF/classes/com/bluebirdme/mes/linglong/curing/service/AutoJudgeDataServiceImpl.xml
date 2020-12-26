@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_C_QM_AutoJudgeData where 1=1
+            	and isoere_s='RE'
+                <#if address_one_s??>
+                     and ADDRESS_ONE_S=:address_one_s
+                </#if>
+                <#if address_two_s??>
+                     and ADDRESS_TWO_S=:address_two_s
+                </#if>
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alarm_deal_code_s??>
+                     and ALARM_DEAL_CODE_S=:alarm_deal_code_s
+                </#if>
+                <#if alarm_deal_desc_s??>
+                     and ALARM_DEAL_DESC_S=:alarm_deal_desc_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if first_recordtime_t??>
+                     and FIRST_RECORDTIME_T=:first_recordtime_t
+                </#if>
+                <#if gettime_one_s??>
+                     and GETTIME_ONE_S=:gettime_one_s
+                </#if>
+                <#if judge_lever_s??>
+                     and JUDGE_LEVER_S=:judge_lever_s
+                </#if>
+                <#if judge_type_s??>
+                     and JUDGE_TYPE_S=:judge_type_s
+                </#if>
+                <#if limit_lower2_s??>
+                     and LIMIT_LOWER2_S=:limit_lower2_s
+                </#if>
+                <#if limit_lower_s??>
+                     and LIMIT_LOWER_S=:limit_lower_s
+                </#if>
+                <#if limit_upper2_s??>
+                     and LIMIT_UPPER2_S=:limit_upper2_s
+                </#if>
+                <#if limit_upper_s??>
+                     and LIMIT_UPPER_S=:limit_upper_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if plc_pointdesc_s??>
+                     and PLC_POINTDESC_S=:plc_pointdesc_s
+                </#if>
+                <#if plc_point_s??>
+                     and PLC_POINT_S=:plc_point_s
+                </#if>
+                <#if point_one_s??>
+                     and POINT_ONE_S=:point_one_s
+                </#if>
+                <#if point_two_s??>
+                     and POINT_TWO_S=:point_two_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if valid_delay_s??>
+                     and VALID_DELAY_S=:valid_delay_s
+                </#if>
+                <#if value_one_s??>
+                     and VALUE_ONE_S=:value_one_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_C_QM_AutoJudgeData where 1=1
+            and isoere_s='RE'
+                    <#if address_one_s??>
+                         and ADDRESS_ONE_S=:address_one_s
+                    </#if>
+                    <#if address_two_s??>
+                         and ADDRESS_TWO_S=:address_two_s
+                    </#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if alarm_deal_code_s??>
+                         and ALARM_DEAL_CODE_S=:alarm_deal_code_s
+                    </#if>
+                    <#if alarm_deal_desc_s??>
+                         and ALARM_DEAL_DESC_S=:alarm_deal_desc_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if first_recordtime_t??>
+                         and FIRST_RECORDTIME_T=:first_recordtime_t
+                    </#if>
+                    <#if gettime_one_s??>
+                         and GETTIME_ONE_S=:gettime_one_s
+                    </#if>
+                    <#if judge_lever_s??>
+                         and JUDGE_LEVER_S=:judge_lever_s
+                    </#if>
+                    <#if judge_type_s??>
+                         and JUDGE_TYPE_S=:judge_type_s
+                    </#if>
+                    <#if limit_lower2_s??>
+                         and LIMIT_LOWER2_S=:limit_lower2_s
+                    </#if>
+                    <#if limit_lower_s??>
+                         and LIMIT_LOWER_S=:limit_lower_s
+                    </#if>
+                    <#if limit_upper2_s??>
+                         and LIMIT_UPPER2_S=:limit_upper2_s
+                    </#if>
+                    <#if limit_upper_s??>
+                         and LIMIT_UPPER_S=:limit_upper_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if plc_pointdesc_s??>
+                         and PLC_POINTDESC_S=:plc_pointdesc_s
+                    </#if>
+                    <#if plc_point_s??>
+                         and PLC_POINT_S=:plc_point_s
+                    </#if>
+                    <#if point_one_s??>
+                         and POINT_ONE_S=:point_one_s
+                    </#if>
+                    <#if point_two_s??>
+                         and POINT_TWO_S=:point_two_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if valid_delay_s??>
+                         and VALID_DELAY_S=:valid_delay_s
+                    </#if>
+                    <#if value_one_s??>
+                         and VALUE_ONE_S=:value_one_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="内容查询" id="searchBy">
+       <![CDATA[
+            select * from AT_C_QM_AutoJudgeData 
+            where record_flag_s ='A'
+            and s_factory_s=:s_factory_s
+            and isoere_s='RE'
+        ]]>
+	</sql>
+	
+	<sql comment="修改内压压力时间时的查询" id="addSaveQuery">
+       <![CDATA[
+            select * from AT_C_QM_AutoJudgeData 
+            where record_flag_s ='A'
+            and isoere_s='RE'
+            and s_factory_s=:s_factory_s
+            and alarm_deal_code_s=:alarm_deal_code_s
+        ]]>
+	</sql>
+	
+	<sql comment="修改条件查询ATR_KEY,根据atr_key修改数据" id="queryIdUpdate">
+       <![CDATA[
+            SELECT ATR_KEY AT_C_QM_AUTOJUDGEDATA 
+            WHERE PLC_POINTDESC_S =:plc_pointdesc_s
+			AND ISOERE_S=:isoere_s 
+			AND VALUE_ONE_S=:value_one_s 
+			AND S_FACTORY_S=:s_factory_s
+        ]]>
+	</sql>
+	
+</sqls>

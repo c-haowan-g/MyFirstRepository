@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+				SELECT PA.PART_NUMBER AS Amaterialcode_s,PA.DESCRIPTION AS Amaterialdesc_s,
+				MA.*,(MA.CHANGED_BY_S||US1.USERNAME) as changed_by_name
+				FROM 
+					(SELECT PART.PART_NUMBER,PART.DESCRIPTION FROM PART,
+						(SELECT PART_CLASS_PART.PART_KEY 
+								FROM PART_CLASS_PART
+								WHERE PART_CLASS_PART.PART_CLASS_KEY IN(
+									SELECT PART_CLASS.PART_CLASS_KEY 
+									FROM PART_CLASS
+									WHERE PART_CLASS.PART_CLASS_NAME 
+									IN('221001','221002','211001','211003')
+									)
+							)C,UDA_PART
+					 WHERE PART.PART_KEY = C.PART_KEY
+					 AND UDA_PART.OBJECT_KEY = PART.PART_KEY
+					 AND UDA_PART.mattyp_s = 'FERT'
+					 <#if materialcode_s??>
+						and PART.PART_NUMBER like:materialcode_s
+					</#if>
+					<#if materialdesc_s??>
+	                     and PART.DESCRIPTION like:materialdesc_s
+	                </#if>
+				)PA
+				LEFT JOIN AT_INT_SAP_MATERIALSPLUS MA ON PA.PART_NUMBER = MA.MATERIALCODE_S
+				LEFT JOIN CORE_USER US1 ON MA.CHANGED_BY_S=US1.USERCODE
+				<#if innerdia_d??>
+                     and MA.INNERDIA_D like:innerdia_d
+                </#if>
+                <#if outerdia_d??>
+                     and MA.OUTERDIA_D like:outerdia_d
+                </#if>
+                <#if tyreheight_d??>
+                     and MA.TYREHEIGHT_D like:tyreheight_d
+                </#if>
+                <#if sort??&&order??>
+	                order by ${sort} ${order}
+	                <#else>
+	                order by MA.atr_key asc
+	            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) 
+				FROM 
+					(SELECT PART.PART_NUMBER,PART.DESCRIPTION FROM PART,
+						(SELECT PART_CLASS_PART.PART_KEY 
+								FROM PART_CLASS_PART
+								WHERE PART_CLASS_PART.PART_CLASS_KEY IN(
+									SELECT PART_CLASS.PART_CLASS_KEY 
+									FROM PART_CLASS
+									WHERE PART_CLASS.PART_CLASS_NAME 
+									IN('221001','221002','211001','211003')
+									)
+							)C,UDA_PART
+					 WHERE PART.PART_KEY = C.PART_KEY
+					 AND UDA_PART.OBJECT_KEY = PART.PART_KEY
+					 AND UDA_PART.mattyp_s = 'FERT'
+					 <#if materialcode_s??>
+						and PART.PART_NUMBER like:materialcode_s
+					</#if>
+					<#if materialdesc_s??>
+	                     and PART.DESCRIPTION like:materialdesc_s
+	                </#if>
+				)PA
+				LEFT JOIN AT_INT_SAP_MATERIALSPLUS MA ON PA.PART_NUMBER = MA.MATERIALCODE_S
+				LEFT JOIN CORE_USER US1 ON MA.CHANGED_BY_S=US1.USERCODE
+				<#if innerdia_d??>
+                     and MA.INNERDIA_D like:innerdia_d
+                </#if>
+                <#if outerdia_d??>
+                     and MA.OUTERDIA_D like:outerdia_d
+                </#if>
+                <#if tyreheight_d??>
+                     and MA.TYREHEIGHT_D like:tyreheight_d
+                </#if>
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="getMaterialPlusParams">
+       <![CDATA[
+         	select t.innerdia_d,t.outerdia_d,t.tyrewidth_d,t.beadwidth_d
+				  from AT_INT_SAP_MATERIALSPLUS t
+				 where t.materialcode_s = :materialCode
+				 and rownum=1
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_rowstime">
+        <![CDATA[
+	        select
+	             m.materialcode_s as Amaterialcode_s,
+			     m.materialdesc_s as Amaterialdesc_s,m.matgrp_s,u.usercode||u.username changed_by_name,p.*
+				  from AT_INT_SAP_MATERIALS m, AT_INT_SAP_MATERIALSPLUS p,CORE_USER u
+				 where m.materialcode_s = p.materialcode_s(+)
+				 and p.changed_by_s=u.usercode(+)
+				 and m.mattyp_s != 'FERT'
+				 and m.matgrp_s  not in ('221001','221002','211001','211003')
+				 and m.status_s is null
+				 and p.spare10_s='1'
+				 <#if matgrp_s??>
+                     and m.matgrp_s =:matgrp_s
+                </#if>
+                <#if materialcode_s??>
+                     and m.MATERIALCODE_S like:materialcode_s
+                </#if>
+                <#if materialdesc_s??>
+                     and m.materialdesc_s like:materialdesc_s
+                </#if>
+	            <#if sort??&&order??>
+	                order by ${sort} ${order}
+	                <#else>
+	                order by m.materialgroup_s asc,m.materialcode_s
+	            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_totaltime">
+        <![CDATA[
+          select count(1)
+				  from AT_INT_SAP_MATERIALS m, AT_INT_SAP_MATERIALSPLUS p,CORE_USER u
+				 where m.materialcode_s = p.materialcode_s(+)
+				 and p.changed_by_s=u.usercode(+)
+				 and m.mattyp_s != 'FERT'
+				 and m.matgrp_s  not in ('221001','221002','211001','211003')
+				 and m.status_s is null
+				   and p.spare10_s='1'
+				 <#if matgrp_s??>
+                     and m.matgrp_s =:matgrp_s
+                </#if>
+                <#if materialcode_s??>
+                     and m.MATERIALCODE_S like:materialcode_s
+                </#if>
+                <#if materialdesc_s??>
+                     and m.materialdesc_s like:materialdesc_s
+                </#if>
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagrid_grouptime">
+        <![CDATA[
+	       select
+	           max(p.overtime_f) overtime_f,max(p.smalltime_f) smalltime_f,
+	           m.matgrp_s,
+	           max(u.usercode||u.username) changed_by_name,to_char(max(p.changed_time_t),'yyyy-MM-dd HH24:mi:ss') changed_time_t
+	          from AT_INT_SAP_MATERIALS m, AT_INT_SAP_MATERIALSPLUS p,CORE_USER u
+	         where m.materialcode_s = p.materialcode_s(+)
+	         and p.changed_by_s=u.usercode(+)
+	         and m.mattyp_s != 'FERT'
+	         and m.matgrp_s  not in ('221001','221002','211001','211003')
+	         and m.status_s is null
+	           and p.spare10_s='0'
+	         <#if matgrp_s??>
+                     and m.matgrp_s =:matgrp_s
+             </#if>
+	         group by matgrp_s
+          ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="datagrid_grouptotaltime">
+        <![CDATA[
+        select count(1) from 
+        	(
+	         select
+		           max(p.overtime_f),max(p.smalltime_f),
+		           m.matgrp_s,
+		           max(u.usercode||u.username) changed_by_name
+		          from AT_INT_SAP_MATERIALS m, AT_INT_SAP_MATERIALSPLUS p,CORE_USER u
+		         where m.materialcode_s = p.materialcode_s(+)
+		         and p.changed_by_s=u.usercode(+)
+		         and m.mattyp_s != 'FERT'
+		         and m.matgrp_s  not in ('221001','221002','211001','211003')
+		         and m.status_s is null
+		         and p.spare10_s='0'
+		         <#if matgrp_s??>
+                     and m.matgrp_s =:matgrp_s
+             	 </#if>
+		         group by matgrp_s
+        	)
+           ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagrid_sapmaterial">
+        <![CDATA[
+        	  select
+	           m.materialcode_s as MATERIALCODE_S,
+	           m.materialdesc_s as MATERIALDESC_S
+          	from AT_INT_SAP_MATERIALS m, AT_INT_SAP_MATERIALSPLUS p,CORE_USER u, at_cm_bs_coredictionary c
+		         where m.materialcode_s = p.materialcode_s(+)
+		         and m.matgrp_s = c.erpcode_s(+)
+		         and p.changed_by_s=u.usercode(+)
+		         and m.mattyp_s != 'FERT'
+		         and m.matgrp_s  not in ('221001','221002','211001','211003')
+		         and m.status_s is null
+		         and c.dictcode_s like '308%'
+		         and (c.dictname_s like '半成品%' or c.dictname_s like '原料%')
+         ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="getMaterialGroupList">
+        <![CDATA[
+        	  select
+	           m.materialcode_s as MATERIALCODE_S,
+	           m.materialdesc_s as MATERIALDESC_S
+          	from AT_INT_SAP_MATERIALS m, AT_INT_SAP_MATERIALSPLUS p,CORE_USER u, at_cm_bs_coredictionary c
+		         where m.materialcode_s = p.materialcode_s(+)
+		         and m.matgrp_s = c.erpcode_s(+)
+		         and p.changed_by_s=u.usercode(+)
+		         and m.mattyp_s != 'FERT'
+		         and m.matgrp_s  not in ('221001','221002','211001','211003')
+		         and m.status_s is null
+		         and c.dictcode_s like '308%'
+		         and (c.dictname_s like '半成品%' or c.dictname_s like '原料%')
+         ]]>
+    </sql>
+</sqls>

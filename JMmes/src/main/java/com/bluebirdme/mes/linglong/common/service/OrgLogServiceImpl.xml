@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_INT_HR_ORG_LOG where 1=1
+                <#if iftrans_s??>
+                     and IFTRANS_S=:iftrans_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if mes_id_i??>
+                      and MES_ID_I like  :mes_id_i || '%'
+                </#if>
+                <#if mes_pid_i??>
+                     and MES_PID_I=:mes_pid_i
+                </#if>
+                <#if name_s??>
+                    and NAME_S like  :name_s || '%'
+               </#if>
+                <#if org_id_s??>
+                     and ORG_ID_S=:org_id_s
+                </#if>
+                <#if parent_id_s??>
+                     and PARENT_ID_S=:parent_id_s
+                </#if>
+                <#if start_time?? && end_time??>
+                 and RECEIVE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+	           	<#if start_time?? && !end_time??>
+	                 and RECEIVE_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+	            <#if !start_time?? && end_time??>
+	                 and RECEIVE_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+	            </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if sortno_i??>
+                     and SORTNO_I=:sortno_i
+                </#if>
+                <#if state_s??>
+                     and STATE_S=:state_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by receive_time_t desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_INT_HR_ORG_LOG where 1=1
+                    <#if iftrans_s??>
+                         and IFTRANS_S=:iftrans_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                     <#if mes_id_i??>
+                      and MES_ID_I like  :mes_id_i || '%'
+               		 </#if>
+                    <#if mes_pid_i??>
+                         and MES_PID_I=:mes_pid_i
+                    </#if>
+                    <#if name_s??>
+                         and NAME_S like  :name_s || '%'
+                    </#if>
+                    <#if org_id_s??>
+                         and ORG_ID_S=:org_id_s
+                    </#if>
+                    <#if parent_id_s??>
+                         and PARENT_ID_S=:parent_id_s
+                    </#if>
+                    <#if start_time?? && end_time??>
+	                 and RECEIVE_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		           	<#if start_time?? && !end_time??>
+		                 and RECEIVE_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		            <#if !start_time?? && end_time??>
+		                 and RECEIVE_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+		            </#if>
+                    
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if sortno_i??>
+                         and SORTNO_I=:sortno_i
+                    </#if>
+                    <#if state_s??>
+                         and STATE_S=:state_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

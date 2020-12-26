@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select pm.*,  (select u.username from core_user u
+    		  	where u.usercode =pm.change_by_s) changeby
+    		  	 from AT_A_PM_PRODUCTPLAN_MIDDLE pm
+             where 1=1
+                <#if change_date_t??>
+                     and pm.CHANGE_DATE_T=:change_date_t
+                </#if>
+                <#if equip_code_s??>
+                     and pm.EQUIP_CODE_S like:equip_code_s
+                </#if>
+                <#if materialcode_s??>
+                     and pm.MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialdesc_s??>
+                     and pm.MATERIALDESC_S=:materialdesc_s
+                </#if>
+                <#if planno_s??>
+                     and pm.PLANNO_S like:planno_s
+                </#if>
+                <#if spare10_s??>
+                     and pm.SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and pm.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and pm.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and pm.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and pm.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and pm.SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and pm.SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and pm.SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and pm.SPARE8_S=:spare8_s
+                </#if>
+                <#if s_factory_s??>
+                     and pm.SPARE9_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by pm.EQUIP_CODE_S desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_PM_PRODUCTPLAN_MIDDLE pm
+             where 1=1
+                <#if change_date_t??>
+                     and pm.CHANGE_DATE_T=:change_date_t
+                </#if>
+                <#if equip_code_s??>
+                     and pm.EQUIP_CODE_S like:equip_code_s
+                </#if>
+                <#if materialcode_s??>
+                     and pm.MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialdesc_s??>
+                     and pm.MATERIALDESC_S=:materialdesc_s
+                </#if>
+                <#if planno_s??>
+                     and pm.PLANNO_S like:planno_s
+                </#if>
+                <#if spare10_s??>
+                     and pm.SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and pm.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and pm.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and pm.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and pm.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and pm.SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and pm.SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and pm.SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and pm.SPARE8_S=:spare8_s
+                </#if>
+               <#if s_factory_s??>
+                     and pm.SPARE9_S=:s_factory_s
+               </#if>
+        ]]>
+    </sql>
+    
+      <sql comment="查询半部件用产线" id="getHalfPartProductionLine">
+        <![CDATA[
+			select t.p_line_name,t.description
+			  from Production_Line t,
+			       Uda_ProductionLine m 
+			 where t.p_line_key=m.object_key
+			   and m.process_s=:process
+			   and m.s_factory_s=:factory
+	      order by t.p_line_name asc
+        ]]>
+    </sql>
+    
+</sqls>

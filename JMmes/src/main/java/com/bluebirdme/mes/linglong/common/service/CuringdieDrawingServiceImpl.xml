@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_INT_PLM_CURINGDIEDRAWING where 1=1
+           		 and RECORD_FLAG_S='A'
+                <#if coversap_s??>
+                     and COVERSAP_S like  :coversap_s ||'%'
+                </#if>
+                <#if filename_s??>
+                     and FILENAME_S like :filename_s ||'%'
+                </#if>
+                <#if file_s??>
+                     and FILE_S=:file_s
+                </#if>
+                <#if receive_time_t??>
+                     and RECEIVE_TIME_T=:receive_time_t
+                </#if>
+	            <#if sort??&&order??>
+	                order by ${sort} ${order}
+	                <#else>
+	                order by atr_key desc
+	            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_INT_PLM_CURINGDIEDRAWING where 1=1
+                    <#if coversap_s??>
+                         and COVERSAP_S=:coversap_s
+                    </#if>
+                    <#if filename_s??>
+                         and FILENAME_S=:filename_s
+                    </#if>
+                    <#if file_s??>
+                         and FILE_S=:file_s
+                    </#if>
+                    <#if receive_time_t??>
+                         and RECEIVE_TIME_T=:receive_time_t
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

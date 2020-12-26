@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_MX_MM_FEED_REQUEST where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if carrier_code_s??>
+                     and CARRIER_CODE_S=:carrier_code_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if datasource_s??>
+                     and DATASOURCE_S=:datasource_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if equip_name_s??>
+                     and EQUIP_NAME_S=:equip_name_s
+                </#if>
+                <#if error_allow_s??>
+                     and ERROR_ALLOW_S=:error_allow_s
+                </#if>
+                <#if group_code_s??>
+                     and GROUP_CODE_S=:group_code_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if input_type_s??>
+                     and INPUT_TYPE_S=:input_type_s
+                </#if>
+                <#if is_pass_s??>
+                     and IS_PASS_S=:is_pass_s
+                </#if>
+                <#if lot_no_s??>
+                     and LOT_NO_S=:lot_no_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if pipeline_s??>
+                     and PIPELINE_S=:pipeline_s
+                </#if>
+                <#if receive_remark_s??>
+                     and RECEIVE_REMARK_S=:receive_remark_s
+                </#if>
+                <#if receive_time_t??>
+                     and RECEIVE_TIME_T=:receive_time_t
+                </#if>
+                <#if recipe_code_s??>
+                     and RECIPE_CODE_S=:recipe_code_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if request_remark_s??>
+                     and REQUEST_REMARK_S=:request_remark_s
+                </#if>
+                <#if request_state_s??>
+                     and REQUEST_STATE_S=:request_state_s
+                </#if>
+                <#if request_time_t??>
+                     and REQUEST_TIME_T=:request_time_t
+                </#if>
+                <#if scan_by_s??>
+                     and SCAN_BY_S=:scan_by_s
+                </#if>
+                <#if scan_name_s??>
+                     and SCAN_NAME_S=:scan_name_s
+                </#if>
+                <#if scan_time_t??>
+                     and SCAN_TIME_T=:scan_time_t
+                </#if>
+                <#if serial_id_s??>
+                     and SERIAL_ID_S=:serial_id_s
+                </#if>
+                <#if shift_code_s??>
+                     and SHIFT_CODE_S=:shift_code_s
+                </#if>
+                <#if silono_s??>
+                     and SILONO_S=:silono_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if transactionid_s??>
+                     and TRANSACTIONID_S=:transactionid_s
+                </#if>
+                <#if username_s??>
+                     and USERNAME_S=:username_s
+                </#if>
+                <#if weight_s??>
+                     and WEIGHT_S=:weight_s
+                </#if>
+                <#if weigh_type_s??>
+                     and WEIGH_TYPE_S=:weigh_type_s
+                </#if>
+                <#if wo_no_s??>
+                     and WO_NO_S=:wo_no_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_MX_MM_FEED_REQUEST where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if carrier_code_s??>
+                         and CARRIER_CODE_S=:carrier_code_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if datasource_s??>
+                         and DATASOURCE_S=:datasource_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if equip_name_s??>
+                         and EQUIP_NAME_S=:equip_name_s
+                    </#if>
+                    <#if error_allow_s??>
+                         and ERROR_ALLOW_S=:error_allow_s
+                    </#if>
+                    <#if group_code_s??>
+                         and GROUP_CODE_S=:group_code_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if input_type_s??>
+                         and INPUT_TYPE_S=:input_type_s
+                    </#if>
+                    <#if is_pass_s??>
+                         and IS_PASS_S=:is_pass_s
+                    </#if>
+                    <#if lot_no_s??>
+                         and LOT_NO_S=:lot_no_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S=:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if pipeline_s??>
+                         and PIPELINE_S=:pipeline_s
+                    </#if>
+                    <#if receive_remark_s??>
+                         and RECEIVE_REMARK_S=:receive_remark_s
+                    </#if>
+                    <#if receive_time_t??>
+                         and RECEIVE_TIME_T=:receive_time_t
+                    </#if>
+                    <#if recipe_code_s??>
+                         and RECIPE_CODE_S=:recipe_code_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if request_remark_s??>
+                         and REQUEST_REMARK_S=:request_remark_s
+                    </#if>
+                    <#if request_state_s??>
+                         and REQUEST_STATE_S=:request_state_s
+                    </#if>
+                    <#if request_time_t??>
+                         and REQUEST_TIME_T=:request_time_t
+                    </#if>
+                    <#if scan_by_s??>
+                         and SCAN_BY_S=:scan_by_s
+                    </#if>
+                    <#if scan_name_s??>
+                         and SCAN_NAME_S=:scan_name_s
+                    </#if>
+                    <#if scan_time_t??>
+                         and SCAN_TIME_T=:scan_time_t
+                    </#if>
+                    <#if serial_id_s??>
+                         and SERIAL_ID_S=:serial_id_s
+                    </#if>
+                    <#if shift_code_s??>
+                         and SHIFT_CODE_S=:shift_code_s
+                    </#if>
+                    <#if silono_s??>
+                         and SILONO_S=:silono_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if transactionid_s??>
+                         and TRANSACTIONID_S=:transactionid_s
+                    </#if>
+                    <#if username_s??>
+                         and USERNAME_S=:username_s
+                    </#if>
+                    <#if weight_s??>
+                         and WEIGHT_S=:weight_s
+                    </#if>
+                    <#if weigh_type_s??>
+                         and WEIGH_TYPE_S=:weigh_type_s
+                    </#if>
+                    <#if wo_no_s??>
+                         and WO_NO_S=:wo_no_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

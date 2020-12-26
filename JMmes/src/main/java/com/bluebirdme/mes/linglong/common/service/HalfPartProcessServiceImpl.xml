@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select a.*,b.EQUIPMENTTYPENAME_S equipmenttypename_s,b.EQUIPMENTNAME_S equipmentname_s 
+            from AT_INT_PLM_HALFPARTPROCESS a left join AT_INT_PLM_DEVICELIST b on a.EQUIPMENTCODE_S=b.EQUIPMENTCODE_S 
+            where a.RECORD_FLAG_S='A' and b.RECORD_FLAG_S='A'
+                <#if assemname_s??>
+                     and a.ASSEMNAME_S like :assemname_s
+                </#if>
+                <#if assempdmmat_s??>
+                     and a.ASSEMPDMMAT_S like:assempdmmat_s
+                </#if>
+                <#if assemsapmat_s??>
+                     and a.ASSEMSAPMAT_S like:assemsapmat_s
+                </#if>
+                <#if assemsapmat_temp_s??>
+                     and a.ASSEMSAPMAT_TEMP_S=:assemsapmat_temp_s
+                </#if>
+                <#if createdate_s??>
+                     and a.CREATEDATE_S=:createdate_s
+                </#if>
+                <#if createuser_s??>
+                     and a.CREATEUSER_S=:createuser_s
+                </#if>
+                <#if dummy1_s??>
+                     and a.DUMMY1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and a.DUMMY2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and a.DUMMY3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and a.DUMMY4_S=:dummy4_s
+                </#if>
+                <#if dummy5_s??>
+                     and a.DUMMY5_S=:dummy5_s
+                </#if>
+                <#if equipmentcode_s??>
+                     and a.EQUIPMENTCODE_S=:equipmentcode_s
+                </#if>
+                <#if expireddate_s??>
+                     and a.EXPIREDDATE_S=:expireddate_s
+                </#if>
+                <#if s_factory_s??>
+                     and a.FACTORY_S=:s_factory_s
+                </#if>
+                <#if id_s??>
+                     and a.ID_S=:id_s
+                </#if>
+                <#if modifier_s??>
+                     and a.MODIFIER_S=:modifier_s
+                </#if>
+                <#if processroute_s??>
+                     and a.PROCESSROUTE_S=:processroute_s
+                </#if>
+                <#if processversion_s??>
+                     and a.PROCESSVERSION_S=:processversion_s
+                </#if>
+                <#if receive_time_t??>
+                     and a.RECEIVE_TIME_T=:receive_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and a.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if version_s??>
+                     and a.VERSION_S=:version_s
+                </#if>
+                <#if werks_s??>
+                     and a.WERKS_S=:werks_s
+                </#if>
+                <#if equipmentname_s??>
+                     and b.EQUIPMENTNAME_S like :equipmentname_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by a.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from  (
+				            		select a.*,b.EQUIPMENTTYPENAME_S equipmenttypename_s,b.EQUIPMENTNAME_S equipmentname_s 
+						            from AT_INT_PLM_HALFPARTPROCESS a left join AT_INT_PLM_DEVICELIST b on a.EQUIPMENTCODE_S=b.EQUIPMENTCODE_S 
+						            where a.RECORD_FLAG_S='A' and b.RECORD_FLAG_S='A'
+						                <#if assemname_s??>
+						                     and a.ASSEMNAME_S like :assemname_s
+						                </#if>
+						                <#if assempdmmat_s??>
+						                     and a.ASSEMPDMMAT_S like:assempdmmat_s
+						                </#if>
+						                <#if assemsapmat_s??>
+						                     and a.ASSEMSAPMAT_S like:assemsapmat_s
+						                </#if>
+						                <#if assemsapmat_temp_s??>
+						                     and a.ASSEMSAPMAT_TEMP_S=:assemsapmat_temp_s
+						                </#if>
+						                <#if createdate_s??>
+						                     and a.CREATEDATE_S=:createdate_s
+						                </#if>
+						                <#if createuser_s??>
+						                     and a.CREATEUSER_S=:createuser_s
+						                </#if>
+						                <#if dummy1_s??>
+						                     and a.DUMMY1_S=:dummy1_s
+						                </#if>
+						                <#if dummy2_s??>
+						                     and a.DUMMY2_S=:dummy2_s
+						                </#if>
+						                <#if dummy3_s??>
+						                     and a.DUMMY3_S=:dummy3_s
+						                </#if>
+						                <#if dummy4_s??>
+						                     and a.DUMMY4_S=:dummy4_s
+						                </#if>
+						                <#if dummy5_s??>
+						                     and a.DUMMY5_S=:dummy5_s
+						                </#if>
+						                <#if equipmentcode_s??>
+						                     and a.EQUIPMENTCODE_S=:equipmentcode_s
+						                </#if>
+						                <#if expireddate_s??>
+						                     and a.EXPIREDDATE_S=:expireddate_s
+						                </#if>
+						                <#if s_factory_s??>
+						                     and a.FACTORY_S=:s_factory_s
+						                </#if>
+						                <#if id_s??>
+						                     and a.ID_S=:id_s
+						                </#if>
+						                <#if modifier_s??>
+						                     and a.MODIFIER_S=:modifier_s
+						                </#if>
+						                <#if processroute_s??>
+						                     and a.PROCESSROUTE_S=:processroute_s
+						                </#if>
+						                <#if processversion_s??>
+						                     and a.PROCESSVERSION_S=:processversion_s
+						                </#if>
+						                <#if receive_time_t??>
+						                     and a.RECEIVE_TIME_T=:receive_time_t
+						                </#if>
+						                <#if record_flag_s??>
+						                     and a.RECORD_FLAG_S=:record_flag_s
+						                </#if>
+						                <#if version_s??>
+						                     and a.VERSION_S=:version_s
+						                </#if>
+						                <#if werks_s??>
+						                     and a.WERKS_S=:werks_s
+						                </#if>
+						                <#if equipmentname_s??>
+						                     and b.EQUIPMENTNAME_S like :equipmentname_s
+						                </#if>
+						            <#if sort??&&order??>
+						                order by ${sort} ${order}
+						                <#else>
+						                order by a.atr_key desc
+						            </#if>
+					            )
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="curingparameter">
+        <![CDATA[
+       	 	select r.ID_S,r.PROCESS_ID_S,r.PARMCODE_S
+       	 	,r.PARMNAME_S,r.PARMTYPECODE_S,
+       	 	r.PARMTYPENAME_S,r.VALUE_S,
+			r.VALUEMAX_S,r.VALUEMIN_S,
+			r.VALUEMAXSIGN_S,r.VALUEMINSIGN_S,
+			r.DUMMY1_S,r.DUMMY2_S,
+			r.DUMMY3_S,r.DUMMY4_S,
+			r.DUMMY5_S,r.RECEIVE_TIME_T,
+			r.RECORD_FLAG_S
+  			from AT_INT_PLM_HALFPARTPARAMETER r, AT_INT_PLM_HALFPARTPROCESS b
+ 			where r.process_id_s = b.id_s(+)
+ 			and r.record_flag_s='A'
+      		and b.record_flag_s='A'
+ 			and r.process_id_s=:ids
+ 			order by r.parmtypecode_s,r.parmcode_s desc
+        ]]>
+    </sql>
+</sqls>

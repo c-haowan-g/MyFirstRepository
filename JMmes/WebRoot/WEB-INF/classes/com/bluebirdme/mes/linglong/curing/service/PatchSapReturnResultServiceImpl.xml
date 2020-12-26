@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_C_MM_SAPRETURNRESULT where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if capsule_id_s??>
+                     and CAPSULE_ID_S=:capsule_id_s
+                </#if>
+                <#if chaged_by_s??>
+                     and CHAGEDdatagridUDARowsThree_BY_S=:chaged_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if class_id_s??>
+                     and CLASS_ID_S=:class_id_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if curings_candate_t??>
+                     and CURINGS_CANDATE_T=:curings_candate_t
+                </#if>
+                <#if curing_closemoulddate_t??>
+                     and CURING_CLOSEMOULDDATE_T=:curing_closemoulddate_t
+                </#if>
+                <#if curing_openmoulddate_t??>
+                     and CURING_OPENMOULDDATE_T=:curing_openmoulddate_t
+                </#if>
+                <#if curing_worker_s??>
+                     and CURING_WORKER_S=:curing_worker_s
+                </#if>
+                <#if dot_s??>
+                     and DOT_S=:dot_s
+                </#if>
+                <#if embryos_point_s??>
+                     and EMBRYOS_POINT_S=:embryos_point_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if first_potflag_s??>
+                     and FIRST_POTFLAG_S=:first_potflag_s
+                </#if>
+                <#if isflag_s??>
+                     and ISFLAG_S=:isflag_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if mold_code_s??>
+                     and MOLD_CODE_S=:mold_code_s
+                </#if>
+                <#if patch_curingflag_s??>
+                     and PATCH_CURINGFLAG_S=:patch_curingflag_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if productionver_s??>
+                     and PRODUCTIONVER_S=:productionver_s
+                </#if>
+                <#if product_date_t??>
+                     and PRODUCT_DATE_T=:product_date_t
+                </#if>
+                <#if quality_status_s??>
+                     and QUALITY_STATUS_S=:quality_status_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if shift_id_s??>
+                     and SHIFT_ID_S=:shift_id_s
+                </#if>
+                <#if solidif_yflag_s??>
+                     and SOLIDIF_YFLAG_S=:solidif_yflag_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if special_mark_s??>
+                     and SPECIAL_MARK_S=:special_mark_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tyreno_s??>
+                     and TYRENO_S=:tyreno_s
+                </#if>
+                <#if tyre_barcode_s??>
+                     and TYRE_BARCODE_S=:tyre_barcode_s
+                </#if>
+                <#if unit_s??>
+                     and UNIT_S=:unit_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_C_MM_SAPRETURNRESULT where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if capsule_id_s??>
+                         and CAPSULE_ID_S=:capsule_id_s
+                    </#if>
+                    <#if chaged_by_s??>
+                         and CHAGED_BY_S=:chaged_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if class_id_s??>
+                         and CLASS_ID_S=:class_id_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if curings_candate_t??>
+                         and CURINGS_CANDATE_T=:curings_candate_t
+                    </#if>
+                    <#if curing_closemoulddate_t??>
+                         and CURING_CLOSEMOULDDATE_T=:curing_closemoulddate_t
+                    </#if>
+                    <#if curing_openmoulddate_t??>
+                         and CURING_OPENMOULDDATE_T=:curing_openmoulddate_t
+                    </#if>
+                    <#if curing_worker_s??>
+                         and CURING_WORKER_S=:curing_worker_s
+                    </#if>
+                    <#if dot_s??>
+                         and DOT_S=:dot_s
+                    </#if>
+                    <#if embryos_point_s??>
+                         and EMBRYOS_POINT_S=:embryos_point_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if first_potflag_s??>
+                         and FIRST_POTFLAG_S=:first_potflag_s
+                    </#if>
+                    <#if isflag_s??>
+                         and ISFLAG_S=:isflag_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S=:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if mold_code_s??>
+                         and MOLD_CODE_S=:mold_code_s
+                    </#if>
+                    <#if patch_curingflag_s??>
+                         and PATCH_CURINGFLAG_S=:patch_curingflag_s
+                    </#if>
+                    <#if plan_no_s??>
+                         and PLAN_NO_S=:plan_no_s
+                    </#if>
+                    <#if productionver_s??>
+                         and PRODUCTIONVER_S=:productionver_s
+                    </#if>
+                    <#if product_date_t??>
+                         and PRODUCT_DATE_T=:product_date_t
+                    </#if>
+                    <#if quality_status_s??>
+                         and QUALITY_STATUS_S=:quality_status_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if shift_id_s??>
+                         and SHIFT_ID_S=:shift_id_s
+                    </#if>
+                    <#if solidif_yflag_s??>
+                         and SOLIDIF_YFLAG_S=:solidif_yflag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if special_mark_s??>
+                         and SPECIAL_MARK_S=:special_mark_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tyreno_s??>
+                         and TYRENO_S=:tyreno_s
+                    </#if>
+                    <#if tyre_barcode_s??>
+                         and TYRE_BARCODE_S=:tyre_barcode_s
+                    </#if>
+                    <#if unit_s??>
+                         and UNIT_S=:unit_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDARowsThree">
+        <![CDATA[
+			SELECT
+					0 atr_key,
+					'' serid_s,
+					MATERIAL_CODE_S,
+					PRODUCTIONVER_S,
+					MATERIAL_NAME_S,
+					CLASS_ID_S CLASS_ID_S,
+					SPARE6_S,
+					COUNT (1) TOTAL
+				FROM
+					AT_C_MM_SAPRETURNRESULT
+				WHERE
+					1=1
+				AND SOLIDIF_YFLAG_S = '0'
+				AND (SPARE6_S = '1' OR SPARE3_S = '1')
+				AND PATCH_CURINGFLAG_S='1'
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if start_time?? && end_time??>
+	                 and curing_openmoulddate_t between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+	            </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S like:material_code_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            GROUP BY
+				MATERIAL_CODE_S,
+				MATERIAL_NAME_S,
+				PRODUCTIONVER_S,
+				CLASS_ID_S,
+				SPARE6_S
+			ORDER BY
+				CLASS_ID_S,
+				MATERIAL_CODE_S,
+				PRODUCTIONVER_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDATotalThree">
+        <![CDATA[
+        select count(1)from (
+        				SELECT
+					0 atr_key,
+					'' serid_s,
+					MATERIAL_CODE_S,
+					PRODUCTIONVER_S,
+					MATERIAL_NAME_S,
+					CLASS_ID_S CLASS_ID_S,
+					SPARE6_S,
+					COUNT (1) TOTAL
+				FROM
+					AT_C_MM_SAPRETURNRESULT
+				WHERE
+					1=1
+				AND SOLIDIF_YFLAG_S = '0'
+				AND (SPARE6_S = '1' OR SPARE3_S = '1')
+				AND PATCH_CURINGFLAG_S='1'
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if start_time?? && end_time??>
+	                 and curing_openmoulddate_t between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+	            </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S like:material_code_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            GROUP BY
+				MATERIAL_CODE_S,
+				MATERIAL_NAME_S,
+				PRODUCTIONVER_S,
+				CLASS_ID_S,
+				SPARE6_S
+			ORDER BY
+				CLASS_ID_S,
+				MATERIAL_CODE_S,
+				PRODUCTIONVER_S)
+        ]]>
+    </sql>
+
+    <sql comment="datagrid" id="searchProductionDetai">
+        <![CDATA[
+			select ac.*
+			 from AT_C_MM_SAPRETURNRESULT ac
+				where ac.record_flag_s = 'A'
+		     	     and (ac.solidif_yflag_s  = '0' or ac.solidif_yflag_s is null)
+				     and ac.curing_openmoulddate_t between TO_DATE(:beginTime,'YYYY-mm-dd HH24:MI:SS')
+					 and TO_DATE(:endTime,'YYYY-mm-dd HH24:MI:SS')
+		     	     and ac.class_id_s = :classId
+		     	     and ac.productionver_s = :productionver
+		     	     and ac.material_code_s = :materialCode
+		     	     and ac.material_name_s = :materialName
+		     	     and ac.patch_curingflag_s='1'
+		]]>
+    </sql>
+
+     <sql comment="datagrid" id="getSerid">
+        <![CDATA[
+			select max(SUBSTR(Serid_s,6)) as serid from AT_INT_SAP_MESSAPPRODUCTION where s_factory_s='1'
+		]]>
+    </sql>
+
+    <sql comment="datagrid" id="getBatch_id">
+        <![CDATA[
+			select max(Batch_id_s) as batchId from AT_INT_SAP_MESSAPPRODUCTION where s_factory_s='1'
+		]]>
+    </sql>
+    
+    <sql comment="datagrid" id="getBGSerid">
+		<![CDATA[
+			select max(SUBSTR(Serid_s,6)) as serid from AT_INT_SAP_MESSAPPRODUCTION where s_factory_s='2'
+		]]>
+	</sql>
+	
+	<sql comment="datagrid" id="getBGBatch_id">
+		<![CDATA[
+			select max(SUBSTR(Batch_id_s,3)) as batchId from AT_INT_SAP_MESSAPPRODUCTION where s_factory_s='2'
+		]]>
+	</sql>
+</sqls>

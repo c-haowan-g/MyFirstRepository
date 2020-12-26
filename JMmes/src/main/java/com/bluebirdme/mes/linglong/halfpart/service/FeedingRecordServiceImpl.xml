@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select e.description,t.* from AT_A_MM_FEEDINGRECORD t 
+            left join equipment e on e.equip_name =  t.spare1_s
+            where 1=1 
+            and t.RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if barcode_s??>
+                     and t.BARCODE_S like '%'||:barcode_s||'%'
+                </#if>
+                <#if bz_class_s??>
+                     and t.BZ_CLASS_S=:bz_class_s
+                </#if>
+                <#if bz_group_s??>
+                     and t.BZ_GROUP_S=:bz_group_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if consumeamount_f??>
+                     and t.CONSUMEAMOUNT_F=:consumeamount_f
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if feedamount_f??>
+                     and t.FEEDAMOUNT_F=:feedamount_f
+                </#if>
+                <#if feedingtype_s??>
+                     and t.FEEDINGTYPE_S =:feedingtype_s
+                </#if>
+                <#if haveresidual_s??>
+                     and t.HAVERESIDUAL_S=:haveresidual_s
+                </#if>
+                 <#if start_time?? && end_time??>
+	                 and t.INPUTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+                 </#if>         
+                
+                <#if machinecode_s??>
+                     and t.MACHINECODE_S=:machinecode_s
+                </#if>
+                <#if macnumin_f??>
+                     and t.MACNUMIN_F=:macnumin_f
+                </#if>
+                <#if macnumout_f??>
+                     and t.MACNUMOUT_F=:macnumout_f
+                </#if>
+                <#if materialcode_s??>
+                     and t.MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialname_s??>
+                     and t.MATERIALNAME_S=:materialname_s
+                </#if>
+                <#if memo_s??>
+                     and t.MEMO_S=:memo_s
+                </#if>
+                <#if opnum_f??>
+                     and t.OPNUM_F=:opnum_f
+                </#if>
+                <#if order_planno_s??>
+                     and t.ORDER_PLANNO_S=:order_planno_s
+                </#if>
+                <#if productmat_s??>
+                     and t.PRODUCTMAT_S=:productmat_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if removetime_t??>
+                     and t.REMOVETIME_T=:removetime_t
+                </#if>
+                <#if rfidadress_s??>
+                     and t.RFIDADRESS_S=:rfidadress_s
+                </#if>
+                <#if scan_type_s??>
+                     and t.SCAN_TYPE_S=:scan_type_s
+                </#if>
+                <#if serialcode_s??>
+                     and t.SERIALCODE_S=:serialcode_s
+                </#if>
+                <#if source_s??>
+                     and t.SOURCE_S=:source_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if steeldelflag_s??>
+                     and t.STEELDELFLAG_S=:steeldelflag_s
+                </#if>
+                <#if steelflag_s??>
+                     and t.STEELFLAG_S=:steelflag_s
+                </#if>
+                <#if surplusamount_f??>
+                     and t.SURPLUSAMOUNT_F=:surplusamount_f
+                </#if>
+                <#if sync_type_s??>
+                     and t.SYNC_TYPE_S=:sync_type_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if usestatus_s??>
+                     and t.USESTATUS_S=:usestatus_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and t.VEHICLES_CODE_S like '%'||:vehicles_code_s||'%'
+                </#if>
+                <#if worker_id_s??>
+                     and t.WORKER_ID_S=:worker_id_s
+                </#if>
+                <#if worker_name_s??>
+                     and t.WORKER_NAME_S=:worker_name_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.INPUTTIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_A_MM_FEEDINGRECORD  where 1=1 and RECORD_FLAG_S='A'
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S like '%'||:barcode_s||'%'
+                    </#if>
+                    <#if bz_class_s??>
+                         and BZ_CLASS_S=:bz_class_s
+                    </#if>
+                    <#if bz_group_s??>
+                         and BZ_GROUP_S=:bz_group_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if consumeamount_f??>
+                         and CONSUMEAMOUNT_F=:consumeamount_f
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if feedamount_f??>
+                         and FEEDAMOUNT_F=:feedamount_f
+                    </#if>
+                    <#if feedingtype_s??>
+                         and FEEDINGTYPE_S =:feedingtype_s
+                    </#if>
+                    <#if haveresidual_s??>
+                         and HAVERESIDUAL_S=:haveresidual_s
+                    </#if>
+                    <#if start_time?? && end_time??>
+	                     and INPUTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                     and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+                    </#if>         
+                    <#if machinecode_s??>
+                         and MACHINECODE_S=:machinecode_s
+                    </#if>
+                    <#if macnumin_f??>
+                         and MACNUMIN_F=:macnumin_f
+                    </#if>
+                    <#if macnumout_f??>
+                         and MACNUMOUT_F=:macnumout_f
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if opnum_f??>
+                         and OPNUM_F=:opnum_f
+                    </#if>
+                    <#if order_planno_s??>
+                         and ORDER_PLANNO_S=:order_planno_s
+                    </#if>
+                    <#if productmat_s??>
+                         and PRODUCTMAT_S=:productmat_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if removetime_t??>
+                         and REMOVETIME_T=:removetime_t
+                    </#if>
+                    <#if rfidadress_s??>
+                         and RFIDADRESS_S=:rfidadress_s
+                    </#if>
+                    <#if scan_type_s??>
+                         and SCAN_TYPE_S=:scan_type_s
+                    </#if>
+                    <#if serialcode_s??>
+                         and SERIALCODE_S=:serialcode_s
+                    </#if>
+                    <#if source_s??>
+                         and SOURCE_S=:source_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if steeldelflag_s??>
+                         and STEELDELFLAG_S=:steeldelflag_s
+                    </#if>
+                    <#if steelflag_s??>
+                         and STEELFLAG_S=:steelflag_s
+                    </#if>
+                    <#if surplusamount_f??>
+                         and SURPLUSAMOUNT_F=:surplusamount_f
+                    </#if>
+                    <#if sync_type_s??>
+                         and SYNC_TYPE_S=:sync_type_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if usestatus_s??>
+                         and USESTATUS_S=:usestatus_s
+                    </#if>
+                    <#if vehicles_code_s??>
+                         and VEHICLES_CODE_S like '%'||:vehicles_code_s||'%'
+                    </#if>
+                    <#if worker_id_s??>
+                         and WORKER_ID_S=:worker_id_s
+                    </#if>
+                    <#if worker_name_s??>
+                         and WORKER_NAME_S=:worker_name_s
+                    </#if>
+        ]]>
+    </sql>
+  <!--   <sql comment="查出机台条码显示在下拉列表中" id="searchEquipmentCode">
+       <![CDATA[
+		   	select t.P_LINE_NAME from Production_Line t,Uda_ProductionLine m 
+			 where t.p_line_key=m.object_key
+			   and m.process_s=:process
+			   and m.s_factory_s=:s_factory_s
+		 ]]>
+	</sql> -->
+</sqls>
