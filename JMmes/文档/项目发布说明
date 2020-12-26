@@ -1,3 +1,0 @@
-1. 在build.xml右键执行Ant Build
-2. 执行完成后，会看到打包后的jar路径
-3. 将该jar包上传到服务器的tomcat/webapp/lib目录下，重启tomcat

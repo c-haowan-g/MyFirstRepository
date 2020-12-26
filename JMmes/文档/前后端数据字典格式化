@@ -1,9 +1,0 @@
-1. 引入JS
-    <script type="text/javascript" src="dict/字典代码.js"></script>
-        字典代码可以是一个，如：dict/225.js
-        也可以是多个代码，逗号分割，如：dict/225,224.js
-        
-2. 调用dictFormat(代码)即可获取相应的文本内容
-        如：dictFormat(225),即可获取对应的“月计划超产百分比”
-
-3. 后台调用CoreDictionaryServiceImpl.keyValuePair(String...codes)方法，可以获取code<->text的map对象，通过code即可取值
