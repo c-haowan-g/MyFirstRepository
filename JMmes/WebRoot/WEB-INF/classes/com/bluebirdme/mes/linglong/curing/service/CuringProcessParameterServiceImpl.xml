@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="根据硫化和成型工艺查询参数列表、以及PLC逻辑地址" id="getParams">
+        <![CDATA[
+			select 
+			     CP.LOGICALADDRESS_S,
+			     CP.PARMNAME_S,
+			     CP.PARMCODE_S,
+			     X.VALUE_S 
+			from 
+			     at_int_plm_curingrecipepara CP 
+			left join 
+				(
+				    select PARMCODE_S,PARMNAME_S,VALUE_S 
+				    from at_int_plm_curingparameterm 
+				    where 
+				        OBJECTID_S in (
+				        select 
+				            PARMINDX_S 
+				        from 
+				            at_int_plm_curingparameter 
+				        where 
+				            PROCESS_ID_S=:lhProcId
+				            and RECORD_FLAG_S='A'
+				    ) 
+				        and RECORD_FLAG_S='A' 
+				
+				
+				    union ALL
+				
+				    SELECT PARMCODE_S,PARMNAME_S,VALUE_S 
+				    from AT_INT_PLM_BUILDINGPARAMETER 
+				    where 
+				        PROCESS_ID_S=:cxProcId
+				        and PARMNAME_S like '%色标%' 
+				        and RECORD_FLAG_S='A'
+				) x
+			on 
+			    x.PARMCODE_S=CP.PARMCODE_S 
+			where 
+			    LOGICALADDRESS_S is not null 
+			    and RECORD_FLAG_S='A'
+			    and CP.s_Factory_s=:s_Factory_s
+        ]]>
+    </sql>
+    
+     <sql comment="根据硫化参数ID查询硫化总时间" id="getCurringFullTimeParams">
+        <![CDATA[
+			select VALUE_S
+				  from at_int_plm_curingparameterm
+				 where OBJECTID_S in
+				       (select PARMINDX_S
+				          from at_int_plm_curingparameter
+				         where PROCESS_ID_S = :lhProcId
+				           and RECORD_FLAG_S = 'A')
+				   and RECORD_FLAG_S = 'A'
+				   and PARMCODE_S = '1024'
+				   and rownum=1
+        ]]>
+    </sql>
+    
+      <sql comment="获取昨天的试验胎参数信息" id="getTestParams">
+        <![CDATA[
+			 select p.formulapara_id_s,p.parameter_code_s,p.parameter_name_s,p.parameter_value_s,p.parameter_logicaddress_s,p.test_flag_s from  AT_C_MM_PlanCuringParameter p
+                  where p.producting_dayplan_s =(
+                      select t.plan_no_s
+                       from AT_C_PP_PRODUCTIONDAYPLAN t
+                         where to_char(to_date(t.production_date_s,'yyyymmdd')+1,'yyyymmdd') =:productDate
+                         and t.production_line_s = :productionline
+                         and t.record_flag_s='A'
+                         and t.s_factory_s=:s_Factory_s
+                         and t.material_code_left_s=:materialcode)
+                         and p.record_flag_s='A'
+                         and p.s_factory_s=:s_Factory_s
+        ]]>
+    </sql>
+    
+</sqls>

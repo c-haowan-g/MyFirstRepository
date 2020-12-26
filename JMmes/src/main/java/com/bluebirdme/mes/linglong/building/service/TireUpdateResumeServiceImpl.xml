@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            	select qt.*,c.username as creation_by_created from AT_B_QM_TIREWEIGHTCHANGE_LOG qt
+            	left join core_user c on qt.created_by_s=c.usercode
+            	 where 1=1
+                <#if agenc_no_s??>
+                     and qt.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if building_weight_s??>
+                     and qt.BUILDING_WEIGHT_S=:building_weight_s
+                </#if>
+                <#if changed_by_s??>
+                     and qt.CHANGED_BY_S=:changed_by_s
+                </#if>
+              	<#if begin_created_time?? && end_created_time??>
+                    and qt.CREATED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if change_weight_s??>
+                     and qt.CHANGE_WEIGHT_S=:change_weight_s
+                </#if>
+                <#if created_by_s??>
+                     and qt.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and qt.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if material_code_s??>
+                     and qt.MATERIAL_CODE_S like :material_code_s ||'%'
+                </#if>
+                <#if material_spec_s??>
+                     and qt.MATERIAL_SPEC_S=:material_spec_s
+                </#if>
+                <#if record_flag_s??>
+                     and qt.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and qt.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and qt.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and qt.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and qt.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and qt.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and qt.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tyre_barcode_s??>
+                     and qt.TYRE_BARCODE_S like :tyre_barcode_s ||'%'
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by qt.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            		select count(1) from AT_B_QM_TIREWEIGHTCHANGE_LOG qt
+            		left join core_user c on qt.created_by_s=c.usercode
+            		where 1=1
+                    <#if agenc_no_s??>
+                         and qt.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if building_weight_s??>
+                         and qt.BUILDING_WEIGHT_S=:building_weight_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and qt.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                   	<#if begin_created_time?? && end_created_time??>
+                    	and qt.CREATED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 					and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                	</#if>
+                    <#if change_weight_s??>
+                         and qt.CHANGE_WEIGHT_S=:change_weight_s
+                    </#if>
+                    <#if created_by_s??>
+                         and qt.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and qt.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if material_code_s??>
+                         and qt.MATERIAL_CODE_S like :material_code_s ||'%'
+                    </#if>
+                    <#if material_spec_s??>
+                         and qt.MATERIAL_SPEC_S=:material_spec_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and qt.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and qt.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and qt.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and qt.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and qt.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and qt.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and qt.S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tyre_barcode_s??>
+                         and qt.TYRE_BARCODE_S like :tyre_barcode_s ||'%'
+                    </#if>
+        ]]>
+    </sql>
+    
+    
+</sqls>

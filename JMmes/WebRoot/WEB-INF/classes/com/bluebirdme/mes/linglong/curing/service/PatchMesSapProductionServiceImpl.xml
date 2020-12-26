@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_INT_SAP_MESSAPPRODUCTION where 1=1
+                and spare4_s='1'
+                <#if process_s??>
+                	and process_s = :process_s
+                </#if>
+                <#if RECORD_SAP_FLAG_S??>
+                     and RECORD_SAP_FLAG_S=:RECORD_SAP_FLAG_S
+                </#if>
+                <#if actual_quantity_f??>
+                     and ACTUAL_QUANTITY_F=:actual_quantity_f
+                </#if>
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if batch_id_s??>
+                     and BATCH_ID_S like :batch_id_s
+                </#if>
+                <#if batch_s??>
+                     and BATCH_S=:batch_s
+                </#if>
+                <#if boi_flag_s??>
+                     and BOI_FLAG_S=:boi_flag_s
+                </#if>
+                <#if class_id_s??>
+                     and CLASS_ID_S=:class_id_s
+                </#if>
+                <#if doc_date_s??>
+                     and DOC_DATE_S=:doc_date_s
+                </#if>
+                <#if dummy1_s??>
+                     and DUMMY1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and DUMMY2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and DUMMY3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and DUMMY4_S=:dummy4_s
+                </#if>
+                <#if headtxt_s??>
+                     and HEADTXT_S=:headtxt_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S like :material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if operate_time_s??>
+                     and OPERATE_TIME_S=:operate_time_s
+                </#if>
+                <#if operate_userid_s??>
+                     and OPERATE_USERID_S=:operate_userid_s
+                </#if>
+                <#if operate_usernane_s??>
+                     and OPERATE_USERNANE_S like :operate_usernane_s
+                </#if>
+                <#if plant_s??>
+                     and PLANT_S=:plant_s
+                </#if>
+                <#if post_date_s??>
+                     and POST_DATE_S=:post_date_s
+                </#if>
+                <#if product_type_s??>
+                     and PRODUCT_TYPE_S=:product_type_s
+                </#if>
+                <#if pro_version_s??>
+                     and PRO_VERSION_S=:pro_version_s
+                </#if>
+                <#if quantity_f??>
+                     and QUANTITY_F=:quantity_f
+                </#if>
+                and RECORD_FLAG_S='A'
+                <#if record_sap_flag_s??>
+                     and RECORD_SAP_FLAG_S=:record_sap_flag_s
+                </#if>
+                <#if reverser_flag_s??>
+                     and REVERSER_FLAG_S=:reverser_flag_s
+                </#if>
+                <#if rush_quantity_s??>
+                     and RUSH_QUANTITY_S=:rush_quantity_s
+                </#if>
+                <#if rush_serid_s??>
+                     and RUSH_SERID_S=:rush_serid_s
+                </#if>
+                <#if rush_time_t??>
+                     and RUSH_TIME_T=:rush_time_t
+                </#if>
+                <#if rush_userid_s??>
+                     and RUSH_USERID_S=:rush_userid_s
+                </#if>
+                <#if serid_s??>
+                     and SERID_S like :serid_s
+                </#if>
+                <#if solid_flag_s??>
+                     and SOLID_FLAG_S=:solid_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if storage_loc_s??>
+                     and STORAGE_LOC_S=:storage_loc_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if upload_num_s??>
+                     and UPLOAD_NUM_S=:upload_num_s
+                </#if>
+                <#if upload_time_t??>
+                     and UPLOAD_TIME_T=:upload_time_t
+                </#if>
+                <#if upload_userid_s??>
+                     and UPLOAD_USERID_S=:upload_userid_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by batch_id_s desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_INT_SAP_MESSAPPRODUCTION where 1=1
+            and spare4_s='1'
+              <#if process_s??>
+                	and process_s = :process_s
+                </#if>
+                    <#if RECORD_SAP_FLAG_S??>
+	                     and RECORD_SAP_FLAG_S=:RECORD_SAP_FLAG_S
+	                </#if>
+                    <#if actual_quantity_f??>
+                         and ACTUAL_QUANTITY_F=:actual_quantity_f
+                    </#if>
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if batch_id_s??>
+                         and BATCH_ID_S like :batch_id_s
+                    </#if>
+                    <#if batch_s??>
+                         and BATCH_S=:batch_s
+                    </#if>
+                    <#if boi_flag_s??>
+                         and BOI_FLAG_S=:boi_flag_s
+                    </#if>
+                    <#if class_id_s??>
+                         and CLASS_ID_S=:class_id_s
+                    </#if>
+                    <#if doc_date_s??>
+                         and DOC_DATE_S=:doc_date_s
+                    </#if>
+                    <#if dummy1_s??>
+                         and DUMMY1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and DUMMY2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and DUMMY3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and DUMMY4_S=:dummy4_s
+                    </#if>
+                    <#if headtxt_s??>
+                         and HEADTXT_S=:headtxt_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S like :material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if operate_time_s??>
+                         and OPERATE_TIME_S=:operate_time_s
+                    </#if>
+                    <#if operate_userid_s??>
+                         and OPERATE_USERID_S=:operate_userid_s
+                    </#if>
+                    <#if operate_usernane_s??>
+                         and OPERATE_USERNANE_S like :operate_usernane_s
+                    </#if>
+                    <#if plant_s??>
+                         and PLANT_S=:plant_s
+                    </#if>
+                    <#if post_date_s??>
+                         and POST_DATE_S=:post_date_s
+                    </#if>
+                    <#if product_type_s??>
+                         and PRODUCT_TYPE_S=:product_type_s
+                    </#if>
+                    <#if pro_version_s??>
+                         and PRO_VERSION_S=:pro_version_s
+                    </#if>
+                    <#if quantity_f??>
+                         and QUANTITY_F=:quantity_f
+                    </#if>
+                    and RECORD_FLAG_S='A'
+                    <#if record_sap_flag_s??>
+                         and RECORD_SAP_FLAG_S=:record_sap_flag_s
+                    </#if>
+                    <#if reverser_flag_s??>
+                         and REVERSER_FLAG_S=:reverser_flag_s
+                    </#if>
+                    <#if rush_quantity_s??>
+                         and RUSH_QUANTITY_S=:rush_quantity_s
+                    </#if>
+                    <#if rush_serid_s??>
+                         and RUSH_SERID_S=:rush_serid_s
+                    </#if>
+                    <#if rush_time_t??>
+                         and RUSH_TIME_T=:rush_time_t
+                    </#if>
+                    <#if rush_userid_s??>
+                         and RUSH_USERID_S=:rush_userid_s
+                    </#if>
+                    <#if serid_s??>
+                         and SERID_S like :serid_s
+                    </#if>
+                    <#if solid_flag_s??>
+                         and SOLID_FLAG_S=:solid_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if storage_loc_s??>
+                         and STORAGE_LOC_S=:storage_loc_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if upload_num_s??>
+                         and UPLOAD_NUM_S=:upload_num_s
+                    </#if>
+                    <#if upload_time_t??>
+                         and UPLOAD_TIME_T=:upload_time_t
+                    </#if>
+                    <#if upload_userid_s??>
+                         and UPLOAD_USERID_S=:upload_userid_s
+                    </#if>
+        ]]>
+    </sql>
+
+    <sql comment="datagrid" id="searchBy">
+        <![CDATA[
+
+                select ac.tyre_barcode_s,
+                       ac.equip_code_s,
+                       ac.material_code_s,
+                       ac.material_name_s,
+                       me.class_id_s,
+                       ac.curing_grade_s,
+                       ac.product_date_s,
+                       case when me.product_type_s='01' then '报产' when me.product_type_s='02' then '冲产' when me.product_type_s='03' then '异常' end as product_type_s,
+                       me.post_date_s,
+                       me.serid_s,
+                       me.batch_id_s,
+                       me.doc_date_s,
+                       me.batch_s,
+                       me.pro_version_s,
+                       case when me.solid_flag_s='1' then '已固化' else '未固化' end as solid_flag_s,
+                       case when me.record_sap_flag_s='0' then 'SAP未读取' when me.record_sap_flag_s='1' then '已读取' when me.record_sap_flag_s='2' then '正常'
+                       when me.record_sap_flag_s='3' then '错误' end as record_sap_flag_s,
+                       me.storage_loc_s,
+                       me.operate_usernane_s,
+                       me.operate_time_s
+			    from AT_C_MM_productiondetail ac,AT_INT_SAP_MESSAPPRODUCTION me
+				where ac.record_flag_s = 'A' and me.spare4_s='1'
+				     and AC.serial_number_s= me.BATCH_ID_S
+                    <#if process_s??>
+                	    and me.process_s = :process_s
+                    </#if>
+                    <#if batch_id_s??>
+                         and me.BATCH_ID_S like :batch_id_s
+                    </#if>
+                    <#if class_id_s??>
+                         and me.CLASS_ID_S=:class_id_s
+                    </#if>
+                    <#if material_code_s??>
+                         and me.MATERIAL_CODE_S like :material_code_s
+                    </#if>
+                    <#if operate_usernane_s??>
+                         and me.OPERATE_USERNANE_S like :operate_usernane_s
+                    </#if>
+                    <#if post_date_s??>
+                         and me.POST_DATE_S=:post_date_s
+                    </#if>
+                    <#if product_type_s??>
+                         and me.PRODUCT_TYPE_S=:product_type_s
+                    </#if>
+                    <#if serid_s??>
+                         and me.SERID_S like :serid_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and me.S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            SELECT R.ROUTE_KEY,R.route_name,UR.PDMMAT_S,UR.SAPMAT_S,UR.STAGE_S,
+			UR.ROUTECODE_S,UR.PROCESSVERSION_S PROCESSVERSION_S,UR.FACTORY_S FACTORY_S,UR.EQUIPMENTTYPECODE_S,
+			UR.EQUIPMENTCODE_S,UR.WERKS_S,UR.RECEIVE_TIME_T,UR.EXPIREDATE_T,UR.VERSION_S
+			FROM ROUTE R,UDA_ROUTE UR WHERE R.ROUTE_KEY = UR.OBJECT_KEY
+			AND UR.ROUTECODE_S LIKE 'CX%'
+			AND UR.RECORD_FLAG_S='A'
+			and UR.FACTORY_S in(:dictcode_s)
+			<#if sapmat_s??>
+                 	 and UR.SAPMAT_S like:sapmat_s
+	            </#if>
+ 			  <#if pdmmat_s??>
+	                 and UR.PDMMAT_S like:pdmmat_s
+	            </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by R.ROUTE_KEY desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (
+            	SELECT R.ROUTE_KEY,R.route_name,UR.PDMMAT_S,UR.SAPMAT_S,UR.STAGE_S,
+			UR.ROUTECODE_S,UR.PROCESSVERSION_S PROCESSVERSION_S,UR.FACTORY_S FACTORY_S,UR.EQUIPMENTTYPECODE_S,
+			UR.EQUIPMENTCODE_S,UR.WERKS_S,UR.RECEIVE_TIME_T,UR.EXPIREDATE_T,UR.VERSION_S
+			FROM ROUTE R,UDA_ROUTE UR WHERE R.ROUTE_KEY = UR.OBJECT_KEY
+			AND UR.ROUTECODE_S LIKE 'CX%'
+			AND UR.RECORD_FLAG_S='A'
+			and UR.FACTORY_S in(:dictcode_s)
+			<#if sapmat_s??>
+                 	 and UR.SAPMAT_S like:sapmat_s
+	            </#if>
+ 			  <#if pdmmat_s??>
+	                 and UR.PDMMAT_S like:pdmmat_s
+	            </#if>
+            )
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="curingparameterm">
+        <![CDATA[
+            select r.PARMTYPENAME_S,r.PARMNAME_S,r.VALUE_S,ru.VERSION_S,r.PARMCODE_S,r.PARMTYPECODE_S,
+			r.receive_time_t,
+			ru.receive_time_t  rectime
+  			from AT_INT_PLM_BUILDINGPARAMETER r, (SELECT R.route_name,R.ROUTE_KEY, UR.VERSION_S,UR.RECEIVE_TIME_T FROM ROUTE R,UDA_ROUTE UR WHERE R.ROUTE_KEY = UR.OBJECT_KEY and UR.record_flag_s='A') RU
+ 			where r.process_id_s = ru.route_name
+ 			and r.record_flag_s='A'
+ 			and r.process_id_s=:key
+ 			order by r.parmtypecode_s,r.parmcode_s desc
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="toleranceparam">
+        <![CDATA[
+            select t.parmcode_s,t.VALUEMAX_S,t.VALUEMIN_S from AT_Int_PLM_TolerancePara t
+            where  t.record_flag_s='A'
+        ]]>
+    </sql>
+     <!-- <sql comment="datagrid" id="curingparameterm">
+        <![CDATA[
+            select t.VALUEMAX_S,t.VALUEMIN_S,r.PARMTYPENAME_S,r.PARMNAME_S,r.VALUE_S,ru.VERSION_S,r.PARMCODE_S,r.PARMTYPECODE_S,
+			r.receive_time_t,
+			ru.receive_time_t  rectime
+  			from AT_INT_PLM_BUILDINGPARAMETER r, (SELECT R.route_name,R.ROUTE_KEY, UR.VERSION_S,UR.RECEIVE_TIME_T FROM ROUTE R,UDA_ROUTE UR WHERE R.ROUTE_KEY = UR.OBJECT_KEY and UR.record_flag_s='A') RU,
+  			AT_Int_PLM_TolerancePara t
+ 			where r.process_id_s = ru.route_name
+ 			and r.parmcode_s=t.parmcode_s
+ 			and r.record_flag_s='A'
+ 			and t.record_flag_s='A'
+ 			and r.process_id_s=:key
+ 			order by r.parmtypecode_s,r.parmcode_s desc
+        ]]>
+    </sql> -->
+    <sql comment="查询色标线信息" id="getColorMarkingLine">
+        <![CDATA[
+		select t.erpcode_s, t.dictname_s
+			  from AT_CM_BS_COREDICTIONARY t
+			 where t.pid_i = '404755'
+     	]]>
+    </sql>
+</sqls>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+          SELECT T.*,
+				(SELECT M1.MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006'  
+				<#if curingmachinecode_s??>
+                  and M1.MACHINECODE_S like :curingmachinecode_s
+                </#if>) curingmachinecode_s,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildinmachinecode_s,
+				(SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curingtime_t,
+				(SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildintime_t,
+				p.part_number as material_code_s,p.description as material_name_s,
+				T .changed_by_s || U1.USERNAME changed_by,
+				T .created_by_s || U2.USERNAME created_by
+			FROM
+				AT_D_QM_DynaBalanceCheResult T,
+				at_c_mm_curing_maintyre M,
+				part P,
+				CORE_USER U1,
+				CORE_USER U2
+			WHERE
+				1 = 1
+			AND T .barcode_s = M .TYREBARCODE_S (+)
+			AND M .MATERIALCODE_S = P .part_number (+)
+			AND T .changed_by_s = U1.USERCODE (+)
+			AND T .created_by_s = U2.USERCODE (+)
+			AND M .PROESS_S = '252010'
+			AND T .record_flag_s = 'A'
+            	<#if begin_created_time??&&end_created_time??>
+               		and t.outputtime_t between to_date(:begin_created_time,'yyyy-mm-dd hh24:mi:ss')
+               		 and to_date(:end_created_time,'yyyy-mm-dd hh24:mi:ss') 
+                </#if>
+                <#if curingspeccode_s??>
+                  and p.part_number like :curingspeccode_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if machinebar_s??>
+                     and t.MACHINEBAR_S=:machinebar_s
+                </#if>
+                 <#if barcode_s??>
+                     and t.BARCODE_S = :barcode_s
+                </#if>
+                 <#if tire_total_ratings_s??>
+                     and t.tire_total_ratings_s like :tire_total_ratings_s
+                </#if>
+                <#if sort??&&order??>
+                	 order by ${sort} ${order}
+                <#else>
+                	 order by t.outputtime_t desc
+             	</#if>
+        ]]>
+	</sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+             select count(1)
+				FROM (SELECT T.*,
+				(SELECT M1.MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006'  
+				<#if curingmachinecode_s??>
+                  and M1.MACHINECODE_S like :curingmachinecode_s
+                </#if>) curingmachinecode_s,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildinmachinecode_s,
+				p.part_number as material_code_s,p.description as material_name_s,
+				T .changed_by_s || U1.USERNAME changed_by,
+				T .created_by_s || U2.USERNAME created_by
+			FROM
+				AT_D_QM_DynaBalanceCheResult T,
+				at_c_mm_curing_maintyre M,
+				part P,
+				CORE_USER U1,
+				CORE_USER U2
+			WHERE
+				1 = 1
+			AND T .barcode_s = M .TYREBARCODE_S (+)
+			AND M .MATERIALCODE_S = P .part_number (+)
+			AND T .changed_by_s = U1.USERCODE (+)
+			AND T .created_by_s = U2.USERCODE (+)
+			AND M .PROESS_S = '252010'
+			AND T .record_flag_s = 'A'
+            	<#if begin_created_time??&&end_created_time??>
+               		and t.outputtime_t between to_date(:begin_created_time,'yyyy-mm-dd hh24:mi:ss')
+               		 and to_date(:end_created_time,'yyyy-mm-dd hh24:mi:ss') 
+                </#if>
+                <#if curingspeccode_s??>
+                  and p.part_number like :curingspeccode_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+                  <#if machinebar_s??>
+                     and t.MACHINEBAR_S=:machinebar_s
+                </#if>
+                 <#if barcode_s??>
+                     and t.BARCODE_S = :barcode_s
+                </#if>
+                 <#if tire_total_ratings_s??>
+                     and t.tire_total_ratings_s like :tire_total_ratings_s
+                </#if>
+                <#if sort??&&order??>
+                	 order by ${sort} ${order}
+                <#else>
+                	 order by t.outputtime_t desc
+             	</#if>)
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="EntCodeName">
+        <![CDATA[
+              select t.entbarcode_s,t.entname_s
+  			from AT_D_EM_ENT t where 1=1 
+  			 and t.enttype_i='254004' 
+  			 and t.s_factory_s=:s_factory_s
+  			order by t.entbarcode_s asc
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="exportEntcode">
+        <![CDATA[
+           select t.entname_s
+  			from AT_D_EM_ENT t where 1=1 
+  			 and t.enttype_i='254004' 
+  			 and t.entbarcode_s=:code
+        ]]>
+    </sql>
+    
+      <sql comment="datagrid" id="getEndNameByEntCode">
+        <![CDATA[
+               SELECT
+			E.DESCRIPTION
+			FROM
+				EQUIPMENT E,
+				UDA_EQUIPMENT UE
+			WHERE
+				1 = 1
+			AND E .EQUIP_KEY = UE.OBJECT_KEY 
+			AND UE.EQUIP_TYPE_S='254004' 
+		    AND UE.S_FACTORY_S=:s_factory_s
+			and E.EQUIP_NAME=:entCode
+        ]]>
+    </sql>
+</sqls>

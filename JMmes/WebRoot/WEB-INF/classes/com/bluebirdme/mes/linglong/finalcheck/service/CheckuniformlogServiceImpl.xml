@@ -1,0 +1,1291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select
+				DISTINCT T .*, M .materialcode_s,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curingmachinecode_s,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildinmachinecode_s,
+				(SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildintime_t,
+				(SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curingtime_t,
+				p.description,
+				T .changed_by_s || U1.USERNAME changed_by,
+				T .created_by_s || U2.USERNAME created_by
+			FROM
+				AT_D_QM_CHECKUNIFORMLOG T,
+				AT_C_MM_CURING_MAINTYRE M,
+				part p,
+				uda_part up,
+				CORE_USER U1,
+				CORE_USER U2
+			WHERE
+				1 = 1
+			AND T .barcode_s = M .tyrebarcode_s (+)
+			AND M .materialcode_s = p.part_number (+)
+			and p.part_key=up.object_key
+			AND T .changed_by_s = U1.USERCODE (+)
+			AND T .created_by_s = U2.USERCODE (+)
+			AND T .record_flag_s = 'A'
+			AND M .PROESS_S = '252011'
+            	<#if begin_created_time??&&end_created_time??>
+               		and t.created_time_t between to_date(:begin_created_time,'yyyy-mm-dd hh24:mi:ss')
+               		 and to_date(:end_created_time,'yyyy-mm-dd hh24:mi:ss') 
+                </#if>
+                <#if curingspeccode_s??>
+                  and p.part_number like :curingspeccode_s
+                </#if>
+                <#if curingmachinecode_s??>
+                  and M.machinecode_s like :curingmachinecode_s
+                </#if>
+                <#if barcode_s??>
+                     and t.BARCODE_S like :barcode_s
+                </#if>
+                <#if ccw_lfd_kgf_s??>
+                     and CCW_LFD_KGF_S=:ccw_lfd_kgf_s
+                </#if>
+                <#if ccw_lfd_rank_s??>
+                     and CCW_LFD_RANK_S=:ccw_lfd_rank_s
+                </#if>
+                <#if ccw_lfv_oa_10h_deg_s??>
+                     and CCW_LFV_OA_10H_DEG_S=:ccw_lfv_oa_10h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_10h_kgf_s??>
+                     and CCW_LFV_OA_10H_KGF_S=:ccw_lfv_oa_10h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_10h_rank_s??>
+                     and CCW_LFV_OA_10H_RANK_S=:ccw_lfv_oa_10h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_1h_deg_s??>
+                     and CCW_LFV_OA_1H_DEG_S=:ccw_lfv_oa_1h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_1h_kgf_s??>
+                     and CCW_LFV_OA_1H_KGF_S=:ccw_lfv_oa_1h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_1h_rank_s??>
+                     and CCW_LFV_OA_1H_RANK_S=:ccw_lfv_oa_1h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_2h_deg_s??>
+                     and CCW_LFV_OA_2H_DEG_S=:ccw_lfv_oa_2h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_2h_kgf_s??>
+                     and CCW_LFV_OA_2H_KGF_S=:ccw_lfv_oa_2h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_2h_rank_s??>
+                     and CCW_LFV_OA_2H_RANK_S=:ccw_lfv_oa_2h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_3h_deg_s??>
+                     and CCW_LFV_OA_3H_DEG_S=:ccw_lfv_oa_3h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_3h_kgf_s??>
+                     and CCW_LFV_OA_3H_KGF_S=:ccw_lfv_oa_3h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_3h_rank_s??>
+                     and CCW_LFV_OA_3H_RANK_S=:ccw_lfv_oa_3h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_4h_deg_s??>
+                     and CCW_LFV_OA_4H_DEG_S=:ccw_lfv_oa_4h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_4h_kgf_s??>
+                     and CCW_LFV_OA_4H_KGF_S=:ccw_lfv_oa_4h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_4h_rank_s??>
+                     and CCW_LFV_OA_4H_RANK_S=:ccw_lfv_oa_4h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_5h_deg_s??>
+                     and CCW_LFV_OA_5H_DEG_S=:ccw_lfv_oa_5h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_5h_kgf_s??>
+                     and CCW_LFV_OA_5H_KGF_S=:ccw_lfv_oa_5h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_5h_rank_s??>
+                     and CCW_LFV_OA_5H_RANK_S=:ccw_lfv_oa_5h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_6h_deg_s??>
+                     and CCW_LFV_OA_6H_DEG_S=:ccw_lfv_oa_6h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_6h_kgf_s??>
+                     and CCW_LFV_OA_6H_KGF_S=:ccw_lfv_oa_6h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_6h_rank_s??>
+                     and CCW_LFV_OA_6H_RANK_S=:ccw_lfv_oa_6h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_7h_deg_s??>
+                     and CCW_LFV_OA_7H_DEG_S=:ccw_lfv_oa_7h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_7h_kgf_s??>
+                     and CCW_LFV_OA_7H_KGF_S=:ccw_lfv_oa_7h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_7h_rank_s??>
+                     and CCW_LFV_OA_7H_RANK_S=:ccw_lfv_oa_7h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_8h_deg_s??>
+                     and CCW_LFV_OA_8H_DEG_S=:ccw_lfv_oa_8h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_8h_kgf_s??>
+                     and CCW_LFV_OA_8H_KGF_S=:ccw_lfv_oa_8h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_8h_rank_s??>
+                     and CCW_LFV_OA_8H_RANK_S=:ccw_lfv_oa_8h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_9h_deg_s??>
+                     and CCW_LFV_OA_9H_DEG_S=:ccw_lfv_oa_9h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_9h_kgf_s??>
+                     and CCW_LFV_OA_9H_KGF_S=:ccw_lfv_oa_9h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_9h_rank_s??>
+                     and CCW_LFV_OA_9H_RANK_S=:ccw_lfv_oa_9h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_deg_s??>
+                     and CCW_LFV_OA_DEG_S=:ccw_lfv_oa_deg_s
+                </#if>
+                <#if ccw_lfv_oa_kgf_s??>
+                     and CCW_LFV_OA_KGF_S=:ccw_lfv_oa_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_rank_s??>
+                     and CCW_LFV_OA_RANK_S=:ccw_lfv_oa_rank_s
+                </#if>
+                <#if ccw_rfv_oa_10h_deg_s??>
+                     and CCW_RFV_OA_10H_DEG_S=:ccw_rfv_oa_10h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_10h_kgf_s??>
+                     and CCW_RFV_OA_10H_KGF_S=:ccw_rfv_oa_10h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_10h_rank_s??>
+                     and CCW_RFV_OA_10H_RANK_S=:ccw_rfv_oa_10h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_1h_deg_s??>
+                     and CCW_RFV_OA_1H_DEG_S=:ccw_rfv_oa_1h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_1h_kgf_s??>
+                     and CCW_RFV_OA_1H_KGF_S=:ccw_rfv_oa_1h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_1h_rank_s??>
+                     and CCW_RFV_OA_1H_RANK_S=:ccw_rfv_oa_1h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_2h_deg_s??>
+                     and CCW_RFV_OA_2H_DEG_S=:ccw_rfv_oa_2h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_2h_kgf_s??>
+                     and CCW_RFV_OA_2H_KGF_S=:ccw_rfv_oa_2h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_2h_rank_s??>
+                     and CCW_RFV_OA_2H_RANK_S=:ccw_rfv_oa_2h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_3h_deg_s??>
+                     and CCW_RFV_OA_3H_DEG_S=:ccw_rfv_oa_3h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_3h_kgf_s??>
+                     and CCW_RFV_OA_3H_KGF_S=:ccw_rfv_oa_3h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_3h_rank_s??>
+                     and CCW_RFV_OA_3H_RANK_S=:ccw_rfv_oa_3h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_4h_deg_s??>
+                     and CCW_RFV_OA_4H_DEG_S=:ccw_rfv_oa_4h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_4h_kgf_s??>
+                     and CCW_RFV_OA_4H_KGF_S=:ccw_rfv_oa_4h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_4h_rank_s??>
+                     and CCW_RFV_OA_4H_RANK_S=:ccw_rfv_oa_4h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_5h_deg_s??>
+                     and CCW_RFV_OA_5H_DEG_S=:ccw_rfv_oa_5h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_5h_kgf_s??>
+                     and CCW_RFV_OA_5H_KGF_S=:ccw_rfv_oa_5h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_5h_rank_s??>
+                     and CCW_RFV_OA_5H_RANK_S=:ccw_rfv_oa_5h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_6h_deg_s??>
+                     and CCW_RFV_OA_6H_DEG_S=:ccw_rfv_oa_6h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_6h_kgf_s??>
+                     and CCW_RFV_OA_6H_KGF_S=:ccw_rfv_oa_6h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_6h_rank_s??>
+                     and CCW_RFV_OA_6H_RANK_S=:ccw_rfv_oa_6h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_7h_deg_s??>
+                     and CCW_RFV_OA_7H_DEG_S=:ccw_rfv_oa_7h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_7h_kgf_s??>
+                     and CCW_RFV_OA_7H_KGF_S=:ccw_rfv_oa_7h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_7h_rank_s??>
+                     and CCW_RFV_OA_7H_RANK_S=:ccw_rfv_oa_7h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_8h_deg_s??>
+                     and CCW_RFV_OA_8H_DEG_S=:ccw_rfv_oa_8h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_8h_kgf_s??>
+                     and CCW_RFV_OA_8H_KGF_S=:ccw_rfv_oa_8h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_8h_rank_s??>
+                     and CCW_RFV_OA_8H_RANK_S=:ccw_rfv_oa_8h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_9h_deg_s??>
+                     and CCW_RFV_OA_9H_DEG_S=:ccw_rfv_oa_9h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_9h_kgf_s??>
+                     and CCW_RFV_OA_9H_KGF_S=:ccw_rfv_oa_9h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_9h_rank_s??>
+                     and CCW_RFV_OA_9H_RANK_S=:ccw_rfv_oa_9h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_deg_s??>
+                     and CCW_RFV_OA_DEG_S=:ccw_rfv_oa_deg_s
+                </#if>
+                <#if ccw_rfv_oa_kgf_s??>
+                     and CCW_RFV_OA_KGF_S=:ccw_rfv_oa_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_rank_s??>
+                     and CCW_RFV_OA_RANK_S=:ccw_rfv_oa_rank_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if con_kgf_s??>
+                     and CON_KGF_S=:con_kgf_s
+                </#if>
+                <#if con_rank_s??>
+                     and CON_RANK_S=:con_rank_s
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if cw_lfd_kgf_s??>
+                     and CW_LFD_KGF_S=:cw_lfd_kgf_s
+                </#if>
+                <#if cw_lfd_rank_s??>
+                     and CW_LFD_RANK_S=:cw_lfd_rank_s
+                </#if>
+                <#if cw_lfv_oa_10h_deg_s??>
+                     and CW_LFV_OA_10H_DEG_S=:cw_lfv_oa_10h_deg_s
+                </#if>
+                <#if cw_lfv_oa_10h_kgf_s??>
+                     and CW_LFV_OA_10H_KGF_S=:cw_lfv_oa_10h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_10h_rank_s??>
+                     and CW_LFV_OA_10H_RANK_S=:cw_lfv_oa_10h_rank_s
+                </#if>
+                <#if cw_lfv_oa_1h_deg_s??>
+                     and CW_LFV_OA_1H_DEG_S=:cw_lfv_oa_1h_deg_s
+                </#if>
+                <#if cw_lfv_oa_1h_kgf_s??>
+                     and CW_LFV_OA_1H_KGF_S=:cw_lfv_oa_1h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_1h_rank_s??>
+                     and CW_LFV_OA_1H_RANK_S=:cw_lfv_oa_1h_rank_s
+                </#if>
+                <#if cw_lfv_oa_2h_deg_s??>
+                     and CW_LFV_OA_2H_DEG_S=:cw_lfv_oa_2h_deg_s
+                </#if>
+                <#if cw_lfv_oa_2h_kgf_s??>
+                     and CW_LFV_OA_2H_KGF_S=:cw_lfv_oa_2h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_2h_rank_s??>
+                     and CW_LFV_OA_2H_RANK_S=:cw_lfv_oa_2h_rank_s
+                </#if>
+                <#if cw_lfv_oa_3h_deg_s??>
+                     and CW_LFV_OA_3H_DEG_S=:cw_lfv_oa_3h_deg_s
+                </#if>
+                <#if cw_lfv_oa_3h_kgf_s??>
+                     and CW_LFV_OA_3H_KGF_S=:cw_lfv_oa_3h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_3h_rank_s??>
+                     and CW_LFV_OA_3H_RANK_S=:cw_lfv_oa_3h_rank_s
+                </#if>
+                <#if cw_lfv_oa_4h_deg_s??>
+                     and CW_LFV_OA_4H_DEG_S=:cw_lfv_oa_4h_deg_s
+                </#if>
+                <#if cw_lfv_oa_4h_kgf_s??>
+                     and CW_LFV_OA_4H_KGF_S=:cw_lfv_oa_4h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_4h_rank_s??>
+                     and CW_LFV_OA_4H_RANK_S=:cw_lfv_oa_4h_rank_s
+                </#if>
+                <#if cw_lfv_oa_5h_deg_s??>
+                     and CW_LFV_OA_5H_DEG_S=:cw_lfv_oa_5h_deg_s
+                </#if>
+                <#if cw_lfv_oa_5h_kgf_s??>
+                     and CW_LFV_OA_5H_KGF_S=:cw_lfv_oa_5h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_5h_rank_s??>
+                     and CW_LFV_OA_5H_RANK_S=:cw_lfv_oa_5h_rank_s
+                </#if>
+                <#if cw_lfv_oa_6h_deg_s??>
+                     and CW_LFV_OA_6H_DEG_S=:cw_lfv_oa_6h_deg_s
+                </#if>
+                <#if cw_lfv_oa_6h_kgf_s??>
+                     and CW_LFV_OA_6H_KGF_S=:cw_lfv_oa_6h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_6h_rank_s??>
+                     and CW_LFV_OA_6H_RANK_S=:cw_lfv_oa_6h_rank_s
+                </#if>
+                <#if cw_lfv_oa_7h_deg_s??>
+                     and CW_LFV_OA_7H_DEG_S=:cw_lfv_oa_7h_deg_s
+                </#if>
+                <#if cw_lfv_oa_7h_kgf_s??>
+                     and CW_LFV_OA_7H_KGF_S=:cw_lfv_oa_7h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_7h_rank_s??>
+                     and CW_LFV_OA_7H_RANK_S=:cw_lfv_oa_7h_rank_s
+                </#if>
+                <#if cw_lfv_oa_8h_deg_s??>
+                     and CW_LFV_OA_8H_DEG_S=:cw_lfv_oa_8h_deg_s
+                </#if>
+                <#if cw_lfv_oa_8h_kgf_s??>
+                     and CW_LFV_OA_8H_KGF_S=:cw_lfv_oa_8h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_8h_rank_s??>
+                     and CW_LFV_OA_8H_RANK_S=:cw_lfv_oa_8h_rank_s
+                </#if>
+                <#if cw_lfv_oa_9h_deg_s??>
+                     and CW_LFV_OA_9H_DEG_S=:cw_lfv_oa_9h_deg_s
+                </#if>
+                <#if cw_lfv_oa_9h_kgf_s??>
+                     and CW_LFV_OA_9H_KGF_S=:cw_lfv_oa_9h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_9h_rank_s??>
+                     and CW_LFV_OA_9H_RANK_S=:cw_lfv_oa_9h_rank_s
+                </#if>
+                <#if cw_lfv_oa_deg_s??>
+                     and CW_LFV_OA_DEG_S=:cw_lfv_oa_deg_s
+                </#if>
+                <#if cw_lfv_oa_kgf_s??>
+                     and CW_LFV_OA_KGF_S=:cw_lfv_oa_kgf_s
+                </#if>
+                <#if cw_lfv_oa_rank_s??>
+                     and CW_LFV_OA_RANK_S=:cw_lfv_oa_rank_s
+                </#if>
+                <#if cw_rfv_oa_10h_deg_s??>
+                     and CW_RFV_OA_10H_DEG_S=:cw_rfv_oa_10h_deg_s
+                </#if>
+                <#if cw_rfv_oa_10h_kgf_s??>
+                     and CW_RFV_OA_10H_KGF_S=:cw_rfv_oa_10h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_10h_rank_s??>
+                     and CW_RFV_OA_10H_RANK_S=:cw_rfv_oa_10h_rank_s
+                </#if>
+                <#if cw_rfv_oa_1h_deg_s??>
+                     and CW_RFV_OA_1H_DEG_S=:cw_rfv_oa_1h_deg_s
+                </#if>
+                <#if cw_rfv_oa_1h_kgf_s??>
+                     and CW_RFV_OA_1H_KGF_S=:cw_rfv_oa_1h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_1h_rank_s??>
+                     and CW_RFV_OA_1H_RANK_S=:cw_rfv_oa_1h_rank_s
+                </#if>
+                <#if cw_rfv_oa_2h_deg_s??>
+                     and CW_RFV_OA_2H_DEG_S=:cw_rfv_oa_2h_deg_s
+                </#if>
+                <#if cw_rfv_oa_2h_kgf_s??>
+                     and CW_RFV_OA_2H_KGF_S=:cw_rfv_oa_2h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_2h_rank_s??>
+                     and CW_RFV_OA_2H_RANK_S=:cw_rfv_oa_2h_rank_s
+                </#if>
+                <#if cw_rfv_oa_3h_deg_s??>
+                     and CW_RFV_OA_3H_DEG_S=:cw_rfv_oa_3h_deg_s
+                </#if>
+                <#if cw_rfv_oa_3h_kgf_s??>
+                     and CW_RFV_OA_3H_KGF_S=:cw_rfv_oa_3h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_3h_rank_s??>
+                     and CW_RFV_OA_3H_RANK_S=:cw_rfv_oa_3h_rank_s
+                </#if>
+                <#if cw_rfv_oa_4h_deg_s??>
+                     and CW_RFV_OA_4H_DEG_S=:cw_rfv_oa_4h_deg_s
+                </#if>
+                <#if cw_rfv_oa_4h_kgf_s??>
+                     and CW_RFV_OA_4H_KGF_S=:cw_rfv_oa_4h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_4h_rank_s??>
+                     and CW_RFV_OA_4H_RANK_S=:cw_rfv_oa_4h_rank_s
+                </#if>
+                <#if cw_rfv_oa_5h_deg_s??>
+                     and CW_RFV_OA_5H_DEG_S=:cw_rfv_oa_5h_deg_s
+                </#if>
+                <#if cw_rfv_oa_5h_kgf_s??>
+                     and CW_RFV_OA_5H_KGF_S=:cw_rfv_oa_5h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_5h_rank_s??>
+                     and CW_RFV_OA_5H_RANK_S=:cw_rfv_oa_5h_rank_s
+                </#if>
+                <#if cw_rfv_oa_6h_deg_s??>
+                     and CW_RFV_OA_6H_DEG_S=:cw_rfv_oa_6h_deg_s
+                </#if>
+                <#if cw_rfv_oa_6h_kgf_s??>
+                     and CW_RFV_OA_6H_KGF_S=:cw_rfv_oa_6h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_6h_rank_s??>
+                     and CW_RFV_OA_6H_RANK_S=:cw_rfv_oa_6h_rank_s
+                </#if>
+                <#if cw_rfv_oa_7h_deg_s??>
+                     and CW_RFV_OA_7H_DEG_S=:cw_rfv_oa_7h_deg_s
+                </#if>
+                <#if cw_rfv_oa_7h_kgf_s??>
+                     and CW_RFV_OA_7H_KGF_S=:cw_rfv_oa_7h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_7h_rank_s??>
+                     and CW_RFV_OA_7H_RANK_S=:cw_rfv_oa_7h_rank_s
+                </#if>
+                <#if cw_rfv_oa_8h_deg_s??>
+                     and CW_RFV_OA_8H_DEG_S=:cw_rfv_oa_8h_deg_s
+                </#if>
+                <#if cw_rfv_oa_8h_kgf_s??>
+                     and CW_RFV_OA_8H_KGF_S=:cw_rfv_oa_8h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_8h_rank_s??>
+                     and CW_RFV_OA_8H_RANK_S=:cw_rfv_oa_8h_rank_s
+                </#if>
+                <#if cw_rfv_oa_9h_deg_s??>
+                     and CW_RFV_OA_9H_DEG_S=:cw_rfv_oa_9h_deg_s
+                </#if>
+                <#if cw_rfv_oa_9h_kgf_s??>
+                     and CW_RFV_OA_9H_KGF_S=:cw_rfv_oa_9h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_9h_rank_s??>
+                     and CW_RFV_OA_9H_RANK_S=:cw_rfv_oa_9h_rank_s
+                </#if>
+                <#if cw_rfv_oa_deg_s??>
+                     and CW_RFV_OA_DEG_S=:cw_rfv_oa_deg_s
+                </#if>
+                <#if cw_rfv_oa_kgf_s??>
+                     and CW_RFV_OA_KGF_S=:cw_rfv_oa_kgf_s
+                </#if>
+                <#if cw_rfv_oa_rank_s??>
+                     and CW_RFV_OA_RANK_S=:cw_rfv_oa_rank_s
+                </#if>
+                <#if gradecode_s??>
+                     and t.GRADECODE_S=:gradecode_s
+                </#if>
+                <#if lb_bulging_deg_s??>
+                     and LB_BULGING_DEG_S=:lb_bulging_deg_s
+                </#if>
+                <#if lb_bulging_mm_s??>
+                     and LB_BULGING_MM_S=:lb_bulging_mm_s
+                </#if>
+                <#if lb_bulging_rank_s??>
+                     and LB_BULGING_RANK_S=:lb_bulging_rank_s
+                </#if>
+                <#if lb_dent_deg_s??>
+                     and LB_DENT_DEG_S=:lb_dent_deg_s
+                </#if>
+                <#if lb_dent_mm_s??>
+                     and LB_DENT_MM_S=:lb_dent_mm_s
+                </#if>
+                <#if lb_dent_rank_s??>
+                     and LB_DENT_RANK_S=:lb_dent_rank_s
+                </#if>
+                <#if lb_oa_1h_deg_s??>
+                     and LB_OA_1H_DEG_S=:lb_oa_1h_deg_s
+                </#if>
+                <#if lb_oa_1h_mm_s??>
+                     and LB_OA_1H_MM_S=:lb_oa_1h_mm_s
+                </#if>
+                <#if lb_oa_1h_rank_s??>
+                     and LB_OA_1H_RANK_S=:lb_oa_1h_rank_s
+                </#if>
+                <#if lb_oa_deg_s??>
+                     and LB_OA_DEG_S=:lb_oa_deg_s
+                </#if>
+                <#if lb_oa_mm_s??>
+                     and LB_OA_MM_S=:lb_oa_mm_s
+                </#if>
+                <#if lb_oa_rank_s??>
+                     and LB_OA_RANK_S=:lb_oa_rank_s
+                </#if>
+                <#if load_s??>
+                     and t.LOAD_S=:load_s
+                </#if>
+                <#if lt_bulging_deg_s??>
+                     and LT_BULGING_DEG_S=:lt_bulging_deg_s
+                </#if>
+                <#if lt_bulging_mm_s??>
+                     and LT_BULGING_MM_S=:lt_bulging_mm_s
+                </#if>
+                <#if lt_bulging_rank_s??>
+                     and LT_BULGING_RANK_S=:lt_bulging_rank_s
+                </#if>
+                <#if lt_dent_deg_s??>
+                     and LT_DENT_DEG_S=:lt_dent_deg_s
+                </#if>
+                <#if lt_dent_mm_s??>
+                     and LT_DENT_MM_S=:lt_dent_mm_s
+                </#if>
+                <#if lt_dent_rank_s??>
+                     and LT_DENT_RANK_S=:lt_dent_rank_s
+                </#if>
+                <#if lt_oa_1h_deg_s??>
+                     and LT_OA_1H_DEG_S=:lt_oa_1h_deg_s
+                </#if>
+                <#if lt_oa_1h_mm_s??>
+                     and LT_OA_1H_MM_S=:lt_oa_1h_mm_s
+                </#if>
+                <#if lt_oa_1h_rank_s??>
+                     and LT_OA_1H_RANK_S=:lt_oa_1h_rank_s
+                </#if>
+                <#if lt_oa_deg_s??>
+                     and LT_OA_DEG_S=:lt_oa_deg_s
+                </#if>
+                <#if lt_oa_mm_s??>
+                     and LT_OA_MM_S=:lt_oa_mm_s
+                </#if>
+                <#if lt_oa_rank_s??>
+                     and LT_OA_RANK_S=:lt_oa_rank_s
+                </#if>
+                <#if machinebar_s??>
+                     and t.MACHINEBAR_S=:machinebar_s
+                </#if>
+                <#if memo_s??>
+                     and t.MEMO_S=:memo_s
+                </#if>
+                <#if outside_diameter_mm_s??>
+                     and OUTSIDE_DIAMETER_MM_S=:outside_diameter_mm_s
+                </#if>
+                <#if outside_diameter_rank_s??>
+                     and OUTSIDE_DIAMETER_RANK_S=:outside_diameter_rank_s
+                </#if>
+                <#if rb_oa_1h_deg_s??>
+                     and RB_OA_1H_DEG_S=:rb_oa_1h_deg_s
+                </#if>
+                <#if rb_oa_1h_mm_s??>
+                     and RB_OA_1H_MM_S=:rb_oa_1h_mm_s
+                </#if>
+                <#if rb_oa_1h_rank_s??>
+                     and RB_OA_1H_RANK_S=:rb_oa_1h_rank_s
+                </#if>
+                <#if rb_oa_deg_s??>
+                     and RB_OA_DEG_S=:rb_oa_deg_s
+                </#if>
+                <#if rb_oa_mm_s??>
+                     and RB_OA_MM_S=:rb_oa_mm_s
+                </#if>
+                <#if rb_oa_rank_s??>
+                     and RB_OA_RANK_S=:rb_oa_rank_s
+                </#if>
+                <#if rc_oa_1h_deg_s??>
+                     and RC_OA_1H_DEG_S=:rc_oa_1h_deg_s
+                </#if>
+                <#if rc_oa_1h_mm_s??>
+                     and RC_OA_1H_MM_S=:rc_oa_1h_mm_s
+                </#if>
+                <#if rc_oa_1h_rank_s??>
+                     and RC_OA_1H_RANK_S=:rc_oa_1h_rank_s
+                </#if>
+                <#if rc_oa_deg_s??>
+                     and RC_OA_DEG_S=:rc_oa_deg_s
+                </#if>
+                <#if rc_oa_mm_s??>
+                     and RC_OA_MM_S=:rc_oa_mm_s
+                </#if>
+                <#if rc_oa_rank_s??>
+                     and RC_OA_RANK_S=:rc_oa_rank_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if ro_total_rank_s??>
+                     and RO_TOTAL_RANK_S=:ro_total_rank_s
+                </#if>
+                <#if rt_oa_1h_deg_s??>
+                     and RT_OA_1H_DEG_S=:rt_oa_1h_deg_s
+                </#if>
+                <#if rt_oa_1h_mm_s??>
+                     and RT_OA_1H_MM_S=:rt_oa_1h_mm_s
+                </#if>
+                <#if rt_oa_1h_rank_s??>
+                     and RT_OA_1H_RANK_S=:rt_oa_1h_rank_s
+                </#if>
+                <#if rt_oa_deg_s??>
+                     and RT_OA_DEG_S=:rt_oa_deg_s
+                </#if>
+                <#if rt_oa_mm_s??>
+                     and RT_OA_MM_S=:rt_oa_mm_s
+                </#if>
+                <#if rt_oa_rank_s??>
+                     and RT_OA_RANK_S=:rt_oa_rank_s
+                </#if>
+                <#if specification_s??>
+                     and t.SPECIFICATION_S=:specification_s
+                </#if>
+                <#if s_factory_s??>
+                     and t. S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if ufm_total_rank_s??>
+                     and t.UFM_TOTAL_RANK_S=:ufm_total_rank_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.created_time_t desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+        SELECT count(1) from (
+        select
+				DISTINCT T .*, M .materialcode_s,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curingmachinecode_s,
+				(SELECT MACHINECODE_S FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildinmachinecode_s,
+				(SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252005') buildintime_t,
+				(SELECT OVERTIME_T FROM at_c_mm_curing_maintyre M1 WHERE M1.TYREBARCODE_S=M.TYREBARCODE_S AND M1.PROESS_S='252006') curingtime_t,
+				p.description,
+				T .changed_by_s || U1.USERNAME changed_by,
+				T .created_by_s || U2.USERNAME created_by
+			FROM
+				AT_D_QM_CHECKUNIFORMLOG T,
+				AT_C_MM_CURING_MAINTYRE M,
+				part p,
+				uda_part up,
+				CORE_USER U1,
+				CORE_USER U2
+			WHERE
+				1 = 1
+			AND T .barcode_s = M .tyrebarcode_s (+)
+			AND M .materialcode_s = p.part_number (+)
+			and p.part_key=up.object_key
+			AND T .changed_by_s = U1.USERCODE (+)
+			AND T .created_by_s = U2.USERCODE (+)
+			AND T .record_flag_s = 'A'
+			AND M .PROESS_S = '252011'
+            	<#if begin_created_time??&&end_created_time??>
+               		and t.created_time_t between to_date(:begin_created_time,'yyyy-mm-dd hh24:mi:ss')
+               		 and to_date(:end_created_time,'yyyy-mm-dd hh24:mi:ss') 
+                </#if>
+                <#if curingspeccode_s??>
+                  and p.part_number like :curingspeccode_s
+                </#if>
+                <#if curingmachinecode_s??>
+                  and M.machinecode_s like :curingmachinecode_s
+                </#if>
+                <#if barcode_s??>
+                     and t.BARCODE_S like :barcode_s
+                </#if>
+                <#if ccw_lfd_kgf_s??>
+                     and CCW_LFD_KGF_S=:ccw_lfd_kgf_s
+                </#if>
+                <#if ccw_lfd_rank_s??>
+                     and CCW_LFD_RANK_S=:ccw_lfd_rank_s
+                </#if>
+                <#if ccw_lfv_oa_10h_deg_s??>
+                     and CCW_LFV_OA_10H_DEG_S=:ccw_lfv_oa_10h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_10h_kgf_s??>
+                     and CCW_LFV_OA_10H_KGF_S=:ccw_lfv_oa_10h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_10h_rank_s??>
+                     and CCW_LFV_OA_10H_RANK_S=:ccw_lfv_oa_10h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_1h_deg_s??>
+                     and CCW_LFV_OA_1H_DEG_S=:ccw_lfv_oa_1h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_1h_kgf_s??>
+                     and CCW_LFV_OA_1H_KGF_S=:ccw_lfv_oa_1h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_1h_rank_s??>
+                     and CCW_LFV_OA_1H_RANK_S=:ccw_lfv_oa_1h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_2h_deg_s??>
+                     and CCW_LFV_OA_2H_DEG_S=:ccw_lfv_oa_2h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_2h_kgf_s??>
+                     and CCW_LFV_OA_2H_KGF_S=:ccw_lfv_oa_2h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_2h_rank_s??>
+                     and CCW_LFV_OA_2H_RANK_S=:ccw_lfv_oa_2h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_3h_deg_s??>
+                     and CCW_LFV_OA_3H_DEG_S=:ccw_lfv_oa_3h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_3h_kgf_s??>
+                     and CCW_LFV_OA_3H_KGF_S=:ccw_lfv_oa_3h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_3h_rank_s??>
+                     and CCW_LFV_OA_3H_RANK_S=:ccw_lfv_oa_3h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_4h_deg_s??>
+                     and CCW_LFV_OA_4H_DEG_S=:ccw_lfv_oa_4h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_4h_kgf_s??>
+                     and CCW_LFV_OA_4H_KGF_S=:ccw_lfv_oa_4h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_4h_rank_s??>
+                     and CCW_LFV_OA_4H_RANK_S=:ccw_lfv_oa_4h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_5h_deg_s??>
+                     and CCW_LFV_OA_5H_DEG_S=:ccw_lfv_oa_5h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_5h_kgf_s??>
+                     and CCW_LFV_OA_5H_KGF_S=:ccw_lfv_oa_5h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_5h_rank_s??>
+                     and CCW_LFV_OA_5H_RANK_S=:ccw_lfv_oa_5h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_6h_deg_s??>
+                     and CCW_LFV_OA_6H_DEG_S=:ccw_lfv_oa_6h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_6h_kgf_s??>
+                     and CCW_LFV_OA_6H_KGF_S=:ccw_lfv_oa_6h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_6h_rank_s??>
+                     and CCW_LFV_OA_6H_RANK_S=:ccw_lfv_oa_6h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_7h_deg_s??>
+                     and CCW_LFV_OA_7H_DEG_S=:ccw_lfv_oa_7h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_7h_kgf_s??>
+                     and CCW_LFV_OA_7H_KGF_S=:ccw_lfv_oa_7h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_7h_rank_s??>
+                     and CCW_LFV_OA_7H_RANK_S=:ccw_lfv_oa_7h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_8h_deg_s??>
+                     and CCW_LFV_OA_8H_DEG_S=:ccw_lfv_oa_8h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_8h_kgf_s??>
+                     and CCW_LFV_OA_8H_KGF_S=:ccw_lfv_oa_8h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_8h_rank_s??>
+                     and CCW_LFV_OA_8H_RANK_S=:ccw_lfv_oa_8h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_9h_deg_s??>
+                     and CCW_LFV_OA_9H_DEG_S=:ccw_lfv_oa_9h_deg_s
+                </#if>
+                <#if ccw_lfv_oa_9h_kgf_s??>
+                     and CCW_LFV_OA_9H_KGF_S=:ccw_lfv_oa_9h_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_9h_rank_s??>
+                     and CCW_LFV_OA_9H_RANK_S=:ccw_lfv_oa_9h_rank_s
+                </#if>
+                <#if ccw_lfv_oa_deg_s??>
+                     and CCW_LFV_OA_DEG_S=:ccw_lfv_oa_deg_s
+                </#if>
+                <#if ccw_lfv_oa_kgf_s??>
+                     and CCW_LFV_OA_KGF_S=:ccw_lfv_oa_kgf_s
+                </#if>
+                <#if ccw_lfv_oa_rank_s??>
+                     and CCW_LFV_OA_RANK_S=:ccw_lfv_oa_rank_s
+                </#if>
+                <#if ccw_rfv_oa_10h_deg_s??>
+                     and CCW_RFV_OA_10H_DEG_S=:ccw_rfv_oa_10h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_10h_kgf_s??>
+                     and CCW_RFV_OA_10H_KGF_S=:ccw_rfv_oa_10h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_10h_rank_s??>
+                     and CCW_RFV_OA_10H_RANK_S=:ccw_rfv_oa_10h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_1h_deg_s??>
+                     and CCW_RFV_OA_1H_DEG_S=:ccw_rfv_oa_1h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_1h_kgf_s??>
+                     and CCW_RFV_OA_1H_KGF_S=:ccw_rfv_oa_1h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_1h_rank_s??>
+                     and CCW_RFV_OA_1H_RANK_S=:ccw_rfv_oa_1h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_2h_deg_s??>
+                     and CCW_RFV_OA_2H_DEG_S=:ccw_rfv_oa_2h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_2h_kgf_s??>
+                     and CCW_RFV_OA_2H_KGF_S=:ccw_rfv_oa_2h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_2h_rank_s??>
+                     and CCW_RFV_OA_2H_RANK_S=:ccw_rfv_oa_2h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_3h_deg_s??>
+                     and CCW_RFV_OA_3H_DEG_S=:ccw_rfv_oa_3h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_3h_kgf_s??>
+                     and CCW_RFV_OA_3H_KGF_S=:ccw_rfv_oa_3h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_3h_rank_s??>
+                     and CCW_RFV_OA_3H_RANK_S=:ccw_rfv_oa_3h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_4h_deg_s??>
+                     and CCW_RFV_OA_4H_DEG_S=:ccw_rfv_oa_4h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_4h_kgf_s??>
+                     and CCW_RFV_OA_4H_KGF_S=:ccw_rfv_oa_4h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_4h_rank_s??>
+                     and CCW_RFV_OA_4H_RANK_S=:ccw_rfv_oa_4h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_5h_deg_s??>
+                     and CCW_RFV_OA_5H_DEG_S=:ccw_rfv_oa_5h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_5h_kgf_s??>
+                     and CCW_RFV_OA_5H_KGF_S=:ccw_rfv_oa_5h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_5h_rank_s??>
+                     and CCW_RFV_OA_5H_RANK_S=:ccw_rfv_oa_5h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_6h_deg_s??>
+                     and CCW_RFV_OA_6H_DEG_S=:ccw_rfv_oa_6h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_6h_kgf_s??>
+                     and CCW_RFV_OA_6H_KGF_S=:ccw_rfv_oa_6h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_6h_rank_s??>
+                     and CCW_RFV_OA_6H_RANK_S=:ccw_rfv_oa_6h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_7h_deg_s??>
+                     and CCW_RFV_OA_7H_DEG_S=:ccw_rfv_oa_7h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_7h_kgf_s??>
+                     and CCW_RFV_OA_7H_KGF_S=:ccw_rfv_oa_7h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_7h_rank_s??>
+                     and CCW_RFV_OA_7H_RANK_S=:ccw_rfv_oa_7h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_8h_deg_s??>
+                     and CCW_RFV_OA_8H_DEG_S=:ccw_rfv_oa_8h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_8h_kgf_s??>
+                     and CCW_RFV_OA_8H_KGF_S=:ccw_rfv_oa_8h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_8h_rank_s??>
+                     and CCW_RFV_OA_8H_RANK_S=:ccw_rfv_oa_8h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_9h_deg_s??>
+                     and CCW_RFV_OA_9H_DEG_S=:ccw_rfv_oa_9h_deg_s
+                </#if>
+                <#if ccw_rfv_oa_9h_kgf_s??>
+                     and CCW_RFV_OA_9H_KGF_S=:ccw_rfv_oa_9h_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_9h_rank_s??>
+                     and CCW_RFV_OA_9H_RANK_S=:ccw_rfv_oa_9h_rank_s
+                </#if>
+                <#if ccw_rfv_oa_deg_s??>
+                     and CCW_RFV_OA_DEG_S=:ccw_rfv_oa_deg_s
+                </#if>
+                <#if ccw_rfv_oa_kgf_s??>
+                     and CCW_RFV_OA_KGF_S=:ccw_rfv_oa_kgf_s
+                </#if>
+                <#if ccw_rfv_oa_rank_s??>
+                     and CCW_RFV_OA_RANK_S=:ccw_rfv_oa_rank_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if con_kgf_s??>
+                     and CON_KGF_S=:con_kgf_s
+                </#if>
+                <#if con_rank_s??>
+                     and CON_RANK_S=:con_rank_s
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if cw_lfd_kgf_s??>
+                     and CW_LFD_KGF_S=:cw_lfd_kgf_s
+                </#if>
+                <#if cw_lfd_rank_s??>
+                     and CW_LFD_RANK_S=:cw_lfd_rank_s
+                </#if>
+                <#if cw_lfv_oa_10h_deg_s??>
+                     and CW_LFV_OA_10H_DEG_S=:cw_lfv_oa_10h_deg_s
+                </#if>
+                <#if cw_lfv_oa_10h_kgf_s??>
+                     and CW_LFV_OA_10H_KGF_S=:cw_lfv_oa_10h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_10h_rank_s??>
+                     and CW_LFV_OA_10H_RANK_S=:cw_lfv_oa_10h_rank_s
+                </#if>
+                <#if cw_lfv_oa_1h_deg_s??>
+                     and CW_LFV_OA_1H_DEG_S=:cw_lfv_oa_1h_deg_s
+                </#if>
+                <#if cw_lfv_oa_1h_kgf_s??>
+                     and CW_LFV_OA_1H_KGF_S=:cw_lfv_oa_1h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_1h_rank_s??>
+                     and CW_LFV_OA_1H_RANK_S=:cw_lfv_oa_1h_rank_s
+                </#if>
+                <#if cw_lfv_oa_2h_deg_s??>
+                     and CW_LFV_OA_2H_DEG_S=:cw_lfv_oa_2h_deg_s
+                </#if>
+                <#if cw_lfv_oa_2h_kgf_s??>
+                     and CW_LFV_OA_2H_KGF_S=:cw_lfv_oa_2h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_2h_rank_s??>
+                     and CW_LFV_OA_2H_RANK_S=:cw_lfv_oa_2h_rank_s
+                </#if>
+                <#if cw_lfv_oa_3h_deg_s??>
+                     and CW_LFV_OA_3H_DEG_S=:cw_lfv_oa_3h_deg_s
+                </#if>
+                <#if cw_lfv_oa_3h_kgf_s??>
+                     and CW_LFV_OA_3H_KGF_S=:cw_lfv_oa_3h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_3h_rank_s??>
+                     and CW_LFV_OA_3H_RANK_S=:cw_lfv_oa_3h_rank_s
+                </#if>
+                <#if cw_lfv_oa_4h_deg_s??>
+                     and CW_LFV_OA_4H_DEG_S=:cw_lfv_oa_4h_deg_s
+                </#if>
+                <#if cw_lfv_oa_4h_kgf_s??>
+                     and CW_LFV_OA_4H_KGF_S=:cw_lfv_oa_4h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_4h_rank_s??>
+                     and CW_LFV_OA_4H_RANK_S=:cw_lfv_oa_4h_rank_s
+                </#if>
+                <#if cw_lfv_oa_5h_deg_s??>
+                     and CW_LFV_OA_5H_DEG_S=:cw_lfv_oa_5h_deg_s
+                </#if>
+                <#if cw_lfv_oa_5h_kgf_s??>
+                     and CW_LFV_OA_5H_KGF_S=:cw_lfv_oa_5h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_5h_rank_s??>
+                     and CW_LFV_OA_5H_RANK_S=:cw_lfv_oa_5h_rank_s
+                </#if>
+                <#if cw_lfv_oa_6h_deg_s??>
+                     and CW_LFV_OA_6H_DEG_S=:cw_lfv_oa_6h_deg_s
+                </#if>
+                <#if cw_lfv_oa_6h_kgf_s??>
+                     and CW_LFV_OA_6H_KGF_S=:cw_lfv_oa_6h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_6h_rank_s??>
+                     and CW_LFV_OA_6H_RANK_S=:cw_lfv_oa_6h_rank_s
+                </#if>
+                <#if cw_lfv_oa_7h_deg_s??>
+                     and CW_LFV_OA_7H_DEG_S=:cw_lfv_oa_7h_deg_s
+                </#if>
+                <#if cw_lfv_oa_7h_kgf_s??>
+                     and CW_LFV_OA_7H_KGF_S=:cw_lfv_oa_7h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_7h_rank_s??>
+                     and CW_LFV_OA_7H_RANK_S=:cw_lfv_oa_7h_rank_s
+                </#if>
+                <#if cw_lfv_oa_8h_deg_s??>
+                     and CW_LFV_OA_8H_DEG_S=:cw_lfv_oa_8h_deg_s
+                </#if>
+                <#if cw_lfv_oa_8h_kgf_s??>
+                     and CW_LFV_OA_8H_KGF_S=:cw_lfv_oa_8h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_8h_rank_s??>
+                     and CW_LFV_OA_8H_RANK_S=:cw_lfv_oa_8h_rank_s
+                </#if>
+                <#if cw_lfv_oa_9h_deg_s??>
+                     and CW_LFV_OA_9H_DEG_S=:cw_lfv_oa_9h_deg_s
+                </#if>
+                <#if cw_lfv_oa_9h_kgf_s??>
+                     and CW_LFV_OA_9H_KGF_S=:cw_lfv_oa_9h_kgf_s
+                </#if>
+                <#if cw_lfv_oa_9h_rank_s??>
+                     and CW_LFV_OA_9H_RANK_S=:cw_lfv_oa_9h_rank_s
+                </#if>
+                <#if cw_lfv_oa_deg_s??>
+                     and CW_LFV_OA_DEG_S=:cw_lfv_oa_deg_s
+                </#if>
+                <#if cw_lfv_oa_kgf_s??>
+                     and CW_LFV_OA_KGF_S=:cw_lfv_oa_kgf_s
+                </#if>
+                <#if cw_lfv_oa_rank_s??>
+                     and CW_LFV_OA_RANK_S=:cw_lfv_oa_rank_s
+                </#if>
+                <#if cw_rfv_oa_10h_deg_s??>
+                     and CW_RFV_OA_10H_DEG_S=:cw_rfv_oa_10h_deg_s
+                </#if>
+                <#if cw_rfv_oa_10h_kgf_s??>
+                     and CW_RFV_OA_10H_KGF_S=:cw_rfv_oa_10h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_10h_rank_s??>
+                     and CW_RFV_OA_10H_RANK_S=:cw_rfv_oa_10h_rank_s
+                </#if>
+                <#if cw_rfv_oa_1h_deg_s??>
+                     and CW_RFV_OA_1H_DEG_S=:cw_rfv_oa_1h_deg_s
+                </#if>
+                <#if cw_rfv_oa_1h_kgf_s??>
+                     and CW_RFV_OA_1H_KGF_S=:cw_rfv_oa_1h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_1h_rank_s??>
+                     and CW_RFV_OA_1H_RANK_S=:cw_rfv_oa_1h_rank_s
+                </#if>
+                <#if cw_rfv_oa_2h_deg_s??>
+                     and CW_RFV_OA_2H_DEG_S=:cw_rfv_oa_2h_deg_s
+                </#if>
+                <#if cw_rfv_oa_2h_kgf_s??>
+                     and CW_RFV_OA_2H_KGF_S=:cw_rfv_oa_2h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_2h_rank_s??>
+                     and CW_RFV_OA_2H_RANK_S=:cw_rfv_oa_2h_rank_s
+                </#if>
+                <#if cw_rfv_oa_3h_deg_s??>
+                     and CW_RFV_OA_3H_DEG_S=:cw_rfv_oa_3h_deg_s
+                </#if>
+                <#if cw_rfv_oa_3h_kgf_s??>
+                     and CW_RFV_OA_3H_KGF_S=:cw_rfv_oa_3h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_3h_rank_s??>
+                     and CW_RFV_OA_3H_RANK_S=:cw_rfv_oa_3h_rank_s
+                </#if>
+                <#if cw_rfv_oa_4h_deg_s??>
+                     and CW_RFV_OA_4H_DEG_S=:cw_rfv_oa_4h_deg_s
+                </#if>
+                <#if cw_rfv_oa_4h_kgf_s??>
+                     and CW_RFV_OA_4H_KGF_S=:cw_rfv_oa_4h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_4h_rank_s??>
+                     and CW_RFV_OA_4H_RANK_S=:cw_rfv_oa_4h_rank_s
+                </#if>
+                <#if cw_rfv_oa_5h_deg_s??>
+                     and CW_RFV_OA_5H_DEG_S=:cw_rfv_oa_5h_deg_s
+                </#if>
+                <#if cw_rfv_oa_5h_kgf_s??>
+                     and CW_RFV_OA_5H_KGF_S=:cw_rfv_oa_5h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_5h_rank_s??>
+                     and CW_RFV_OA_5H_RANK_S=:cw_rfv_oa_5h_rank_s
+                </#if>
+                <#if cw_rfv_oa_6h_deg_s??>
+                     and CW_RFV_OA_6H_DEG_S=:cw_rfv_oa_6h_deg_s
+                </#if>
+                <#if cw_rfv_oa_6h_kgf_s??>
+                     and CW_RFV_OA_6H_KGF_S=:cw_rfv_oa_6h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_6h_rank_s??>
+                     and CW_RFV_OA_6H_RANK_S=:cw_rfv_oa_6h_rank_s
+                </#if>
+                <#if cw_rfv_oa_7h_deg_s??>
+                     and CW_RFV_OA_7H_DEG_S=:cw_rfv_oa_7h_deg_s
+                </#if>
+                <#if cw_rfv_oa_7h_kgf_s??>
+                     and CW_RFV_OA_7H_KGF_S=:cw_rfv_oa_7h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_7h_rank_s??>
+                     and CW_RFV_OA_7H_RANK_S=:cw_rfv_oa_7h_rank_s
+                </#if>
+                <#if cw_rfv_oa_8h_deg_s??>
+                     and CW_RFV_OA_8H_DEG_S=:cw_rfv_oa_8h_deg_s
+                </#if>
+                <#if cw_rfv_oa_8h_kgf_s??>
+                     and CW_RFV_OA_8H_KGF_S=:cw_rfv_oa_8h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_8h_rank_s??>
+                     and CW_RFV_OA_8H_RANK_S=:cw_rfv_oa_8h_rank_s
+                </#if>
+                <#if cw_rfv_oa_9h_deg_s??>
+                     and CW_RFV_OA_9H_DEG_S=:cw_rfv_oa_9h_deg_s
+                </#if>
+                <#if cw_rfv_oa_9h_kgf_s??>
+                     and CW_RFV_OA_9H_KGF_S=:cw_rfv_oa_9h_kgf_s
+                </#if>
+                <#if cw_rfv_oa_9h_rank_s??>
+                     and CW_RFV_OA_9H_RANK_S=:cw_rfv_oa_9h_rank_s
+                </#if>
+                <#if cw_rfv_oa_deg_s??>
+                     and CW_RFV_OA_DEG_S=:cw_rfv_oa_deg_s
+                </#if>
+                <#if cw_rfv_oa_kgf_s??>
+                     and CW_RFV_OA_KGF_S=:cw_rfv_oa_kgf_s
+                </#if>
+                <#if cw_rfv_oa_rank_s??>
+                     and CW_RFV_OA_RANK_S=:cw_rfv_oa_rank_s
+                </#if>
+                <#if gradecode_s??>
+                     and t.GRADECODE_S=:gradecode_s
+                </#if>
+                <#if lb_bulging_deg_s??>
+                     and LB_BULGING_DEG_S=:lb_bulging_deg_s
+                </#if>
+                <#if lb_bulging_mm_s??>
+                     and LB_BULGING_MM_S=:lb_bulging_mm_s
+                </#if>
+                <#if lb_bulging_rank_s??>
+                     and LB_BULGING_RANK_S=:lb_bulging_rank_s
+                </#if>
+                <#if lb_dent_deg_s??>
+                     and LB_DENT_DEG_S=:lb_dent_deg_s
+                </#if>
+                <#if lb_dent_mm_s??>
+                     and LB_DENT_MM_S=:lb_dent_mm_s
+                </#if>
+                <#if lb_dent_rank_s??>
+                     and LB_DENT_RANK_S=:lb_dent_rank_s
+                </#if>
+                <#if lb_oa_1h_deg_s??>
+                     and LB_OA_1H_DEG_S=:lb_oa_1h_deg_s
+                </#if>
+                <#if lb_oa_1h_mm_s??>
+                     and LB_OA_1H_MM_S=:lb_oa_1h_mm_s
+                </#if>
+                <#if lb_oa_1h_rank_s??>
+                     and LB_OA_1H_RANK_S=:lb_oa_1h_rank_s
+                </#if>
+                <#if lb_oa_deg_s??>
+                     and LB_OA_DEG_S=:lb_oa_deg_s
+                </#if>
+                <#if lb_oa_mm_s??>
+                     and LB_OA_MM_S=:lb_oa_mm_s
+                </#if>
+                <#if lb_oa_rank_s??>
+                     and LB_OA_RANK_S=:lb_oa_rank_s
+                </#if>
+                <#if load_s??>
+                     and t.LOAD_S=:load_s
+                </#if>
+                <#if lt_bulging_deg_s??>
+                     and LT_BULGING_DEG_S=:lt_bulging_deg_s
+                </#if>
+                <#if lt_bulging_mm_s??>
+                     and LT_BULGING_MM_S=:lt_bulging_mm_s
+                </#if>
+                <#if lt_bulging_rank_s??>
+                     and LT_BULGING_RANK_S=:lt_bulging_rank_s
+                </#if>
+                <#if lt_dent_deg_s??>
+                     and LT_DENT_DEG_S=:lt_dent_deg_s
+                </#if>
+                <#if lt_dent_mm_s??>
+                     and LT_DENT_MM_S=:lt_dent_mm_s
+                </#if>
+                <#if lt_dent_rank_s??>
+                     and LT_DENT_RANK_S=:lt_dent_rank_s
+                </#if>
+                <#if lt_oa_1h_deg_s??>
+                     and LT_OA_1H_DEG_S=:lt_oa_1h_deg_s
+                </#if>
+                <#if lt_oa_1h_mm_s??>
+                     and LT_OA_1H_MM_S=:lt_oa_1h_mm_s
+                </#if>
+                <#if lt_oa_1h_rank_s??>
+                     and LT_OA_1H_RANK_S=:lt_oa_1h_rank_s
+                </#if>
+                <#if lt_oa_deg_s??>
+                     and LT_OA_DEG_S=:lt_oa_deg_s
+                </#if>
+                <#if lt_oa_mm_s??>
+                     and LT_OA_MM_S=:lt_oa_mm_s
+                </#if>
+                <#if lt_oa_rank_s??>
+                     and LT_OA_RANK_S=:lt_oa_rank_s
+                </#if>
+                <#if machinebar_s??>
+                     and t.MACHINEBAR_S=:machinebar_s
+                </#if>
+                <#if memo_s??>
+                     and t.MEMO_S=:memo_s
+                </#if>
+                <#if outside_diameter_mm_s??>
+                     and OUTSIDE_DIAMETER_MM_S=:outside_diameter_mm_s
+                </#if>
+                <#if outside_diameter_rank_s??>
+                     and OUTSIDE_DIAMETER_RANK_S=:outside_diameter_rank_s
+                </#if>
+                <#if rb_oa_1h_deg_s??>
+                     and RB_OA_1H_DEG_S=:rb_oa_1h_deg_s
+                </#if>
+                <#if rb_oa_1h_mm_s??>
+                     and RB_OA_1H_MM_S=:rb_oa_1h_mm_s
+                </#if>
+                <#if rb_oa_1h_rank_s??>
+                     and RB_OA_1H_RANK_S=:rb_oa_1h_rank_s
+                </#if>
+                <#if rb_oa_deg_s??>
+                     and RB_OA_DEG_S=:rb_oa_deg_s
+                </#if>
+                <#if rb_oa_mm_s??>
+                     and RB_OA_MM_S=:rb_oa_mm_s
+                </#if>
+                <#if rb_oa_rank_s??>
+                     and RB_OA_RANK_S=:rb_oa_rank_s
+                </#if>
+                <#if rc_oa_1h_deg_s??>
+                     and RC_OA_1H_DEG_S=:rc_oa_1h_deg_s
+                </#if>
+                <#if rc_oa_1h_mm_s??>
+                     and RC_OA_1H_MM_S=:rc_oa_1h_mm_s
+                </#if>
+                <#if rc_oa_1h_rank_s??>
+                     and RC_OA_1H_RANK_S=:rc_oa_1h_rank_s
+                </#if>
+                <#if rc_oa_deg_s??>
+                     and RC_OA_DEG_S=:rc_oa_deg_s
+                </#if>
+                <#if rc_oa_mm_s??>
+                     and RC_OA_MM_S=:rc_oa_mm_s
+                </#if>
+                <#if rc_oa_rank_s??>
+                     and RC_OA_RANK_S=:rc_oa_rank_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if ro_total_rank_s??>
+                     and RO_TOTAL_RANK_S=:ro_total_rank_s
+                </#if>
+                <#if rt_oa_1h_deg_s??>
+                     and RT_OA_1H_DEG_S=:rt_oa_1h_deg_s
+                </#if>
+                <#if rt_oa_1h_mm_s??>
+                     and RT_OA_1H_MM_S=:rt_oa_1h_mm_s
+                </#if>
+                <#if rt_oa_1h_rank_s??>
+                     and RT_OA_1H_RANK_S=:rt_oa_1h_rank_s
+                </#if>
+                <#if rt_oa_deg_s??>
+                     and RT_OA_DEG_S=:rt_oa_deg_s
+                </#if>
+                <#if rt_oa_mm_s??>
+                     and RT_OA_MM_S=:rt_oa_mm_s
+                </#if>
+                <#if rt_oa_rank_s??>
+                     and RT_OA_RANK_S=:rt_oa_rank_s
+                </#if>
+                <#if specification_s??>
+                     and t.SPECIFICATION_S=:specification_s
+                </#if>
+                <#if s_factory_s??>
+                     and t. S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if ufm_total_rank_s??>
+                     and t.UFM_TOTAL_RANK_S=:ufm_total_rank_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.created_time_t desc
+            </#if>
+        
+        )
+         
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="EntCodeName">
+        <![CDATA[
+              select t.entbarcode_s,t.entname_s
+  			from AT_D_EM_ENT t where 1=1 
+  			 and t.enttype_i='254005' 
+  			 and t.s_factory_s=:s_factory_s
+  			order by t.entbarcode_s asc
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="getEndNameByEntCode">
+        <![CDATA[
+               SELECT
+			E.DESCRIPTION
+			FROM
+				EQUIPMENT E,
+				UDA_EQUIPMENT UE
+			WHERE
+				1 = 1
+			AND E .EQUIP_KEY = UE.OBJECT_KEY 
+			AND UE.EQUIP_TYPE_S='254005' 
+		    AND UE.S_FACTORY_S=:s_factory_s
+			and E.EQUIP_NAME=:entCode
+        ]]>
+    </sql>
+</sqls>

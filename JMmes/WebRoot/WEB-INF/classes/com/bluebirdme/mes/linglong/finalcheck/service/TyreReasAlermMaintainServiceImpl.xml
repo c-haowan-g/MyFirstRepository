@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select t.*,r.reas_cn_s as creation_name from AT_D_QM_TYREREASALARMMAINTAIN t ,
+			(select e.* from AT_D_BS_REAS e where 1=1 and  e.RECORD_FLAG_S='A' and e.S_FACTORY_S=:s_factory_s ) r 
+			where 1=1 and t.REAS_CODE_S=r.REAS_CODE_S and t.RECORD_FLAG_S='A' and t.reas_count_i!=0
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and t.ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if itemid_s??>
+                     and t.ITEMID_S=:itemid_s
+                </#if>
+                <#if proess_s??>
+                     and t.PROESS_S=:proess_s
+                </#if>
+                <#if reas_code_s??>
+                     and t.REAS_CODE_S=:reas_code_s
+                </#if>
+                <#if reas_count_i??>
+                     and t.REAS_COUNT_I=:reas_count_i
+                </#if>
+              
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.CREATED_TIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_D_QM_TYREREASALARMMAINTAIN t ,
+			(select e.* from AT_D_BS_REAS e where 1=1 and  e.RECORD_FLAG_S='A' and e.S_FACTORY_S=:s_factory_s ) r 
+			where 1=1 and t.REAS_CODE_S=r.REAS_CODE_S and t.RECORD_FLAG_S='A'  and t.reas_count_i!=0
+                    <#if agenc_no_s??>
+                         and t.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and t.ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and t.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and t.CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and t.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and t.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if itemid_s??>
+                         and t.ITEMID_S=:itemid_s
+                    </#if>
+                    <#if proess_s??>
+                         and t.PROESS_S=:proess_s
+                    </#if>
+                    <#if reas_code_s??>
+                         and t.REAS_CODE_S=:reas_code_s
+                    </#if>
+                    <#if reas_count_i??>
+                         and t.REAS_COUNT_I=:reas_count_i
+                    </#if>
+                    <#if spare1_s??>
+                         and t.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and t.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and t.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and t.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and t.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and t.S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="获取病象" id="getReasByCode">
+        <![CDATA[
+            select REAS_CODE_S,REAS_CN_S from AT_D_BS_REAS where 1=1 
+              and REAS_GRP_TYPE_S = :reas_grp_type_s
+              and S_FACTORY_S = :factory
+              and RECORD_FLAG_S ='A'
+        ]]>
+    </sql>
+    <sql comment="修改" id="update">
+       <![CDATA[
+            select count(1) from AT_D_QM_TYREREASALARMMAINTAIN 
+            where reas_code_s =:reas_code_s 
+            and record_flag_s ='A'
+            and s_factory_s =:s_factory_s
+            and atr_key<>:atr_key
+        ]]>
+	</sql>
+	   <sql comment="添加" id="update2">
+       <![CDATA[
+            select count(1) from AT_D_QM_TYREREASALARMMAINTAIN 
+            where reas_code_s =:reas_code_s 
+            and record_flag_s ='A'
+            and s_factory_s =:s_factory_s
+      
+        ]]>
+	</sql>
+	
+	<sql comment="条码查询" id="vehiclesBarcodeQuery">
+       <![CDATA[
+            select * from AT_D_QM_TYREREASALARMMAINTAIN 
+            where  reas_code_s =:vehicles_barcode_s 
+            and s_factory_s =:s_factory_s 
+            and record_flag_s ='A'
+            and atr_key<>:atr_key 
+        ]]>
+	</sql>
+</sqls>

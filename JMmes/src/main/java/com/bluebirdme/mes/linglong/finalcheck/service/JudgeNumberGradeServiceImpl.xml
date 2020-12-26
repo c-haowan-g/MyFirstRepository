@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_D_BS_JUDGENUMBERGRADE where 1=1
+            and RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if cegradecode_s??>
+                     and CEGRADECODE_S=:cegradecode_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if enttype_s??>
+                     and ENTTYPE_S=:enttype_s
+                </#if>
+                <#if judgeno_s??>
+                     and JUDGENO_S=:judgeno_s
+                </#if>
+                <#if machinegradecode_s??>
+                     and MACHINEGRADECODE_S=:machinegradecode_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by machinegradecode_s asc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_D_BS_JUDGENUMBERGRADE where 1=1
+             and RECORD_FLAG_S='A'
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if cegradecode_s??>
+                         and CEGRADECODE_S=:cegradecode_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if enttype_s??>
+                         and ENTTYPE_S=:enttype_s
+                    </#if>
+                    <#if judgeno_s??>
+                         and JUDGENO_S=:judgeno_s
+                    </#if>
+                    <#if machinegradecode_s??>
+                         and MACHINEGRADECODE_S=:machinegradecode_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="comboxMachineGrade">
+        <![CDATA[
+          select t.erpcode_s dbcode, t.erpcode_s showvalue
+			  from AT_CM_BS_COREDICTIONARY t
+			 where t.dictcode_s like '268%'
+			   and t.erpcode_s is not null
+			    and t.deleted_i='0'
+			   order by dictcode_s asc
+        ]]>
+    </sql>
+    
+     <sql comment="从工序等级维护页面拉动平衡等级信息" id="comboxDynamicGrade">
+        <![CDATA[
+          select  t.gradecode_i,t.gradedesc_s
+				  from AT_D_BS_PROCESSGRADE t
+				 where 1 = 1
+				   and t.record_flag_s = 'A'
+				   and t.s_factory_s = :s_factory_s
+				    and t.proess_i='252010'
+				   order by t.gradecode_i asc
+        ]]>
+    </sql>
+    
+       <sql comment="从工序等级维护页面拉均匀性等级信息" id="comboxUniformGrade">
+        <![CDATA[
+          select  t.gradecode_i,t.gradedesc_s
+				  from AT_D_BS_PROCESSGRADE t
+				 where 1 = 1
+				   and t.record_flag_s = 'A'
+				   and t.s_factory_s = :s_factory_s
+				    and t.proess_i='252011'
+				   order by t.gradecode_i asc
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="selectdouble">
+        <![CDATA[
+          select count(1) from AT_D_BS_JUDGENUMBERGRADE 
+          where  judgeno_s = :judgeno_
+          and enttype_s = :enttype_s
+          and cegradecode_s=:cegradecode_s
+          and record_flag_s = 'A'
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="selectdouble2">
+        <![CDATA[
+          select count(1) from AT_D_BS_JUDGENUMBERGRADE 
+          where  judgeno_s = :judgeno_
+          and enttype_s = :enttype_s
+          and machinegradecode_s=:machinegradecode_s
+          and record_flag_s = 'A'
+          AND S_FACTORY_S = :s_factory_s
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="selectdouble3">
+        <![CDATA[
+          select count(1) from AT_D_BS_JUDGENUMBERGRADE 
+          where  judgeno_s = :judgeno_
+          and enttype_s = :enttype_s
+          and cegradecode_s = :cegradecode_s
+          and machinegradecode_s=:machinegradecode_s
+          and record_flag_s = 'A'
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="selectdoubleupdate">
+        <![CDATA[
+          select count(1) from 
+          (select * from AT_D_BS_JUDGENUMBERGRADE where  CEGRADECODE_S !=:cegradecode_s
+          and judgeno_s != :judgeno_
+          and enttype_s = :enttype_s
+          and machinegradecode_s =:machinegradecode_s
+          and  record_flag_s = 'A')
+          where  CEGRADECODE_S=:cegradecode_s
+          and judgeno_s = :judgeno_
+          and enttype_s = :enttype_s
+          and machinegradecode_s =:machinegradecode_s
+          and  record_flag_s = 'A'
+        ]]>
+    </sql>
+    
+    
+</sqls>

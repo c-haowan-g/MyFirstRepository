@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+           select a.*,(ROUND(a.PLANFINISH_F/a.PLANQUANTITYCONFIRM_F,4)*100) as fulfillment_of_schedule from AT_A_PM_PRODUCTPLAN a where 1=1
+           and a.PLANQUANTITYCONFIRM_F<>0
+           and a.RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and a.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if record_flag_s??>
+                     and a.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if s_factory_s??>
+                     and a.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if equip_code_s??>
+                     and a.EQUIP_CODE_S =:equip_code_s
+                </#if>
+                <#if planno_s??>
+                     and a.PLANNO_S like:planno_s
+                </#if>
+                <#if planstarttime_t?? && planfinishtime_t??>
+                	and a.PLANSTARTTIME_T between to_date(:planstarttime_t,'yyyy-mm-dd hh24:MI:ss')
+               		and to_date (:planfinishtime_t,'yyyy-mm-dd hh24:MI:ss')
+              	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by a.EQUIP_CODE_S desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (select a.*,(ROUND(a.PLANFINISH_F/a.PLANQUANTITYCONFIRM_F,4)*100) as fulfillment_of_schedule from AT_A_PM_PRODUCTPLAN a where 1=1
+                and a.PLANQUANTITYCONFIRM_F<>0
+                and a.RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and a.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if record_flag_s??>
+                     and a.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if s_factory_s??>
+                     and a.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if equip_code_s??>
+                     and a.EQUIP_CODE_S =:equip_code_s
+                </#if>
+                <#if planno_s??>
+                     and a.PLANNO_S like:planno_s
+                </#if>
+                <#if planstarttime_t?? && planfinishtime_t??>
+               		and a.PLANSTARTTIME_T between to_date(:planstarttime_t,'yyyy-mm-dd hh24:MI:ss')
+               		and to_date (:planfinishtime_t,'yyyy-mm-dd hh24:MI:ss')
+              	</#if>)
+        ]]>
+    </sql>
+    
+     <sql comment="查出机台名称显示在JSP页面下拉列表处" id="searchEquipCode">
+        <![CDATA[
+            select DISTINCT EQUIP_CODE_S from AT_A_PM_PRODUCTPLAN where 1=1
+             and AGENC_NO_S=:agenc_no_s
+             and RECORD_FLAG_S=:record_flag_s
+             and S_FACTORY_S=:s_factory_s
+        ]]>
+    </sql>
+    
+    <sql comment="查出日计划号显示在JSP页面下拉列表处" id="searchPlanno">
+        <![CDATA[
+            select PLANNO_S from AT_A_PM_PRODUCTPLAN where 1=1
+             and AGENC_NO_S=:agenc_no_s
+             and RECORD_FLAG_S=:record_flag_s
+             and S_FACTORY_S=:s_factory_s
+        ]]>
+    </sql>
+    
+</sqls>

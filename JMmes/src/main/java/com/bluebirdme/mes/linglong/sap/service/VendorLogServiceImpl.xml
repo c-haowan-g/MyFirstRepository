@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_INT_SAP_VENDOR_LOG where 1=1 
+                <#if address1_s??>
+                     and Address1_S=:address1_s
+                </#if>
+                <#if buyerid_s??>
+                     and BuyerId_S=:buyerid_s
+                </#if>
+                <#if buyername_s??>
+                     and BuyerName_S=:buyername_s
+                </#if>
+                <#if cdate_s??>
+                     and CDate_S=:cdate_s
+                </#if>
+                <#if ctime_s??>
+                     and CTime_S=:ctime_s
+                </#if>
+                <#if companycode_s??>
+                     and CompanyCode_S=:companycode_s
+                </#if>
+                <#if contactor_s??>
+                     and Contactor_S like:contactor_s
+                </#if>
+                <#if dummy1_s??>
+                     and Dummy1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and Dummy2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and Dummy3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and Dummy4_S=:dummy4_s
+                </#if>
+                <#if email_s??>
+                     and Email_S like:email_s
+                </#if>
+                <#if fax_s??>
+                     and Fax_S like:fax_s
+                </#if>
+                <#if postalcode_s??>
+                     and Postalcode_S=:postalcode_s
+                </#if>
+                <#if pur_org_s??>
+                     and Pur_org_S like:pur_org_s
+                </#if>
+                <#if remark_s??>
+                     and Remark_S=:remark_s
+                </#if>
+                <#if status_s??>
+                     and Status_S=:status_s
+                </#if>
+                <#if suppliercode_s??>
+                     and SupplierCode_S like:suppliercode_s
+                </#if>
+                <#if suppliername_s??>
+                     and SupplierName_S like:suppliername_s
+                </#if>
+                <#if suppliernick_s??>
+                     and SupplierNick_S=:suppliernick_s
+                </#if>
+                <#if supplier_name_en_s??>
+                     and Supplier_Name_En_S=:supplier_name_en_s
+                </#if>
+                <#if supplier_name_th_s??>
+                     and Supplier_Name_Th_S=:supplier_name_th_s
+                </#if>
+                <#if supplier_nick_en_s??>
+                     and Supplier_Nick_En_S=:supplier_nick_en_s
+                </#if>
+                <#if supplier_nick_th_s??>
+                     and Supplier_Nick_Th_S=:supplier_nick_th_s
+                </#if>
+                <#if start_time?? && end_time??>
+                 and SYNCHRONOUS_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+	           	<#if start_time?? && !end_time??>
+	                 and SYNCHRONOUS_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+	            <#if !start_time?? && end_time??>
+	                 and SYNCHRONOUS_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+	            </#if>
+                <#if taxid_s??>
+                     and TaxId_S=:taxid_s
+                </#if>
+                <#if tel1_s??>
+                     and Tel1_S like:tel1_s
+                </#if>
+                <#if udate_s??>
+                     and UDate_S=:udate_s
+                </#if>
+                <#if utime_s??>
+                     and Utime_S=:utime_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by SYNCHRONOUS_TIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_INT_SAP_VENDOR_LOG where 1=1 
+                    <#if address1_s??>
+                         and Address1_S=:address1_s
+                    </#if>
+                    <#if buyerid_s??>
+                         and BuyerId_S=:buyerid_s
+                    </#if>
+                    <#if buyername_s??>
+                         and BuyerName_S=:buyername_s
+                    </#if>
+                    <#if cdate_s??>
+                         and CDate_S=:cdate_s
+                    </#if>
+                    <#if ctime_s??>
+                         and CTime_S=:ctime_s
+                    </#if>
+                    <#if companycode_s??>
+                         and CompanyCode_S=:companycode_s
+                    </#if>
+                    <#if contactor_s??>
+                         and Contactor_S like:contactor_s
+                    </#if>
+                    <#if dummy1_s??>
+                         and Dummy1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and Dummy2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and Dummy3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and Dummy4_S=:dummy4_s
+                    </#if>
+                    <#if email_s??>
+                         and Email_S like:email_s
+                    </#if>
+                    <#if fax_s??>
+                         and Fax_S like:fax_s
+                    </#if>
+                    <#if postalcode_s??>
+                         and Postalcode_S=:postalcode_s
+                    </#if>
+                    <#if pur_org_s??>
+                         and Pur_org_S like:pur_org_s
+                    </#if>
+                    <#if remark_s??>
+                         and Remark_S=:remark_s
+                    </#if>
+                    <#if status_s??>
+                         and Status_S=:status_s
+                    </#if>
+                    <#if suppliercode_s??>
+                         and SupplierCode_S like:suppliercode_s
+                    </#if>
+                    <#if suppliername_s??>
+                         and SupplierName_S like:suppliername_s
+                    </#if>
+                    <#if suppliernick_s??>
+                         and SupplierNick_S=:suppliernick_s
+                    </#if>
+                    <#if supplier_name_en_s??>
+                         and Supplier_Name_En_S=:supplier_name_en_s
+                    </#if>
+                    <#if supplier_name_th_s??>
+                         and Supplier_Name_Th_S=:supplier_name_th_s
+                    </#if>
+                    <#if supplier_nick_en_s??>
+                         and Supplier_Nick_En_S=:supplier_nick_en_s
+                    </#if>
+                    <#if supplier_nick_th_s??>
+                         and Supplier_Nick_Th_S=:supplier_nick_th_s
+                    </#if>
+                    <#if start_time?? && end_time??>
+	                 and SYNCHRONOUS_TIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		           	<#if start_time?? && !end_time??>
+		                 and SYNCHRONOUS_TIME_T > TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+		            <#if !start_time?? && end_time??>
+		                 and SYNCHRONOUS_TIME_T < TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+		            </#if>
+                    <#if taxid_s??>
+                         and TaxId_S=:taxid_s
+                    </#if>
+                    <#if tel1_s??>
+                         and Tel1_S like:tel1_s
+                    </#if>
+                    <#if udate_s??>
+                         and UDate_S=:udate_s
+                    </#if>
+                    <#if utime_s??>
+                         and Utime_S=:utime_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_B_QM_FORMULA_RECORD where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alter_source_s??>
+                     and ALTER_SOURCE_S=:alter_source_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if formula_index_s??>
+                     and FORMULA_INDEX_S=:formula_index_s
+                </#if>
+                <#if formula_modify_index_s??>
+                     and FORMULA_MODIFY_INDEX_S=:formula_modify_index_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if parameter_id_s??>
+                     and PARAMETER_ID_S=:parameter_id_s
+                </#if>
+                <#if parameter_name_s??>
+                     and PARAMETER_NAME_S=:parameter_name_s
+                </#if>
+                <#if parameter_plcaddress_s??>
+                     and PARAMETER_PLCADDRESS_S=:parameter_plcaddress_s
+                </#if>
+                <#if parameter_plcvalue_s??>
+                     and PARAMETER_PLCVALUE_S=:parameter_plcvalue_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if productlinecode_s??>
+                     and PRODUCTLINECODE_S=:productlinecode_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_B_QM_FORMULA_RECORD where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if alter_source_s??>
+                         and ALTER_SOURCE_S=:alter_source_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if formula_index_s??>
+                         and FORMULA_INDEX_S=:formula_index_s
+                    </#if>
+                    <#if formula_modify_index_s??>
+                         and FORMULA_MODIFY_INDEX_S=:formula_modify_index_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if parameter_id_s??>
+                         and PARAMETER_ID_S=:parameter_id_s
+                    </#if>
+                    <#if parameter_name_s??>
+                         and PARAMETER_NAME_S=:parameter_name_s
+                    </#if>
+                    <#if parameter_plcaddress_s??>
+                         and PARAMETER_PLCADDRESS_S=:parameter_plcaddress_s
+                    </#if>
+                    <#if parameter_plcvalue_s??>
+                         and PARAMETER_PLCVALUE_S=:parameter_plcvalue_s
+                    </#if>
+                    <#if plan_no_s??>
+                         and PLAN_NO_S=:plan_no_s
+                    </#if>
+                    <#if productlinecode_s??>
+                         and PRODUCTLINECODE_S=:productlinecode_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

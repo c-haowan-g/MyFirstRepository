@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_D_QM_SORTDYNABALANCELOG where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if barcode_s??>
+                     and BARCODE_S=:barcode_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if etype_i??>
+                     and ETYPE_I=:etype_i
+                </#if>
+                <#if floor_i??>
+                     and FLOOR_I=:floor_i
+                </#if>
+                <#if gradecd_i??>
+                     and GRADECD_I=:gradecd_i
+                </#if>
+                <#if isok_i??>
+                     and ISOK_I=:isok_i
+                </#if>
+                <#if itemid_s??>
+                     and ITEMID_S=:itemid_s
+                </#if>
+                <#if proess_i??>
+                     and PROESS_I=:proess_i
+                </#if>
+                <#if realmachinebar_s??>
+                     and REALMACHINEBAR_S=:realmachinebar_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if remark_s??>
+                     and REMARK_S=:remark_s
+                </#if>
+                <#if sortmachinebar_s??>
+                     and SORTMACHINEBAR_S=:sortmachinebar_s
+                </#if>
+                <#if sorttime_t??>
+                     and SORTTIME_T=:sorttime_t
+                </#if>
+                <#if sorttype_i??>
+                     and SORTTYPE_I=:sorttype_i
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if writeinremark_s??>
+                     and WRITEINREMARK_S=:writeinremark_s
+                </#if>
+                <#if writein_s??>
+                     and WRITEIN_S=:writein_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_D_QM_SORTDYNABALANCELOG where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if barcode_s??>
+                         and BARCODE_S=:barcode_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if etype_i??>
+                         and ETYPE_I=:etype_i
+                    </#if>
+                    <#if floor_i??>
+                         and FLOOR_I=:floor_i
+                    </#if>
+                    <#if gradecd_i??>
+                         and GRADECD_I=:gradecd_i
+                    </#if>
+                    <#if isok_i??>
+                         and ISOK_I=:isok_i
+                    </#if>
+                    <#if itemid_s??>
+                         and ITEMID_S=:itemid_s
+                    </#if>
+                    <#if proess_i??>
+                         and PROESS_I=:proess_i
+                    </#if>
+                    <#if realmachinebar_s??>
+                         and REALMACHINEBAR_S=:realmachinebar_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if remark_s??>
+                         and REMARK_S=:remark_s
+                    </#if>
+                    <#if sortmachinebar_s??>
+                         and SORTMACHINEBAR_S=:sortmachinebar_s
+                    </#if>
+                    <#if sorttime_t??>
+                         and SORTTIME_T=:sorttime_t
+                    </#if>
+                    <#if sorttype_i??>
+                         and SORTTYPE_I=:sorttype_i
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if writeinremark_s??>
+                         and WRITEINREMARK_S=:writeinremark_s
+                    </#if>
+                    <#if writein_s??>
+                         and WRITEIN_S=:writein_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="getAll1">
+        <![CDATA[
+ WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTDYNABALANCELOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+ 
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="getAll2">
+        <![CDATA[
+        WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTDYNABALANCELOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+        
+                     and  st.realmachinebar_s=:entname_s
+                
+        ]]>
+    </sql>
+    
+    
+<!--外观分拣sql  -->
+      <sql comment="datagrid" id="getAlla1">
+        <![CDATA[
+ WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTAPPEARANCELOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+ 
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="getAlla2">
+        <![CDATA[
+        WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTAPPEARANCELOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+        
+                     and  st.realmachinebar_s=:wgentname_s
+                
+        ]]>
+    </sql>
+    
+    <!-- X光分拣 -->
+    <sql comment="datagrid" id="getAllx1">
+        <![CDATA[
+ WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTXRAYLOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+ 
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="getAllx2">
+        <![CDATA[
+        WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTXRAYLOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+        
+                     and  st.realmachinebar_s=:xgentname_s
+                
+        ]]>
+    </sql>
+    
+      <!-- 割毛分拣 -->
+    <sql comment="datagrid" id="getAllgm1">
+        <![CDATA[
+ WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTTRIMLOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+ 
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="getAllgm2">
+        <![CDATA[
+        WITH alls AS (
+	SELECT
+			T .*
+	FROM
+		AT_D_QM_SORTTRIMLOG T 
+		 
+	WHERE
+		 1=1
+and T.SORTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') and t.s_factory_s =:s_factory_s
+),
+ t_total AS (
+	SELECT
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	GROUP BY
+
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+),
+ s_total AS (
+	SELECT
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) sorttime_t,
+		 
+		COUNT (1) tt
+	FROM
+		alls T
+	WHERE
+		T.realmachinebar_s is not null
+	GROUP BY
+T.realmachinebar_s,
+		TO_CHAR (
+			T .SORTTIME_T,
+			'yyyy-mm-dd'
+		) 
+ 
+) 
+  SELECT
+st.realmachinebar_s,
+	dt.sorttime_t sorttime_t,
+ 
+	ROUND ((st.tt / dt.tt) * 100, 2) s_p 
+	 
+FROM
+	t_total dt,
+	s_total st 
+	 
+WHERE
+	dt.sorttime_t = st.sorttime_t (+)
+ 
+        
+                     and  st.realmachinebar_s=:gmentname_s
+                
+        ]]>
+    </sql>
+    
+    
+    <sql comment="外观分拣点下拉框" id="searchcodewg">
+       <![CDATA[
+            SELECT  DISTINCT REALMACHINEBAR_S
+             FROM AT_D_QM_SORTAPPEARANCELOG 
+             WHERE 1=1 AND RECORD_FLAG_S='A' AND REALMACHINEBAR_S IS NOT NULL
+        ]]>
+	</sql>
+	 
+    <sql comment="X光分拣点下拉框" id="searchcodexg">
+       <![CDATA[
+            SELECT  DISTINCT REALMACHINEBAR_S
+             FROM AT_D_QM_SORTXRAYLOG 
+             WHERE 1=1 AND RECORD_FLAG_S='A' AND REALMACHINEBAR_S IS NOT NULL
+        ]]>
+	</sql>
+    	 <sql comment="分拣点下拉框" id="searchcode">
+       <![CDATA[
+            SELECT  DISTINCT REALMACHINEBAR_S
+             FROM AT_D_QM_SORTDYNABALANCELOG 
+             WHERE 1=1 AND RECORD_FLAG_S='A' AND REALMACHINEBAR_S IS NOT NULL
+        ]]>
+	</sql>
+	
+	
+    	 <sql comment="割毛分拣点下拉框" id="searchcodegm">
+       <![CDATA[
+            SELECT  DISTINCT REALMACHINEBAR_S
+             FROM AT_D_QM_SORTTRIMLOG 
+             WHERE 1=1 AND RECORD_FLAG_S='A' AND REALMACHINEBAR_S IS NOT NULL
+        ]]>
+	</sql>
+	
+</sqls>

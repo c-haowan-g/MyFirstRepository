@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select ssh.*,c.username as username,u.username as deliveryname from AT_B_MM_STORAGEAREA_HIS ssh
+            left join core_user c on ssh.CREATED_BY_S=c.usercode
+            left join core_user u on ssh.DELIVERIER_S=u.usercode
+             where 1=1
+                
+                <#if equip_code_s??>
+                     and ssh.EQUIP_CODE_S like :equip_code_s
+                </#if>
+                <#if barcode_s??>
+                     and ssh.BARCODE_S like :barcode_s ||'%'
+                </#if>
+                <#if begin_created_time?? && end_created_time??>
+                    and ssh.CREATED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if materielcode_s??>
+                     and ssh.MATERIELCODE_S like :materielcode_s  ||'%'
+                </#if>
+                
+                <#if m_group_s??>
+                     and ssh.M_GROUP_S=:m_group_s
+                </#if>
+                <#if s_factory_s??>
+                     and ssh.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and ssh.VEHICLES_CODE_S like :vehicles_code_s ||'%'
+                </#if>
+                
+                <#if operattype_s??>
+                     and ssh.OPERATTYPE_S=:operattype_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by ssh.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_B_MM_STORAGEAREA_HIS ssh
+            left join core_user c on ssh.CREATED_BY_S=c.usercode
+            left join core_user u on ssh.DELIVERIER_S=u.usercode
+             where 1=1
+                   <#if barcode_s??>
+                     and ssh.BARCODE_S like :barcode_s ||'%'
+                </#if>
+                <#if begin_created_time?? && end_created_time??>
+                    and ssh.CREATED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if materielcode_s??>
+                     and ssh.MATERIELCODE_S like :materielcode_s  ||'%'
+                </#if>
+                
+                <#if m_group_s??>
+                     and ssh.M_GROUP_S=:m_group_s
+                </#if>
+                <#if s_factory_s??>
+                     and ssh.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and ssh.VEHICLES_CODE_S like :vehicles_code_s ||'%'
+                </#if>
+                <#if equip_code_s??>
+                     and ssh.EQUIP_CODE_S like :equip_code_s
+                </#if>
+                <#if operattype_s??>
+                     and ssh.OPERATTYPE_S=:operattype_s
+                </#if>
+                
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select ssh.*,c.username as username,u.username as deliveryname from AT_B_MM_STORAGEAREA_HIS ssh
+            left join core_user c on ssh.CREATED_BY_S=c.usercode
+            left join core_user u on ssh.DELIVERIER_S=u.usercode
+             where 1=1
+                
+                <#if barcode_s??>
+                     and ssh.BARCODE_S like :barcode_s ||'%'
+                </#if>
+                <#if begin_created_time?? && end_created_time??>
+                    and ssh.CREATED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if materielcode_s??>
+                     and ssh.MATERIELCODE_S like :materielcode_s  ||'%'
+                </#if>
+                
+                <#if m_group_s??>
+                     and ssh.M_GROUP_S=:m_group_s
+                </#if>
+                <#if s_factory_s??>
+                     and ssh.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and ssh.VEHICLES_CODE_S like :vehicles_code_s ||'%'
+                </#if>
+                <#if operattype_s??>
+                     and ssh.OPERATTYPE_S=:operattype_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by ssh.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_B_MM_STORAGEAREA_HIS ssh
+            left join core_user c on ssh.CREATED_BY_S=c.usercode
+            left join core_user u on ssh.DELIVERIER_S=u.usercode
+             where 1=1
+                   <#if barcode_s??>
+                     and ssh.BARCODE_S like :barcode_s ||'%'
+                </#if>
+                <#if begin_created_time?? && end_created_time??>
+                    and ssh.CREATED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if materielcode_s??>
+                     and ssh.MATERIELCODE_S like :materielcode_s  ||'%'
+                </#if>
+                <#if operattype_s??>
+                     and ssh.OPERATTYPE_S=:operattype_s
+                </#if>
+                
+                <#if m_group_s??>
+                     and ssh.M_GROUP_S=:m_group_s
+                </#if>
+                <#if s_factory_s??>
+                     and ssh.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehicles_code_s??>
+                     and ssh.VEHICLES_CODE_S like :vehicles_code_s ||'%'
+                </#if>
+        ]]>
+    </sql>
+</sqls>

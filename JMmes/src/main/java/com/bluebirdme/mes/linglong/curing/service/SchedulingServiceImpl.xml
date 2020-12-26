@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+<sql comment="datagrid" id="getWorkUseBoard">
+        <![CDATA[
+        	select a.*,b.isused_s from AT_C_MM_Scheduling a join AT_MES_LH_EM_CURINGMACHINE b on a.equip_code_s = b.machinebar_s 
+        	 where 1=1
+                <#if equip_code_s??>
+                     and a.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                 
+         ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            SELECT
+				S.*, CONCAT (S.CREATED_BY_S, C1.USERNAME) AS CREATED_BY,
+			CONCAT(S.CHANGED_BY_S,C2.USERNAME) AS CHANGED_BY
+			FROM
+				AT_C_MM_SCHEDULING S
+			LEFT JOIN CORE_USER C1 ON S.CREATED_BY_S = C1.USERCODE
+			LEFT JOIN CORE_USER C2 ON S.CHANGED_BY_S = C2.USERCODE
+			WHERE S.RECORD_FLAG_S = 'A' and  s.equip_code_s like '%'
+                
+                <#if product_date_s??>
+                     and S.PRODUCT_DATE_S=replace(:product_date_s,'-','')
+                </#if>
+                
+                <#if class_id_s??>
+                     and S.CLASS_ID_S=:class_id_s
+                </#if>
+                <#if s_factory_s??>
+                    and S_FACTORY_S=:s_factory_s
+             	</#if>
+             	<#if user_id_s??>
+                     and USER_ID_S like :user_id_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S like :equip_code_s
+                </#if>
+	            <#if sort??&&order??>
+	                order by ${sort} ${order}
+	                <#else>
+	                order by start_time_t desc
+	            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) FROM
+				AT_C_MM_SCHEDULING S
+			LEFT JOIN CORE_USER C1 ON S.CREATED_BY_S = C1.USERCODE
+			LEFT JOIN CORE_USER C2 ON S.CHANGED_BY_S = C2.USERCODE
+			WHERE S.RECORD_FLAG_S = 'A'  and  s.equip_code_s like '%'
+            <#if product_date_s??>
+                 and S.PRODUCT_DATE_S=replace(:product_date_s,'-','')
+             </#if>
+            
+            <#if class_id_s??>
+                 and S.CLASS_ID_S=:class_id_s
+            </#if>
+            <#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if user_id_s??>
+                 and USER_ID_S like :user_id_s
+            </#if>
+            <#if equip_code_s??>
+                 and EQUIP_CODE_S like :equip_code_s
+            </#if>
+        ]]>
+    </sql>
+    
+    <sql comment="未领用机台查询" id="getEqu">
+       <![CDATA[
+            SELECT
+				EQUIP_CODE_S,EQUIP_NAME_S
+			FROM
+				AT_C_MM_MACHINECONTROL
+			WHERE
+				RECORD_FLAG_S = 'A'
+			AND S_FACTORY_S=:s_factory_s
+			AND EQUIP_CODE_S NOT IN (
+				SELECT
+					EQUIP_CODE_S
+				FROM
+					AT_C_MM_SCHEDULING
+				WHERE
+					RECORD_FLAG_S = 'A'
+			)
+			
+        ]]>
+	</sql>
+	
+</sqls>

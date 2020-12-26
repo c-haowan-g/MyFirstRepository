@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="模态框内容查询" id="datagridUDA_rows">
+       <![CDATA[
+           select AU.*,US1.USERNAME as CHANGED_BY_NAME,AP.DESCRIPTION as MACHINENAME_S
+				from  AT_A_MM_USECONTROLLOG  AU
+				LEFT JOIN CORE_USER US1 ON AU.CHANGED_BY_S=US1.USERCODE
+				left join (SELECT p.DESCRIPTION ,p.P_LINE_NAME,p.P_LINE_KEY FROM AREA c,AREA_PRODUCTION_LINE d,PRODUCTION_LINE p where c.AREA_KEY=d.PARENT_KEY and d.CHILD_KEY=p.P_LINE_KEY
+				 <#if area_name??>
+                     and c.AREA_NAME=:area_name
+                </#if>) AP on AU.MACHINEBARCODE_S=AP.P_LINE_NAME
+             where AU.record_flag_s ='A'
+             and au.controltype_s = '0'
+              <#if begin_created_time?? && end_created_time??>
+                    and AU.CHANGED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if machinebarcode_s??>
+                     and AU.MACHINEBARCODE_S like :machinebarcode_s
+                </#if>
+                <#if changed_by_name??>
+                     and US1.USERNAME like :changed_by_name
+                </#if>
+                <#if s_factory_s??>
+                     and AU.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if agenc_no_s??>
+                     and AU.AGENC_NO_S=:agenc_no_s
+                </#if>
+            Order By AU.CHANGED_TIME_T desc
+        ]]>
+	</sql>
+	 <sql comment="模态框内容查询" id="datagridUDA_total">
+       <![CDATA[
+       select count(1) from (select AU.*,US1.USERNAME as CHANGED_BY_NAME,AP.DESCRIPTION as MACHINENAME_S
+				from  AT_A_MM_USECONTROLLOG  AU
+				LEFT JOIN CORE_USER US1 ON AU.CHANGED_BY_S=US1.USERCODE
+				left join (SELECT p.DESCRIPTION ,p.P_LINE_NAME,p.P_LINE_KEY FROM AREA c,AREA_PRODUCTION_LINE d,PRODUCTION_LINE p where c.AREA_KEY=d.PARENT_KEY and d.CHILD_KEY=p.P_LINE_KEY
+				 <#if area_name??>
+                     and c.AREA_NAME=:area_name
+                </#if>) AP on AU.MACHINEBARCODE_S=AP.P_LINE_NAME
+             where AU.record_flag_s ='A'
+             and au.controltype_s = '0'
+              <#if begin_created_time?? && end_created_time??>
+                    and AU.CHANGED_TIME_T between TO_DATE(:begin_created_time,'yyyy-mm-dd hh24:MI:ss')
+	 				and TO_DATE(:end_created_time,'yyyy-mm-dd hh24:MI:ss')
+                </#if>
+                <#if machinebarcode_s??>
+                     and AU.MACHINEBARCODE_S like :machinebarcode_s
+                </#if>
+                <#if changed_by_name??>
+                     and US1.USERNAME like :changed_by_name
+                </#if>
+                <#if s_factory_s??>
+                     and AU.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if agenc_no_s??>
+                     and AU.AGENC_NO_S=:agenc_no_s
+                </#if>
+            Order By AU.CHANGED_TIME_T desc)
+        ]]>
+	</sql>
+	<sql comment="根据数据字典查出所需控制项" id="searchBy196">
+       <![CDATA[
+            select DICTCODE_S,DICTNAME_S AS DICTNAME
+			from AT_CM_BS_COREDICTIONARY 
+			where deleted_i='0'
+			start with PID_I=(select ATR_KEY from AT_CM_BS_COREDICTIONARY 
+			where DICTCODE_S='196' and deleted_i='0')
+			connect by prior DICTCODE_S=PID_I
+        ]]>
+	</sql>
+	
+	<sql comment=" 根据菜单管理查出数据" id="searchFromCoreMenu">
+       <![CDATA[
+            select * from CORE_MENU where pid=(SELECT cm.id from CORE_MENU cm where cm.url=:url) and sortno is not null
+            order by sortno
+        ]]>
+	</sql>
+    <sql comment=" 查出机台名称显示在JSP页面下拉列表处" id="searchDescription">
+       <![CDATA[
+            select B.DESCRIPTION from
+			(SELECT
+				MACHINEBARCODE_S
+			FROM
+				AT_CM_EM_PRODUCTCONTROL
+		    where 1=1
+            and S_FACTORY_S=:s_factory_s
+            and AGENC_NO_S=:agenc_no_s
+			group by MACHINEBARCODE_S) A
+			right JOIN (SELECT p.DESCRIPTION ,p.P_LINE_NAME,p.P_LINE_KEY FROM AREA c,AREA_PRODUCTION_LINE d,PRODUCTION_LINE p where c.AREA_KEY=d.PARENT_KEY and d.CHILD_KEY=p.P_LINE_KEY and c.AREA_NAME =:area_name) B on A.MACHINEBARCODE_S=B.P_LINE_NAME 
+			LEFT JOIN UDA_ProductionLine D on B.P_LINE_KEY=D.OBJECT_KEY
+			where 
+			D.S_FACTORY_S=:s_factory_s
+			and D.Process_s = '252005'
+			order by B.DESCRIPTION
+        ]]>
+	</sql>
+	 <sql comment=" 查询机台类型通过产线" id="getFactory">
+       <![CDATA[
+          select u.FACTORY_S 
+          from production_line p, p_line_work_center r1,work_center wc,work_center_equipment r2,equipment e,uda_equipment u,equipment_class ec,equipment_class_equip ece 
+          where p.p_line_key = r1.parent_key 
+          and r1.child_key = wc.wc_key 
+          and wc.wc_key = r2.parent_key 
+          and wc.wc_key = r2.parent_key 
+          and r2.child_key = e.equip_key 
+          and e.equip_key = u.object_key(+) 
+          and ece.equip_class_key=ec.equip_class_key 
+          and ece.equip_key=e.equip_key 
+          and p.p_line_name =:p_line_name				
+        ]]>
+	</sql>
+</sqls>

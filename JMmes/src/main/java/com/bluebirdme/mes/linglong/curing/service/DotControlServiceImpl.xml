@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+				select AC.*,(AC.CHANGED_BY_S||US1.USERNAME) as CHANGED_BY_Name
+						from (SELECT PART.PART_NUMBER FROM PART,
+									(SELECT PART_CLASS_PART.PART_KEY 
+											FROM PART_CLASS_PART
+											WHERE PART_CLASS_PART.PART_CLASS_KEY IN(
+												SELECT PART_CLASS.PART_CLASS_KEY 
+												FROM PART_CLASS
+												WHERE PART_CLASS.PART_CLASS_NAME 
+												IN(:factory)
+												)
+										)C
+								 WHERE PART.PART_KEY = C.PART_KEY) P,AT_C_MM_DOTCONTROL AC
+						LEFT JOIN CORE_USER US1 ON AC.CHANGED_BY_S=US1.USERCODE
+						WHERE 1=1
+				AND AC.MATERIAL_CODE_S=P.PART_NUMBER
+				AND AC.RECORD_FLAG_S ='A'
+                <#if changed_by_s??>
+                     and AC.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if isvlid_s??>
+                     and AC.ISVLID_S=:isvlid_s
+                </#if>
+                <#if changed_time_t??>
+                     and AC.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if dummy1_s??>
+                     and AC.DUMMY1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and AC.DUMMY2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and AC.DUMMY3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and AC.DUMMY4_S=:dummy4_s
+                </#if>
+                <#if material_code_s??>
+                     and AC.MATERIAL_CODE_S =:material_code_s
+                </#if>
+                <#if ids??>
+                    and AC.ATR_KEY IN(:ids)
+             	</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by AC.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            SELECT COUNT(1) 
+           	FROM (SELECT PART.PART_NUMBER FROM PART,
+									(SELECT PART_CLASS_PART.PART_KEY 
+											FROM PART_CLASS_PART
+											WHERE PART_CLASS_PART.PART_CLASS_KEY IN(
+												SELECT PART_CLASS.PART_CLASS_KEY 
+												FROM PART_CLASS
+												WHERE PART_CLASS.PART_CLASS_NAME 
+												IN(:factory)
+												)
+										)C
+								 WHERE PART.PART_KEY = C.PART_KEY) P,AT_C_MM_DOTCONTROL AC
+						LEFT JOIN CORE_USER US1 ON AC.CHANGED_BY_S=US1.USERCODE
+						WHERE 1=1
+				AND AC.MATERIAL_CODE_S=P.PART_NUMBER
+				AND AC.RECORD_FLAG_S ='A'
+                <#if changed_by_s??>
+                     and AC.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if isvlid_s??>
+                     and AC.ISVLID_S=:isvlid_s
+                </#if>
+                <#if changed_time_t??>
+                     and AC.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if dummy1_s??>
+                     and AC.DUMMY1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and AC.DUMMY2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and AC.DUMMY3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and AC.DUMMY4_S=:dummy4_s
+                </#if>
+                <#if material_code_s??>
+                     and AC.MATERIAL_CODE_S =:material_code_s
+                </#if>
+                <#if ids??>
+                    and AC.ATR_KEY IN(:ids)
+             	</#if>
+        ]]>
+    </sql>
+     <sql comment="修改" id="update">
+       <![CDATA[
+            select count(1) from AT_C_MM_DOTCONTROL 
+            where material_code_s =:material_code_s 
+            and record_flag_s ='A'
+            and atr_key<>:atr_key
+        ]]>
+	</sql>
+</sqls>

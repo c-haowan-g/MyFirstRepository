@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+        select max(a.atr_key) as atr_key,a.s_factory_s,
+           d.username,
+            substr(a.equip_code_s, 4, 3) as equip_code_s,
+            max(a.class_id_s) as class_id_s,
+            max(a.material_name_s) as material_name_s,
+            max(a.MATERIAL_CODE_S) as material_code_s,
+            count(1) as totalquantity,
+            count(1) as qualitycompletionrate,
+            sum(decode(b.AtPresentGradeCode_S, '253007', 1, 0)) gradea,
+            sum(decode( b.AtPresentGradeCode_S, '253008', 1, 0)) gradea0,
+            sum(decode( b.AtPresentGradeCode_S, '253006', 1, 0)) secondlevel,
+            sum(decode( b.AtPresentGradeCode_S, '253012', 1, 0)) waste,
+           sum(decode( b.AtPresentGradeCode_S, '253013', 1, 0)) specialwaste
+      from at_c_mm_workorderresult a, core_user d,at_c_mm_curing_maintyre b
+       where a.created_by_s = d.usercode(+)
+       	and a.tyre_barcode_s = b.barcode_s(+)
+       	and b.Proess_S='252006'
+ 			 			<#if s_factory_s??>
+		                     and a.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if username??>
+		                     and d.USERNAME like :username
+		                </#if>
+		                <#if equip_code_s??>
+		                     and a.equip_code_s like :equip_code_s
+		                </#if>
+		                <#if material_code_s??>
+		                     and a.material_code_s like :material_code_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and a.material_name_s like :material_name_s
+		                </#if>
+		                 <#if begin_created_time??&&end_created_time??>
+		                      and a.CURING_CLOSEMOULDDATE_T between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				   			  and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+              			  </#if>
+              			  <#if class_id_s??>
+		                     and a.class_id_s like :class_id_s
+		                </#if>
+		        
+ 				group by substr(a.equip_code_s, 4, 3), a.material_code_s, d.username,a.s_factory_s
+ 				order by substr(a.equip_code_s, 4, 3)
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+        select count(1) from (select max(a.atr_key) as atr_key
+		      from at_c_mm_workorderresult a, core_user d,at_c_mm_curing_maintyre b
+		       where a.created_by_s = d.usercode(+)
+		       	and a.tyre_barcode_s = b.barcode_s(+)
+ 			 			<#if s_factory_s??>
+		                     and a.S_FACTORY_S=:s_factory_s
+		                </#if>
+		                <#if username??>
+		                     and d.USERNAME like :username
+		                </#if>
+		                <#if equip_code_s??>
+		                     and a.equip_code_s like :equip_code_s
+		                </#if>
+		                 <#if material_code_s??>
+		                     and a.material_code_s like :material_code_s
+		                </#if>
+		                <#if material_name_s??>
+		                     and a.material_name_s like :material_name_s
+		                </#if>
+		                <#if begin_created_time??&&end_created_time??>
+		                   and a.CURING_CLOSEMOULDDATE_T between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+				   		   and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+              		    </#if>
+   			            <#if class_id_s??>
+		                     and a.class_id_s like :class_id_s
+		                </#if>
+ 				group by substr(a.equip_code_s, 4, 3), a.material_code_s, d.username
+ 				order by d.username, substr(a.equip_code_s, 4, 3), a.material_code_s)
+        ]]>
+    </sql>
+</sqls>

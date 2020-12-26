@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_MX_MM_JOBCHECKTEMP where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if check_itemcode_s??>
+                     and CHECK_ITEMCODE_S=:check_itemcode_s
+                </#if>
+                <#if check_item_s??>
+                     and CHECK_ITEM_S=:check_item_s
+                </#if>
+                <#if check_name_s??>
+                     and CHECK_NAME_S=:check_name_s
+                </#if>
+                <#if check_note_s??>
+                     and CHECK_NOTE_S=:check_note_s
+                </#if>
+                <#if check_rate_s??>
+                     and CHECK_RATE_S=:check_rate_s
+                </#if>
+                <#if check_type_s??>
+                     and CHECK_TYPE_S=:check_type_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if send_by_s??>
+                     and SEND_BY_S=:send_by_s
+                </#if>
+                <#if send_name_s??>
+                     and SEND_NAME_S=:send_name_s
+                </#if>
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if send_time_t??>
+                     and SEND_TIME_T=:send_time_t
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_MX_MM_JOBCHECKTEMP where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_itemcode_s??>
+                         and CHECK_ITEMCODE_S=:check_itemcode_s
+                    </#if>
+                    <#if check_item_s??>
+                         and CHECK_ITEM_S=:check_item_s
+                    </#if>
+                    <#if check_name_s??>
+                         and CHECK_NAME_S=:check_name_s
+                    </#if>
+                    <#if check_note_s??>
+                         and CHECK_NOTE_S=:check_note_s
+                    </#if>
+                    <#if check_rate_s??>
+                         and CHECK_RATE_S=:check_rate_s
+                    </#if>
+                    <#if check_type_s??>
+                         and CHECK_TYPE_S=:check_type_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if send_by_s??>
+                         and SEND_BY_S=:send_by_s
+                    </#if>
+                    <#if send_name_s??>
+                         and SEND_NAME_S=:send_name_s
+                    </#if>
+                    <#if send_state_s??>
+                         and SEND_STATE_S=:send_state_s
+                    </#if>
+                    <#if send_time_t??>
+                         and SEND_TIME_T=:send_time_t
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="findMaxCheckItem">
+        <![CDATA[
+            select max(check_itemcode_s) check_itemcode_s,check_note_s
+            from AT_MX_MM_JOBCHECKTEMP
+            where check_note_s =:check_note_s
+            group by check_note_s
+        ]]>
+    </sql>
+        <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_MX_MM_JOBCHECKTEMP where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if check_itemcode_s??>
+                     and CHECK_ITEMCODE_S=:check_itemcode_s
+                </#if>
+                <#if check_item_s??>
+                     and CHECK_ITEM_S=:check_item_s
+                </#if>
+                <#if check_name_s??>
+                     and CHECK_NAME_S=:check_name_s
+                </#if>
+                <#if check_note_s??>
+                     and CHECK_NOTE_S=:check_note_s
+                </#if>
+                <#if check_rate_s??>
+                     and CHECK_RATE_S=:check_rate_s
+                </#if>
+                <#if check_type_s??>
+                     and CHECK_TYPE_S=:check_type_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if send_by_s??>
+                     and SEND_BY_S=:send_by_s
+                </#if>
+                <#if send_name_s??>
+                     and SEND_NAME_S=:send_name_s
+                </#if>
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if send_time_t??>
+                     and SEND_TIME_T=:send_time_t
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_MX_MM_JOBCHECKTEMP where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_itemcode_s??>
+                         and CHECK_ITEMCODE_S=:check_itemcode_s
+                    </#if>
+                    <#if check_item_s??>
+                         and CHECK_ITEM_S=:check_item_s
+                    </#if>
+                    <#if check_name_s??>
+                         and CHECK_NAME_S=:check_name_s
+                    </#if>
+                    <#if check_note_s??>
+                         and CHECK_NOTE_S=:check_note_s
+                    </#if>
+                    <#if check_rate_s??>
+                         and CHECK_RATE_S=:check_rate_s
+                    </#if>
+                    <#if check_type_s??>
+                         and CHECK_TYPE_S=:check_type_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if send_by_s??>
+                         and SEND_BY_S=:send_by_s
+                    </#if>
+                    <#if send_name_s??>
+                         and SEND_NAME_S=:send_name_s
+                    </#if>
+                    <#if send_state_s??>
+                         and SEND_STATE_S=:send_state_s
+                    </#if>
+                    <#if send_time_t??>
+                         and SEND_TIME_T=:send_time_t
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

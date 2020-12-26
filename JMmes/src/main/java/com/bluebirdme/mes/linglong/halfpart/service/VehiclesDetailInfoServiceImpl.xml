@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_A_EM_VEHICLESDETAILINFO where 1=1
+            	 AND RECORD_FLAG_S ='A'
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialdescription_s??>
+                     and MATERIALDESCRIPTION_S=:materialdescription_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                <#if materialspecification_s??>
+                     and MATERIALSPECIFICATION_S=:materialspecification_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehiclesname_s??>
+                     and VEHICLESNAME_S=:vehiclesname_s
+                </#if>
+                <#if vehiclesspecification_s??>
+                     and VEHICLESSPECIFICATION_S=:vehiclesspecification_s
+                </#if>
+                <#if vehicles_barcode_s??>
+                     and VEHICLES_BARCODE_S=:vehicles_barcode_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_EM_VEHICLESDETAILINFO where 1=1
+            		AND RECORD_FLAG_S ='A'
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialdescription_s??>
+                         and MATERIALDESCRIPTION_S=:materialdescription_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+                    <#if materialspecification_s??>
+                         and MATERIALSPECIFICATION_S=:materialspecification_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if vehiclesname_s??>
+                         and VEHICLESNAME_S=:vehiclesname_s
+                    </#if>
+                    <#if vehiclesspecification_s??>
+                         and VEHICLESSPECIFICATION_S=:vehiclesspecification_s
+                    </#if>
+                    <#if vehicles_barcode_s??>
+                         and VEHICLES_BARCODE_S=:vehicles_barcode_s
+                    </#if>
+        ]]>
+    </sql>
+    
+    
+    <sql comment="查出口型板条码、口型板规格显示在JSP页面下拉列表处" id="searchVehiclesDescription">
+       <![CDATA[
+            select VEHICLES_BARCODE_S,
+            	   MOUTHPLATESPECIFICATION_S,
+            	   FLAG_S
+             from
+			AT_A_EM_PLATEINFO where 1=1
+            	AND RECORD_FLAG_S ='A'
+            and S_FACTORY_S=:s_factory_s
+            and AGENC_NO_S=:agenc_no_s
+			group by VEHICLES_BARCODE_S,
+					 MOUTHPLATESPECIFICATION_S,
+					 FLAG_S
+        ]]>
+	</sql>
+
+
+	<sql comment="查出物料规格显示在JSP页面下拉列表处" id="searchMaterialDescription">
+       <![CDATA[
+            select MATERIALCODE_S,
+            	  MaterialSpec_S,
+            	  MaterialDesc_S
+             from
+			AT_INT_SAP_MATERIALS where 1=1
+			AND (MATGRP_S LIKE '301%' or MATGRP_S LIKE '302%')
+			order by MaterialSpec_s
+        ]]>
+	</sql>
+	
+	
+	<sql comment="数据库查重" id="getRepeat">
+       <![CDATA[
+            select count(1) AS count
+             from
+			AT_A_EM_VEHICLESDETAILINFO where 1=1
+			AND MATERIALCODE_S=:materialcode_s
+			AND VEHICLES_BARCODE_S=:vehicles_barcode_s
+        ]]>
+	</sql>
+	
+	
+</sqls>

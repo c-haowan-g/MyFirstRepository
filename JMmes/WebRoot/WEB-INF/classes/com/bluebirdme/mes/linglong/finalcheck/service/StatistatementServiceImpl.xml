@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid1_rows">
+        <![CDATA[
+     WITH A AS (  SELECT
+	D .ITEMID_S itemid_s,
+    i.DESCRIPTION materialdesc_s,
+	D .GRADECD_S gradecd_s,
+	D .REASCD_S reascd_s,
+	D .PROESS_S proess_s
+	
+FROM
+	AT_D_QM_Detial D,
+	PART i
+WHERE
+	D .itemid_s = i.part_number (+)
+AND D .GRADECD_S <> '253007'
+AND D .PROESS_S = '252008'
+AND D .REASCD_S IS NOT NULL
+   <#if itemid_s??>
+                  and D.ITEMID_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and D.reascd_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                  <#if proess_s??>
+                    and D.proess_s = :proess_s
+               </#if> 
+
+UNION ALL
+
+	SELECT
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S,
+		SPARE1_S  AS PROESS_S
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+
+AND
+W.SPARE1_S='252008'
+   <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+   
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>
+         )
+          SELECT A.*,COUNT(*) AS num  FROM A WHERE 1=1
+          GROUP BY A .ITEMID_S,A .materialdesc_s,A .GRADECD_S,A.REASCD_S,A.PROESS_S
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid1_total">
+        <![CDATA[
+         select count(1) FROM (     WITH A AS (  SELECT
+	D .ITEMID_S itemid_s,
+    i.DESCRIPTION materialdesc_s,
+	D .GRADECD_S gradecd_s,
+	D .REASCD_S reascd_s,
+	D .PROESS_S proess_s
+	
+FROM
+	AT_D_QM_Detial D,
+	PART i
+WHERE
+	D .itemid_s = i.part_number (+)
+AND D .GRADECD_S <> '253007'
+AND D .PROESS_S = '252008'
+AND D .REASCD_S IS NOT NULL
+   <#if itemid_s??>
+                  and D.ITEMID_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and D.reascd_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+            
+                  <#if proess_s??>
+                    and D.proess_s = :proess_s
+               </#if> 
+
+UNION ALL
+
+	SELECT
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S,
+		SPARE1_S  AS PROESS_S
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252008'
+      <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and W.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>
+         )
+          SELECT A.*,COUNT(*) num FROM A WHERE 1=1
+          GROUP BY A .ITEMID_S,A .materialdesc_s,A .GRADECD_S,A.REASCD_S,A.PROESS_S )
+        ]]>
+    </sql>
+    
+    <sql comment="查出病象" id="searchUsercode">
+       <![CDATA[
+            SELECT DISTINCT REAS_CN_S,REAS_CODE_S
+             FROM AT_D_BS_REAS 
+             WHERE RECORD_FLAG_S='A' AND REAS_CODE_S = :reas_code
+        ]]>
+	</sql>
+
+	 <sql comment="查出xialakuang病象" id="searchcode">
+       <![CDATA[
+            SELECT  REAS_CN_S,REAS_CODE_S
+             FROM AT_D_BS_REAS 
+             WHERE 1=1 AND RECORD_FLAG_S='A' 
+        ]]>
+	</sql>
+  
+   <sql comment="datagrid" id="datagrid3_rows">
+        <![CDATA[
+   SELECT
+   D.BARCODE_S  BARCODE_S,
+	D .ITEMID_S ITEMID_S,
+    i.DESCRIPTION materialdesc_s,
+	D .GRADECD_S GRADECD_S,
+	D .REASCD_S REASCD_S,
+	D .PROESS_S PROESS_S
+	
+FROM
+	AT_D_QM_Detial D,
+	PART i
+WHERE
+	D .itemid_s = i.part_number (+)
+AND D .GRADECD_S <> '253007'
+AND D .PROESS_S = '252008'
+AND D .REASCD_S IS NOT NULL
+   <#if itemid_s??>
+                  and D.ITEMID_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and D.reascd_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if>
+                <#if proess_s??>
+                    and D.proess_s = :proess_s
+               </#if> 
+
+UNION ALL
+
+	SELECT
+	   W.BARCODE_S  AS BARCODE_S,
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S,
+		SPARE1_S  AS PROESS_S
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252008'
+         <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and W.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>
+   
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid3_total">
+        <![CDATA[
+         select count(1) FROM (      SELECT
+	D .ITEMID_S ITEMID_S,
+    i.DESCRIPTION materialdesc_s,
+	D .GRADECD_S GRADECD_S,
+	D .REASCD_S REASCD_S,
+	D .PROESS_S PROESS_S
+	
+FROM
+	AT_D_QM_Detial D,
+	PART i
+WHERE
+	D .itemid_s = i.part_number (+)
+AND D .GRADECD_S <> '253007'
+AND D .PROESS_S = '252008'
+AND D .REASCD_S IS NOT NULL
+   <#if itemid_s??>
+                  and D.ITEMID_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and D.OPERTIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and D.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and D.reascd_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and D.proess_s = :proess_s
+               </#if>
+
+UNION ALL
+
+	SELECT
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S,
+		SPARE1_S  AS PROESS_S
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252008'
+         <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+            <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and W.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and D.barcode_s=:barcode_s
+             </#if>   
+             <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>  
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>
+         
+        ]]>
+    </sql>  
+      <sql comment="datagrid" id="datagrid2_rows">
+        <![CDATA[
+         WITH A AS( SELECT
+  T.DUMMY1_S itemid_s,
+	i.DESCRIPTION materialdesc_s,
+	T .GRADEID_S gradecd_s,
+	X.DEFECTID_S reascd_s
+	
+
+FROM
+
+	AT_D_QM_CHECKXRAYRESULT T,PART i,AT_D_QM_CHECKXRAYDETAIL X
+
+WHERE 
+T.TYREBARCODE_S=X.TYREBARCODE_S(+) AND
+ T.DUMMY1_S = i.part_number(+) AND 
+X.DEFECTID_S!='nodefect' 
+AND X.DEFECTID_S IS NOT NULL
+AND T.GRADEID_S!='253001' AND T.GRADEID_S!=' A'
+AND T.DUMMY1_S IS NOT NULL AND T.DUMMY1_S!='备用'
+   <#if itemid_s??>
+                  and T.DUMMY1_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and T.CREATED_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and X.DEFECTID_S=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+               <#if proess_s??>
+                    and X.defectid_s = :proess_s
+               </#if>
+               
+               
+
+UNION ALL
+SELECT
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S
+		
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252009'
+      <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if>
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if> )
+SELECT A.*,COUNT(*) AS num FROM A WHERE 1=1
+
+  GROUP BY A.ITEMID_S,A.materialdesc_s,A.GRADECD_S,A.REASCD_S
+         
+          
+           
+          
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid2_total">
+        <![CDATA[
+         select count(1) FROM (         WITH A AS( SELECT
+  T.DUMMY1_S itemid_s,
+	i.DESCRIPTION materialdesc_s,
+	T .GRADEID_S gradecd_s,
+	X.DEFECTID_S reascd_s
+	
+
+FROM
+
+	AT_D_QM_CHECKXRAYRESULT T,PART i,AT_D_QM_CHECKXRAYDETAIL X
+
+WHERE 
+T.TYREBARCODE_S=X.TYREBARCODE_S(+) AND
+ T.DUMMY1_S = i.part_number(+) AND 
+X.DEFECTID_S!='nodefect' 
+AND X.DEFECTID_S IS NOT NULL
+AND T.GRADEID_S!='253001' AND T.GRADEID_S!=' A'
+AND T.DUMMY1_S IS NOT NULL AND T.DUMMY1_S!='备用'
+   <#if itemid_s??>
+                  and T.DUMMY1_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and T.CREATED_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and X.DEFECTID_S=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                             <#if proess_s??>
+                    and X.defectid_s = :proess_s
+               </#if>
+
+UNION ALL
+SELECT
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S
+		
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252009'
+      <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>)
+SELECT A.*,COUNT(*) AS num FROM A WHERE 1=1
+
+  GROUP BY A.ITEMID_S,A.materialdesc_s,A.GRADECD_S,A.REASCD_S )
+        ]]>
+    </sql>
+        <sql comment="datagrid" id="datagrid4_rows">
+        <![CDATA[
+    SELECT
+    T.TYREBARCODE_S  AS BARCODE_S,
+    T.DUMMY1_S ITEMID_S,
+	i.DESCRIPTION materialdesc_s,
+	T .GRADEID_S GRADECD_S,
+	X.DEFECTID_S REASCD_S
+	
+
+FROM
+
+	AT_D_QM_CHECKXRAYRESULT T,PART i,AT_D_QM_CHECKXRAYDETAIL X
+
+WHERE 
+T.TYREBARCODE_S=X.TYREBARCODE_S(+) AND
+ T.DUMMY1_S = i.part_number(+) AND 
+X.DEFECTID_S!='nodefect' 
+AND X.DEFECTID_S IS NOT NULL
+AND T.GRADEID_S!='253001' AND T.GRADEID_S!=' A'
+AND T.DUMMY1_S IS NOT NULL AND T.DUMMY1_S!='备用'
+   <#if itemid_s??>
+                  and T.DUMMY1_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and T.CREATED_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and X.DEFECTID_S=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                             <#if proess_s??>
+                    and X.defectid_s = :proess_s
+               </#if>
+
+UNION ALL
+SELECT
+     W.BARCODE_S AS BARCODE_S,
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S
+		
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252009'
+      <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and W.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>
+
+         
+          
+           
+          
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid4_total">
+        <![CDATA[
+         select count(1) FROM (       SELECT
+  T.DUMMY1_S ITEMID_S,
+	i.DESCRIPTION materialdesc_s,
+	T .GRADEID_S GRADECD_S,
+	X.DEFECTID_S REASCD_S
+	
+
+FROM
+
+	AT_D_QM_CHECKXRAYRESULT T,PART i,AT_D_QM_CHECKXRAYDETAIL X
+
+WHERE 
+T.TYREBARCODE_S=X.TYREBARCODE_S(+) AND
+ T.DUMMY1_S = i.part_number(+) AND 
+X.DEFECTID_S!='nodefect' 
+AND X.DEFECTID_S IS NOT NULL
+AND T.GRADEID_S!='253001' AND T.GRADEID_S!=' A'
+AND T.DUMMY1_S IS NOT NULL AND T.DUMMY1_S!='备用'
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and T.CREATED_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and T.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and X.DEFECTID_S=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if> 
+                             <#if proess_s??>
+                    and X.defectid_s = :proess_s
+               </#if>
+
+UNION ALL
+SELECT
+		SUBSTR (CURINGSPECCODE_S, 0, 9) AS ITEMID_S,
+		SUBSTR (CURINGSPECCODE_S,12,LENGTH (CURINGSPECCODE_S)) AS materialdesc_s,
+    CURINGGRADECODE_S AS  GRADECD_S,
+    REAS_R_S  AS REASCD_S
+		
+		
+		
+	FROM
+		AT_REVISION_WORK_RESUME W
+WHERE
+W.CURINGGRADECODE_S <> '253007'
+AND
+W.SPARE1_S='252009'
+      <#if itemid_s??>
+                  and W.CURINGSPECCODE_S like  :itemid_s || '%'
+            </#if>
+ <#if start_opertime_t?? && end_opertime_t??>
+                 and W.APPEARANCEJUDGE_TIME_T between TO_DATE(:start_opertime_t,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_opertime_t,'YYYY-mm-dd HH24:MI:SS') 
+            </#if>
+           	
+            <#if s_factory_s??>
+                    and W.S_FACTORY_S=:s_factory_s
+             </#if>   
+              <#if barcode_s??>
+                    and T.tyrebarcode=:barcode_s
+             </#if>   
+               <#if reascd_s??>
+                    and W.reas_r_s=:reascd_s
+             </#if>
+            <#if huizong_s??>
+                    and 'on' = :huizong_s
+               </#if>
+               <#if xiangxi_s??>
+                    and 'on' = :xiangxi_s
+               </#if>  
+                <#if proess_s??>
+                    and W.spare1_s = :proess_s
+               </#if>)
+        ]]>
+    </sql>
+</sqls>	

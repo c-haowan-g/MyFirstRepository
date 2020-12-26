@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_INT_SAP_ACTUALDNHEADER where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if batch_s??>
+                     and BATCH_S=:batch_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if deliverydate_s??>
+                     and DELIVERYDATE_S=:deliverydate_s
+                </#if>
+                <#if flag_s??>
+                     and FLAG_S=:flag_s
+                </#if>
+                <#if kunag_s??>
+                     and KUNAG_S=:kunag_s
+                </#if>
+                <#if lineitemno_s??>
+                     and LINEITEMNO_S=:lineitemno_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if name_s??>
+                     and NAME_S=:name_s
+                </#if>
+                <#if plant_s??>
+                     and PLANT_S=:plant_s
+                </#if>
+                <#if qty_d??>
+                     and QTY_D=:qty_d
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if snno_s??>
+                     and SNNO_S=:snno_s
+                </#if>
+                <#if snno_status_s??>
+                     and SNNO_STATUS_S=:snno_status_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if srflag_s??>
+                     and SRFLAG_S=:srflag_s
+                </#if>
+                <#if storageloc_s??>
+                     and STORAGELOC_S=:storageloc_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_INT_SAP_ACTUALDNHEADER where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if batch_s??>
+                         and BATCH_S=:batch_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if deliverydate_s??>
+                         and DELIVERYDATE_S=:deliverydate_s
+                    </#if>
+                    <#if flag_s??>
+                         and FLAG_S=:flag_s
+                    </#if>
+                    <#if kunag_s??>
+                         and KUNAG_S=:kunag_s
+                    </#if>
+                    <#if lineitemno_s??>
+                         and LINEITEMNO_S=:lineitemno_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if name_s??>
+                         and NAME_S=:name_s
+                    </#if>
+                    <#if plant_s??>
+                         and PLANT_S=:plant_s
+                    </#if>
+                    <#if qty_d??>
+                         and QTY_D=:qty_d
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if snno_s??>
+                         and SNNO_S=:snno_s
+                    </#if>
+                    <#if snno_status_s??>
+                         and SNNO_STATUS_S=:snno_status_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if srflag_s??>
+                         and SRFLAG_S=:srflag_s
+                    </#if>
+                    <#if storageloc_s??>
+                         and STORAGELOC_S=:storageloc_s
+                    </#if>
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="queryActualDNHeader">
+        <![CDATA[
+            SELECT * FROM AT_INT_SAP_ACTUALDNHEADER
+			WHERE SNNO_S=:snno_s
+        ]]>
+    </sql>
+</sqls>

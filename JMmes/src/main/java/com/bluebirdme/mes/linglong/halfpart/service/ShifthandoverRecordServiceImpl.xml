@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select t.*,
+             (select u.username from core_user u
+    		  	where u.usercode =t.created_by_s) createdname
+    		  	from AT_A_EM_SHIFTHANDOVERRECORD t
+                where 1=1
+                and t.RECORD_FLAG_S = 'A'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if check_date_s??>
+                     and t.CHECK_DATE_S=:check_date_s
+                </#if>
+                <#if class_id_s??>
+                     and t.CLASS_ID_S=:class_id_s
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if planstarttime_t?? && planfinishtime_t??>
+                	and t.CREATED_TIME_T between to_date(:planstarttime_t,'yyyy-mm-dd hh24:MI:ss')
+               		and to_date (:planfinishtime_t,'yyyy-mm-dd hh24:MI:ss')
+              	</#if>
+                <#if equip_code_s??>
+                     and t.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if itemname10_s??>
+                     and t.ITEMNAME10_S=:itemname10_s
+                </#if>
+                <#if itemname11_s??>
+                     and t.ITEMNAME11_S=:itemname11_s
+                </#if>
+                <#if itemname12_s??>
+                     and t.ITEMNAME12_S=:itemname12_s
+                </#if>
+                <#if itemname13_s??>
+                     and t.ITEMNAME13_S=:itemname13_s
+                </#if>
+                <#if itemname14_s??>
+                     and t.ITEMNAME14_S=:itemname14_s
+                </#if>
+                <#if itemname1_s??>
+                     and t.ITEMNAME1_S=:itemname1_s
+                </#if>
+                <#if itemname2_s??>
+                     and t.ITEMNAME2_S=:itemname2_s
+                </#if>
+                <#if itemname3_s??>
+                     and t.ITEMNAME3_S=:itemname3_s
+                </#if>
+                <#if itemname4_s??>
+                     and t.ITEMNAME4_S=:itemname4_s
+                </#if>
+                <#if itemname5_s??>
+                     and t.ITEMNAME5_S=:itemname5_s
+                </#if>
+                <#if itemname6_s??>
+                     and t.ITEMNAME6_S=:itemname6_s
+                </#if>
+                <#if itemname7_s??>
+                     and t.ITEMNAME7_S=:itemname7_s
+                </#if>
+                <#if itemname8_s??>
+                     and t.ITEMNAME8_S=:itemname8_s
+                </#if>
+                <#if itemname9_s??>
+                     and t.ITEMNAME9_S=:itemname9_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.CREATED_TIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_EM_SHIFTHANDOVERRECORD t
+                where 1=1
+                and t.RECORD_FLAG_S = 'A'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if check_date_s??>
+                     and t.CHECK_DATE_S=:check_date_s
+                </#if>
+                <#if class_id_s??>
+                     and t.CLASS_ID_S=:class_id_s
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if planstarttime_t?? && planfinishtime_t??>
+                	and t.CREATED_TIME_T between to_date(:planstarttime_t,'yyyy-mm-dd hh24:MI:ss')
+               		and to_date (:planfinishtime_t,'yyyy-mm-dd hh24:MI:ss')
+              	</#if>
+                <#if equip_code_s??>
+                     and t.EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if itemname10_s??>
+                     and t.ITEMNAME10_S=:itemname10_s
+                </#if>
+                <#if itemname11_s??>
+                     and t.ITEMNAME11_S=:itemname11_s
+                </#if>
+                <#if itemname12_s??>
+                     and t.ITEMNAME12_S=:itemname12_s
+                </#if>
+                <#if itemname13_s??>
+                     and t.ITEMNAME13_S=:itemname13_s
+                </#if>
+                <#if itemname14_s??>
+                     and t.ITEMNAME14_S=:itemname14_s
+                </#if>
+                <#if itemname1_s??>
+                     and t.ITEMNAME1_S=:itemname1_s
+                </#if>
+                <#if itemname2_s??>
+                     and t.ITEMNAME2_S=:itemname2_s
+                </#if>
+                <#if itemname3_s??>
+                     and t.ITEMNAME3_S=:itemname3_s
+                </#if>
+                <#if itemname4_s??>
+                     and t.ITEMNAME4_S=:itemname4_s
+                </#if>
+                <#if itemname5_s??>
+                     and t.ITEMNAME5_S=:itemname5_s
+                </#if>
+                <#if itemname6_s??>
+                     and t.ITEMNAME6_S=:itemname6_s
+                </#if>
+                <#if itemname7_s??>
+                     and t.ITEMNAME7_S=:itemname7_s
+                </#if>
+                <#if itemname8_s??>
+                     and t.ITEMNAME8_S=:itemname8_s
+                </#if>
+                <#if itemname9_s??>
+                     and t.ITEMNAME9_S=:itemname9_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                </#if>
+        ]]>
+    </sql>
+      <sql comment="查询半部件用产线" id="getHalfPartProductionLine">
+        <![CDATA[
+			select t.p_line_name,t.description
+			  from Production_Line t,
+			       Uda_ProductionLine m 
+			 where t.p_line_key=m.object_key
+			   and m.process_s=:process
+			   and m.s_factory_s=:factory
+	      order by t.p_line_name asc
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+           SELECT tm.MATERIALCODE_S curingspeccode_s,max(pa.DESCRIPTION) materialdesc,count(*) sumcount,count(*) dbquali,count(*) ufquali,
+			count( 
+				case when 
+					(select b.cegradecode_s from AT_D_BS_JUDGENUMBERGRADE b 
+					 where b.machinegradecode_s=lt.balancetotal_rank_s
+					 and  b.judgeno_s=lt.balancetotal_rank_s 
+					 and b.record_flag_s='A' 
+					 and b.s_factory_s=lt.s_factory_s) !='二级' then 1 end
+				) dbcount,
+			count( 
+				case when 
+					(select b.cegradecode_s from AT_D_BS_JUDGENUMBERGRADE b 
+					where b.machinegradecode_s=lt.ROTOTAL_RANK_S
+					and  b.judgeno_s=lt.ROTOTAL_RANK_S
+					and b.record_flag_s='A'
+					and b.s_factory_s=lt.s_factory_s) !='二级' then 1 end
+				) ufcount
+
+				from at_d_qm_dynabalancecheresult lt
+				left join AT_C_MM_CURING_MAINTYRE tm on tm.tyrebarcode_s=lt.barcode_s
+				left join at_d_bs_judgenumberitem a on a.itemid_s=tm.MATERIALCODE_S
+				left join PART pa on pa.part_number =tm.MATERIALCODE_S			
+				WHERE tm.proess_s = '252010'
+				<#if begin_created_time?? && end_created_time??>
+	                 and lt.CREATED_TIME_T between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+            	</#if>
+            	 <#if curingspeccode_s??>
+                     and tm.MATERIALCODE_S like :curingspeccode_s
+                </#if>
+                <#if s_factory_s??>
+                     and tm.S_FACTORY_S=:s_factory_s
+                </#if>
+             group by tm.MATERIALCODE_S
+            
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (
+            SELECT tm.MATERIALCODE_S,count(*) sumcount,
+			count( 
+				case when 
+					(select b.cegradecode_s from AT_D_BS_JUDGENUMBERGRADE b 
+					 where b.machinegradecode_s=lt.balancetotal_rank_s
+					 and  b.judgeno_s=lt.balancetotal_rank_s 
+					 and b.record_flag_s='A' 
+					 and b.s_factory_s=lt.s_factory_s) !='二级' then 1 end
+				) dbcount,
+			count( 
+				case when 
+					(select b.cegradecode_s from AT_D_BS_JUDGENUMBERGRADE b 
+					where b.machinegradecode_s=lt.ROTOTAL_RANK_S
+					and  b.judgeno_s=lt.ROTOTAL_RANK_S
+					and b.record_flag_s='A'
+					and b.s_factory_s=lt.s_factory_s) !='二级' then 1 end
+				) ufcount
+
+				from at_d_qm_dynabalancecheresult lt
+				left join AT_C_MM_CURING_MAINTYRE tm on tm.tyrebarcode_s=lt.barcode_s
+				left join at_d_bs_judgenumberitem a on a.itemid_s=tm.MATERIALCODE_S
+				left join PART pa on pa.part_number =tm.MATERIALCODE_S			
+				WHERE tm.proess_s = '252010'
+				<#if begin_created_time?? && end_created_time??>
+	                 and lt.CREATED_TIME_T between TO_DATE(:begin_created_time,'YYYY-mm-dd HH24:MI:SS')
+	                 and TO_DATE(:end_created_time,'YYYY-mm-dd HH24:MI:SS') 
+            	</#if>
+            	 <#if curingspeccode_s??>
+                     and tm.MATERIALCODE_S like :curingspeccode_s
+                </#if>
+                <#if s_factory_s??>
+                     and tm.S_FACTORY_S=:s_factory_s
+                </#if>
+             group by tm.MATERIALCODE_S
+            )
+        ]]>
+    </sql>
+</sqls>

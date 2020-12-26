@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_INT_PLM_MIXMATERIAL where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if alarmvalue_f??>
+                     and ALARMVALUE_F=:alarmvalue_f
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if baseunit_s??>
+                     and BASEUNIT_S=:baseunit_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if data_source_s??>
+                     and DATA_SOURCE_S=:data_source_s
+                </#if>
+                <#if data_source_type_s??>
+                     and DATA_SOURCE_TYPE_S=:data_source_type_s
+                </#if>
+                <#if dummy1_s??>
+                     and Dummy1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and Dummy2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and Dummy3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and Dummy4_S=:dummy4_s
+                </#if>
+                <#if dummy5_s??>
+                     and Dummy5_S=:dummy5_s
+                </#if>
+                <#if equivalentmaterial_s??>
+                     and EQUIVALENTMATERIAL_S=:equivalentmaterial_s
+                </#if>
+                <#if error_allow_d??>
+                     and ERROR_ALLOW_D=:error_allow_d
+                </#if>
+                <#if guid_s??>
+                     and GUID_S=:guid_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if innerdia_d??>
+                     and INNERDIA_D=:innerdia_d
+                </#if>
+                <#if isheat_s??>
+                     and ISHEAT_S=:isheat_s
+                </#if>
+                <#if matchingcode_s??>
+                     and MATCHINGCODE_S=:matchingcode_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialgroup_s??>
+                     and MATERIALGROUP_S=:materialgroup_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                <#if materialspec_s??>
+                     and MATERIALSPEC_S=:materialspec_s
+                </#if>
+                <#if materialstatus_s??>
+                     and MATERIALSTATUS_S=:materialstatus_s
+                </#if>
+                <#if materialtype_s??>
+                     and MATERIALTYPE_S=:materialtype_s
+                </#if>
+                <#if materialtype_sap_s??>
+                     and MATERIALTYPE_SAP_S=:materialtype_sap_s
+                </#if>
+                <#if maxheattime_f??>
+                     and MAXHEATTIME_F=:maxheattime_f
+                </#if>
+                <#if maximumstock_f??>
+                     and MAXIMUMSTOCK_F=:maximumstock_f
+                </#if>
+                <#if minheattime_f??>
+                     and MINHEATTIME_F=:minheattime_f
+                </#if>
+                <#if minimumstock_f??>
+                     and MINIMUMSTOCK_F=:minimumstock_f
+                </#if>
+                <#if outerdia_d??>
+                     and OUTERDIA_D=:outerdia_d
+                </#if>
+                <#if overduecontrol_s??>
+                     and OVERDUECONTROL_S=:overduecontrol_s
+                </#if>
+                <#if overtime_f??>
+                     and OVERTIME_F=:overtime_f
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if send_by_s??>
+                     and SEND_BY_S=:send_by_s
+                </#if>
+                <#if send_name_s??>
+                     and SEND_NAME_S=:send_name_s
+                </#if>
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if send_time_t??>
+                     and SEND_TIME_T=:send_time_t
+                </#if>
+                <#if sip_i??>
+                     and SIP_I=:sip_i
+                </#if>
+                <#if smalltime_f??>
+                     and SMALLTIME_F=:smalltime_f
+                </#if>
+                <#if stockalarm_s??>
+                     and STOCKALARM_S=:stockalarm_s
+                </#if>
+                <#if supplycode_s??>
+                     and SUPPLYCODE_S=:supplycode_s
+                </#if>
+                <#if supplyname_s??>
+                     and SUPPLYNAME_S=:supplyname_s
+                </#if>
+                <#if tyreheight_d??>
+                     and TYREHEIGHT_D=:tyreheight_d
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_INT_PLM_MIXMATERIAL where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if alarmvalue_f??>
+                         and ALARMVALUE_F=:alarmvalue_f
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if baseunit_s??>
+                         and BASEUNIT_S=:baseunit_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if data_source_s??>
+                         and DATA_SOURCE_S=:data_source_s
+                    </#if>
+                    <#if data_source_type_s??>
+                         and DATA_SOURCE_TYPE_S=:data_source_type_s
+                    </#if>
+                    <#if dummy1_s??>
+                         and Dummy1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and Dummy2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and Dummy3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and Dummy4_S=:dummy4_s
+                    </#if>
+                    <#if dummy5_s??>
+                         and Dummy5_S=:dummy5_s
+                    </#if>
+                    <#if equivalentmaterial_s??>
+                         and EQUIVALENTMATERIAL_S=:equivalentmaterial_s
+                    </#if>
+                    <#if error_allow_d??>
+                         and ERROR_ALLOW_D=:error_allow_d
+                    </#if>
+                    <#if guid_s??>
+                         and GUID_S=:guid_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if innerdia_d??>
+                         and INNERDIA_D=:innerdia_d
+                    </#if>
+                    <#if isheat_s??>
+                         and ISHEAT_S=:isheat_s
+                    </#if>
+                    <#if matchingcode_s??>
+                         and MATCHINGCODE_S=:matchingcode_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialgroup_s??>
+                         and MATERIALGROUP_S=:materialgroup_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+                    <#if materialspec_s??>
+                         and MATERIALSPEC_S=:materialspec_s
+                    </#if>
+                    <#if materialstatus_s??>
+                         and MATERIALSTATUS_S=:materialstatus_s
+                    </#if>
+                    <#if materialtype_s??>
+                         and MATERIALTYPE_S=:materialtype_s
+                    </#if>
+                    <#if materialtype_sap_s??>
+                         and MATERIALTYPE_SAP_S=:materialtype_sap_s
+                    </#if>
+                    <#if maxheattime_f??>
+                         and MAXHEATTIME_F=:maxheattime_f
+                    </#if>
+                    <#if maximumstock_f??>
+                         and MAXIMUMSTOCK_F=:maximumstock_f
+                    </#if>
+                    <#if minheattime_f??>
+                         and MINHEATTIME_F=:minheattime_f
+                    </#if>
+                    <#if minimumstock_f??>
+                         and MINIMUMSTOCK_F=:minimumstock_f
+                    </#if>
+                    <#if outerdia_d??>
+                         and OUTERDIA_D=:outerdia_d
+                    </#if>
+                    <#if overduecontrol_s??>
+                         and OVERDUECONTROL_S=:overduecontrol_s
+                    </#if>
+                    <#if overtime_f??>
+                         and OVERTIME_F=:overtime_f
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if send_by_s??>
+                         and SEND_BY_S=:send_by_s
+                    </#if>
+                    <#if send_name_s??>
+                         and SEND_NAME_S=:send_name_s
+                    </#if>
+                    <#if send_state_s??>
+                         and SEND_STATE_S=:send_state_s
+                    </#if>
+                    <#if send_time_t??>
+                         and SEND_TIME_T=:send_time_t
+                    </#if>
+                    <#if sip_i??>
+                         and SIP_I=:sip_i
+                    </#if>
+                    <#if smalltime_f??>
+                         and SMALLTIME_F=:smalltime_f
+                    </#if>
+                    <#if stockalarm_s??>
+                         and STOCKALARM_S=:stockalarm_s
+                    </#if>
+                    <#if supplycode_s??>
+                         and SUPPLYCODE_S=:supplycode_s
+                    </#if>
+                    <#if supplyname_s??>
+                         and SUPPLYNAME_S=:supplyname_s
+                    </#if>
+                    <#if tyreheight_d??>
+                         and TYREHEIGHT_D=:tyreheight_d
+                    </#if>
+        ]]>
+    </sql>
+         <sql comment="datagrid" id="getAll1">
+        <![CDATA[
+			with alls as
+ 			(select t.product_time_t,
+ 			 t.equip_name_s,
+ 			 t.rfid_isok_s
+    		from at_mx_mm_poly_prod t
+   			where t.s_factory_s = '2'
+     		and t.product_time_t between to_date(:start_time,'yyyy-mm-dd hh24:mi:ss')
+			and to_date(:end_time,'yyyy-mm-dd hh24:mi:ss')),
+			t_total as
+
+ 			(select to_char(t.product_time_t, 'yyyy-mm-dd') product_time_t,
+         	t.equip_name_s,
+         	count(1) tt
+    		from alls t
+   			group by to_char(t.product_time_t, 'yyyy-mm-dd'), t.equip_name_s),
+   
+			s_total as
+ 			(select to_char(t.product_time_t, 'yyyy-mm-dd') product_time_t,
+         	t.equip_name_s,
+         	count(1) tt
+    		from alls t
+   			where t.rfid_isok_s <> '0'
+   			group by to_char(t.product_time_t, 'yyyy-mm-dd'), t.equip_name_s)
+   
+   			select dt.product_time_t,
+       		dt.equip_name_s,
+       		nvl(round((st.tt / dt.tt) * 100, 2), 0) s_p
+    		from t_total dt, s_total st
+		 	where dt.product_time_t = st.product_time_t(+)
+   			and dt.equip_name_s = st.equip_name_s(+)
+   			and dt.equip_name_s =:equip_name_s
+ 			order by dt.product_time_t desc, dt.equip_name_s
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="getAll2">
+        <![CDATA[
+			with alls as
+ 			(select t.product_time_t,
+ 			 t.equip_name_s, 
+ 			 t.rfid_isok_s
+    		from at_mx_mm_poly_prod t
+   			where t.s_factory_s = '2'
+     		and t.product_time_t between to_date(:start_time,'yyyy-mm-dd hh24:mi:ss')
+			and to_date(:end_time,'yyyy-mm-dd hh24:mi:ss')),
+			t_total as
+
+ 			(select to_char(t.product_time_t, 'yyyy-mm-dd') product_time_t,
+         	t.equip_name_s,
+        	count(1) tt
+    		from alls t
+   			group by to_char(t.product_time_t, 'yyyy-mm-dd'), t.equip_name_s),
+   
+			s_total as
+ 			(select to_char(t.product_time_t, 'yyyy-mm-dd') product_time_t,
+         	t.equip_name_s,
+         	count(1) tt
+    		from alls t
+   			where t.rfid_isok_s <> '0'
+   			group by to_char(t.product_time_t, 'yyyy-mm-dd'), t.equip_name_s)
+   
+   			select dt.product_time_t,
+       		dt.equip_name_s,
+       		nvl(round((st.tt / dt.tt) * 100, 2), 0) s_p
+    		from t_total dt, s_total st
+	 		where dt.product_time_t = st.product_time_t(+)
+   			and dt.equip_name_s = st.equip_name_s(+)
+ 			order by dt.product_time_t desc, dt.equip_name_s
+        ]]>
+    </sql>
+</sqls>

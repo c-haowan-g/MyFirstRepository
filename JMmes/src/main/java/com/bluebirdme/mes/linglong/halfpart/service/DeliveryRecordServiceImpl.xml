@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_A_MM_DELIVERYRECORD where RECORD_FLAG_S='A'
+                <#if batchcode_s??>
+                     and BATCHCODE_S like:batchcode_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if class_s??>
+                     and CLASS_S like:class_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if fromlocation_s??>
+                     and FROMLOCATION_S like:fromlocation_s
+                </#if>
+                <#if deliveryer_s??>
+                     and DELIVERYER_S like:deliveryer_s
+                </#if>
+                <#if deliveryname_s??>
+                     and DELIVERYNAME_S=:deliveryname_s
+                </#if>
+                <#if start_time?? && end_time??>
+	               	and DELIVERYTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+	               	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+	            </#if>
+                <#if deliverytime_t??>
+                     and DELIVERYTIME_T=:deliverytime_t
+                </#if>
+                <#if enterprise_num_s??>
+                     and ENTERPRISE_NUM_S=:enterprise_num_s
+                </#if>
+                <#if machinecode_s??>
+                     and MACHINECODE_S=:machinecode_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                <#if materialspec_s??>
+                     and MATERIALSPEC_S=:materialspec_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if vehiclecode_s??>
+                     and VEHICLECODE_S like:vehiclecode_s
+                </#if>
+                <#if weight_s??>
+                     and WEIGHT_S=:weight_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_A_MM_DELIVERYRECORD where RECORD_FLAG_S='A'
+                    <#if batchcode_s??>
+                         and BATCHCODE_S like:batchcode_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if class_s??>
+                         and CLASS_S like:class_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if fromlocation_s??>
+                         and FROMLOCATION_S like:fromlocation_s
+                    </#if>
+                    <#if deliveryer_s??>
+                         and DELIVERYER_S like:deliveryer_s
+                    </#if>
+                    <#if deliveryname_s??>
+                         and DELIVERYNAME_S=:deliveryname_s
+                    </#if>
+                    <#if start_time?? && end_time??>
+		               	and DELIVERYTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+		               	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+		            </#if>
+                    <#if deliverytime_t??>
+                         and DELIVERYTIME_T=:deliverytime_t
+                    </#if>
+                    <#if enterprise_num_s??>
+                         and ENTERPRISE_NUM_S=:enterprise_num_s
+                    </#if>
+                    <#if machinecode_s??>
+                         and MACHINECODE_S=:machinecode_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+                    <#if materialspec_s??>
+                         and MATERIALSPEC_S=:materialspec_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if vehiclecode_s??>
+                         and VEHICLECODE_S like:vehiclecode_s
+                    </#if>
+                    <#if weight_s??>
+                         and WEIGHT_S=:weight_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="机台的查询" id="machineCodeQuery">
+       <![CDATA[
+           SELECT 
+             MACHINECODE_S
+            FROM AT_A_MM_DELIVERYRECORD 
+		   WHERE RECORD_FLAG_S='A' 
+			AND S_FACTORY_S=:s_factory_s 
+		   GROUP BY MACHINECODE_S
+        ]]>
+	</sql>
+	<sql comment="批次条码的查询" id="batchCodeQuery">
+       <![CDATA[
+           SELECT 
+             BATCHCODE_S
+            FROM AT_A_MM_DELIVERYRECORD 
+		   WHERE RECORD_FLAG_S='A' 
+			AND S_FACTORY_S=:s_factory_s 
+		   GROUP BY BATCHCODE_S
+        ]]>
+	</sql>
+	<sql comment="载具条码的查询" id="vehicleCodeQuery">
+       <![CDATA[
+           SELECT 
+             VEHICLECODE_S
+            FROM AT_A_MM_DELIVERYRECORD 
+		   WHERE RECORD_FLAG_S='A' 
+			AND S_FACTORY_S=:s_factory_s 
+		   GROUP BY VEHICLECODE_S
+        ]]>
+	</sql>
+	<sql comment="拉料库位的查询" id="fromLocationQuery">
+       <![CDATA[
+           SELECT 
+             FROMLOCATION_S
+            FROM AT_A_MM_DELIVERYRECORD 
+		   WHERE RECORD_FLAG_S='A' 
+			AND S_FACTORY_S=:s_factory_s 
+		   GROUP BY FROMLOCATION_S
+        ]]>
+	</sql>
+</sqls>

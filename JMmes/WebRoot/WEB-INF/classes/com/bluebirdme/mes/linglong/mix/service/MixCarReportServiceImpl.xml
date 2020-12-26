@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+           select pt.lot_no_s,
+           w.wo_no_s,
+           pt.allche_s,
+           pt.serial_id_i,
+           pt.shift_code_s,
+           pt.group_code_s,
+           w.spare8_s recipe_name,
+           pt.start_datetime_s,
+           to_char(pt.product_time_t, 'yyyy-MM-dd HH24:mi:ss') product_time_t,
+           pt.recipetime_i,
+           pt.dischargeenergy_f,
+           pt.dischargetemp_f,
+           pt.mixtime_i,
+           pt.addnrtime_i,
+           pt.addcbtime_i,
+           pt.addoiltime_i,
+           pt.intervals_i,
+           pt.state_code_s,
+           pt.equip_code_s,
+           pt.recipe_code_s,
+           w.plan_no_s,
+           pt.equip_name_s
+           from at_mx_mm_polytrain_prod pt, at_mx_pp_wo_edit w
+           where pt.wo_no_s = w.wo_no_s(+)
+         <#if start_time?? && end_time??>
+         and pt.prod_date_s between replace(:start_time,'-','')
+         and replace(:end_time,'-','')
+        </#if>
+        <#if start_time?? && !end_time??>
+             and pt.prod_date_s > replace(:start_time,'-','')
+        </#if>
+        <#if !start_time?? && end_time??>
+             and pt.prod_date_s < replace(:end_time,'-','')
+        </#if>
+        <#if equip_code_s??>
+             and pt.EQUIP_CODE_S=:equip_code_s
+         </#if>
+         <#if shift_code_s??>
+             and pt.SHIFT_CODE_S=:shift_code_s
+         </#if>
+         <#if lot_no_s??>
+             and pt.LOT_NO_S=:lot_no_s
+         </#if>
+         <#if recipe_code_s??>
+             and pt.RECIPE_CODE_S=:recipe_code_s
+         </#if>
+         <#if s_factory_s??>
+             and pt.S_FACTORY_S=:s_factory_s
+         </#if>
+           order by pt.start_datetime_s, pt.serial_id_i
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1)
+           from at_mx_mm_polytrain_prod pt, at_mx_pp_wo_edit w
+           where pt.wo_no_s = w.wo_no_s(+)
+         <#if start_time?? && end_time??>
+         and pt.prod_date_s between replace(:start_time,'-','')
+         and replace(:end_time,'-','')
+        </#if>
+        <#if start_time?? && !end_time??>
+             and pt.prod_date_s >replace(:start_time,'-','')
+        </#if>
+        <#if !start_time?? && end_time??>
+             and pt.prod_date_s <replace(:end_time,'-','')
+        </#if>
+        <#if equip_code_s??>
+             and pt.EQUIP_CODE_S=:equip_code_s
+         </#if>
+         <#if shift_code_s??>
+             and pt.SHIFT_CODE_S=:shift_code_s
+         </#if>
+          <#if lot_no_s??>
+             and pt.LOT_NO_S=:lot_no_s
+         </#if>
+          <#if recipe_code_s??>
+             and pt.RECIPE_CODE_S=:recipe_code_s
+         </#if>
+          <#if s_factory_s??>
+             and pt.S_FACTORY_S=:s_factory_s
+         </#if>
+        ]]>
+    </sql>
+
+    <sql comment="获取配方" id="getrecipecodebycodelist">
+        <![CDATA[
+             select distinct pt.recipe_code_s,w.spare8_s
+              from AT_MX_MM_POLYTRAIN_PROD pt, AT_MX_PP_WO_EDIT w
+              where pt.wo_no_s = w.wo_no_s(+)
+                and pt.prod_date_s >=replace(:begindate,'-','')
+                and pt.prod_date_s <=replace(:enddate,'-','')
+                and pt.EQUIP_CODE_S=:equipcode
+                and pt.S_FACTORY_S=:factory
+        ]]>
+    </sql>
+</sqls>

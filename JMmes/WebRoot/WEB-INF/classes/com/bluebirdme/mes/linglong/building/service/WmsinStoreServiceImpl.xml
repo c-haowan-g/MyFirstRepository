@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select w.*,u.username as creation_by_user,
+                   c.username as creation_by_created,
+                   SZ.DESCRIPTION as creation_by_storageZone,
+                   p.p_line_name as creation_by_mach  
+            from AT_INT_WH_WMSINSTORE w ,STORAGE_UNIT s,STORAGEZONE_STORAGEUNIT zu ,STORAGE_ZONE sz ,core_user c,core_user u,Production_Line p 
+            where zu.PARENT_KEY=sz.STORAGE_ZONE_KEY(+)
+                and s.STORAGE_UNIT_KEY = zu.CHILD_KEY(+)
+                and s.STORAGE_UNIT_NAME(+)=w.storage_location_s
+                and w.CREATED_BY_S=c.usercode(+) 
+                and w.WORKER_ID_S=u.usercode(+) 
+                and w.MACHIN_NO_S=p.P_LINE_NAME(+)
+           and w.RECORD_FLAG_S='A'
+                <#if agenc_no_s??>
+                     and w.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if appearance_ok_s??>
+                     and w.APPEARANCE_OK_S=:appearance_ok_s
+                </#if>
+                <#if changed_by_s??>
+                     and w.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and w.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and w.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and w.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if instore_mode_s??>
+                     and w.INSTORE_MODE_S=:instore_mode_s
+                </#if>
+                <#if instore_type_s??>
+                     and w.INSTORE_TYPE_S=:instore_type_s
+                </#if>
+                <#if machin_no_s??>
+                     and w.MACHIN_NO_S=:machin_no_s
+                </#if>
+                <#if material_code_s??>
+                     and w.MATERIAL_CODE_S = :material_code_s 
+                </#if>
+                <#if material_spec_s??>
+                     and w.MATERIAL_SPEC_S =  :material_spec_s 
+                </#if>
+                <#if production_date_s??>
+                     and w.PRODUCTION_DATE_S=:production_date_s
+                </#if>
+                <#if record_flag_s??>
+                     and w.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and w.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and w.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and w.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and w.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and w.SPARE5_S=:spare5_s
+                </#if>
+                <#if storage_location_s??>
+                     and w.STORAGE_LOCATION_S=:storage_location_s
+                </#if>
+                <#if storeentry_time_t??>
+                     and w.STOREENTRY_TIME_T=:storeentry_time_t
+                </#if>
+                <#if s_factory_s??>
+                     and w.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tire_barcode_s??>
+                     and w.TIRE_BARCODE_S = :tire_barcode_s 
+                </#if>
+                <#if weight_ok_s??>
+                     and w.WEIGHT_OK_S=:weight_ok_s
+                </#if>
+                <#if weight_s??>
+                     and w.WEIGHT_S=:weight_s
+                </#if>
+                <#if worker_id_s??>
+                     and w.WORKER_ID_S=:worker_id_s
+                </#if>
+                <#if begin_created_time??&&end_created_time??>
+            				and to_char(w.STOREENTRY_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+            				:begin_created_time and :end_created_time
+           			  </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by w.atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) 
+                from AT_INT_WH_WMSINSTORE w ,STORAGE_UNIT s,STORAGEZONE_STORAGEUNIT zu ,STORAGE_ZONE sz ,core_user c,core_user u,Production_Line p 
+            where zu.PARENT_KEY=sz.STORAGE_ZONE_KEY(+)
+                and s.STORAGE_UNIT_KEY = zu.CHILD_KEY(+)
+                and s.STORAGE_UNIT_NAME(+)=w.storage_location_s
+                and w.CREATED_BY_S=c.usercode(+) 
+                and w.WORKER_ID_S=u.usercode(+) 
+                and w.MACHIN_NO_S=p.P_LINE_NAME(+)
+           and w.RECORD_FLAG_S='A'
+                    <#if agenc_no_s??>
+                         and w.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if appearance_ok_s??>
+                         and w.APPEARANCE_OK_S=:appearance_ok_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and w.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and w.CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and w.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and w.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if instore_mode_s??>
+                         and w.INSTORE_MODE_S=:instore_mode_s
+                    </#if>
+                    <#if instore_type_s??>
+                         and w.INSTORE_TYPE_S=:instore_type_s
+                    </#if>
+                    <#if machin_no_s??>
+                         and w.MACHIN_NO_S=:machin_no_s
+                    </#if>
+                    <#if material_code_s??>
+                         and w.MATERIAL_CODE_S = :material_code_s
+                    </#if>
+                    <#if material_spec_s??>
+                         and w.MATERIAL_SPEC_S = :material_spec_s 
+                    </#if>
+                    <#if production_date_s??>
+                         and w.PRODUCTION_DATE_S=:production_date_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and w.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and w.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and w.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and w.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and w.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and w.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if storage_location_s??>
+                         and w.STORAGE_LOCATION_S=:storage_location_s
+                    </#if>
+                    <#if storeentry_time_t??>
+                         and w.STOREENTRY_TIME_T=:storeentry_time_t
+                    </#if>
+                    <#if s_factory_s??>
+                         and w.S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tire_barcode_s??>
+                         and w.TIRE_BARCODE_S =:tire_barcode_s
+                    </#if>
+                    <#if weight_ok_s??>
+                         and w.WEIGHT_OK_S=:weight_ok_s
+                    </#if>
+                    <#if weight_s??>
+                         and w.WEIGHT_S=:weight_s
+                    </#if>
+                    <#if worker_id_s??>
+                         and w.WORKER_ID_S=:worker_id_s
+                    </#if>
+           		     <#if begin_created_time??&&end_created_time??>
+            				and to_char(w.STOREENTRY_TIME_T,'yyyy-mm-dd hh24:MI:ss') between
+            				:begin_created_time and :end_created_time
+           			  </#if>
+        ]]>
+    </sql>
+    <sql comment="获取成型机台集合" id="getCombox_entcode">
+        <![CDATA[
+            select pl.P_LINE_NAME from 
+			  AREA a,AREA_PRODUCTION_LINE ap,PRODUCTION_LINE  pl
+			 where 1=1 and a.AREA_KEY=AP.PARENT_KEY and AP.CHILD_KEY=PL.P_LINE_KEY 
+			 and a.AREA_NAME=:area_name
+             order by pl.P_LINE_NAME 
+        ]]>
+    </sql>
+</sqls>

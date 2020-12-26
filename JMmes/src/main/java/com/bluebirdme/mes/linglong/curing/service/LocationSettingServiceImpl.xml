@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+      
+      <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_C_WH_LocationSettings 
+            where  record_flag_s='A'
+           
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if boitanland_s??>
+                     and BOITANLAND_S=:boitanland_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if erpcode_s??>
+                     and ERPCODE_S=:erpcode_s
+                </#if>
+                <#if inventory_barcode_s??>
+                     and INVENTORY_BARCODE_S like :inventory_barcode_s || '%'
+                </#if>
+                <#if inventory_capacity_s??>
+                     and INVENTORY_CAPACITY_S=:inventory_capacity_s
+                </#if>
+                <#if inventory_code_s??>
+                     and INVENTORY_CODE_S=:inventory_code_s
+                </#if>
+                <#if inventory_materialcode_s??>
+                     and INVENTORY_MATERIALCODE_S=:inventory_materialcode_s
+                </#if>
+                <#if inventory_name_cn_s??>
+                     and INVENTORY_NAME_CN_S=:inventory_name_cn_s
+                </#if>
+                <#if inventory_name_en_s??>
+                     and INVENTORY_NAME_EN_S=:inventory_name_en_s
+                </#if>
+                <#if inventory_type_s??>
+                     and INVENTORY_TYPE_S like :inventory_type_s || '%'
+                </#if>
+                <#if isenable_s??>
+                     and ISENABLE_S=:isenable_s
+                </#if>
+                <#if is_allow_child_stock_s??>
+                     and IS_ALLOW_CHILD_STOCK_S=:is_allow_child_stock_s
+                </#if>
+                <#if lastintime_t??>
+                     and LASTINTIME_T=:lastintime_t
+                </#if>
+                <#if lockflag_s??>
+                     and LOCKFLAG_S=:lockflag_s
+                </#if>
+                <#if lockoutflag_s??>
+                     and LOCKOUTFLAG_S=:lockoutflag_s
+                </#if>
+                <#if parent_flag_s??>
+                     and PARENT_FLAG_S=:parent_flag_s
+                </#if>
+                <#if parent_stock_s??>
+                     and PARENT_STOCK_S=:parent_stock_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if remarks_s??>
+                     and REMARKS_S=:remarks_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if stockqs_s??>
+                     and STOCKQS_S=:stockqs_s
+                </#if>
+                <#if store_specifications_s??>
+                     and STORE_SPECIFICATIONS_S=:store_specifications_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            
+             ORDER BY INVENTORY_BARCODE_S 
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_C_WH_LocationSettings where  record_flag_s='A'
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if boitanland_s??>
+                         and BOITANLAND_S=:boitanland_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if erpcode_s??>
+                         and ERPCODE_S=:erpcode_s
+                    </#if>
+                     <#if inventory_barcode_s??>
+                     and INVENTORY_BARCODE_S like  :inventory_barcode_s || '%'
+                </#if>
+                    <#if inventory_capacity_s??>
+                         and INVENTORY_CAPACITY_S=:inventory_capacity_s
+                    </#if>
+                    <#if inventory_code_s??>
+                         and INVENTORY_CODE_S=:inventory_code_s
+                    </#if>
+                    <#if inventory_materialcode_s??>
+                         and INVENTORY_MATERIALCODE_S=:inventory_materialcode_s
+                    </#if>
+                    <#if inventory_name_cn_s??>
+                         and INVENTORY_NAME_CN_S=:inventory_name_cn_s
+                    </#if>
+                    <#if inventory_name_en_s??>
+                         and INVENTORY_NAME_EN_S=:inventory_name_en_s
+                    </#if>
+                    <#if inventory_type_s??>
+                     and INVENTORY_TYPE_S like  :inventory_type_s || '%'
+                	</#if>
+                    <#if isenable_s??>
+                         and ISENABLE_S=:isenable_s
+                    </#if>
+                    <#if is_allow_child_stock_s??>
+                         and IS_ALLOW_CHILD_STOCK_S=:is_allow_child_stock_s
+                    </#if>
+                    <#if lastintime_t??>
+                         and LASTINTIME_T=:lastintime_t
+                    </#if>
+                    <#if lockflag_s??>
+                         and LOCKFLAG_S=:lockflag_s
+                    </#if>
+                    <#if lockoutflag_s??>
+                         and LOCKOUTFLAG_S=:lockoutflag_s
+                    </#if>
+                    <#if parent_flag_s??>
+                         and PARENT_FLAG_S=:parent_flag_s
+                    </#if>
+                    <#if parent_stock_s??>
+                         and PARENT_STOCK_S=:parent_stock_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if remarks_s??>
+                         and REMARKS_S=:remarks_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if stockqs_s??>
+                         and STOCKQS_S=:stockqs_s
+                    </#if>
+                    <#if store_specifications_s??>
+                         and STORE_SPECIFICATIONS_S=:store_specifications_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="根据code查询是否有重复的记录" id="select_LocationSetting1">
+       <![CDATA[
+            select count(1) from AT_C_WH_LocationSettings 
+            where record_flag_s='A' 
+            and  atr_key<>:atr_key
+            and s_factory_s=:s_factory_s
+            and inventory_barcode_s=:inventory_barcode_s 
+             
+        ]]>
+	</sql>
+	 <sql comment="根据code查询是否有重复的记录" id="select_LocationSetting2">
+       <![CDATA[
+            select count(1) 
+            from AT_C_WH_LocationSettings 
+            where inventory_barcode_s=:inventory_barcode_s 
+            and inventory_type_s=:inventory_type_s 
+            and s_factory_s=:s_factory_s
+            and record_flag_s='A'
+        ]]>
+	</sql>
+	<sql comment="查询库存类型" id="getInventoryType">
+	 <![CDATA[
+            SELECT DISTINCT(INVENTORY_TYPE_S) 
+            FROM AT_C_WH_LOCATIONSETTINGS 
+            WHERE S_FACTORY_S=:s_factory_s 
+            and record_flag_s='A'
+        ]]>
+	</sql>
+	<sql comment="根据库存类型查询库存名称" id="getCildNameBytype">
+	 <![CDATA[
+            SELECT DISTINCT INVENTORY_NAME_CN_S,INVENTORY_TYPE_S 
+            FROM AT_C_WH_LOCATIONSETTINGS 
+            WHERE INVENTORY_TYPE_S=:inventory_type_s 
+            AND S_FACTORY_S=:s_factory_s
+            AND RECORD_FLAG_S='A'
+            ORDER BY INVENTORY_NAME_CN_S
+        ]]>
+	</sql>
+</sqls>

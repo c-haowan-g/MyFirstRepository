@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_MX_MM_RECIPEWEIGHT_PROD where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_name_s??>
+                     and CREATED_NAME_S=:created_name_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if error_allow_s??>
+                     and ERROR_ALLOW_S=:error_allow_s
+                </#if>
+                <#if error_out_s??>
+                     and ERROR_OUT_S=:error_out_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if lot_no_s??>
+                     and LOT_NO_S=:lot_no_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S=:material_code_s
+                </#if>
+                <#if material_name_s??>
+                     and MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if real_weight_s??>
+                     and REAL_WEIGHT_S=:real_weight_s
+                </#if>
+                <#if receive_time_t??>
+                     and RECEIVE_TIME_T=:receive_time_t
+                </#if>
+                <#if recipeprod_id_s??>
+                     and RECIPEPROD_ID_S=:recipeprod_id_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if set_weight_s??>
+                     and SET_WEIGHT_S=:set_weight_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if warning_sgn_s??>
+                     and WARNING_SGN_S=:warning_sgn_s
+                </#if>
+                <#if weight_id_s??>
+                     and WEIGHT_ID_S=:weight_id_s
+                </#if>
+                <#if weight_time_s??>
+                     and WEIGHT_TIME_S=:weight_time_s
+                </#if>
+                <#if weight_type_s??>
+                     and WEIGHT_TYPE_S=:weight_type_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_MX_MM_RECIPEWEIGHT_PROD where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if arch_flag_s??>
+                         and ARCH_FLAG_S=:arch_flag_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_name_s??>
+                         and CREATED_NAME_S=:created_name_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if error_allow_s??>
+                         and ERROR_ALLOW_S=:error_allow_s
+                    </#if>
+                    <#if error_out_s??>
+                         and ERROR_OUT_S=:error_out_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if lot_no_s??>
+                         and LOT_NO_S=:lot_no_s
+                    </#if>
+                    <#if material_code_s??>
+                         and MATERIAL_CODE_S=:material_code_s
+                    </#if>
+                    <#if material_name_s??>
+                         and MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if real_weight_s??>
+                         and REAL_WEIGHT_S=:real_weight_s
+                    </#if>
+                    <#if receive_time_t??>
+                         and RECEIVE_TIME_T=:receive_time_t
+                    </#if>
+                    <#if recipeprod_id_s??>
+                         and RECIPEPROD_ID_S=:recipeprod_id_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if set_weight_s??>
+                         and SET_WEIGHT_S=:set_weight_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if warning_sgn_s??>
+                         and WARNING_SGN_S=:warning_sgn_s
+                    </#if>
+                    <#if weight_id_s??>
+                         and WEIGHT_ID_S=:weight_id_s
+                    </#if>
+                    <#if weight_time_s??>
+                         and WEIGHT_TIME_S=:weight_time_s
+                    </#if>
+                    <#if weight_type_s??>
+                         and WEIGHT_TYPE_S=:weight_type_s
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

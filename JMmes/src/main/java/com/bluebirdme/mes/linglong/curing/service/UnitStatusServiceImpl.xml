@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagridUDA" id="datagridUDA_rows">
+        <![CDATA[
+           SELECT T.*,
+				U.SERIAL_NUMBER,WO.ORDER_NUMBER,WI.ORDER_ITEM,U.UDA_0,
+				M .MACHINECODE_S,
+				M.FIRSTFLAG_S,
+				U .PART_NUMBER,
+				P.DESCRIPTION,
+				M.ATPRESENTGRADECODE_S,
+				M.USERID_S || US.USERNAME AS USERNAME,
+				M.QUALITY_GRADE_S,
+				M.GROSS_WEIGHT_S,
+				M.CHECKNUMBER_I,
+				M.REASCODE_S,
+				R.REAS_CN_S,
+				M.CURINGTOTALTIME_S
+ 
+				FROM
+					TRACKED_OBJECT_STATUS T,
+					UNIT U,
+					WORK_ORDER WO,
+					WORK_ORDER_ITEMS WI,
+					AT_C_MM_CURING_MAINTYRE M,
+					PART P,
+				AT_D_BS_REAS R,
+				CORE_USER US,
+				(
+				SELECT
+					TYREBARCODE_S,
+					MAX (LAST_MODIFIED_TIME) LAST_MODIFIED_TIME
+				FROM
+					AT_C_MM_CURING_MAINTYRE
+				GROUP BY
+					TYREBARCODE_S
+				ORDER BY TYREBARCODE_S
+				) temp 
+				WHERE
+					WO.ORDER_KEY = U .ORDER_KEY
+			
+				AND WI.ORDER_ITEM_KEY = U .ORDER_ITEM_KEY
+				AND temp.LAST_MODIFIED_TIME=M.LAST_MODIFIED_TIME
+				AND M .TYREBARCODE_S = temp.TYREBARCODE_S
+				AND M .TYREBARCODE_S = U .UDA_0
+				AND P .PART_NUMBER = U .PART_NUMBER
+				AND M.REASCODE_S=R.REAS_CODE_S(+)
+				AND T .TOBJ_KEY = U .UNIT_KEY
+				AND M.USERID_S=US.USERCODE(+)
+				AND T .TOBJ_TYPE = 'Unit'
+ 				AND U .UDA_0 IS NOT NULL
+			<#if start_time?? && end_time??>
+                   and T.LAST_MODIFIED_TIME between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+                 and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            <#if s_factory_s??>
+                     and WI.UDA_2=:s_factory_s
+            </#if>
+			<#if serial_number??>
+                     and U.UDA_0=:serial_number
+            </#if>
+			<#if order_number??>
+                   and WO.ORDER_NUMBER=:order_number
+            </#if>
+			<#if order_item??>
+                     and WI.ORDER_ITEM=:order_item
+            </#if>
+			<#if op_name??>
+                     and T.op_name=:op_name
+            </#if>
+           ORDER BY T.LAST_MODIFIED_TIME DESC
+
+        ]]>
+    </sql>
+    <sql comment="datagridUDA" id="datagridUDA_total">
+        <![CDATA[
+           SELECT
+				COUNT(1)
+			FROM
+					TRACKED_OBJECT_STATUS T,
+					UNIT U,
+					WORK_ORDER WO,
+					WORK_ORDER_ITEMS WI,
+					AT_C_MM_CURING_MAINTYRE M,
+					PART P,
+				AT_D_BS_REAS R,
+				CORE_USER US,
+				(
+				SELECT
+					TYREBARCODE_S,
+					MAX (LAST_MODIFIED_TIME) LAST_MODIFIED_TIME
+				FROM
+					AT_C_MM_CURING_MAINTYRE
+				GROUP BY
+					TYREBARCODE_S
+				ORDER BY TYREBARCODE_S
+				) temp 
+				WHERE
+					WO.ORDER_KEY = U .ORDER_KEY
+			
+				AND WI.ORDER_ITEM_KEY = U .ORDER_ITEM_KEY
+				AND temp.LAST_MODIFIED_TIME=M.LAST_MODIFIED_TIME
+				AND M .TYREBARCODE_S = temp.TYREBARCODE_S
+				AND M .TYREBARCODE_S = U .UDA_0
+				AND P .PART_NUMBER = U .PART_NUMBER
+				AND M.REASCODE_S=R.REAS_CODE_S(+)
+				AND T .TOBJ_KEY = U .UNIT_KEY
+				AND M.USERID_S=US.USERCODE(+)
+				AND T .TOBJ_TYPE = 'Unit'
+ 				AND U .UDA_0 IS NOT NULL
+             <#if start_time?? && end_time??>
+               and T.LAST_MODIFIED_TIME between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+             and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS')
+            </#if>
+            <#if s_factory_s??>
+                     and WI.UDA_2=:s_factory_s
+            </#if>
+			<#if serial_number??>
+                     and U.UDA_0=:serial_number
+            </#if>
+			<#if order_number??>
+                   and WO.ORDER_NUMBER=:order_number
+            </#if>
+			<#if order_item??>
+                     and WI.ORDER_ITEM=:order_item
+            </#if>
+            <#if op_name??>
+                     and T.op_name=:op_name
+            </#if>    
+            
+        ]]>
+    </sql>
+    <sql comment="通过工单项查询serialnumber" id="getSerialNumByItem">
+        <![CDATA[
+           SELECT U.SERIAL_NUMBER
+			FROM UNIT U,
+			WORK_ORDER_ITEMS WI
+			WHERE U.ORDER_ITEM_KEY=WI.ORDER_ITEM_KEY
+			AND WI.ORDER_ITEM=:orderitem
+			AND U.UDA_0 IS NULL
+			ORDER BY U.SERIAL_NUMBER ASC
+        ]]>
+    </sql>
+     <sql comment="查询所有工单下unit" id="getUnitByItem">
+        <![CDATA[
+           SELECT U.*
+			FROM UNIT U,
+			WORK_ORDER_ITEMS WI
+			WHERE U.ORDER_ITEM_KEY=WI.ORDER_ITEM_KEY
+			AND WI.ORDER_ITEM=:orderitem
+			ORDER BY U.SERIAL_NUMBER ASC
+        ]]>
+    </sql>
+     <sql comment=" 获取工单下指定Unit是否存在" id="checkUnit">
+        <![CDATA[
+           SELECT U.*
+			FROM UNIT U,
+			WORK_ORDER_ITEMS WI
+			WHERE U.ORDER_ITEM_KEY=WI.ORDER_ITEM_KEY
+			AND WI.ORDER_ITEM=:orderitem
+			AND U.UDA_0=:barCode
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="获取某库区下的库位" id="getUnit">
+        <![CDATA[
+			 select 
+			        d.parent_key,
+			        t.storage_unit_key,
+			        t.storage_unit_name,
+			        t.description,
+			        t.max_storage_duration,
+                    u.current_storage_i,
+			        u.storage_zone_barcode_s,
+			        u.machinecode_s,
+			        u.erpcode_s,
+			        u.inventory_materialcode_s,
+			        u.inventory_materialname_s,
+			        u.lastintime_t,
+			        u.lockflag_s,
+			        u.lockinflag_s,
+			        u.lockoutflag_s,
+			        u.canuse_s,
+			        cu.username as operater_s,
+			        u.operatetime_t
+			   from storage_unit t, uda_storageunit u, storagezone_storageunit d,core_user cu
+			  where t.storage_unit_key = u.object_key(+)
+			    and u.operater_s = cu.usercode(+)
+			    and t.storage_unit_key = d.child_key(+)
+			    and d.parent_key = :parent_key
+			    order by t.storage_unit_name
+        ]]>
+    </sql>
+    <sql comment="获取某库区下的库位" id="getUnitByZoneKeyAndMaterialGroup">
+        <![CDATA[
+			 select t.storage_unit_name
+			   from storage_unit t, uda_storageunit u, storagezone_storageunit d
+			  where t.storage_unit_key = u.object_key(+)
+			    and t.storage_unit_key = d.child_key(+)
+			    and d.parent_key = :parent_key
+			    order by t.storage_unit_name
+        ]]>
+    </sql>
+    <sql comment="根据zonekey获取category(库区编码)" id="searchZoneNameByZoneKey">
+        <![CDATA[
+             select t.category 
+               from Storage_Zone t 
+              where t.storage_zone_key=:zoneKey
+        ]]>
+    </sql>
+    <sql comment="校验库位编码是否存在" id="uniqueUnitNameJudge">
+        <![CDATA[
+			 select t.storage_unit_name
+			   from storage_unit t
+			  where t.storage_unit_name=:unitName
+        ]]>
+    </sql>
+    <sql comment="校验一个机台下产出线边库是否唯一" id="uniqueOutputLineBank">
+        <![CDATA[
+			select storage_unit_key from Storage_Unit su
+            INNER JOIN uda_StorageUnit usu on su.STORAGE_UNIT_KEY = usu.OBJECT_KEY
+            where
+            usu.STORAGE_ZONE_BARCODE_S = '112002'
+            and usu.machineCode_s = :machine
+
+        ]]>
+    </sql>
+	<sql comment="通过传库区条码获取库位信息" id="getZoneList">
+        <![CDATA[
+			 select 
+			        d.parent_key,
+			        t.storage_unit_key,
+			        t.storage_unit_name,
+			        t.description,
+			        t.max_storage_duration,
+                    u.current_storage_i,
+			        u.storage_zone_barcode_s,
+			        u.machinecode_s,
+			        u.erpcode_s,
+			        u.inventory_materialcode_s,
+			        u.inventory_materialname_s,
+			        u.lastintime_t,
+			        u.lockflag_s,
+			        u.lockinflag_s,
+			        u.lockoutflag_s,
+			        u.canuse_s,
+			        cu.username as operater_s,
+			        u.operatetime_t
+			   from storage_unit t, uda_storageunit u, storagezone_storageunit d,core_user cu
+			  where t.storage_unit_key = u.object_key(+)
+			    and u.operater_s = cu.usercode(+)
+			    and t.storage_unit_key = d.child_key(+)
+			    and d.parent_key = :zonekey
+			    order by t.storage_unit_name
+        ]]>
+    </sql>
+    <sql comment="通过库区找到载具" id="findVechineByZone">
+        <![CDATA[
+			 select BARCODE_S,EQUIP_CODE_S,CREATED_BY_S,L_NUM_F,MATERIELNAME_S,CREATED_TIME_T,
+				  (OVERTIME_F-SMALLTIME_F) gqtime
+				  from AT_A_SM_LEDGER t
+				  left join AT_INT_SAP_MATERIALSPLUS m on t.materielcode_s = m.materialcode_s
+				 where t.location_s  = :location_s and L_NUM_F>20
+        ]]>
+    </sql>
+</sqls>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+        	SELECT
+				A.* 
+			FROM
+				(
+			SELECT
+				EQUIP_CODE_S,
+				MATERIAL_CODE_S,
+				STANDARD_WEIGHT_S,
+				ADD_FLAG_S,
+				MATERIAL_NAME_S,
+				PRODUCTION_VER_S,
+				COUNT( * ) AS TOTAL_NUMBER_S 
+			FROM
+				AT_B_MM_WORKORDERRESULT 
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND ADD_FLAG_S IN ( '105001', '105002' ) 
+			<#if s_factory_s??>
+                    and S_FACTORY_S=:s_factory_s
+               </#if>
+               <#if equip_code_s??>
+                    and EQUIP_CODE_S =:equip_code_s
+               </#if>
+               <#if material_code_s??>
+                    and MATERIAL_CODE_S =:material_code_s
+               </#if>
+               <#if begintime?? && endtime??>
+              		and to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if> 
+             	<#if line_spec_s??>
+                    and 'on' = :line_spec_s
+               </#if>
+               <#if material_spec_s??>
+                    and 'on' = :material_spec_s
+               </#if>
+			GROUP BY
+				EQUIP_CODE_S,
+				MATERIAL_CODE_S,
+				STANDARD_WEIGHT_S,
+				ADD_FLAG_S,
+				MATERIAL_NAME_S,
+			    PRODUCTION_VER_S
+			) A
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from (
+            	SELECT
+					A.* 
+				FROM
+				    (
+				SELECT
+					EQUIP_CODE_S,
+					MATERIAL_CODE_S,
+					STANDARD_WEIGHT_S,
+					ADD_FLAG_S,
+					MATERIAL_NAME_S,
+					PRODUCTION_VER_S,
+					COUNT( * ) AS TOTAL_NUMBER_S 
+				FROM
+					AT_B_MM_WORKORDERRESULT 
+				WHERE
+					RECORD_FLAG_S = 'A' 
+					AND ADD_FLAG_S IN ( '105001', '105002' ) 
+				<#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S =:equip_code_s
+                </#if>
+                <#if material_code_s??>
+                     and MATERIAL_CODE_S =:material_code_s
+                </#if>
+                <#if begintime?? && endtime??>
+               		and to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+               		:begintime and :endtime
+              	</#if> 
+              	<#if line_spec_s??>
+                     and 'on' = :line_spec_s
+                </#if>
+                <#if material_spec_s??>
+                     and 'on' = :material_spec_s
+                </#if> 
+				GROUP BY
+					EQUIP_CODE_S,
+					MATERIAL_CODE_S,
+					STANDARD_WEIGHT_S,
+					ADD_FLAG_S,
+					MATERIAL_NAME_S,
+				    PRODUCTION_VER_S
+				) A
+            )
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridUDA_rows1">
+        <![CDATA[
+        	SELECT
+				A.*
+			FROM
+				(
+			SELECT
+				EQUIP_CODE_S,
+				STANDARD_WEIGHT_S,
+				ADD_FLAG_S,
+				COUNT( * ) AS TOTAL_NUMBER_S 
+			FROM
+				AT_B_MM_WORKORDERRESULT 
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND ADD_FLAG_S IN ( '105001', '105002' ) 
+			<#if s_factory_s??>
+                 and S_FACTORY_S=:s_factory_s
+            </#if>
+            <#if equip_code_s??>
+                 and EQUIP_CODE_S =:equip_code_s
+            </#if>
+            <#if material_code_s??>
+                 and MATERIAL_CODE_S =:material_code_s
+            </#if>
+            <#if begintime?? && endtime??>
+           		and to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+           		:begintime and :endtime
+          	</#if> 
+          	<#if line_spec_s??>
+                 and 'on' = :line_spec_s
+            </#if>
+            <#if material_spec_s??>
+                 and 'on' = :material_spec_s
+            </#if>
+			GROUP BY
+				EQUIP_CODE_S,
+				STANDARD_WEIGHT_S,
+				ADD_FLAG_S
+			) A
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total1">
+        <![CDATA[
+            select count(1) from (
+	            SELECT
+					A.* 
+				FROM
+					(
+				SELECT
+					EQUIP_CODE_S,
+					STANDARD_WEIGHT_S,
+					ADD_FLAG_S,
+					COUNT( * ) AS TOTAL_NUMBER_S 
+				FROM
+					AT_B_MM_WORKORDERRESULT 
+				WHERE
+					RECORD_FLAG_S = 'A' 
+					AND ADD_FLAG_S IN ( '105001', '105002' ) 
+				<#if s_factory_s??>
+	                 and S_FACTORY_S=:s_factory_s
+	            </#if>
+	            <#if equip_code_s??>
+	                 and EQUIP_CODE_S =:equip_code_s
+	            </#if>
+	            <#if material_code_s??>
+	                 and MATERIAL_CODE_S =:material_code_s
+	            </#if>
+	            <#if begintime?? && endtime??>
+	           		and to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+	           		:begintime and :endtime
+	          	</#if> 
+	          	<#if line_spec_s??>
+	                 and 'on' = :line_spec_s
+	            </#if>
+	            <#if material_spec_s??>
+	                 and 'on' = :material_spec_s
+	            </#if>
+				GROUP BY
+					EQUIP_CODE_S,
+					STANDARD_WEIGHT_S,
+					ADD_FLAG_S
+				) A
+	        )
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="datagridUDA_rows2">
+        <![CDATA[
+        	SELECT
+				A.*
+			FROM
+				(
+			SELECT
+				MATERIAL_CODE_S,
+				STANDARD_WEIGHT_S,
+				ADD_FLAG_S,
+				MATERIAL_NAME_S,
+				PRODUCTION_VER_S,
+				COUNT( * ) AS TOTAL_NUMBER_S 
+			FROM
+				AT_B_MM_WORKORDERRESULT 
+			WHERE
+				RECORD_FLAG_S = 'A' 
+				AND ADD_FLAG_S IN ( '105001', '105002' ) 
+			<#if s_factory_s??>
+                    and S_FACTORY_S=:s_factory_s
+               </#if>
+               <#if equip_code_s??>
+                    and EQUIP_CODE_S =:equip_code_s
+               </#if>
+               <#if material_code_s??>
+                    and MATERIAL_CODE_S =:material_code_s
+               </#if>
+               <#if begintime?? && endtime??>
+              		and to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+              		:begintime and :endtime
+             	</#if> 
+             	<#if line_spec_s??>
+                    and 'on' = :line_spec_s
+               </#if>
+               <#if material_spec_s??>
+                    and 'on' = :material_spec_s
+               </#if> 
+			GROUP BY
+				MATERIAL_CODE_S,
+				STANDARD_WEIGHT_S,
+				ADD_FLAG_S,
+				MATERIAL_NAME_S,
+			    PRODUCTION_VER_S
+			) A
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total2">
+        <![CDATA[
+            select count(1) from (
+                SELECT
+					A.*
+				FROM
+					(
+				SELECT
+					MATERIAL_CODE_S,
+					STANDARD_WEIGHT_S,
+					ADD_FLAG_S,
+					MATERIAL_NAME_S,
+					PRODUCTION_VER_S,
+					COUNT( * ) AS TOTAL_NUMBER_S 
+				FROM
+					AT_B_MM_WORKORDERRESULT 
+				WHERE
+					RECORD_FLAG_S = 'A' 
+					AND ADD_FLAG_S IN ( '105001', '105002' ) 
+				<#if s_factory_s??>
+	                    and S_FACTORY_S=:s_factory_s
+	               </#if>
+	               <#if equip_code_s??>
+	                    and EQUIP_CODE_S =:equip_code_s
+	               </#if>
+	               <#if material_code_s??>
+	                    and MATERIAL_CODE_S =:material_code_s
+	               </#if>
+	               <#if begintime?? && endtime??>
+	              		and to_char(building_date_t,'yyyy-mm-dd hh24:MI:ss') between
+	              		:begintime and :endtime
+	             	</#if> 
+	             	<#if line_spec_s??>
+	                    and 'on' = :line_spec_s
+	               </#if>
+	               <#if material_spec_s??>
+	                    and 'on' = :material_spec_s
+	               </#if> 
+				GROUP BY
+					MATERIAL_CODE_S,
+					STANDARD_WEIGHT_S,
+					ADD_FLAG_S,
+					MATERIAL_NAME_S,
+				    PRODUCTION_VER_S
+				) A
+            )
+        ]]>
+    </sql>
+	
+	 <sql comment="查出每种物料对应的重量合格率" id="getOkRateByCode">
+       <![CDATA[
+            SELECT
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) BETWEEN :min_weight_s AND :max_weight_s THEN 1 END ) AS WEIGHT_OK_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) < :min_weight_s THEN 1 END ) AS WEIGHT_SMALL_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) > :max_weight_s THEN 1 END ) AS WEIGHT_BIG_S 
+			FROM
+				AT_B_MM_WORKORDERRESULT
+			WHERE
+				EQUIP_CODE_S = :equip_code_s
+				AND MATERIAL_CODE_S = :material_code_s
+				AND STANDARD_WEIGHT_S = :standard_weight_s
+				AND ADD_FLAG_S = :add_flag_s
+				AND S_FACTORY_S = :s_factory_s
+				AND RECORD_FLAG_S = 'A'
+				AND TO_CHAR(BUILDING_DATE_T,'yyyy-mm-dd hh24:MI:ss') BETWEEN
+               		:begintime AND :endtime
+               	AND PRODUCTION_VER_S = :production_ver_s
+               	AND MATERIAL_NAME_S = :material_name_s
+        ]]>
+	</sql>
+	
+	<sql comment="查出每种物料对应的重量合格率" id="getOkRateByCodeP">
+       <![CDATA[
+            SELECT
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) BETWEEN :min_weight_s AND :max_weight_s THEN 1 END ) AS WEIGHT_OK_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) < :min_weight_s THEN 1 END ) AS WEIGHT_SMALL_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) > :max_weight_s THEN 1 END ) AS WEIGHT_BIG_S 
+			FROM
+				AT_B_MM_WORKORDERRESULT
+			WHERE
+				EQUIP_CODE_S = :equip_code_s 
+				AND MATERIAL_CODE_S = :material_code_s
+				AND STANDARD_WEIGHT_S = :standard_weight_s
+				AND ADD_FLAG_S = :add_flag_s
+				AND S_FACTORY_S = :s_factory_s
+				AND RECORD_FLAG_S = 'A'
+				AND TO_CHAR(BUILDING_DATE_T,'yyyy-mm-dd hh24:MI:ss') BETWEEN
+               		:begintime AND :endtime
+               	AND MATERIAL_NAME_S = :material_name_s
+        ]]>
+	</sql>
+	
+	<sql comment="查出每种物料对应的重量合格率" id="getOkRateByCode1">
+       <![CDATA[
+            SELECT
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) BETWEEN :min_weight_s AND :max_weight_s THEN 1 END ) AS WEIGHT_OK_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) < :min_weight_s THEN 1 END ) AS WEIGHT_SMALL_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) > :max_weight_s THEN 1 END ) AS WEIGHT_BIG_S 
+			FROM
+				AT_B_MM_WORKORDERRESULT
+			WHERE
+				EQUIP_CODE_S = :equip_code_s
+				AND STANDARD_WEIGHT_S = :standard_weight_s
+				AND ADD_FLAG_S = :add_flag_s
+				AND S_FACTORY_S = :s_factory_s
+				AND RECORD_FLAG_S = 'A'
+				AND TO_CHAR(BUILDING_DATE_T,'yyyy-mm-dd hh24:MI:ss') BETWEEN
+               		:begintime AND :endtime
+        ]]>
+	</sql>
+	
+	<sql comment="查出每种物料对应的重量合格率" id="getOkRateByCode2">
+       <![CDATA[
+            SELECT
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) BETWEEN :min_weight_s AND :max_weight_s THEN 1 END ) AS WEIGHT_OK_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) < :min_weight_s THEN 1 END ) AS WEIGHT_SMALL_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) > :max_weight_s THEN 1 END ) AS WEIGHT_BIG_S
+			FROM
+				AT_B_MM_WORKORDERRESULT
+			WHERE
+				MATERIAL_CODE_S = :material_code_s
+				AND STANDARD_WEIGHT_S = :standard_weight_s
+				AND ADD_FLAG_S = :add_flag_s
+				AND S_FACTORY_S = :s_factory_s
+				AND RECORD_FLAG_S = 'A'
+				AND TO_CHAR(BUILDING_DATE_T,'yyyy-mm-dd hh24:MI:ss') BETWEEN
+               		:begintime AND :endtime
+               	AND PRODUCTION_VER_S = :production_ver_s
+               	AND MATERIAL_NAME_S = :material_name_s
+        ]]>
+	</sql>
+	
+	<sql comment="查出每种物料对应的重量合格率" id="getOkRateByCode2P">
+       <![CDATA[
+            SELECT
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) BETWEEN :min_weight_s AND :max_weight_s THEN 1 END ) AS WEIGHT_OK_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) < :min_weight_s THEN 1 END ) AS WEIGHT_SMALL_S,
+				COUNT( CASE WHEN CAST ( BUILDING_WEIGHT_S AS DECIMAL ( 10, 3 ) ) > :max_weight_s THEN 1 END ) AS WEIGHT_BIG_S
+			FROM
+				AT_B_MM_WORKORDERRESULT
+			WHERE
+				MATERIAL_CODE_S = :material_code_s
+				AND STANDARD_WEIGHT_S = :standard_weight_s
+				AND ADD_FLAG_S = :add_flag_s
+				AND S_FACTORY_S = :s_factory_s
+				AND RECORD_FLAG_S = 'A'
+				AND TO_CHAR(BUILDING_DATE_T,'yyyy-mm-dd hh24:MI:ss') BETWEEN
+               		:begintime AND :endtime
+               	AND MATERIAL_NAME_S = :material_name_s
+        ]]>
+	</sql>
+	
+	<sql comment="胎胚公差参数" id="getWeightPara">
+       <![CDATA[
+            SELECT
+				VALUEMAX_S,
+				VALUEMIN_S,
+				PARMCODE_S,
+				PARMNAME_S,
+				DUMMY1_S
+			FROM
+				AT_INT_PLM_TolerancePara 
+			WHERE
+				1 = 1 
+				AND PARMNAME_S = :parmname_s
+				AND RECORD_FLAG_S = 'A'
+        ]]>
+	</sql>
+	
+</sqls>

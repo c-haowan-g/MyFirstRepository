@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select * from AT_A_MM_PLATEINOUTRECORD where 1=1 and record_flag_s='A'
+              <#if batch_no_s??>
+                     and BATCH_NO_S like:batch_no_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if in_location_s??>
+                     and IN_LOCATION_S like:in_location_s
+                </#if>
+                <#if location_s??>
+                     and LOCATION_S=:location_s
+                </#if>
+                <#if materialgroup_s??>
+                     and SAPM_GROUP_S like:materialgroup_s
+                </#if>
+                <#if materielcode_s??>
+                     and MATERIELCODE_S like:materielcode_s
+                </#if>
+                <#if materielname_s??>
+                     and MATERIELNAME_S=:materielname_s
+                </#if>
+                <#if operate_class_s??>
+                     and OPERATE_CLASS_S=:operate_class_s
+                </#if>
+                <#if operate_shift_s??>
+                     and OPERATE_SHIFT_S=:operate_shift_s
+                </#if>
+                <#if operate_type_s??>
+                     and OPERATE_TYPE_S=:operate_type_s
+                </#if>
+                <#if out_location_s??>
+                     and OUT_LOCATION_S like:out_location_s
+                </#if>
+                <#if plan_no_s??>
+                     and PLAN_NO_S=:plan_no_s
+                </#if>
+                <#if plate_no_s??>
+                     and PLATE_NO_S=:plate_no_s
+                </#if>
+                <#if plate_spec_s??>
+                     and PLATE_SPEC_S=:plate_spec_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                   <#if rfid_no_s??>
+                         and RFID_NO_S like:rfid_no_s
+                    </#if>
+                <#if sapm_group_s??>
+                     and SAPM_GROUP_S=:sapm_group_s
+                </#if>
+                <#if site_num_s??>
+                     and SITE_NUM_S=:site_num_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if workid_s??>
+                     and WORKID_S=:workid_s
+                </#if>
+                <#if start_time??&&end_time??>
+                     and WORKTIME_T between TO_DATE(:start_time,'yyyy-mm-dd hh24:MI:ss')
+	                 and TO_DATE(:end_time,'yyyy-mm-dd hh24:MI:ss') 
+                </#if>
+                  <#if weight_i??>
+                         and WEIGHT_I=:weight_i
+                    </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select count(1) from AT_A_MM_PLATEINOUTRECORD where 1=1 and record_flag_s='A'
+             	 <#if batch_no_s??>
+                     and BATCH_NO_S like:batch_no_s
+               	 </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if in_location_s??>
+                         and IN_LOCATION_S like:in_location_s
+                    </#if>
+                    <#if location_s??>
+                         and LOCATION_S=:location_s
+                    </#if>
+                    <#if materialgroup_s??>
+                         and SAPM_GROUP_S like:materialgroup_s
+                    </#if>
+                    <#if materielcode_s??>
+                         and MATERIELCODE_S like:materielcode_s
+                    </#if>
+                    <#if materielname_s??>
+                         and MATERIELNAME_S=:materielname_s
+                    </#if>
+                    <#if operate_class_s??>
+                         and OPERATE_CLASS_S=:operate_class_s
+                    </#if>
+                    <#if operate_shift_s??>
+                         and OPERATE_SHIFT_S=:operate_shift_s
+                    </#if>
+                    <#if operate_type_s??>
+                         and OPERATE_TYPE_S=:operate_type_s
+                    </#if>
+                    <#if out_location_s??>
+                         and OUT_LOCATION_S like:out_location_s
+                    </#if>
+                    <#if plan_no_s??>
+                         and PLAN_NO_S=:plan_no_s
+                    </#if>
+                    <#if plate_no_s??>
+                         and PLATE_NO_S=:plate_no_s
+                    </#if>
+                    <#if plate_spec_s??>
+                         and PLATE_SPEC_S=:plate_spec_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                     <#if rfid_no_s??>
+                         and RFID_NO_S like:rfid_no_s
+                    </#if>
+                    <#if sapm_group_s??>
+                         and SAPM_GROUP_S=:sapm_group_s
+                    </#if>
+                    <#if site_num_s??>
+                         and SITE_NUM_S=:site_num_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if workid_s??>
+                         and WORKID_S=:workid_s
+                    </#if>
+                      <#if weight_i??>
+                         and WEIGHT_I=:weight_i
+                    </#if>
+                 <#if start_time??&&end_time??>
+                     and WORKTIME_T between TO_DATE(:start_time,'yyyy-mm-dd hh24:MI:ss')
+	                 and TO_DATE(:end_time,'yyyy-mm-dd hh24:MI:ss') 
+                </#if>
+        ]]>
+    </sql>
+   <sql comment="查出全钢物料编码显示在下拉列表中" id="searchMaterielcode">
+       <![CDATA[
+           select   t.materialcode_s  
+           from   at_int_sap_materials t,at_cm_bs_coredictionary m
+           where  t.matgrp_s=m.erpcode_s
+             and  m.dictcode_s like '308%' 
+              and m.erpcode_s like '301%'
+        ]]>
+	</sql>
+	<sql comment="查出半钢物料编码显示在下拉列表中" id="searchMaterielcode2">
+       <![CDATA[
+           select   t.materialcode_s  
+           from   at_int_sap_materials t,at_cm_bs_coredictionary m
+           where  t.matgrp_s=m.erpcode_s
+             and  m.dictcode_s like '308%' 
+              and m.erpcode_s like '302%'
+        ]]>
+	</sql>
+	<sql comment="查出全钢物料名称显示在下拉列表中" id="searchMaterielname">
+       <![CDATA[
+           select   t.materialdesc_s  
+           from   at_int_sap_materials t,at_cm_bs_coredictionary m
+           where  t.matgrp_s=m.erpcode_s
+             and  m.dictcode_s like '308%' 
+              and m.erpcode_s like '301%'
+        ]]>
+	</sql>
+	<sql comment="查出半钢物料名称显示在下拉列表中" id="searchMaterielname2">
+       <![CDATA[
+           select   t.materialdesc_s  
+           from   at_int_sap_materials t,at_cm_bs_coredictionary m
+           where  t.matgrp_s=m.erpcode_s
+             and  m.dictcode_s like '308%' 
+              and m.erpcode_s like '302%'
+        ]]>
+	</sql>
+     <sql comment="查出全钢物料组显示在下拉列表中" id="searchMaterielgroup">
+     <![CDATA[
+       select dictcode_s,dictname_s from AT_CM_BS_COREDICTIONARY 
+        where dictcode_s like '308%' and dictname_s like '半成品-全钢%'
+        ]]>
+	</sql> 
+	
+	<sql comment="查出半钢物料组显示在下拉列表中" id="searchMaterielgroup2">
+     <![CDATA[
+       select dictcode_s,dictname_s from AT_CM_BS_COREDICTIONARY 
+        where dictcode_s like '308%' and dictname_s like '半成品-半钢%'
+        ]]>
+	</sql> 
+</sqls>

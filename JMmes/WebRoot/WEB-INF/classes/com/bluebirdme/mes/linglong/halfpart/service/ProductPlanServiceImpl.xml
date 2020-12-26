@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_A_PM_PRODUCTPLAN where 1=1
+                <#if agenc_no_s??>
+                     and AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if buildingrecord_s??>
+                     and BUILDINGRECORD_S=:buildingrecord_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if classcode_s??>
+                     and CLASSCODE_S=:classcode_s
+                </#if>
+                <#if compangy_s??>
+                     and COMPANGY_S=:compangy_s
+                </#if>
+                <#if copytip_s??>
+                     and COPYTIP_S=:copytip_s
+                </#if>
+                <#if created_by_s??>
+                     and CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if customerflag_s??>
+                     and CUSTOMERFLAG_S=:customerflag_s
+                </#if>
+                <#if devicecode_s??>
+                     and DEVICECODE_S=:devicecode_s
+                </#if>
+                <#if equip_code_s??>
+                     and EQUIP_CODE_S=:equip_code_s
+                </#if>
+                <#if equip_outport_s??>
+                     and EQUIP_OUTPORT_S=:equip_outport_s
+                </#if>
+                <#if handflag_s??>
+                     and HANDFLAG_S=:handflag_s
+                </#if>
+                <#if materialcode_s??>
+                     and MATERIALCODE_S=:materialcode_s
+                </#if>
+                <#if materialdesc_s??>
+                     and MATERIALDESC_S=:materialdesc_s
+                </#if>
+                <#if materialgroup_s??>
+                     and MATERIALGROUP_S=:materialgroup_s
+                </#if>
+                <#if materialname_s??>
+                     and MATERIALNAME_S=:materialname_s
+                </#if>
+                <#if memo_s??>
+                     and MEMO_S=:memo_s
+                </#if>
+                <#if overpercent_f??>
+                     and OVERPERCENT_F=:overpercent_f
+                </#if>
+                <#if parameterid_s??>
+                     and PARAMETERID_S=:parameterid_s
+                </#if>
+                <#if paraversion_s??>
+                     and PARAVERSION_S=:paraversion_s
+                </#if>
+                <#if plandate_s??>
+                     and PLANDATE_S=:plandate_s
+                </#if>
+                <#if planfinishtime_t??>
+                     and PLANFINISHTIME_T=:planfinishtime_t
+                </#if>
+                <#if planfinish_f??>
+                     and PLANFINISH_F=:planfinish_f
+                </#if>
+                <#if planno_s??>
+                     and PLANNO_S=:planno_s
+                </#if>
+                <#if planquantityconfirm_f??>
+                     and PLANQUANTITYCONFIRM_F=:planquantityconfirm_f
+                </#if>
+                <#if planquantity_f??>
+                     and PLANQUANTITY_F=:planquantity_f
+                </#if>
+                <#if planstarttime_t??>
+                     and PLANSTARTTIME_T=:planstarttime_t
+                </#if>
+                <#if plan_order_i??>
+                     and PLAN_ORDER_I=:plan_order_i
+                </#if>
+                <#if productstage_s??>
+                     and PRODUCTSTAGE_S=:productstage_s
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if repiceno_s??>
+                     and REPICENO_S=:repiceno_s
+                </#if>
+                <#if reviewer_s??>
+                     and REVIEWER_S=:reviewer_s
+                </#if>
+                <#if reviewtime_t??>
+                     and REVIEWTIME_T=:reviewtime_t
+                </#if>
+                <#if sapversion_s??>
+                     and SAPVERSION_S=:sapversion_s
+                </#if>
+                <#if spare10_s??>
+                     and SPARE10_S=:spare10_s
+                </#if>
+                <#if spare1_s??>
+                     and SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and SPARE5_S=:spare5_s
+                </#if>
+                <#if spare6_s??>
+                     and SPARE6_S=:spare6_s
+                </#if>
+                <#if spare7_s??>
+                     and SPARE7_S=:spare7_s
+                </#if>
+                <#if spare8_s??>
+                     and SPARE8_S=:spare8_s
+                </#if>
+                <#if spare9_s??>
+                     and SPARE9_S=:spare9_s
+                </#if>
+                <#if specification_s??>
+                     and SPECIFICATION_S=:specification_s
+                </#if>
+                <#if status_s??>
+                     and STATUS_S=:status_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_A_PM_PRODUCTPLAN where 1=1
+                    <#if agenc_no_s??>
+                         and AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if buildingrecord_s??>
+                         and BUILDINGRECORD_S=:buildingrecord_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if classcode_s??>
+                         and CLASSCODE_S=:classcode_s
+                    </#if>
+                    <#if compangy_s??>
+                         and COMPANGY_S=:compangy_s
+                    </#if>
+                    <#if copytip_s??>
+                         and COPYTIP_S=:copytip_s
+                    </#if>
+                    <#if created_by_s??>
+                         and CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if customerflag_s??>
+                         and CUSTOMERFLAG_S=:customerflag_s
+                    </#if>
+                    <#if devicecode_s??>
+                         and DEVICECODE_S=:devicecode_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and EQUIP_CODE_S=:equip_code_s
+                    </#if>
+                    <#if equip_outport_s??>
+                         and EQUIP_OUTPORT_S=:equip_outport_s
+                    </#if>
+                    <#if handflag_s??>
+                         and HANDFLAG_S=:handflag_s
+                    </#if>
+                    <#if materialcode_s??>
+                         and MATERIALCODE_S=:materialcode_s
+                    </#if>
+                    <#if materialdesc_s??>
+                         and MATERIALDESC_S=:materialdesc_s
+                    </#if>
+                    <#if materialgroup_s??>
+                         and MATERIALGROUP_S=:materialgroup_s
+                    </#if>
+                    <#if materialname_s??>
+                         and MATERIALNAME_S=:materialname_s
+                    </#if>
+                    <#if memo_s??>
+                         and MEMO_S=:memo_s
+                    </#if>
+                    <#if overpercent_f??>
+                         and OVERPERCENT_F=:overpercent_f
+                    </#if>
+                    <#if parameterid_s??>
+                         and PARAMETERID_S=:parameterid_s
+                    </#if>
+                    <#if paraversion_s??>
+                         and PARAVERSION_S=:paraversion_s
+                    </#if>
+                    <#if plandate_s??>
+                         and PLANDATE_S=:plandate_s
+                    </#if>
+                    <#if planfinishtime_t??>
+                         and PLANFINISHTIME_T=:planfinishtime_t
+                    </#if>
+                    <#if planfinish_f??>
+                         and PLANFINISH_F=:planfinish_f
+                    </#if>
+                    <#if planno_s??>
+                         and PLANNO_S=:planno_s
+                    </#if>
+                    <#if planquantityconfirm_f??>
+                         and PLANQUANTITYCONFIRM_F=:planquantityconfirm_f
+                    </#if>
+                    <#if planquantity_f??>
+                         and PLANQUANTITY_F=:planquantity_f
+                    </#if>
+                    <#if planstarttime_t??>
+                         and PLANSTARTTIME_T=:planstarttime_t
+                    </#if>
+                    <#if plan_order_i??>
+                         and PLAN_ORDER_I=:plan_order_i
+                    </#if>
+                    <#if productstage_s??>
+                         and PRODUCTSTAGE_S=:productstage_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if repiceno_s??>
+                         and REPICENO_S=:repiceno_s
+                    </#if>
+                    <#if reviewer_s??>
+                         and REVIEWER_S=:reviewer_s
+                    </#if>
+                    <#if reviewtime_t??>
+                         and REVIEWTIME_T=:reviewtime_t
+                    </#if>
+                    <#if sapversion_s??>
+                         and SAPVERSION_S=:sapversion_s
+                    </#if>
+                    <#if spare10_s??>
+                         and SPARE10_S=:spare10_s
+                    </#if>
+                    <#if spare1_s??>
+                         and SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and SPARE5_S=:spare5_s
+                    </#if>
+                    <#if spare6_s??>
+                         and SPARE6_S=:spare6_s
+                    </#if>
+                    <#if spare7_s??>
+                         and SPARE7_S=:spare7_s
+                    </#if>
+                    <#if spare8_s??>
+                         and SPARE8_S=:spare8_s
+                    </#if>
+                    <#if spare9_s??>
+                         and SPARE9_S=:spare9_s
+                    </#if>
+                    <#if specification_s??>
+                         and SPECIFICATION_S=:specification_s
+                    </#if>
+                    <#if status_s??>
+                         and STATUS_S=:status_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+        ]]>
+    </sql>
+    <sql comment="机台号" id="searchEquipmentCode">
+        <![CDATA[
+            select t.equip_code_s from AT_A_PM_ProductPlan t
+        ]]>
+    </sql>
+    <sql comment="一键审核" id="oneClickAudit">
+        <![CDATA[
+			select t.atr_key
+			  from AT_A_PM_PRODUCTPLAN t
+			 where t.record_flag_s = 'A'
+			   and t.plandate_s =:planDate
+			   and t.status_s =:status
+			   and t.s_factory_s =:factory
+        ]]>
+    </sql>
+    <sql comment="一键撤销审核" id="oneClickCancelAudit">
+        <![CDATA[
+			select t.atr_key
+			  from AT_A_PM_PRODUCTPLAN t
+			 where t.record_flag_s = 'A'
+			   and t.plandate_s =:planDate
+			   and t.status_s=:status
+			   and t.s_factory_s =:factory
+        ]]>
+    </sql>
+    <sql comment="一键复制" id="oneClickCopy">
+        <![CDATA[
+			select t.* 
+			  from AT_A_PM_PRODUCTPLAN t
+			 where t.record_flag_s = 'A'
+			   and t.plandate_s =:planDate
+			   and t.s_factory_s =:factory
+        ]]>
+    </sql>
+    <sql comment="根据物料名称获取物料编码" id="getMaterialCodeByMaterialName">
+        <![CDATA[
+		   select t.materialdesc_s,t.materialcode_s,t.materialspec_s   
+			 from at_int_sap_materials t
+			where t.materialdesc_s=:materialName 
+        ]]>
+    </sql>
+    <sql comment="根据物料编码获取物料名称" id="getMaterialNameByMaterialCode">
+        <![CDATA[
+		   select t.materialdesc_s,t.materialcode_s,t.materialspec_s   
+			 from at_int_sap_materials t
+			where t.materialcode_s=:materialCode 
+        ]]>
+    </sql>
+    <sql comment="根据物料编码获取物料名称和各种版本号" id="getNameAndVersionsByMaterialCode">
+        <![CDATA[
+			select m.Production_Ver_s, k.processversion_s, k.version_s, k.id_s
+			  from AT_INT_SAP_PRODUCTVERSION m
+			  inner join AT_INT_PLM_HALFPARTPROCESS k on m.material_code_s = k.assemsapmat_s
+			  inner join at_int_plm_halfpartparameter p on  p.process_id_s =k.id_s 
+			  and k.assemsapmat_s = :materialCode 
+        ]]>
+    </sql>
+    <sql comment="根据物料编码获取生产版本" id="getProductVersionByMaterialCode">
+        <![CDATA[
+		   select m.Production_Ver_s  
+			 from AT_INT_SAP_PRODUCTVERSION m
+			where m.material_code_s=:materialCode
+        ]]>
+    </sql>
+    <sql comment="根据物料编码获取工艺版本和配方版本" id="getProcessAndFormulaVersionByMaterialCode">
+        <![CDATA[
+			select k.processversion_s, k.version_s, k.id_s
+			  from AT_INT_PLM_HALFPARTPROCESS k
+			 inner join at_int_plm_halfpartparameter p on k.id_s = p.process_id_s
+			 where k.assemsapmat_s = :materialCode
+			   and p.process_id_s = k.id_s
+        ]]>
+    </sql>
+    <sql comment="根据物料组获得超产百分比" id="getOverPercentByMaterialGroup">
+        <![CDATA[
+				select (t.sortno_i)/100 as sortno_i
+				  from at_cm_bs_coredictionary t
+				 where t.dictcode_s =:materialGroup
+        ]]>
+    </sql>
+    <sql comment="获得日计划号-倒叙" id="getPlanOrder">
+    <![CDATA[
+				select t.plan_order_i
+				  from AT_A_PM_ProductPlan t
+				 where t.record_flag_s = 'A'
+				   and t.plan_order_i <:planOrder
+				 order by t.plan_order_i desc
+     ]]>
+    </sql>
+    <sql comment="校验Bom存在性" id="bomExistCheck">
+    <![CDATA[
+			select m.subitemsap_s                    
+			  from AT_INT_PLM_BOM m
+			 where m.werks_s='8003'
+			   and m.bomtype_s='SemiPartMBOM'
+			   and m.record_flag_s='A'
+			   and m.mastersap_s=:materialCode
+			   and m.prophase_s =:productStage
+			   and (substr(m.factory_s,0,2)||m.replacebom_s=:productVersion or substr(m.factory_s,4,2)||m.replacebom_s=:productVersion)
+     ]]>
+    </sql>
+    <sql comment="校验Bom有效性" id="bomValidCheck">
+    <![CDATA[
+			select m.subitemsap_s                  
+			  from AT_INT_PLM_BOM m
+			 where m.werks_s='8003'
+			   and m.bomtype_s='SemiPartMBOM'
+			   and m.record_flag_s='A'
+			   and m.mastersap_s=:materialCode         
+			   and m.prophase_s=:productStage                 
+			   and (substr(m.factory_s,0,2)||m.replacebom_s=:productVersion or substr(m.factory_s,4,2)||m.replacebom_s=:productVersion)
+			   and (m.expireddate_s is null or m.expireddate_s > to_char(sysdate, 'yyyyMMddHH24miss'))
+     ]]>
+    </sql>
+    <sql comment="获取当天最大的日计划号" id="getMaxPlanOrder">
+    <![CDATA[
+		  select max(t.plan_order_i) from AT_A_PM_ProductPlan t
+		   where t.record_flag_s = 'A' 
+		     and t.plandate_s=:planData
+		     and t.s_factory_s=:factory
+		   order by t.plan_order_i desc
+     ]]>
+    </sql>
+    <sql comment="获取同一机台下的全部物料组" id="getAllMaterialGroupUnderZone">
+    <![CDATA[
+			select distinct d.materialgroup_s
+			  from uda_storagezone d
+			 inner join Storage_Zone c on c.storage_zone_key = d.object_key
+			 where c.category =:zoneName
+     ]]>
+    </sql>
+    <sql comment="获取所有机台下维护的全部物料组" id="getAllMaterialGroupWithoutZone">
+    <![CDATA[
+			select n.materialgroup_s
+			  from site a,site_area b,area c,area_production_line d,
+			       production_line e,uda_productionline f,Storage_Zone m, uda_storagezone n
+			 where (a.site_key = b.parent_key
+			   and b.child_key = c.area_key
+			   and c.area_key = d.parent_key
+			   and d.child_key = e.p_line_key
+			   and e.p_line_key = f.object_key
+			   and f.process_s='252004'
+			   and c.area_name='80031A'
+			   and m.storage_zone_key = n.object_key
+			   and e.p_line_name=m.category
+			   and e.category='211010')
+			    or (a.site_key = b.parent_key
+			   and b.child_key = c.area_key
+			   and c.area_key = d.parent_key
+			   and d.child_key = e.p_line_key
+			   and e.p_line_key = f.object_key
+			   and f.process_s='252004'
+			   and c.area_name='80031A'
+			   and m.storage_zone_key = n.object_key
+			   and e.p_line_name=m.category
+			   and e.category='211011')
+     ]]>
+    </sql>
+    <sql comment="根据日期，机台号和班次获取数据" id="getSortingDataRows">
+    <![CDATA[
+			select 
+				t.atr_key,
+				t.agenc_no_s,
+				t.buildingrecord_s,
+				t.changed_by_s,
+				t.changed_time_t,
+				t.classcode_s,
+				t.created_by_s,
+				t.created_time_t,
+				t.customerflag_s,
+				t.equip_code_s,
+				t.parameterid_s,
+				t.equip_outport_s,
+				t.handflag_s,
+				t.materialcode_s,
+				t.materialdesc_s,
+				t.materialgroup_s,
+				t.materialname_s,
+				t.memo_s,
+				t.overpercent_f,
+				t.paraversion_s,
+				t.plandate_s,
+				t.planfinishtime_t,
+				t.planfinish_f,
+				t.planno_s,
+				t.planquantityconfirm_f,
+				t.planquantity_f,
+				t.planstarttime_t,
+				t.plan_order_i,
+				t.record_flag_s,
+				t.repiceno_s,
+				t.reviewer_s,
+				t.reviewtime_t,
+				t.sapversion_s,
+				t.spare10_s,
+				t.spare1_s,
+				t.spare2_s,
+				t.spare3_s,
+				t.spare4_s,
+				t.spare5_s,
+				t.spare6_s,
+				t.spare7_s,
+				t.spare8_s,
+				t.spare9_s,
+				t.specification_s,
+				t.status_s,
+				t.s_factory_s,
+				t.productstage_s
+		 from AT_A_PM_ProductPlan t
+		where t.record_flag_s = 'A' 
+		  and t.equip_code_s=:equipCode
+		  and t.plandate_s=:planDate
+		  and t.classcode_s=:classCode
+		  and t.s_factory_s=:factory
+		  and t.status_s in ('104001','104002','104003')
+	    order by t.plan_order_i
+     ]]>
+    </sql>
+    <sql comment="根据日期，机台号和班次获取数据" id="getSortingDataTotal">
+    <![CDATA[
+			select count(1)
+		 from AT_A_PM_ProductPlan t
+		where t.record_flag_s = 'A' 
+		  and t.equip_code_s=:equipCode
+		  and t.plandate_s=:planDate
+		  and t.classcode_s=:classCode
+		  and t.s_factory_s=:factory
+		  and t.status_s in ('104001','104002','104003')
+     ]]>
+    </sql>
+    <sql comment="复制后页面重新加载复制后的数据" id="reLoadCopyPlan">
+    <![CDATA[
+			select t.atr_key,
+			       t.s_factory_s,
+			       t.agenc_no_s,
+			       t.equip_code_s,
+			       t.devicecode_s,
+			       t.planno_s,
+			       t.plandate_s,
+			       t.classcode_s,
+			       t.plan_order_i,
+			       t.status_s,
+			       t.materialgroup_s,
+			       t.materialdesc_s,
+			       t.materialcode_s,
+			       t.materialname_s,
+			       t.productstage_s,
+			       t.planquantityconfirm_f,
+			       t.overpercent_f,
+			       t.paraversion_s,
+			       t.parameterid_s,
+			       t.sapversion_s,
+			       t.repiceno_s,
+			       t.customerflag_s,
+			       t.handflag_s,
+			       t.created_by_s,
+			       t.created_time_t,
+			       t.changed_by_s,
+			       t.changed_time_t,
+			       t.record_flag_s,
+			       t.buildingrecord_s,
+			       t.planfinish_f,
+				   t.planquantity_f,
+			       t.planstarttime_t,
+				   t.specification_s,
+				   t.spare1_s
+			  from AT_A_PM_ProductPlan t
+			 where t.record_flag_s = 'A'
+			   and t.plandate_s =:newDate
+			   and t.s_factory_s=:factory
+			 order by t.plan_order_i desc
+     ]]>
+    </sql>
+    <sql comment="根据物料编码获取物料描述、物料规格以及对应物料组编码" id="getMatInfoByMatCode">
+    <![CDATA[
+			 SELECT DISTINCT
+				A .materialdesc_s,
+				A .materialcode_s,
+				A .oldmatcode_s,
+				A .matgrp_s,
+				A .dictcode_s,
+				A .dictname_s,
+				A .erpcode_s,
+				A .sortno_i,
+				A .production_ver_s,
+				A .prophase_s,
+				A .masterrevision_s,
+				b.subitemdesc_s
+			FROM
+				(
+					SELECT
+						T .materialdesc_s,
+						T .materialcode_s,
+						T .oldmatcode_s,
+						T .matgrp_s,
+						M .dictcode_s,
+						M .dictname_s,
+						M .erpcode_s,
+						M .sortno_i,
+						z.production_ver_s,
+						n.subitemdesc_s,
+						n.prophase_s,
+						n.masterrevision_s
+					FROM
+						at_int_sap_materials T
+					INNER JOIN at_cm_bs_coredictionary M ON T .matgrp_s = M .erpcode_s
+					INNER JOIN at_int_sap_productversion z ON z.material_code_s = T .materialcode_s
+					INNER JOIN AT_INT_PLM_BOM n ON T .materialcode_s = n.MASTERSAP_S
+					AND M .dictcode_s LIKE '308%'
+					AND T .materialcode_s = :materialCode
+				) A
+			LEFT JOIN AT_INT_PLM_BOM b ON b.SUBITEMSAP_S = a.materialcode_s
+			WHERE
+				A .masterrevision_s = (
+					SELECT
+						MAX (masterrevision_s)
+					FROM
+						AT_INT_PLM_BOM
+					WHERE
+						mastersap_s = :materialCode
+				)
+     ]]>
+    </sql>
+    <sql comment="根据物料规格获取物料编码、物料描述以及对应物料组编码" id="getMatInfoByMatSpec">
+    <![CDATA[
+			 SELECT DISTINCT
+				A .materialdesc_s,
+				A .materialcode_s,
+				A .oldmatcode_s,
+				A .matgrp_s,
+				A .dictcode_s,
+				A .dictname_s,
+				A .erpcode_s,
+				A .sortno_i,
+				A .production_ver_s,
+				A .prophase_s,
+				A .masterrevision_s,
+				b.subitemdesc_s
+			FROM
+				(
+					SELECT
+						T .materialdesc_s,
+						T .materialcode_s,
+						T .oldmatcode_s,
+						T .matgrp_s,
+						M .dictcode_s,
+						M .dictname_s,
+						M .erpcode_s,
+						M .sortno_i,
+						z.production_ver_s,
+						n.subitemdesc_s,
+						n.prophase_s,
+						n.masterrevision_s
+					FROM
+						at_int_sap_materials T
+					INNER JOIN at_cm_bs_coredictionary M ON T .matgrp_s = M .erpcode_s
+					INNER JOIN at_int_sap_productversion z ON z.material_code_s = T .materialcode_s
+					INNER JOIN AT_INT_PLM_BOM n ON T .materialcode_s = n.MASTERSAP_S
+					AND M .dictcode_s LIKE '308%'
+					AND T .oldmatcode_s = :materialSpec
+				) A
+			LEFT JOIN AT_INT_PLM_BOM b ON b.SUBITEMSAP_S = a.materialcode_s
+			WHERE
+				A .masterrevision_s = (
+					SELECT
+						MAX (masterrevision_s)
+					FROM
+						AT_INT_PLM_BOM
+					WHERE
+						tyresizenum_s = :materialSpec
+				)
+     ]]>
+    </sql>
+<!--     <sql comment="根据物料描述获取物料编码、物料规格以及对应物料组编码" id="getMatInfoByMatDesc"> -->
+<!--     <![CDATA[ -->
+<!--     		select DISTINCT t.materialdesc_s, t.materialcode_s,t.oldmatcode_s,t.matgrp_s,m.dictcode_s,m.dictname_s,m.erpcode_s, -->
+<!-- 			 m.sortno_i,z.production_ver_s,n.subitemdesc_s -->
+<!-- 			  from at_int_sap_materials t -->
+<!-- 			 inner join at_cm_bs_coredictionary m on t.matgrp_s=m.erpcode_s -->
+<!-- 			 inner join at_int_sap_productversion z on z.material_code_s=t.materialcode_s -->
+<!-- 			 inner join AT_INT_PLM_BOM n on t.materialcode_s = n.SUBITEMSAP_S -->
+<!-- 			 and m.dictcode_s like '308%'  -->
+<!-- 			 and t.materialdesc_s =:materialDesc -->
+<!--      ]]> -->
+<!--     </sql> -->
+    <sql comment="界面查询" id="filter_rows">
+    <![CDATA[
+			select 				
+			    t1.atr_key,
+				t1.agenc_no_s,
+				t1.buildingrecord_s,
+				t1.changed_by_s,
+				t1.changed_time_t,
+				t1.classcode_s,
+				t1.created_by_s,
+				t1.created_time_t,
+				t1.customerflag_s,
+				t1.equip_code_s,
+				t1.parameterid_s,
+				t1.equip_outport_s,
+				t1.handflag_s,
+				t1.materialcode_s,
+				t1.materialdesc_s,
+				t1.materialgroup_s,
+				t1.materialname_s,
+				t1.memo_s,
+				t1.overpercent_f,
+				t1.paraversion_s,
+				t1.plandate_s,
+				t1.planfinishtime_t,
+				t1.planfinish_f,
+				t1.planno_s,
+				t1.planquantityconfirm_f,
+				t1.planquantity_f,
+				t1.planstarttime_t,
+				t1.plan_order_i,
+				t1.record_flag_s,
+				t1.repiceno_s,
+				t1.reviewer_s,
+				t1.reviewtime_t,
+				t1.sapversion_s,
+				t1.spare10_s,
+				t1.spare1_s,
+				t1.spare2_s,
+				t1.spare3_s,
+				t1.spare4_s,
+				t1.spare5_s,
+				t1.spare6_s,
+				t1.spare7_s,
+				t1.spare8_s,
+				t1.spare9_s,
+				t1.specification_s,
+				t1.status_s,
+				t1.s_factory_s,
+				t1.productstage_s,
+			       T1.atr_key morn_atr_key,
+			       T2.atr_key noon_atr_key,
+			       T3.atr_key even_atr_key,
+			       T1.status_s morn_status_s,
+			       T2.status_s noon_status_s,
+			       T3.status_s even_status_s,
+			       T1.atr_name morn_atr_name,
+			       T2.atr_name noon_atr_name,
+			       T3.atr_name even_atr_name,
+			       T1.plan_order_i morn_plan_order_i,
+			       T2.plan_order_i noon_plan_order_i,
+			       T3.plan_order_i even_plan_order_i,
+			       T1.planquantityconfirm_f morn_planquantityconfirm_f,
+			       T2.planquantityconfirm_f noon_planquantityconfirm_f,
+			       T3.planquantityconfirm_f even_planquantityconfirm_f,
+			       T1.planquantityconfirm_f+T2.planquantityconfirm_f+T3.planquantityconfirm_f total_planquantityconfirm_f,
+			       T1.planno_s morn_planno_s,
+			       T2.planno_s noon_planno_s,
+			       T3.planno_s even_planno_s
+			  from (select *
+			          from AT_A_PM_ProductPlan 
+			         where record_flag_s = 'A'
+			           and classcode_s='118001'
+			          <#if plandate_s??>   and plandate_s =:plandate_s      </#if>
+					  <#if equip_code_s??> and equip_code_s =:equip_code_s  </#if>
+					  <#if status_s??>     and status_s =:status_s          </#if>
+			          <#if s_factory_s??>  and s_factory_s =:s_factory_s    </#if>
+			          <#if materialgroup_s??>  and materialgroup_s =:materialgroup_s  </#if>
+			          <#if materialcode_s??>  and materialcode_s =:materialcode_s     </#if> 
+					  <#if specification_s??>  and specification_s =:specification_s  </#if> )T1 
+	    inner join (select *
+			          from AT_A_PM_ProductPlan 
+			         where record_flag_s = 'A'
+			           and classcode_s='118002'
+					  <#if plandate_s??>   and plandate_s =:plandate_s      </#if>
+					  <#if equip_code_s??> and equip_code_s =:equip_code_s  </#if>
+					  <#if status_s??>     and status_s =:status_s          </#if>
+					  <#if s_factory_s??>  and s_factory_s =:s_factory_s    </#if>
+					  <#if materialgroup_s??>  and materialgroup_s =:materialgroup_s   </#if> 
+					  <#if materialcode_s??>  and materialcode_s =:materialcode_s      </#if> 
+					  <#if specification_s??>  and specification_s =:specification_s   </#if> )T2 on T2.spare3_s=T1.spare3_s 
+	    inner join (select *
+			          from AT_A_PM_ProductPlan 
+			         where record_flag_s = 'A'
+			           and classcode_s='118003'
+					  <#if plandate_s??>   and plandate_s =:plandate_s      </#if>
+					  <#if equip_code_s??> and equip_code_s =:equip_code_s  </#if>
+					  <#if status_s??>     and status_s =:status_s          </#if>
+					  <#if s_factory_s??>  and s_factory_s =:s_factory_s    </#if>
+					  <#if materialgroup_s??>  and materialgroup_s =:materialgroup_s   </#if> 
+					  <#if materialcode_s??>  and materialcode_s =:materialcode_s      </#if> 
+					  <#if specification_s??>  and specification_s =:specification_s   </#if> )T3 on T3.spare3_s=T2.spare3_s
+					  <#if sort??&&order??> 
+					       order by ${sort} ${order}
+					  <#else> 
+					       order by T1.created_time_t desc
+					  </#if>
+     ]]>
+    </sql>
+    <sql comment="界面查询" id="filter_total">
+    <![CDATA[
+			select count(1)
+			  from (select *
+			          from AT_A_PM_ProductPlan 
+			         where record_flag_s = 'A'
+			           and classcode_s='118001'
+			          <#if plandate_s??>   and plandate_s =:plandate_s      </#if>
+					  <#if equip_code_s??> and equip_code_s =:equip_code_s  </#if>
+					  <#if status_s??>     and status_s =:status_s          </#if>
+			          <#if s_factory_s??>  and s_factory_s =:s_factory_s    </#if>
+			          <#if materialgroup_s??>  and materialgroup_s =:materialgroup_s  </#if>
+			          <#if materialcode_s??>  and materialcode_s =:materialcode_s     </#if> 
+					  <#if specification_s??>  and specification_s =:specification_s  </#if> )T1 
+	    inner join (select *
+			          from AT_A_PM_ProductPlan 
+			         where record_flag_s = 'A'
+			           and classcode_s='118002'
+					  <#if plandate_s??>   and plandate_s =:plandate_s      </#if>
+					  <#if equip_code_s??> and equip_code_s =:equip_code_s  </#if>
+					  <#if status_s??>     and status_s =:status_s          </#if>
+					  <#if s_factory_s??>  and s_factory_s =:s_factory_s    </#if>
+					  <#if materialgroup_s??>  and materialgroup_s =:materialgroup_s   </#if> 
+					  <#if materialcode_s??>  and materialcode_s =:materialcode_s      </#if> 
+					  <#if specification_s??>  and specification_s =:specification_s   </#if> )T2 on T2.spare3_s=T1.spare3_s 
+	    inner join (select *
+			          from AT_A_PM_ProductPlan 
+			         where record_flag_s = 'A'
+			           and classcode_s='118003'
+					  <#if plandate_s??>   and plandate_s =:plandate_s      </#if>
+					  <#if equip_code_s??> and equip_code_s =:equip_code_s  </#if>
+					  <#if status_s??>     and status_s =:status_s          </#if>
+					  <#if s_factory_s??>  and s_factory_s =:s_factory_s    </#if>
+					  <#if materialgroup_s??>  and materialgroup_s =:materialgroup_s   </#if> 
+					  <#if materialcode_s??>  and materialcode_s =:materialcode_s      </#if> 
+					  <#if specification_s??>  and specification_s =:specification_s   </#if> )T3 on T3.spare3_s=T2.spare3_s
+     ]]>
+    </sql>
+</sqls>

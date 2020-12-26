@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            select 
+                gd.*,wm.OUTSTOREDATA_T as creation_by_time 
+            from AT_B_WH_GREENTIRE_DETAIL gd 
+                left join AT_INT_WH_WMSOUTSTORE wm  on wm.TIREBARCODE_S=gd.TIREBARCODE_S
+            where 1=1
+                <#if agenc_no_s??>
+                     and gd.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if appearanceok_s??>
+                     and gd.APPEARANCEOK_S=:appearanceok_s
+                </#if>
+                <#if changed_by_s??>
+                     and gd.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and gd.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and gd.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and gd.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if machin_no_s??>
+                     and gd.MACHINNO_S=:machin_no_s
+                </#if>
+                 <#if tire_car_code_s??>
+                     and gd.tire_car_code_s = :tire_car_code_s
+                </#if>
+                
+                <#if material_code_s??>
+                     and gd.MATERIAL_CODE_S =  :material_code_s 
+                </#if>
+                <#if material_name_s??>
+                     and gd.MATERIAL_NAME_S=:material_name_s
+                </#if>
+                <#if productiondate_s??>
+                     and gd.PRODUCTIONDATE_S=:productiondate_s
+                </#if>
+                <#if record_flag_s??>
+                     and gd.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and gd.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and gd.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and gd.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and gd.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and gd.SPARE5_S=:spare5_s
+                </#if>
+                <#if specification_s??>
+                     and gd.SPECIFICATION_S=:specification_s
+                </#if>
+                <#if storagelocation_s??>
+                     and gd.STORAGELOCATION_S = :storagelocation_s
+                </#if>
+                <#if storeentrytime_t??>
+                     and gd.STOREENTRYTIME_T=:storeentrytime_t
+                </#if>
+                <#if s_factory_s??>
+                     and gd.S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if tirebarcode_s??>
+                     and gd.TIREBARCODE_S =  :tirebarcode_s 
+                </#if>
+                <#if weightok_s??>
+                     and gd.WEIGHTOK_S=:weightok_s
+                </#if>
+                <#if weight_s??>
+                     and gd.WEIGHT_S=:weight_s
+                </#if>
+                <#if begin_created_time??&&end_created_time??>
+        				and to_char(gd.STOREENTRYTIME_T,'yyyy-mm-dd hh24:MI:ss') between
+        				:begin_created_time and :end_created_time
+        		</#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by gd.STOREENTRYTIME_T desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+            select 
+                   count(1) 
+            from AT_B_WH_GREENTIRE_DETAIL gd 
+                left join AT_INT_WH_WMSOUTSTORE wm  on wm.TIREBARCODE_S=gd.TIREBARCODE_S
+            where 1=1
+                    <#if agenc_no_s??>
+                         and gd.AGENC_NO_S=:agenc_no_s
+                    </#if>
+                    <#if tire_car_code_s??>
+                    	 and gd.tire_car_code_s = :tire_car_code_s
+                	</#if>
+                    <#if appearanceok_s??>
+                         and gd.APPEARANCEOK_S=:appearanceok_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and gd.CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and gd.CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if created_by_s??>
+                         and gd.CREATED_BY_S=:created_by_s
+                    </#if>
+                    <#if created_time_t??>
+                         and gd.CREATED_TIME_T=:created_time_t
+                    </#if>
+                    <#if machin_no_s??>
+                         and gd.MACHINNO_S=:machin_no_s
+                    </#if>
+                    <#if material_code_s??>
+                         and gd.MATERIAL_CODE_S = :material_code_s 
+                    </#if>
+                    <#if material_name_s??>
+                         and gd.MATERIAL_NAME_S=:material_name_s
+                    </#if>
+                    <#if productiondate_s??>
+                         and gd.PRODUCTIONDATE_S=:productiondate_s
+                    </#if>
+                    <#if record_flag_s??>
+                         and gd.RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if spare1_s??>
+                         and gd.SPARE1_S=:spare1_s
+                    </#if>
+                    <#if spare2_s??>
+                         and gd.SPARE2_S=:spare2_s
+                    </#if>
+                    <#if spare3_s??>
+                         and gd.SPARE3_S=:spare3_s
+                    </#if>
+                    <#if spare4_s??>
+                         and gd.SPARE4_S=:spare4_s
+                    </#if>
+                    <#if spare5_s??>
+                         and gd.SPARE5_S=:spare5_s
+                    </#if>
+                    <#if specification_s??>
+                         and gd.SPECIFICATION_S=:specification_s
+                    </#if>
+                    <#if storagelocation_s??>
+                         and gd.STORAGELOCATION_S = :storagelocation_s
+                    </#if>
+                    <#if storeentrytime_t??>
+                         and gd.STOREENTRYTIME_T=:storeentrytime_t
+                    </#if>
+                    <#if s_factory_s??>
+                         and gd.S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if tirebarcode_s??>
+                         and gd.TIREBARCODE_S = :tirebarcode_s 
+                    </#if>
+                    <#if weightok_s??>
+                         and gd.WEIGHTOK_S=:weightok_s
+                    </#if>
+                    <#if weight_s??>
+                         and gd.WEIGHT_S=:weight_s
+                    </#if>
+                     <#if begin_created_time??&&end_created_time??>
+        				and to_char(gd.STOREENTRYTIME_T,'yyyy-mm-dd hh24:MI:ss') between
+        				:begin_created_time and :end_created_time
+        		</#if>
+        ]]>
+    </sql>
+</sqls>

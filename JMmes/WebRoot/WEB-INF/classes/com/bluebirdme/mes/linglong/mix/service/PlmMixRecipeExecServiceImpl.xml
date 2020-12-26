@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select * from AT_INT_PLM_MIXRECIPE_EXEC where 1=1
+                <#if b_version_s??>
+                     and B_Version_S=:b_version_s
+                </#if>
+                <#if cb_recycletime_i??>
+                     and CB_RecycleTime_I=:cb_recycletime_i
+                </#if>
+                <#if cb_recycletype_s??>
+                     and CB_RecycleType_S=:cb_recycletype_s
+                </#if>
+                <#if changed_by_s??>
+                     and CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_name_s??>
+                     and CHANGED_NAME_S=:changed_name_s
+                </#if>
+                <#if changed_time_t??>
+                     and CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if check_by_s??>
+                     and CHECK_BY_S=:check_by_s
+                </#if>
+                <#if check_name_s??>
+                     and CHECK_NAME_S=:check_name_s
+                </#if>
+                <#if check_state_s??>
+                     and CHECK_STATE_S=:check_state_s
+                </#if>
+                <#if check_time_t??>
+                     and CHECK_TIME_T=:check_time_t
+                </#if>
+                <#if cutpoly_weight_d??>
+                     and CUTPOLY_WEIGHT_D=:cutpoly_weight_d
+                </#if>
+                <#if data_source_s??>
+                     and DATA_SOURCE_S=:data_source_s
+                </#if>
+                <#if data_source_type_s??>
+                     and DATA_SOURCE_TYPE_S=:data_source_type_s
+                </#if>
+                <#if ddoor_temp_i??>
+                     and Ddoor_Temp_I=:ddoor_temp_i
+                </#if>
+                <#if dischangetime_i??>
+                     and Dischangetime_I=:dischangetime_i
+                </#if>
+                <#if dummy1_s??>
+                     and Dummy1_S=:dummy1_s
+                </#if>
+                <#if dummy2_s??>
+                     and Dummy2_S=:dummy2_s
+                </#if>
+                <#if dummy3_s??>
+                     and Dummy3_S=:dummy3_s
+                </#if>
+                <#if dummy4_s??>
+                     and Dummy4_S=:dummy4_s
+                </#if>
+                <#if dummy5_s??>
+                     and Dummy5_S=:dummy5_s
+                </#if>
+                <#if edt_code_s??>
+                     and Edt_Code_S=:edt_code_s
+                </#if>
+                <#if equip_code_s??>
+                     and Equip_code_S=:equip_code_s
+                </#if>
+                <#if guid_s??>
+                     and GUID_S=:guid_s
+                </#if>
+                <#if id_s??>
+                     and ID_S=:id_s
+                </#if>
+                <#if ismixed_s??>
+                     and IsMixed_S=:ismixed_s
+                </#if>
+                <#if is_useareatemp_s??>
+                     and Is_UseAreaTemp_S=:is_useareatemp_s
+                </#if>
+                <#if mes_equip_code_s??>
+                     and MES_EQUIP_CODE_S=:mes_equip_code_s
+                </#if>
+                <#if mes_equip_name_s??>
+                     and MES_EQUIP_NAME_S=:mes_equip_name_s
+                </#if>
+                <#if makeup_temp_i??>
+                     and MakeUp_Temp_I=:makeup_temp_i
+                </#if>
+                <#if matchingcode_s??>
+                     and MatchingCode_S=:matchingcode_s
+                </#if>
+                <#if mater_name_s??>
+                     and Mater_Name_S=:mater_name_s
+                </#if>
+                <#if mater_type_s??>
+                     and Mater_Type_S=:mater_type_s
+                </#if>
+                <#if mater_code_s??>
+                     and Mater_code_S=:mater_code_s
+                </#if>
+                <#if mater_code_temp_s??>
+                     and Mater_code_temp_S=:mater_code_temp_s
+                </#if>
+                <#if max_inploytemp_i??>
+                     and Max_InPloyTemp_I=:max_inploytemp_i
+                </#if>
+                <#if min_inploytemp_i??>
+                     and Min_InPloyTemp_I=:min_inploytemp_i
+                </#if>
+                <#if overtemp_mintime_i??>
+                     and OverTemp_MinTime_I=:overtemp_mintime_i
+                </#if>
+                <#if overtemp_temp_i??>
+                     and OverTemp_Temp_I=:overtemp_temp_i
+                </#if>
+                <#if overtime_time_i??>
+                     and OverTime_Time_I=:overtime_time_i
+                </#if>
+                <#if pack_weight_s??>
+                     and PACK_WEIGHT_S=:pack_weight_s
+                </#if>
+                <#if plant_s??>
+                     and Plant_S=:plant_s
+                </#if>
+                <#if prescriptionstage_s??>
+                     and PrescriptionStage_S=:prescriptionstage_s
+                </#if>
+                <#if receive_time_t??>
+                     and RECEIVE_TIME_T=:receive_time_t
+                </#if>
+                <#if recipe_by_s??>
+                     and RECIPE_BY_S=:recipe_by_s
+                </#if>
+                <#if recipe_code_name_s??>
+                     and RECIPE_CODE_NAME_S=:recipe_code_name_s
+                </#if>
+                <#if recipe_code_s??>
+                     and RECIPE_CODE_S=:recipe_code_s
+                </#if>
+                <#if recipe_name_s??>
+                     and RECIPE_NAME_S=:recipe_name_s
+                </#if>
+                <#if recipe_status_s??>
+                     and RECIPE_STATUS_S=:recipe_status_s
+                </#if>
+                <#if recipe_time_t??>
+                     and RECIPE_TIME_T=:recipe_time_t
+                </#if>
+                <#if record_flag_s??>
+                     and RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if r_version_s??>
+                     and R_Version_S=:r_version_s
+                </#if>
+                <#if roll_temp_i??>
+                     and Roll_Temp_I=:roll_temp_i
+                </#if>
+                <#if routing_type_s??>
+                     and Routing_type_S=:routing_type_s
+                </#if>
+                <#if sap_version_s??>
+                     and SAP_Version_S=:sap_version_s
+                </#if>
+                <#if send_by_s??>
+                     and SEND_BY_S=:send_by_s
+                </#if>
+                <#if send_name_s??>
+                     and SEND_NAME_S=:send_name_s
+                </#if>
+                <#if send_state_s??>
+                     and SEND_STATE_S=:send_state_s
+                </#if>
+                <#if send_time_t??>
+                     and SEND_TIME_T=:send_time_t
+                </#if>
+                <#if slowdown_weight_d??>
+                     and SLOWDOWN_WEIGHT_D=:slowdown_weight_d
+                </#if>
+                <#if sync_create_time_t??>
+                     and SYNC_CREATE_TIME_T=:sync_create_time_t
+                </#if>
+                <#if sync_flag_s??>
+                     and SYNC_FLAG_S=:sync_flag_s
+                </#if>
+                <#if sync_hand_flag_flauto1_s??>
+                     and SYNC_HAND_FLAG_FLAuto1_S=:sync_hand_flag_flauto1_s
+                </#if>
+                <#if sync_hand_flag_flauto2_s??>
+                     and SYNC_HAND_FLAG_FLAuto2_S=:sync_hand_flag_flauto2_s
+                </#if>
+                <#if sync_hand_flag_flauto3_s??>
+                     and SYNC_HAND_FLAG_FLAuto3_S=:sync_hand_flag_flauto3_s
+                </#if>
+                <#if sync_hand_flag_flauto_s??>
+                     and SYNC_HAND_FLAG_FLAuto_S=:sync_hand_flag_flauto_s
+                </#if>
+                <#if sync_hand_flag_flhand_s??>
+                     and SYNC_HAND_FLAG_FLHand_S=:sync_hand_flag_flhand_s
+                </#if>
+                <#if sync_hand_flag_s??>
+                     and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                </#if>
+                <#if sync_hand_msg_flauto1_s??>
+                     and SYNC_HAND_MSG_FLAuto1_S=:sync_hand_msg_flauto1_s
+                </#if>
+                <#if sync_hand_msg_flauto2_s??>
+                     and SYNC_HAND_MSG_FLAuto2_S=:sync_hand_msg_flauto2_s
+                </#if>
+                <#if sync_hand_msg_flauto3_s??>
+                     and SYNC_HAND_MSG_FLAuto3_S=:sync_hand_msg_flauto3_s
+                </#if>
+                <#if sync_hand_msg_flhand_s??>
+                     and SYNC_HAND_MSG_FLHand_S=:sync_hand_msg_flhand_s
+                </#if>
+                <#if sync_hand_msg_s??>
+                     and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                </#if>
+                <#if sync_hand_time_flauto1_t??>
+                     and SYNC_HAND_TIME_FLAuto1_T=:sync_hand_time_flauto1_t
+                </#if>
+                <#if sync_hand_time_flauto2_t??>
+                     and SYNC_HAND_TIME_FLAuto2_T=:sync_hand_time_flauto2_t
+                </#if>
+                <#if sync_hand_time_flauto3_t??>
+                     and SYNC_HAND_TIME_FLAuto3_T=:sync_hand_time_flauto3_t
+                </#if>
+                <#if sync_hand_time_flhand_t??>
+                     and SYNC_HAND_TIME_FLHand_T=:sync_hand_time_flhand_t
+                </#if>
+                <#if begintime?? && endtime??>
+               		and SYNC_HAND_TIME_T between TO_DATE(:begintime,'YYYY-mm-dd HH24:MI:SS')
+               		and TO_DATE(:endtime,'YYYY-mm-dd HH24:MI:SS') 
+            	</#if>
+                <#if sync_wo_no_s??>
+                     and SYNC_WO_NO_S=:sync_wo_no_s
+                </#if>
+                <#if s_factory_s??>
+                     and S_FACTORY_S=:s_factory_s
+                </#if>
+                <#if set_weigh_d??>
+                     and Set_weigh_D=:set_weigh_d
+                </#if>
+                <#if shelf_num_i??>
+                     and Shelf_num_I=:shelf_num_i
+                </#if>
+                <#if side_temp_i??>
+                     and Side_Temp_I=:side_temp_i
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by atr_key desc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+            select count(1) from AT_INT_PLM_MIXRECIPE_EXEC where 1=1
+                    <#if b_version_s??>
+                         and B_Version_S=:b_version_s
+                    </#if>
+                    <#if cb_recycletime_i??>
+                         and CB_RecycleTime_I=:cb_recycletime_i
+                    </#if>
+                    <#if cb_recycletype_s??>
+                         and CB_RecycleType_S=:cb_recycletype_s
+                    </#if>
+                    <#if changed_by_s??>
+                         and CHANGED_BY_S=:changed_by_s
+                    </#if>
+                    <#if changed_name_s??>
+                         and CHANGED_NAME_S=:changed_name_s
+                    </#if>
+                    <#if changed_time_t??>
+                         and CHANGED_TIME_T=:changed_time_t
+                    </#if>
+                    <#if check_by_s??>
+                         and CHECK_BY_S=:check_by_s
+                    </#if>
+                    <#if check_name_s??>
+                         and CHECK_NAME_S=:check_name_s
+                    </#if>
+                    <#if check_state_s??>
+                         and CHECK_STATE_S=:check_state_s
+                    </#if>
+                    <#if check_time_t??>
+                         and CHECK_TIME_T=:check_time_t
+                    </#if>
+                    <#if cutpoly_weight_d??>
+                         and CUTPOLY_WEIGHT_D=:cutpoly_weight_d
+                    </#if>
+                    <#if data_source_s??>
+                         and DATA_SOURCE_S=:data_source_s
+                    </#if>
+                    <#if data_source_type_s??>
+                         and DATA_SOURCE_TYPE_S=:data_source_type_s
+                    </#if>
+                    <#if ddoor_temp_i??>
+                         and Ddoor_Temp_I=:ddoor_temp_i
+                    </#if>
+                    <#if dischangetime_i??>
+                         and Dischangetime_I=:dischangetime_i
+                    </#if>
+                    <#if dummy1_s??>
+                         and Dummy1_S=:dummy1_s
+                    </#if>
+                    <#if dummy2_s??>
+                         and Dummy2_S=:dummy2_s
+                    </#if>
+                    <#if dummy3_s??>
+                         and Dummy3_S=:dummy3_s
+                    </#if>
+                    <#if dummy4_s??>
+                         and Dummy4_S=:dummy4_s
+                    </#if>
+                    <#if dummy5_s??>
+                         and Dummy5_S=:dummy5_s
+                    </#if>
+                    <#if edt_code_s??>
+                         and Edt_Code_S=:edt_code_s
+                    </#if>
+                    <#if equip_code_s??>
+                         and Equip_code_S=:equip_code_s
+                    </#if>
+                    <#if guid_s??>
+                         and GUID_S=:guid_s
+                    </#if>
+                    <#if id_s??>
+                         and ID_S=:id_s
+                    </#if>
+                    <#if ismixed_s??>
+                         and IsMixed_S=:ismixed_s
+                    </#if>
+                    <#if is_useareatemp_s??>
+                         and Is_UseAreaTemp_S=:is_useareatemp_s
+                    </#if>
+                    <#if mes_equip_code_s??>
+                         and MES_EQUIP_CODE_S=:mes_equip_code_s
+                    </#if>
+                    <#if mes_equip_name_s??>
+                         and MES_EQUIP_NAME_S=:mes_equip_name_s
+                    </#if>
+                    <#if makeup_temp_i??>
+                         and MakeUp_Temp_I=:makeup_temp_i
+                    </#if>
+                    <#if matchingcode_s??>
+                         and MatchingCode_S=:matchingcode_s
+                    </#if>
+                    <#if mater_name_s??>
+                         and Mater_Name_S=:mater_name_s
+                    </#if>
+                    <#if mater_type_s??>
+                         and Mater_Type_S=:mater_type_s
+                    </#if>
+                    <#if mater_code_s??>
+                         and Mater_code_S=:mater_code_s
+                    </#if>
+                    <#if mater_code_temp_s??>
+                         and Mater_code_temp_S=:mater_code_temp_s
+                    </#if>
+                    <#if max_inploytemp_i??>
+                         and Max_InPloyTemp_I=:max_inploytemp_i
+                    </#if>
+                    <#if min_inploytemp_i??>
+                         and Min_InPloyTemp_I=:min_inploytemp_i
+                    </#if>
+                    <#if overtemp_mintime_i??>
+                         and OverTemp_MinTime_I=:overtemp_mintime_i
+                    </#if>
+                    <#if overtemp_temp_i??>
+                         and OverTemp_Temp_I=:overtemp_temp_i
+                    </#if>
+                    <#if overtime_time_i??>
+                         and OverTime_Time_I=:overtime_time_i
+                    </#if>
+                    <#if pack_weight_s??>
+                         and PACK_WEIGHT_S=:pack_weight_s
+                    </#if>
+                    <#if plant_s??>
+                         and Plant_S=:plant_s
+                    </#if>
+                    <#if prescriptionstage_s??>
+                         and PrescriptionStage_S=:prescriptionstage_s
+                    </#if>
+                    <#if receive_time_t??>
+                         and RECEIVE_TIME_T=:receive_time_t
+                    </#if>
+                    <#if recipe_by_s??>
+                         and RECIPE_BY_S=:recipe_by_s
+                    </#if>
+                    <#if recipe_code_name_s??>
+                         and RECIPE_CODE_NAME_S=:recipe_code_name_s
+                    </#if>
+                    <#if recipe_code_s??>
+                         and RECIPE_CODE_S=:recipe_code_s
+                    </#if>
+                    <#if recipe_name_s??>
+                         and RECIPE_NAME_S=:recipe_name_s
+                    </#if>
+                    <#if recipe_status_s??>
+                         and RECIPE_STATUS_S=:recipe_status_s
+                    </#if>
+                    <#if recipe_time_t??>
+                         and RECIPE_TIME_T=:recipe_time_t
+                    </#if>
+                    <#if record_flag_s??>
+                         and RECORD_FLAG_S=:record_flag_s
+                    </#if>
+                    <#if r_version_s??>
+                         and R_Version_S=:r_version_s
+                    </#if>
+                    <#if roll_temp_i??>
+                         and Roll_Temp_I=:roll_temp_i
+                    </#if>
+                    <#if routing_type_s??>
+                         and Routing_type_S=:routing_type_s
+                    </#if>
+                    <#if sap_version_s??>
+                         and SAP_Version_S=:sap_version_s
+                    </#if>
+                    <#if send_by_s??>
+                         and SEND_BY_S=:send_by_s
+                    </#if>
+                    <#if send_name_s??>
+                         and SEND_NAME_S=:send_name_s
+                    </#if>
+                    <#if send_state_s??>
+                         and SEND_STATE_S=:send_state_s
+                    </#if>
+                    <#if send_time_t??>
+                         and SEND_TIME_T=:send_time_t
+                    </#if>
+                    <#if slowdown_weight_d??>
+                         and SLOWDOWN_WEIGHT_D=:slowdown_weight_d
+                    </#if>
+                    <#if sync_create_time_t??>
+                         and SYNC_CREATE_TIME_T=:sync_create_time_t
+                    </#if>
+                    <#if sync_flag_s??>
+                         and SYNC_FLAG_S=:sync_flag_s
+                    </#if>
+                    <#if sync_hand_flag_flauto1_s??>
+                         and SYNC_HAND_FLAG_FLAuto1_S=:sync_hand_flag_flauto1_s
+                    </#if>
+                    <#if sync_hand_flag_flauto2_s??>
+                         and SYNC_HAND_FLAG_FLAuto2_S=:sync_hand_flag_flauto2_s
+                    </#if>
+                    <#if sync_hand_flag_flauto3_s??>
+                         and SYNC_HAND_FLAG_FLAuto3_S=:sync_hand_flag_flauto3_s
+                    </#if>
+                    <#if sync_hand_flag_flauto_s??>
+                         and SYNC_HAND_FLAG_FLAuto_S=:sync_hand_flag_flauto_s
+                    </#if>
+                    <#if sync_hand_flag_flhand_s??>
+                         and SYNC_HAND_FLAG_FLHand_S=:sync_hand_flag_flhand_s
+                    </#if>
+                    <#if sync_hand_flag_s??>
+                         and SYNC_HAND_FLAG_S=:sync_hand_flag_s
+                    </#if>
+                    <#if sync_hand_msg_flauto1_s??>
+                         and SYNC_HAND_MSG_FLAuto1_S=:sync_hand_msg_flauto1_s
+                    </#if>
+                    <#if sync_hand_msg_flauto2_s??>
+                         and SYNC_HAND_MSG_FLAuto2_S=:sync_hand_msg_flauto2_s
+                    </#if>
+                    <#if sync_hand_msg_flauto3_s??>
+                         and SYNC_HAND_MSG_FLAuto3_S=:sync_hand_msg_flauto3_s
+                    </#if>
+                    <#if sync_hand_msg_flhand_s??>
+                         and SYNC_HAND_MSG_FLHand_S=:sync_hand_msg_flhand_s
+                    </#if>
+                    <#if sync_hand_msg_s??>
+                         and SYNC_HAND_MSG_S=:sync_hand_msg_s
+                    </#if>
+                    <#if sync_hand_time_flauto1_t??>
+                         and SYNC_HAND_TIME_FLAuto1_T=:sync_hand_time_flauto1_t
+                    </#if>
+                    <#if sync_hand_time_flauto2_t??>
+                         and SYNC_HAND_TIME_FLAuto2_T=:sync_hand_time_flauto2_t
+                    </#if>
+                    <#if sync_hand_time_flauto3_t??>
+                         and SYNC_HAND_TIME_FLAuto3_T=:sync_hand_time_flauto3_t
+                    </#if>
+                    <#if sync_hand_time_flhand_t??>
+                         and SYNC_HAND_TIME_FLHand_T=:sync_hand_time_flhand_t
+                    </#if>
+                    <#if begintime?? && endtime??>
+               			and SYNC_HAND_TIME_T between TO_DATE(:begintime,'YYYY-mm-dd HH24:MI:SS')
+               			and TO_DATE(:endtime,'YYYY-mm-dd HH24:MI:SS') 
+            		</#if>
+                    <#if sync_wo_no_s??>
+                         and SYNC_WO_NO_S=:sync_wo_no_s
+                    </#if>
+                    <#if s_factory_s??>
+                         and S_FACTORY_S=:s_factory_s
+                    </#if>
+                    <#if set_weigh_d??>
+                         and Set_weigh_D=:set_weigh_d
+                    </#if>
+                    <#if shelf_num_i??>
+                         and Shelf_num_I=:shelf_num_i
+                    </#if>
+                    <#if side_temp_i??>
+                         and Side_Temp_I=:side_temp_i
+                    </#if>
+        ]]>
+    </sql>
+</sqls>

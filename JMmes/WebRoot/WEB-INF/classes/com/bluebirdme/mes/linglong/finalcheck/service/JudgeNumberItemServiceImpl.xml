@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagrid_rows">
+        <![CDATA[
+            select t.*,p.recipeno_s
+				  from AT_D_BS_JUDGENUMBERITEM t, AT_D_BS_RecipeItem r, AT_D_BS_Recipe p
+				 where 1 = 1
+				   and t.itemid_s = r.itemid_s
+				   and p.atr_key=r.recipeid_i
+				and t.record_flag_s='A'
+				and r.record_flag_s='A'
+				and p.record_flag_s='A'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and t.ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if enttype_s??>
+                     and t.ENTTYPE_S=:enttype_s
+                     and p.ENTTYPE_I=:enttype_s
+                </#if>
+                <#if itemdesc_s??>
+                     and t.ITEMDESC_S=:itemdesc_s
+                </#if>
+                <#if itemid_s??>
+                     and t.ITEMID_S=:itemid_s
+                </#if>
+                <#if judgeno_s??>
+                     and t.JUDGENO_S=:judgeno_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                      and r.S_FACTORY_S=:s_factory_s
+                       and p.S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.JUDGENO_S asc
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagrid_total">
+        <![CDATA[
+             select COUNT(1)
+				  from AT_D_BS_JUDGENUMBERITEM t, AT_D_BS_RecipeItem r, AT_D_BS_Recipe p
+				 where 1 = 1
+				   and t.itemid_s = r.itemid_s
+				   and p.atr_key=r.recipeid_i
+				and t.record_flag_s='A'
+				and r.record_flag_s='A'
+				and p.record_flag_s='A'
+                <#if agenc_no_s??>
+                     and t.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if arch_flag_s??>
+                     and t.ARCH_FLAG_S=:arch_flag_s
+                </#if>
+                <#if changed_by_s??>
+                     and t.CHANGED_BY_S=:changed_by_s
+                </#if>
+                <#if changed_time_t??>
+                     and t.CHANGED_TIME_T=:changed_time_t
+                </#if>
+                <#if created_by_s??>
+                     and t.CREATED_BY_S=:created_by_s
+                </#if>
+                <#if created_time_t??>
+                     and t.CREATED_TIME_T=:created_time_t
+                </#if>
+                <#if enttype_s??>
+                     and t.ENTTYPE_S=:enttype_s
+                     and p.ENTTYPE_I=:enttype_s
+                </#if>
+                <#if itemdesc_s??>
+                     and t.ITEMDESC_S=:itemdesc_s
+                </#if>
+                <#if itemid_s??>
+                     and t.ITEMID_S=:itemid_s
+                </#if>
+                <#if judgeno_s??>
+                     and t.JUDGENO_S=:judgeno_s
+                </#if>
+                <#if record_flag_s??>
+                     and t.RECORD_FLAG_S=:record_flag_s
+                </#if>
+                <#if spare1_s??>
+                     and t.SPARE1_S=:spare1_s
+                </#if>
+                <#if spare2_s??>
+                     and t.SPARE2_S=:spare2_s
+                </#if>
+                <#if spare3_s??>
+                     and t.SPARE3_S=:spare3_s
+                </#if>
+                <#if spare4_s??>
+                     and t.SPARE4_S=:spare4_s
+                </#if>
+                <#if spare5_s??>
+                     and t.SPARE5_S=:spare5_s
+                </#if>
+                <#if s_factory_s??>
+                     and t.S_FACTORY_S=:s_factory_s
+                      and r.S_FACTORY_S=:s_factory_s
+                       and p.S_FACTORY_S=:s_factory_s
+                </#if>
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by t.JUDGENO_S asc
+            </#if>
+        ]]>
+    </sql>
+    
+     <sql comment="datagrid" id="getJudgeItems">
+        <![CDATA[
+          select   DISTINCT m.PART_NUMBER materialcode_s,
+			       m.DESCRIPTION materialdesc_s,
+			       B.materialspec_s,
+			       B.pattern_s,
+			       B.cj_s,
+             p.recipeno_s
+			  from AT_D_BS_RecipeItem t, 	
+						AT_D_BS_Recipe p,
+						PART m
+						LEFT JOIN UDA_PART B ON m.PART_KEY = B.OBJECT_KEY
+
+			 where t.itemid_s = m.PART_NUMBER
+			   and t.record_flag_s = 'A'
+			   and t.s_factory_s=:s_factory_s
+			   and t.agenc_no_s=:agenc_no_s
+			    and m.PART_NUMBER not in
+			       (select j.itemid_s
+			          from at_d_bs_judgenumberitem j
+			         where j.record_flag_s = 'A'
+			         and j.s_factory_s=:s_factory_s
+			         and j.agenc_no_s=:agenc_no_s
+			         and j.enttype_s=:enttype_s
+			         )
+			    and p.record_flag_s='A'
+                and t.recipeid_i=p.atr_key
+                and p.s_factory_s=:s_factory_s
+                and p.agenc_no_s=:agenc_no_s
+                and p.enttype_i=:enttype_s
+        ]]>
+    </sql>
+    
+    <sql comment="datagrid" id="getJudgeNumByNo">
+	   <![CDATA[
+	          select nvl(count(1),0)
+			          from at_d_bs_judgenumberitem j
+			         where j.record_flag_s = 'A'
+			         and j.s_factory_s=:s_factory_s
+			         and j.agenc_no_s=:agenc_no_s
+			         and j.enttype_s=:enttype_s
+			         and j.judgeno_s=:judgeno_s
+		]]>   
+   </sql>
+    
+    
+</sqls>

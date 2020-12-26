@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+             SELECT
+				UE.*,E.EQUIP_NAME,E.EQUIP_KEY,E.UDA_2,
+			E.UDA_0,E.UDA_1,E.CATEGORY,E.DESCRIPTION,E.CREATION_TIME	
+			FROM
+			 	PRODUCTION_LINE P,
+				EQUIPMENT E,
+				UDA_EQUIPMENT UE,
+				WORK_CENTER W
+			WHERE
+				1 = 1
+			AND E .EQUIP_KEY = UE.OBJECT_KEY 
+				AND P .P_LINE_NAME = TO_CHAR(E.EQUIP_KEY)
+			AND  TO_CHAR(E.EQUIP_KEY) = W.WC_NAME
+                <#if agenc_no_s??>
+                     and UE.AGENC_NO_S=:agenc_no_s
+                </#if>
+                <#if equip_type_s??>
+                     and UE.equip_type_s=:equip_type_s
+                </#if>
+                <#if equip_name??>
+                      and E.EQUIP_NAME like :equip_name
+                </#if>
+                <#if s_factory_s??>
+                     and UE.S_FACTORY_S=:s_factory_s
+                </#if>
+                
+            <#if sort??&&order??>
+                order by ${sort} ${order}
+                <#else>
+                order by E.EQUIP_NAME
+            </#if>
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+             SELECT
+				COUNT(1)
+			FROM
+			 	PRODUCTION_LINE P,
+				EQUIPMENT E,
+				UDA_EQUIPMENT UE,
+				WORK_CENTER W
+			WHERE
+				1 = 1
+			AND E .EQUIP_KEY = UE.OBJECT_KEY 
+			AND P .P_LINE_NAME = TO_CHAR(E.EQUIP_KEY)
+			AND  TO_CHAR(E.EQUIP_KEY) = W.WC_NAME
+                <#if agenc_no_s??>
+                     and UE.AGENC_NO_S=:agenc_no_s
+                </#if>
+                 <#if equip_type_s??>
+                     and UE.equip_type_s=:equip_type_s
+                </#if>
+                <#if equip_name??>
+                      and E.EQUIP_NAME like :equip_name
+                </#if>
+                <#if s_factory_s??>
+                     and UE.S_FACTORY_S=:s_factory_s
+                </#if>
+        ]]>
+    </sql>
+     <sql comment="datagrid" id="entBarcodeExit">
+        <![CDATA[
+        select count(1) count
+			  from  Equipment t where 
+			   t.equip_name=:entbarcode_s
+            ]]>
+    </sql>
+     <sql comment="根据设备类型查询终检设备" id="SearchEnt">
+        <![CDATA[
+        SELECT
+			E.EQUIP_NAME,
+			E.DESCRIPTION
+			FROM
+				EQUIPMENT E,
+				UDA_EQUIPMENT UE
+			WHERE
+				1 = 1
+			AND E .EQUIP_KEY = UE.OBJECT_KEY 
+		    AND UE.S_FACTORY_S=:s_factory_s
+			AND UE.EQUIP_TYPE_S=:equip_type_s
+            ]]>
+    </sql>
+     
+     
+</sqls>

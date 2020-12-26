@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql comment="datagrid" id="datagridUDA_rows">
+        <![CDATA[
+            SELECT
+				b.description MaterialSpec_S,
+				b.part_number MaterialCode_S,
+				COUNT (1) TOTAL_COUNT,
+				sum(case when a.quality_grade_S in ('253007','253009','253010','253011','253014') then 1 else 0 end) one_a_count,
+				sum(case when a.quality_grade_S in ('253008') then 1 else 0 end) one_b_count,
+				sum(case when a.quality_grade_S in ('253006') then 1 else 0 end) two_count,
+				sum(case when a.quality_grade_S in ('253012') then 1 else 0 end) waste_count,
+				sum(case when a.quality_grade_S in ('253013') then 1 else 0 end) special_waste_count,
+				sum(case when a.quality_grade_S in ('253006','253007','253008','253009','253010','253011','253014') then 1 else 0 end) qualified_count,
+				trunc(sum(case when a.quality_grade_S in ('253007','253008','253009','253010','253011','253014') then 1 else 0 end)/COUNT (1),4)*100||'%' one_rate,
+				trunc(sum(case when a.quality_grade_S in ('253006','253007','253008','253009','253010','253011','253014') then 1 else 0 end)/COUNT (1),4)*100||'%' qualified_rate,
+				sum(case when a.REASCODE_S in ('1') then 1 else 0 end) REAS_A,
+				sum(case when a.REASCODE_S in ('2') then 1 else 0 end) REAS_B,
+				sum(case when a.REASCODE_S in ('6') then 1 else 0 end) REAS_C,
+				sum(case when a.REASCODE_S in ('7') then 1 else 0 end) REAS_D,
+				sum(case when a.REASCODE_S in ('15') then 1 else 0 end) REAS_E,
+				sum(case when a.REASCODE_S in ('16') then 1 else 0 end) REAS_F,
+				sum(case when a.REASCODE_S in ('17') then 1 else 0 end) REAS_G,
+				sum(case when a.REASCODE_S in ('18') then 1 else 0 end) REAS_H,
+				sum(case when a.REASCODE_S in ('19') then 1 else 0 end) REAS_I,
+				sum(case when a.REASCODE_S in ('21') then 1 else 0 end) REAS_J,
+				sum(case when a.REASCODE_S in ('22') then 1 else 0 end) REAS_K,
+				sum(case when a.REASCODE_S in ('24') then 1 else 0 end) REAS_L,
+				sum(case when a.REASCODE_S in ('25') then 1 else 0 end) REAS_M,
+				sum(case when a.REASCODE_S in ('26') then 1 else 0 end) REAS_N,
+				sum(case when a.REASCODE_S in ('3') then 1 else 0 end) REAS_O,
+				sum(case when a.REASCODE_S in ('5') then 1 else 0 end) REAS_P,
+				sum(case when a.REASCODE_S in ('9') then 1 else 0 end) REAS_Q,
+				sum(case when a.REASCODE_S in ('10') then 1 else 0 end) REAS_R,
+				sum(case when a.REASCODE_S in ('11') then 1 else 0 end) REAS_S,
+				sum(case when a.REASCODE_S in ('4') then 1 else 0 end) REAS_T,
+				sum(case when a.REASCODE_S in ('12') then 1 else 0 end) REAS_U,
+				sum(case when a.REASCODE_S in ('14') then 1 else 0 end) REAS_V,
+				sum(case when a.REASCODE_S in ('32') then 1 else 0 end) REAS_W,
+				sum(case when a.REASCODE_S in ('39') then 1 else 0 end) REAS_X,
+				sum(case when a.REASCODE_S in ('45') then 1 else 0 end) REAS_Y,
+				sum(case when a.REASCODE_S in ('51') then 1 else 0 end) REAS_Z,
+				sum(case when a.REASCODE_S in ('38') then 1 else 0 end) REAS_AA,
+				sum(case when a.REASCODE_S in ('40') then 1 else 0 end) REAS_AB,
+				sum(case when a.REASCODE_S in ('33') then 1 else 0 end) REAS_AC,
+				sum(case when a.REASCODE_S in ('49') then 1 else 0 end) REAS_AD,
+				sum(case when a.REASCODE_S in ('29') then 1 else 0 end) REAS_AE,
+				sum(case when a.REASCODE_S in ('34') then 1 else 0 end) REAS_AF,
+				sum(case when a.REASCODE_S in ('52') then 1 else 0 end) REAS_AG,
+				sum(case when a.REASCODE_S in ('28') then 1 else 0 end) REAS_AH,
+				sum(case when a.REASCODE_S in ('31') then 1 else 0 end) REAS_AI,
+				sum(case when a.REASCODE_S in ('35') then 1 else 0 end) REAS_AJ,
+				sum(case when a.REASCODE_S in ('44') then 1 else 0 end) REAS_AK,
+				sum(case when a.REASCODE_S in ('9999') then 1 else 0 end) REAS_AL,
+				sum(case when a.REASCODE_S in ('43') then 1 else 0 end) REAS_AM,
+				sum(case when a.REASCODE_S in ('47') then 1 else 0 end) REAS_AN,
+				sum(case when a.REASCODE_S in ('8') then 1 else 0 end) REAS_AO,
+				sum(case when a.REASCODE_S in ('13') then 1 else 0 end) REAS_AP,
+				sum(case when a.REASCODE_S in ('20') then 1 else 0 end) REAS_AQ,
+				sum(case when a.REASCODE_S in ('23') then 1 else 0 end) REAS_AR,
+				sum(case when a.REASCODE_S in ('27') then 1 else 0 end) REAS_AS,
+				sum(case when a.REASCODE_S in ('36') then 1 else 0 end) REAS_AT,
+				sum(case when a.REASCODE_S in ('48') then 1 else 0 end) REAS_AU,
+				sum(case when a.REASCODE_S in ('50') then 1 else 0 end) REAS_AV,
+				sum(case when a.REASCODE_S in ('30') then 1 else 0 end) REAS_AW,
+				sum(case when a.REASCODE_S in ('37') then 1 else 0 end) REAS_AX,
+				sum(case when a.REASCODE_S in ('41') then 1 else 0 end) REAS_AY,
+				sum(case when a.REASCODE_S in ('42') then 1 else 0 end) REAS_AZ,
+				sum(case when a.REASCODE_S in ('46') then 1 else 0 end) REAS_BA
+			FROM
+				(select A.* from AT_C_MM_CURING_MAINTYRE C,(select m.* from AT_C_MM_CURING_MAINTYRE m,(select tyrebarcode_s,max(overtime_t) as overtime from AT_C_MM_CURING_MAINTYRE where S_FACTORY_S=:s_factory_s GROUP BY TYREBARCODE_S)mm
+                      where m.tyrebarcode_s=mm.tyrebarcode_s and m.overTime_t=mm.overtime and m.proess_s>'252007' ) A where 1=1 and c.proess_s='252006'
+					    and A.tyrebarcode_s=c.tyrebarcode_s
+					    <#if start_time?? && end_time??>
+			               	and c.STARTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			               	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+			            </#if>
+					    ) A
+					LEFT JOIN PART B ON (A .materialCode_s = B.part_number)
+					LEFT JOIN AT_D_BS_REAS C ON (A.REASCODE_S=C.REAS_CODE_S)
+			WHERE 1=1
+			    and	A .RECORD_FLAG_S = 'A' 
+			<#if s_factory_s??>
+           		and A.S_FACTORY_S=:s_factory_s
+      		</#if>
+           		
+            <#if curingspeccode_s??>
+                 and B.part_number like :curingspeccode_s
+            </#if>
+            <#if materialspec_s??>
+                 and B.description like :materialspec_s
+            </#if>
+			GROUP BY
+				B.description,b.part_number
+        ]]>
+    </sql>
+    <sql comment="datagrid" id="datagridUDA_total">
+        <![CDATA[
+	        SELECT
+				COUNT (1)
+			FROM
+				(
+		        	SELECT
+						b.description MaterialSpec_S,
+						b.part_number MaterialCode_S,
+						COUNT (1) TOTAL_COUNT,
+						sum(case when a.quality_grade_s in ('253007','253009','253010','253011','253014') then 1 else 0 end) one_a_count,
+						sum(case when a.quality_grade_s in ('253008') then 1 else 0 end) one_b_count,
+						sum(case when a.quality_grade_s in ('253006') then 1 else 0 end) two_count,
+						sum(case when a.quality_grade_s in ('253012') then 1 else 0 end) waste_count,
+						sum(case when a.quality_grade_s in ('253013') then 1 else 0 end) special_waste_count,
+						sum(case when a.quality_grade_s in ('253006','253007','253008','253009','253010','253011','253014') then 1 else 0 end) qualified_count,
+						trunc(sum(case when a.quality_grade_s in ('253007','253008','253009','253010','253011','253014') then 1 else 0 end)/COUNT (1),2)*100||'%' one_rate,
+						trunc(sum(case when a.quality_grade_s in ('253006','253007','253008','253009','253010','253011','253014') then 1 else 0 end)/COUNT (1),2)*100||'%' qualified_rate,
+						sum(case when a.REASCODE_S in ('1') then 1 else 0 end) REAS_A,
+						sum(case when a.REASCODE_S in ('2') then 1 else 0 end) REAS_B,
+						sum(case when a.REASCODE_S in ('6') then 1 else 0 end) REAS_C,
+						sum(case when a.REASCODE_S in ('7') then 1 else 0 end) REAS_D,
+						sum(case when a.REASCODE_S in ('15') then 1 else 0 end) REAS_E,
+						sum(case when a.REASCODE_S in ('16') then 1 else 0 end) REAS_F,
+						sum(case when a.REASCODE_S in ('17') then 1 else 0 end) REAS_G,
+						sum(case when a.REASCODE_S in ('18') then 1 else 0 end) REAS_H,
+						sum(case when a.REASCODE_S in ('19') then 1 else 0 end) REAS_I,
+						sum(case when a.REASCODE_S in ('21') then 1 else 0 end) REAS_J,
+						sum(case when a.REASCODE_S in ('22') then 1 else 0 end) REAS_K,
+						sum(case when a.REASCODE_S in ('24') then 1 else 0 end) REAS_L,
+						sum(case when a.REASCODE_S in ('25') then 1 else 0 end) REAS_M,
+						sum(case when a.REASCODE_S in ('26') then 1 else 0 end) REAS_N,
+						sum(case when a.REASCODE_S in ('3') then 1 else 0 end) REAS_O,
+						sum(case when a.REASCODE_S in ('5') then 1 else 0 end) REAS_P,
+						sum(case when a.REASCODE_S in ('9') then 1 else 0 end) REAS_Q,
+						sum(case when a.REASCODE_S in ('10') then 1 else 0 end) REAS_R,
+						sum(case when a.REASCODE_S in ('11') then 1 else 0 end) REAS_S,
+						sum(case when a.REASCODE_S in ('4') then 1 else 0 end) REAS_T,
+						sum(case when a.REASCODE_S in ('12') then 1 else 0 end) REAS_U,
+						sum(case when a.REASCODE_S in ('14') then 1 else 0 end) REAS_V,
+						sum(case when a.REASCODE_S in ('32') then 1 else 0 end) REAS_W,
+						sum(case when a.REASCODE_S in ('39') then 1 else 0 end) REAS_X,
+						sum(case when a.REASCODE_S in ('45') then 1 else 0 end) REAS_Y,
+						sum(case when a.REASCODE_S in ('51') then 1 else 0 end) REAS_Z,
+						sum(case when a.REASCODE_S in ('38') then 1 else 0 end) REAS_AA,
+						sum(case when a.REASCODE_S in ('40') then 1 else 0 end) REAS_AB,
+						sum(case when a.REASCODE_S in ('33') then 1 else 0 end) REAS_AC,
+						sum(case when a.REASCODE_S in ('49') then 1 else 0 end) REAS_AD,
+						sum(case when a.REASCODE_S in ('29') then 1 else 0 end) REAS_AE,
+						sum(case when a.REASCODE_S in ('34') then 1 else 0 end) REAS_AF,
+						sum(case when a.REASCODE_S in ('52') then 1 else 0 end) REAS_AG,
+						sum(case when a.REASCODE_S in ('28') then 1 else 0 end) REAS_AH,
+						sum(case when a.REASCODE_S in ('31') then 1 else 0 end) REAS_AI,
+						sum(case when a.REASCODE_S in ('35') then 1 else 0 end) REAS_AJ,
+						sum(case when a.REASCODE_S in ('44') then 1 else 0 end) REAS_AK,
+						sum(case when a.REASCODE_S in ('9999') then 1 else 0 end) REAS_AL,
+						sum(case when a.REASCODE_S in ('43') then 1 else 0 end) REAS_AM,
+						sum(case when a.REASCODE_S in ('47') then 1 else 0 end) REAS_AN,
+						sum(case when a.REASCODE_S in ('8') then 1 else 0 end) REAS_AO,
+						sum(case when a.REASCODE_S in ('13') then 1 else 0 end) REAS_AP,
+						sum(case when a.REASCODE_S in ('20') then 1 else 0 end) REAS_AQ,
+						sum(case when a.REASCODE_S in ('23') then 1 else 0 end) REAS_AR,
+						sum(case when a.REASCODE_S in ('27') then 1 else 0 end) REAS_AS,
+						sum(case when a.REASCODE_S in ('36') then 1 else 0 end) REAS_AT,
+						sum(case when a.REASCODE_S in ('48') then 1 else 0 end) REAS_AU,
+						sum(case when a.REASCODE_S in ('50') then 1 else 0 end) REAS_AV,
+						sum(case when a.REASCODE_S in ('30') then 1 else 0 end) REAS_AW,
+						sum(case when a.REASCODE_S in ('37') then 1 else 0 end) REAS_AX,
+						sum(case when a.REASCODE_S in ('41') then 1 else 0 end) REAS_AY,
+						sum(case when a.REASCODE_S in ('42') then 1 else 0 end) REAS_AZ,
+						sum(case when a.REASCODE_S in ('46') then 1 else 0 end) REAS_BA
+					FROM
+						(select A.* from AT_C_MM_CURING_MAINTYRE C,(select m.* from AT_C_MM_CURING_MAINTYRE m,(select tyrebarcode_s,max(overtime_t) as overtime from AT_C_MM_CURING_MAINTYRE where S_FACTORY_S=:s_factory_s GROUP BY TYREBARCODE_S)mm
+                      where m.tyrebarcode_s=mm.tyrebarcode_s and m.overTime_t=mm.overtime and m.proess_s>'252007' ) A where 1=1 and c.proess_s='252006'
+					    and A.tyrebarcode_s=c.tyrebarcode_s
+					    <#if start_time?? && end_time??>
+			               	and c.STARTTIME_T between TO_DATE(:start_time,'YYYY-mm-dd HH24:MI:SS')
+			               	and TO_DATE(:end_time,'YYYY-mm-dd HH24:MI:SS') 
+			            </#if>
+					    ) A
+					LEFT JOIN PART B ON (A .materialCode_s = B.part_number)
+					LEFT JOIN AT_D_BS_REAS C ON (A.REASCODE_S=C.REAS_CODE_S)
+					WHERE 1=1
+					    and	A .RECORD_FLAG_S = 'A' 
+					<#if s_factory_s??>
+		           		and A.S_FACTORY_S=:s_factory_s
+		      		</#if>
+		      	
+		           		
+		            <#if curingspeccode_s??>
+		                 and B.part_number like :curingspeccode_s
+		            </#if>
+		            <#if materialspec_s??>
+		                 and B.description like :materialspec_s
+		            </#if>
+					GROUP BY
+						B.description,b.part_number
+				) D
+        ]]>
+    </sql>
+</sqls>
